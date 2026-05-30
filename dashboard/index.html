@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon dashboard — WealthWaffle</title>
+  <meta name="description" content="Ton espace personnel WealthWaffle — progression, simulations sauvegardées, parcours guidé.">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { name: "Dashboard", basePath: "/dashboard/", auth: true };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+
+<script src="/assets/ww-bundle.js" defer></script>
+<script>
+window.WW_CONFIG = {
+  SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
+  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'TON_ANON_KEY',
+  SITE_URL: 'https://wealthwaffle.be',
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+.dash-section { margin-bottom:20px; }
+.dash-card { background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:10px; }
+.dash-card h4 { font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:12px; }
+.progress-chapter { display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--faint);font-size:0.82rem; }
+.progress-chapter:last-child { border-bottom:none; }
+.check-icon { width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68rem;flex-shrink:0; }
+.done { background:rgba(126,200,160,0.15);color:#7EC8A0; }
+.todo { background:var(--s3);color:var(--muted); }
+.pref-btn { padding:9px 14px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;transition:all 0.18s;text-align:left; }
+.pref-btn.active { border-color:rgba(232,124,195,0.40);background:rgba(232,124,195,0.08);color:var(--text); }
+.pref-btn:hover:not(.active) { border-color:rgba(255,255,255,0.15);color:var(--text2); }
+.profile-btn { padding:9px 14px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;transition:all 0.18s; }
+.profile-btn.active { border-color:rgba(91,184,212,0.40);background:rgba(91,184,212,0.08);color:#5BB8D4; }
+details summary { list-style:none;cursor:pointer; }
+details summary::-webkit-details-marker { display:none; }
+</style>
+
+<div class="page" style="padding-top:80px;">
+
+  <!-- ── Header ── -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+    <div>
+      <div id="greeting" style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.5rem;color:var(--text);">Bonjour 👋</div>
+      <div id="plan-badge" style="font-size:0.74rem;color:var(--muted);margin-top:4px;"></div>
+    </div>
+    <button onclick="signOut()" style="padding:7px 13px;border-radius:9px;border:1px solid var(--border);background:var(--s2);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.76rem;cursor:pointer;">Déconnexion</button>
+  </div>
+
+  <!-- ── PRÉFÉRENCES DE PERSONNALISATION ── -->
+  <div class="dash-section">
+    <div class="dash-card">
+      <h4>⚙️ Tes préférences — rien n'est figé</h4>
+      <p style="font-size:0.78rem;color:var(--muted);line-height:1.65;margin-bottom:14px;">Ces réglages personnalisent ce que tu vois sur WealthWaffle. Tu peux les modifier à tout moment — rien n'est irréversible.</p>
+
+      <!-- Mode lecture -->
+      <div style="margin-bottom:18px;">
+        <div style="font-size:0.74rem;font-weight:700;color:var(--text);margin-bottom:4px;">📖 Mode de lecture</div>
+        <div style="font-size:0.76rem;color:var(--muted);margin-bottom:10px;line-height:1.6;">
+          <strong style="color:var(--text);">Débutant</strong> — Tu vois uniquement les sections essentielles, sans jargon. Parfait si tu commences ou si tu veux aller à l'essentiel.<br>
+          <strong style="color:var(--text);">Avancé</strong> — Tu vois tout : les données brutes, les nuances fiscales, les formules, les cas particuliers. Pour ceux qui veulent creuser.
+          <div style="margin-top:6px;font-size:0.70rem;color:var(--muted2);">💡 Sur chaque page, tu peux aussi basculer entre les deux modes en cliquant sur le badge de mode en haut à droite.</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="pref-btn" id="btn-level-deb" onclick="setLevel('debutant')">🌱 Débutant</button>
+          <button class="pref-btn" id="btn-level-adv" onclick="setLevel('avance')">🚀 Avancé</button>
+        </div>
+      </div>
+
+      <!-- Sujet prioritaire -->
+      <div style="margin-bottom:18px;">
+        <div style="font-size:0.74rem;font-weight:700;color:var(--text);margin-bottom:4px;">🎯 Ton sujet prioritaire</div>
+        <div style="font-size:0.76rem;color:var(--muted);margin-bottom:10px;line-height:1.6;">
+          Ce choix oriente ton parcours guidé — les pages sont proposées dans un ordre logique selon ton objectif. Tu peux changer de sujet quand tu veux, le parcours s'adapte immédiatement.
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+          <button class="pref-btn" id="topic-budget"   onclick="setTopic('budget')">💶 Budget</button>
+          <button class="pref-btn" id="topic-invest"   onclick="setTopic('invest')">📈 Investir</button>
+          <button class="pref-btn" id="topic-immo"     onclick="setTopic('immo')">🏠 Immo</button>
+          <button class="pref-btn" id="topic-fiscal"   onclick="setTopic('fiscal')">📋 Fiscalité</button>
+          <button class="pref-btn" id="topic-crypto"   onclick="setTopic('crypto')">₿ Crypto</button>
+          <button class="pref-btn" id="topic-retraite" onclick="setTopic('retraite')">🏛️ Retraite</button>
+        </div>
+      </div>
+
+      <!-- Profil -->
+      <div>
+        <div style="font-size:0.74rem;font-weight:700;color:var(--text);margin-bottom:4px;">👤 Ton profil</div>
+        <div style="font-size:0.76rem;color:var(--muted);margin-bottom:10px;line-height:1.6;">
+          Selon ton profil, certains contenus spécifiques sont mis en avant (TVA, EIP, société de management pour les indépendants et dirigeants). Les autres sections restent accessibles — il suffit de les déplier.
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="profile-btn" id="prof-particulier"  onclick="setProfile('particulier')">🙋 Particulier salarié</button>
+          <button class="profile-btn" id="prof-independant"  onclick="setProfile('independant')">💼 Indépendant PP</button>
+          <button class="profile-btn" id="prof-dirigeant"    onclick="setProfile('dirigeant')">🏢 Dirigeant de société</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PARCOURS GUIDÉ ── -->
+  <div class="dash-section">
+    <div class="dash-card">
+      <h4>🗺️ Ton parcours guidé</h4>
+      <div id="parcours-container"><div style="font-size:0.80rem;color:var(--muted);">Chargement…</div></div>
+    </div>
+  </div>
+
+  <!-- ── CONTENU SPÉCIFIQUE AU PROFIL ── -->
+  <div class="dash-section" id="section-profil">
+
+    <!-- Indépendant — masqué par défaut si particulier -->
+    <details id="block-independant" style="margin-bottom:10px;">
+      <summary style="background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;list-style:none;">
+        <div style="font-size:0.84rem;font-weight:700;color:var(--text);">💼 Guides pour indépendants</div>
+        <span style="font-size:0.72rem;color:var(--muted);">Déplier ▾</span>
+      </summary>
+      <div style="background:var(--s2);border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:14px 16px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a href="/fiscal/independants.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">👤 Statuts & INASTI</a>
+          <a href="/fiscal/remuneration.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">💰 Optimiser sa rémunération</a>
+          <a href="/fiscal/frais.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">🧾 Frais déductibles</a>
+          <a href="/fiscal/tva.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">💱 TVA & franchise</a>
+          <a href="/budget/epargne.html#plci" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">🏛️ PLCI pension</a>
+          <a href="/fiscal/assurances.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">🛡️ Assurances revenus garantis</a>
+        </div>
+      </div>
+    </details>
+
+    <!-- Dirigeant de société — masqué par défaut si particulier -->
+    <details id="block-dirigeant" style="margin-bottom:10px;">
+      <summary style="background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;list-style:none;">
+        <div style="font-size:0.84rem;font-weight:700;color:var(--text);">🏢 Guides pour dirigeants de société</div>
+        <span style="font-size:0.72rem;color:var(--muted);">Déplier ▾</span>
+      </summary>
+      <div style="background:var(--s2);border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:14px 16px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a href="/fiscal/societes.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">🏢 IS & VVPRbis</a>
+          <a href="/fiscal/management.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">🔑 Société de management</a>
+          <a href="/fiscal/remuneration.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">💰 Salaire vs dividendes</a>
+          <a href="/fiscal/succession.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">🏛️ Planification successorale</a>
+          <a href="/budget/epargne.html#plci" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">🏛️ EIP pension</a>
+          <a href="/fiscal/tax-shelter.html" style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.78rem;color:var(--text);">🎬 Tax Shelter</a>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- ── PROGRESSION ── -->
+  <div class="dash-section">
+    <div class="dash-card">
+      <h4>📖 Progression — mode Débutant</h4>
+      <div id="progress-bar-wrapper" style="margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);margin-bottom:5px;">
+          <span id="progress-label">0 / 0 chapitres</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div style="background:var(--s3);border-radius:20px;height:8px;overflow:hidden;">
+          <div id="progress-fill" style="height:100%;background:linear-gradient(90deg,#E87CC3,#5BB8D4);border-radius:20px;width:0%;transition:width 0.6s;"></div>
+        </div>
+      </div>
+      <div id="chapters-list" style="font-size:0.78rem;color:var(--muted);">Chargement…</div>
+    </div>
+  </div>
+
+  <!-- ── PLAN ── -->
+  <div class="dash-section">
+    <div class="dash-card" id="plan-card">
+      <h4>✈️ Ton programme</h4>
+      <div id="plan-details">Chargement…</div>
+    </div>
+  </div>
+
+  <!-- ── ACCÈS RAPIDE ── -->
+  <div class="dash-section">
+    <div class="dash-card">
+      <h4>⚡ Accès rapide</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <a href="/outils/" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.80rem;color:var(--text);">🧮 Simulateurs</a>
+        <a href="/invest/etf.html" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.80rem;color:var(--text);">📊 Guide ETF</a>
+        <a href="/fiscal/" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.80rem;color:var(--text);">📋 Fiscalité</a>
+        <a href="/budget/banques.html" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.80rem;color:var(--text);">🏦 Banques</a>
+        <a href="/parcours/psychologie.html" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.80rem;color:var(--text);">🧠 Psychologie</a>
+        <a href="/compte/parrainage.html" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--s3);border-radius:10px;text-decoration:none;font-size:0.80rem;color:var(--text);">🎁 Parrainage</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const { createClient } = supabase;
+const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+window.WW = { sb };
+
+async function getSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return null;
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+  window.WW.user    = session.user;
+  window.WW.profile = profile;
+  localStorage.setItem('ww_session', session.access_token);
+  localStorage.setItem('ww_plan',    profile?.plan  || 'socle');
+  localStorage.setItem('ww_level',   profile?.level || 'debutant');
+  return { user: session.user, profile };
+}
+
+async function requireAuth(minLevel) {
+  const LEVELS = { socle: 1, pilote: 2, radar: 3 };
+  const session = await getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
+  const userLevel   = LEVELS[session.profile?.plan] || 0;
+  const neededLevel = LEVELS[minLevel] || 1;
+  if (userLevel < neededLevel) { window.location.href = '/compte/inscription.html?plan=' + minLevel; return null; }
+  return session;
+}
+
+async function signOut() {
+  await sb.auth.signOut();
+  ['ww_session','ww_plan','ww_level','ww_topic','ww_profile'].forEach(k => localStorage.removeItem(k));
+  window.location.href = '/';
+}
+
+/* ── Sauvegarder préférence en Supabase + localStorage ── */
+async function savePref(key, value) {
+  localStorage.setItem('ww_' + key, value);
+  if (window.WW?.user) {
+    await sb.from('profiles').update({ [key]: value }).eq('id', window.WW.user.id);
+  }
+}
+
+/* ── Niveau de lecture ── */
+async function setLevel(level) {
+  await savePref('level', level);
+  ['deb','adv'].forEach(s => document.getElementById('btn-level-' + s)?.classList.remove('active'));
+  document.getElementById('btn-level-' + (level === 'debutant' ? 'deb' : 'adv'))?.classList.add('active');
+  // Appliquer immédiatement sur les blocs data-level si présents
+  document.body.setAttribute('data-level', level);
+  // Mettre à jour le label dans le parcours
+  const lblNode = document.querySelector('#parcours-container div');
+  if (lblNode) lblNode.innerHTML = lblNode.innerHTML.replace(/(Mode : <strong[^>]*>)[^<]+(< \/strong>)/, `$1${level==='avance'?'Avancé':'Débutant'}$2`);
+}
+
+/* ── Sujet prioritaire ── */
+const PARCOURS = {
+  budget:   ['/budget/','/budget/epargne.html','/budget/retraite.html','/budget/rente.html','/parcours/psychologie.html'],
+  invest:   ['/parcours/bases.html','/invest/','/invest/etf.html','/invest/allocation.html','/invest/fonds.html','/invest/alternatives.html'],
+  immo:     ['/immo/','/immo/achat.html','/immo/financement.html','/immo/locatif.html','/immo/regions.html'],
+  fiscal:   ['/fiscal/','/fiscal/independants.html','/fiscal/remuneration.html','/fiscal/tax-shelter.html','/fiscal/succession.html'],
+  crypto:   ['/invest/crypto.html','/invest/alternatives.html','/invest/etf.html','/parcours/psychologie.html'],
+  retraite: ['/budget/epargne.html','/budget/retraite.html','/budget/rente.html','/fiscal/independants.html'],
+};
+const PAGE_NAMES = {
+  '/budget/':'Budget — les bases','/budget/epargne.html':'Épargne long terme',
+  '/budget/retraite.html':'Préparer sa retraite','/budget/rente.html':'Vivre de son capital',
+  '/parcours/psychologie.html':'Psychologie investisseur','/parcours/bases.html':'Les bases de la finance',
+  '/invest/':'Hub Investir','/invest/etf.html':'Guide ETF','/invest/allocation.html':'Allocation portefeuille',
+  '/invest/fonds.html':'Fonds actifs vs ETF','/invest/alternatives.html':'Investissements alternatifs',
+  '/immo/':'Hub Immobilier','/immo/achat.html':'Acheter en Belgique','/immo/financement.html':'Financement hypothécaire',
+  '/immo/locatif.html':'Investissement locatif','/immo/regions.html':'Droits par région',
+  '/fiscal/':'Hub Fiscalité','/fiscal/independants.html':'Guide indépendants',
+  '/fiscal/remuneration.html':'Rémunération dirigeant','/fiscal/tax-shelter.html':'Tax Shelter',
+  '/fiscal/succession.html':'Succession & donation','/invest/crypto.html':'Guide crypto',
+};
+
+async function setTopic(topic) {
+  await savePref('topic', topic);
+  document.querySelectorAll('[id^="topic-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('topic-' + topic)?.classList.add('active');
+  renderParcours(topic, window._readPages || new Set(), window._currentLevel || 'debutant');
+}
+
+function renderParcours(topic, readPages, level) {
+  const steps = PARCOURS[topic] || PARCOURS.budget;
+  const pCont = document.getElementById('parcours-container');
+  const topicLabel = { budget:'Budget', invest:'Investir', immo:'Immobilier', fiscal:'Fiscalité', crypto:'Crypto', retraite:'Retraite' }[topic] || topic;
+  pCont.innerHTML = `<div style="font-size:0.72rem;color:var(--muted);margin-bottom:8px;">Sujet : <strong style="color:var(--text);">${topicLabel}</strong> · Mode : <strong style="color:var(--text);">${level==='avance'?'Avancé':'Débutant'}</strong></div>` +
+    steps.map((url, i) => {
+      const done = readPages.has(url);
+      return `<div class="progress-chapter">
+        <div class="check-icon ${done?'done':'todo'}" id="step-${i}">${done?'✓':i+1}</div>
+        <a href="${url}" style="color:var(--text2);text-decoration:none;font-size:0.82rem;">${PAGE_NAMES[url]||url}</a>
+      </div>`;
+    }).join('');
+}
+
+/* ── Profil ── */
+async function setProfile(prof) {
+  await savePref('profile', prof);
+  document.querySelectorAll('.profile-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('prof-' + prof)?.classList.add('active');
+
+  const blockInd = document.getElementById('block-independant');
+  const blockDir = document.getElementById('block-dirigeant');
+
+  if (prof === 'particulier') {
+    // Replier les deux blocs pro mais les laisser accessibles
+    if (blockInd) blockInd.removeAttribute('open');
+    if (blockDir) blockDir.removeAttribute('open');
+  } else if (prof === 'independant') {
+    if (blockInd) blockInd.setAttribute('open', '');
+    if (blockDir) blockDir.removeAttribute('open');
+  } else if (prof === 'dirigeant') {
+    if (blockInd) blockInd.removeAttribute('open');
+    if (blockDir) blockDir.setAttribute('open', '');
+  }
+}
+
+const PLAN_LABELS = { socle:'🟢 Socle — Gratuit', pilote:'✈️ Pilote', radar:'📡 Radar' };
+const PLAN_CONTENT = {
+  socle: `<p style="font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:14px;">Tu as accès à tous les guides gratuits et aux 8 simulateurs Socle. Passe à Pilote pour débloquer 9 simulateurs avancés (crédit, pension, locatif net-net, ETF vs B23…).</p>
+    <a href="/compte/inscription.html?plan=pilote" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:10px;background:linear-gradient(135deg,#5BB8D4,#3a98b4);color:#fff;font-weight:700;font-size:0.82rem;text-decoration:none;">Découvrir Pilote — 7 jours gratuits →</a>
+    <div style="font-size:0.68rem;color:var(--muted);margin-top:6px;">14,99€/mois · 99€/an · Sans engagement</div>`,
+  pilote: `<p style="font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:14px;">✅ Accès complet — tous les guides et les 17 simulateurs (Socle + Pilote).</p>
+    <a href="/compte/portail.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:10px;background:var(--s3);border:1px solid var(--border);color:var(--text);font-weight:600;font-size:0.82rem;text-decoration:none;">Gérer mon abonnement →</a>`,
+  radar: `<p style="font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:14px;">📡 Accès complet Pilote + Radar.</p>
+    <a href="/radar/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:10px;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-weight:700;font-size:0.82rem;text-decoration:none;">Accéder au Radar →</a>`,
+};
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded', async () => {
+  const session = await requireAuth('socle');
+  if (!session) return;
+
+  const { user, profile } = session;
+  const prenom  = profile?.prenom || user.email.split('@')[0];
+  const plan    = profile?.plan    || 'socle';
+  const topic   = profile?.topic   || localStorage.getItem('ww_topic')   || 'budget';
+  const level   = profile?.level   || localStorage.getItem('ww_level')   || 'debutant';
+  const prof    = profile?.profile || localStorage.getItem('ww_profile') || 'particulier';
+
+  window._currentLevel = level;
+  window._currentTopic = topic;
+
+  // Salutation + plan
+  document.getElementById('greeting').textContent  = `Bonjour ${prenom} 👋`;
+  document.getElementById('plan-badge').textContent = PLAN_LABELS[plan] || '🟢 Socle';
+
+  // Activer les boutons selon les préférences sauvegardées
+  document.getElementById('btn-level-' + (level === 'debutant' ? 'deb' : 'adv'))?.classList.add('active');
+  document.getElementById('topic-' + topic)?.classList.add('active');
+  document.getElementById('prof-' + prof)?.classList.add('active');
+  document.body.setAttribute('data-level', level);
+
+  // Appliquer profil (ouvrir les bons blocs)
+  if (prof === 'independant') document.getElementById('block-independant')?.setAttribute('open','');
+  else if (prof === 'dirigeant') document.getElementById('block-dirigeant')?.setAttribute('open','');
+
+  // Pages lues depuis Supabase
+  const { data: views } = await sb.from('page_views').select('page_slug').eq('user_id', user.id);
+  const readPages = new Set((views||[]).map(v => v.page_slug));
+  window._readPages = readPages;
+
+  // Parcours guidé
+  renderParcours(topic, readPages, level);
+
+  // Barre de progression globale
+  const allPages  = Object.keys(PAGE_NAMES);
+  const readCount = allPages.filter(p => readPages.has(p)).length;
+  const pct       = Math.round((readCount / allPages.length) * 100);
+  document.getElementById('progress-label').textContent = `${readCount} / ${allPages.length} chapitres`;
+  document.getElementById('progress-pct').textContent   = `${pct}%`;
+  document.getElementById('progress-fill').style.width  = pct + '%';
+  document.getElementById('chapters-list').textContent  = readCount === 0
+    ? 'Commence ton premier guide — ta progression s\'enregistre automatiquement.'
+    : `${readCount} chapitre(s) lu(s) sur ${allPages.length} disponibles.`;
+
+  // Plan
+  document.getElementById('plan-details').innerHTML = PLAN_CONTENT[plan] || PLAN_CONTENT.socle;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acheter un bien immobilier en Belgique — WealthWaffle</title>
+  <meta name="description" content="Guide complet achat immobilier belge : compromis, notaire, frais réels, PEB obligatoire, clauses, checklist. Étape par étape.">
+  <meta property="og:title" content="Acheter un bien immobilier en Belgique — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Immo — Achat" };</script>
+  <style>
+    /* Blur gate */
+    .blur-gate { position:relative; }
+    .blur-gate-content { filter:blur(4px); user-select:none; pointer-events:none; max-height:280px; overflow:hidden; transition:filter 0.3s; }
+    .blur-gate-overlay {
+      position:absolute; bottom:0; left:0; right:0;
+      background:linear-gradient(to bottom, transparent, var(--bg) 60%);
+      display:flex; flex-direction:column; align-items:center;
+      justify-content:flex-end; padding:32px 20px 28px;
+      text-align:center; z-index:2;
+    }
+    .blur-gate-title { font-family:'DM Serif Display',serif; font-style:italic; font-size:1.15rem; margin-bottom:6px; color:var(--text); }
+    .blur-gate-sub { font-size:0.80rem; color:var(--muted); margin-bottom:16px; line-height:1.6; }
+    .btn-unlock {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:12px 24px; border-radius:12px; border:none;
+      font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.88rem;
+      cursor:pointer; transition:opacity 0.18s, transform 0.18s; text-decoration:none;
+    }
+    .btn-unlock:hover { opacity:0.88; transform:translateY(-2px); }
+    .btn-unlock-socle { background:linear-gradient(135deg,#7EC8A0,#5aaa7a); color:#fff; }
+    .btn-unlock-pilote { background:linear-gradient(135deg,#5BB8D4,#3a98b4); color:#fff; }
+    .blur-gate-note { font-size:0.70rem; color:var(--muted2); margin-top:8px; }
+  </style>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+</div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="page" style="padding-top:80px;">
+
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/immo/">Immo</a><span>/</span><span>Financement hypothécaire</span></div>
+<nav class="toc-sidebar">
+  <a href="#types-taux">📊 Taux fixe vs variable</a>
+  <a href="#quotite">🏦 Quotité et apport</a>
+  <a href="#asrd">🛡️ ASRD</a>
+  <a href="#simulateur">🧮 Simulateur</a>
+  <a href="#reneg">🔄 Renégociation</a>
+</nav>
+
+<div class="reading-time"><span class="reading-time-badge">🌱 Débutant : ~9 min</span><span class="reading-time-badge">🚀 Avancé : ~20 min</span><span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span></div>
+<div class="eyebrow" style="background:rgba(196,114,74,0.10);color:#C4724A;">🏠 Immo Waffle — Financement</div>
+<h1 class="display">Crédit hypothécaire<br><span style="color:#C4724A;">ce que la banque ne dit pas</span></h1>
+<p class="lead" style="margin-bottom:32px;">Taux fixe ou variable, quotité, ASRD obligatoire — le financement est souvent plus négociable que tu ne le crois.</p>
+
+<div class="content-card toc-target reveal" id="types-taux">
+  <h3>📊 Taux fixe vs variable — la vraie différence</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Le <strong>taux fixe</strong> reste le même pendant toute la durée du crédit. Le <strong>taux variable</strong> peut monter ou baisser selon les marchés. En Belgique, le taux variable est plafonné : il ne peut pas plus que doubler ni baisser sous la moitié du taux initial.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th></th><th>Taux fixe</th><th>Taux variable</th></tr></thead>
+        <tbody>
+          <tr><td>Sécurité</td><td>✅ Mensualité garantie</td><td>⚠️ Peut augmenter</td></tr>
+          <tr><td>Taux initial</td><td>Généralement plus élevé</td><td>Généralement plus bas</td></tr>
+          <tr><td>Adapté si</td><td>Horizon long, aversion risque</td><td>Horizon court, taux actuels hauts</td></tr>
+          <tr><td>Remboursement anticipé</td><td>Indemnité 3 mois d'intérêts max</td><td>Indemnité 3 mois d'intérêts max</td></tr>
+          <tr><td>Contexte 2026</td><td>Populaire avec taux en baisse</td><td>À surveiller si baisse BCE continue</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p>Les formules hybrides (fixe 10 ans puis variable) permettent de sécuriser la période où les mensualités pèsent le plus sur le budget tout en bénéficiant d'une éventuelle baisse des taux ensuite. La portabilité du crédit (transférer le crédit d'un bien à un autre sans renégociation) est une clause à demander explicitement — elle n'est pas automatique.</p>
+    </div>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="quotite">
+  <h3>🏦 Quotité d'emprunt et apport personnel</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>La quotité, c'est le % du prix que tu empruntes. Si tu achètes 300.000 € et que tu empruntes 270.000 €, ta quotité est de 90%. Plus elle est haute, plus le taux est élevé. En Belgique, les banques accordent rarement plus de 90% sans conditions strictes.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0;">
+        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--muted);margin-bottom:4px;">Quotité ≤ 80%</div>
+          <div style="font-size:1.1rem;font-weight:700;color:#7EC8A0;">Meilleur taux</div>
+          <div style="font-size:0.68rem;color:var(--muted2);">Apport 20% + frais</div>
+        </div>
+        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--muted);margin-bottom:4px;">80-90%</div>
+          <div style="font-size:1.1rem;font-weight:700;color:#E8C23A;">Taux standard</div>
+          <div style="font-size:0.68rem;color:var(--muted2);">Apport 10% + frais</div>
+        </div>
+        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--muted);margin-bottom:4px;">&gt; 90%</div>
+          <div style="font-size:1.1rem;font-weight:700;color:#E87CC3;">Taux majoré</div>
+          <div style="font-size:0.68rem;color:var(--muted2);">Difficile à obtenir</div>
+        </div>
+      </div>
+      <div class="warn-box">⚠️ Les frais d'achat (droits d'enregistrement, notaire) sont rarement financés par la banque. Il faut les avoir en cash, en plus de l'apport. Budget : 8-15% du prix du bien en fonds propres minimum.</div>
+    </div>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="asrd">
+  <h3>🛡️ ASRD — Assurance Solde Restant Dû</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>L'ASRD couvre le remboursement du crédit si tu décèdes avant la fin. La banque l'exige quasi-systématiquement. Mais tu n'es <strong>pas obligé de la prendre chez ta banque</strong> — tu peux la souscrire ailleurs, souvent moins cher.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p>Comparer l'ASRD peut économiser 2.000 à 8.000 € sur la durée du crédit. Les critères à comparer : prime totale, couverture (décès seul, ou aussi invalidité), délai de carence, exclusions médicales.</p>
+      <ul class="checklist">
+        <li>✅ Demander une offre à au moins 2 assureurs indépendants (AG Insurance, Ethias, NN...)</li>
+        <li>✅ Comparer la prime totale, pas juste la mensualité</li>
+        <li>✅ Vérifier si la couverture est dégressive (suit le capital restant dû)</li>
+        <li>✅ La banque ne peut pas refuser ton crédit si tu prends l'ASRD ailleurs — c'est légalement protégé</li>
+      </ul>
+    </div>
+  </div>
+</div><div class="blur-gate">
+  <div class="blur-gate-content">
+    <div class="content-card" style="margin-bottom:12px;">
+      <p style="height:14px;background:var(--s3);border-radius:6px;margin-bottom:8px;width:90%;"></p>
+      <p style="height:14px;background:var(--s3);border-radius:6px;width:70%;margin-bottom:8px;"></p>
+      <p style="height:14px;background:var(--s3);border-radius:6px;width:80%;"></p>
+    </div>
+    <div class="content-card"><p style="height:14px;background:var(--s3);border-radius:6px;margin-bottom:8px;"></p><p style="height:14px;background:var(--s3);border-radius:6px;width:65%;"></p></div>
+  </div>
+  <div class="blur-gate-overlay">
+    <div class="blur-gate-title">Rendement net-net, fiscalité des loyers, simulateur avancé</div>
+    <div class="blur-gate-sub">Ces calculs avancés sont accessibles gratuitement — il suffit de créer un compte Socle.</div>
+    <a href="https://doctrine.wealthwaffle.be/pages/auth/register.html" class="btn-unlock btn-unlock-socle">Créer mon compte gratuit →</a>
+    <div class="blur-gate-note">Sans carte bancaire · Accès immédiat</div>
+  </div>
+</div>
+<div class="content-card toc-target reveal" id="reneg">
+  <h3>🔄 Renégocier son crédit hypothécaire</h3>
+  <div class="level-section">
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p>Si les taux ont baissé depuis ton achat, renégocier peut valoir la peine. La règle générale : si la différence de taux est supérieure à 1%, c'est souvent rentable malgré l'indemnité de remploi (3 mois d'intérêts maximum légalement).</p>
+      <ul class="checklist">
+        <li>✅ Commencer par ta propre banque (moins de frais)</li>
+        <li>✅ Simuler aussi un rachat de crédit dans une autre banque</li>
+        <li>✅ Vérifier les frais de notaire liés à la modification de l'hypothèque</li>
+        <li>✅ Calculer le seuil de rentabilité (nombre de mois pour récupérer les frais)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="content-card toc-target reveal" id="levier-hypothecaire">
+  <h3>🔑 Levier hypothécaire — financer un 2ème bien sans apport</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Si tu possèdes déjà un bien immobilier partiellement remboursé ou valorisé par des travaux, tu peux utiliser cette <strong>valeur résiduelle comme garantie</strong> pour financer un deuxième bien — sans nécessairement sortir un apport en cash. C'est ce qu'on appelle le levier hypothécaire sur valeur résiduelle.</p>
+      <div style="background:var(--s3);border-radius:14px;padding:16px;margin:14px 0;">
+        <div style="font-size:0.70rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">📐 Comment ça fonctionne — exemple</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:0.82rem;">
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--faint);">
+            <span style="color:var(--text2);">Valeur de marché du bien actuel</span>
+            <span style="font-weight:700;color:var(--text);">350.000 €</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--faint);">
+            <span style="color:var(--text2);">Solde restant dû sur l'emprunt actuel</span>
+            <span style="color:var(--rose);">−150.000 €</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--faint);">
+            <span style="color:var(--text2);">Valeur résiduelle théorique</span>
+            <span style="font-weight:700;color:var(--text);">200.000 €</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--faint);">
+            <span style="color:var(--text2);">Valeur retenue par la banque (−20% de marge)</span>
+            <span style="color:#E8C23A;">≈ 160.000 €</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;">
+            <span style="font-weight:700;color:var(--text);">Montant empruntable (70-80% de 160K)</span>
+            <span style="font-weight:700;color:#7EC8A0;">112.000 – 128.000 €</span>
+          </div>
+        </div>
+      </div>
+      <p>Ce montant peut financer partiellement ou totalement l'achat d'un bien locatif — et si les loyers couvrent les mensualités du deuxième prêt, l'opération peut se faire <strong>sans effort d'épargne supplémentaire</strong>.</p>
+      <div class="warn-box">⚠️ <strong>La banque est prudente sur les valorisations.</strong> Elle applique systématiquement une décote sur la valeur de marché (souvent 15-25%) pour se couvrir en cas de vente forcée. La valeur qu'elle retient est toujours inférieure à ce que tu pourrais obtenir en vendant normalement. Ne jamais compter sur le maximum théorique.</div>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>Les 3 montages possibles :</strong></p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0;">
+        <div style="background:rgba(126,200,160,0.07);border-left:3px solid #7EC8A0;border-radius:0 10px 10px 0;padding:12px 14px;font-size:0.80rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:#7EC8A0;">Mandat hypothécaire</strong> — La banque a une promesse d'hypothèque sur la valeur résiduelle. Moins cher que l'inscription (pas de frais d'acte hypothécaire), mais la banque peut le convertir en inscription réelle si tu es en défaut. Utilisé pour les montants modérés.
+        </div>
+        <div style="background:rgba(91,184,212,0.07);border-left:3px solid #5BB8D4;border-radius:0 10px 10px 0;padding:12px 14px;font-size:0.80rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:#5BB8D4;">Inscription hypothécaire supplémentaire</strong> — Acte notarié formel sur le bien existant. Frais : ~0,5-1% du montant inscrit. Donne à la banque un rang hypothécaire prioritaire. Utilisé pour les montants importants ou les banques exigeantes.
+        </div>
+        <div style="background:rgba(232,194,58,0.07);border-left:3px solid #E8C23A;border-radius:0 10px 10px 0;padding:12px 14px;font-size:0.80rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:#E8C23A;">Refinancement global (lombard immobilier)</strong> — Regrouper les deux emprunts (bien 1 + bien 2) en un seul prêt garanti par les deux biens. Permet parfois d'obtenir un meilleur taux et une quotité globale plus favorable. Attention aux frais de remboursement anticipé du premier crédit (max 3 mois d'intérêts en Belgique).
+        </div>
+      </div>
+
+      <p><strong>L'effet des rénovations sur le levier :</strong> si tu as rénové ton premier bien depuis l'achat, la valeur de marché a probablement augmenté — mais ton solde restant dû a lui aussi diminué. La valeur résiduelle s'est donc accrue des deux côtés. Exemple : bien acheté 200.000 € il y a 7 ans, rénové pour 50.000 €, valeur de marché actuelle estimée à 320.000 €, solde restant 130.000 €. Valeur résiduelle : 190.000 € (vs 50.000 € théorique à l'achat). Les rénovations ont créé du capital empruntable.</p>
+
+      <p style="margin-top:10px;"><strong>Critères d'acceptation de la banque :</strong></p>
+      <ul style="font-size:0.80rem;color:var(--muted);line-height:2;padding-left:18px;margin:6px 0;">
+        <li><strong>Ratio dette/revenu :</strong> la banque calcule le ratio remboursements mensuels totaux / revenus nets. Généralement accepté jusqu'à 40-45% maximum.</li>
+        <li><strong>Capacité de remboursement sans les loyers :</strong> la plupart des banques belges ne comptent que 70-80% du loyer prévisionnel dans le calcul des revenus (prudence en cas de vacance). Certaines n'en tiennent pas compte du tout pour le premier investissement locatif.</li>
+        <li><strong>PEB du bien en garantie :</strong> depuis 2023, les banques flamandes appliquent une décote supplémentaire sur les biens en label F ou G. Un bien avec label PEB A-B est valorisé plus favorablement comme garantie.</li>
+        <li><strong>Âge et durée du prêt :</strong> le prêt doit se terminer avant tes 75-80 ans selon les banques. Limites les montants empruntables pour les acquéreurs plus âgés.</li>
+      </ul>
+
+      <p style="margin-top:10px;"><strong>Financement à 110% — les conditions réelles :</strong> l'expression "prêt à 110%" désigne un financement qui couvre le prix du bien + tous les frais d'achat (droits d'enregistrement, notaire, hypothèque). Ce n'est pas un produit standard proposé spontanément — c'est le résultat d'un montage où le bien en garantie compense l'absence d'apport en cash. La banque prête "plus que la valeur du bien acheté" parce qu'elle a une garantie supplémentaire sur le bien existant. Les conditions : dossier solide, revenus stables, valeur résiduelle suffisante sur le premier bien, et souvent un historique de remboursement sans incident.</p>
+    </div>
+  </div>
+  <div class="source-block"><span class="source-block-label">Voir aussi</span>
+    <a href="/immo/renovation.html#financement" class="source-pill">🔨 Levier via rénovation</a>
+    <a href="/immo/locatif.html" class="source-pill">💰 Investissement locatif</a>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="outil-credit">
+  <h3>🧮 Simulateur crédit hypothécaire</h3>
+  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;">Mensualité, coût total du crédit, frais d'achat par région — tout en un.</p>
+  <div id="tool-credit"></div>
+  <script>document.addEventListener('DOMContentLoaded',()=>WW_Tools.simulateurCredit('tool-credit'));</script>
+</div>
+<div class="see-also">
+  <div class="see-also-label">Sur le même sujet</div>
+  <a href="/immo/" class="see-also-pill">🏠 Hub Immo</a>
+  <a href="/immo/achat.html" class="see-also-pill">📋 Guide achat</a>
+  <a href="/immo/regions.html" class="see-also-pill">📜 Droits par région</a>
+  <a href="/immo/financement.html" class="see-also-pill">🧮 Simulateur apport</a>
+</div>
+<div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/immo/">Immobilier</a><span>/</span><span>Financement hypothécaire</span></div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;"><a href="/immo/" class="source-pill">🏠 Hub</a><a href="/immo/achat.html" class="source-pill">🔑 Acheter</a><a href="/immo/financement.html" class="source-pill" style="background:rgba(196,114,74,0.12);border-color:rgba(196,114,74,0.30);color:#C4724A;">🏦 Financement ←</a><a href="/immo/locatif.html" class="source-pill">💰 Locatif</a><a href="/immo/regions.html" class="source-pill">🗺️ Régions</a><a href="/immo/alternatif.html" class="source-pill">🔗 Immo alternatif</a></div>
+</div>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body></html>

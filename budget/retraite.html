@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Préparer sa retraite en Belgique — Simulateur 2026 — WealthWaffle</title>
+  <meta name="description" content="Pension légale belge, capital à constituer, épargne pension, ETF retraite. Simulateur personnalisé.">
+  <meta property="og:title" content="Préparer sa retraite en Belgique — Simulateur 2026 — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Retraite & pension", basePath: "/budget/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="page" style="padding-top:80px;">
+<div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/budget/">Budget</a><span>/</span><span>Retraite & pension</span></div>
+<nav class="toc-sidebar">
+  <a href="#pension-2050">⚠️ Le risque 2050</a>
+  <a href="#combien">💰 Combien te faudra-t-il ?</a>
+  <a href="#simulateur">🧮 Simulateur retraite</a>
+  <a href="#manque">📉 Combler le manque</a>
+  <a href="#timing">⏱️ À quel âge commencer</a>
+</nav>
+<div class="eyebrow" style="background:rgba(201,184,255,0.10);color:#c9b8ff;">🏛️ Retraite & pension</div>
+<h1 class="display">Préparer sa retraite<br><span style="color:#c9b8ff;">les vrais chiffres</span></h1>
+<p class="lead" style="margin-bottom:16px;">Combien faut-il constituer ? À quel rythme ? La pension légale belge suffira-t-elle ? Les réponses avec ton simulateur personnalisé.</p>
+<div class="reading-time">
+    <span class="reading-time-badge">🌱 Débutant : ~6 min</span>
+    <span class="reading-time-badge">🚀 Avancé : ~14 min</span>
+    <span style="font-size:0.74rem;color:var(--muted);">· Mis à jour juin 2026</span>
+  </div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;"><a href="/budget/" class="source-pill">💶 Budget</a><a href="/budget/epargne.html" class="source-pill">💰 Épargne long terme</a><a href="/budget/retraite.html" class="source-pill" style="background:rgba(126,200,160,0.12);border-color:rgba(126,200,160,0.30);color:#7EC8A0;">🏛️ Retraite ←</a><a href="/budget/rente.html" class="source-pill">🔥 Vivre de son capital</a></div>
+<div class="content-card toc-target reveal" id="pension-2050">
+  <h3>⚠️ Pension 2050 — le risque démographique</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>La pension légale belge est un système par <strong>répartition</strong> : les actifs d'aujourd'hui paient les pensions des retraités d'aujourd'hui. Ça fonctionne tant que le ratio actifs/retraités est suffisant. Ce ratio se dégrade rapidement.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0;">
+        <div style="background:rgba(126,200,160,0.07);border:1px solid rgba(126,200,160,0.20);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">Ratio actifs/retraité — 1960</div>
+          <div style="font-size:1.4rem;font-weight:700;color:#7EC8A0;">4,0</div>
+          <div style="font-size:0.64rem;color:var(--muted);">actifs par retraité</div>
+        </div>
+        <div style="background:rgba(232,194,58,0.07);border:1px solid rgba(232,194,58,0.20);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">Ratio aujourd'hui — 2026</div>
+          <div style="font-size:1.4rem;font-weight:700;color:#E8C23A;">2,2</div>
+          <div style="font-size:0.64rem;color:var(--muted);">actifs par retraité</div>
+        </div>
+        <div style="background:rgba(232,124,195,0.07);border:1px solid rgba(232,124,195,0.20);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">Ratio projeté — 2050</div>
+          <div style="font-size:1.4rem;font-weight:700;color:var(--rose);">1,7</div>
+          <div style="font-size:0.64rem;color:var(--muted);">actifs par retraité (BNB)</div>
+        </div>
+      </div>
+      <p>Ce n'est pas une certitude que le système s'effondre — mais c'est une <strong>pression structurelle très forte</strong> sur les finances publiques. Personne ne peut garantir aujourd'hui que la pension légale de 2050 sera équivalente à celle de 2026.</p>
+      <div class="info-box">💡 <strong>La conclusion pratique :</strong> ne pas compter <em>uniquement</em> sur la pension légale. Construire activement un 3ème et 4ème pilier est une forme d'assurance, pas un luxe — quel que soit le scénario.</div>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>Les chiffres du vieillissement belge (Comité d'Étude sur le Vieillissement — rapport 2024) :</strong></p>
+      <ul style="font-size:0.82rem;color:var(--muted);line-height:2.1;padding-left:18px;margin:10px 0;">
+        <li>Coût budgétaire du vieillissement : <strong>+5,2% du PIB supplémentaires</strong> d'ici 2070 (vs 2023)</li>
+        <li>Dépenses de pensions : 13,3% du PIB en 2023 → estimées à <strong>15,8% du PIB en 2070</strong></li>
+        <li>Population +65 ans : 2 millions en 2023 → <strong>2,9 millions en 2050</strong> (+45%)</li>
+        <li>Baby-boomers nés 1946-1964 : tous à la retraite d'ici <strong>2030</strong> — le pic de pression est proche</li>
+        <li>Espérance de vie à 65 ans : 19 ans pour les hommes, 22 ans pour les femmes — en hausse constante</li>
+      </ul>
+      <p><strong>Les 3 scénarios politiques possibles d'ici 2050 :</strong></p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0;">
+        <div style="padding:12px 14px;background:rgba(232,194,58,0.07);border-left:3px solid #E8C23A;border-radius:0 10px 10px 0;font-size:0.80rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:#E8C23A;">Scénario 1 — Recul de l'âge de la pension</strong><br>
+          Probable. Déjà à 67 ans depuis 2030. Des voix politiques évoquent 68-69 ans d'ici 2050. Chaque année supplémentaire de travail réduit la durée de versement et augmente les cotisations.
+        </div>
+        <div style="padding:12px 14px;background:rgba(232,124,195,0.07);border-left:3px solid var(--rose);border-radius:0 10px 10px 0;font-size:0.80rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:var(--rose);">Scénario 2 — Réduction du taux de remplacement</strong><br>
+          Possible. Le taux actuel (60% du salaire moyen pour un isolé) pourrait être revu à la baisse. Une réduction à 50-55% représente des centaines d'euros de pension en moins par mois — sur une retraite de 20 ans.
+        </div>
+        <div style="padding:12px 14px;background:rgba(91,184,212,0.07);border-left:3px solid #5BB8D4;border-radius:0 10px 10px 0;font-size:0.80rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:#5BB8D4;">Scénario 3 — Hausse des cotisations sociales</strong><br>
+          Déjà élevées (13,07% salarié + ~27% employeur en Belgique — parmi les plus hautes d'Europe). Une hausse supplémentaire fragilise la compétitivité et pèse sur les salaires nets. Moins populaire politiquement mais techniquement possible.
+        </div>
+      </div>
+      <p style="font-size:0.80rem;color:var(--muted);margin-top:10px;"><strong>Ce qu'on sait avec certitude :</strong> la combinaison des trois scénarios est possible — et probablement inévitable à des degrés divers. Ce n'est pas du catastrophisme — c'est de l'arithmétique. La Suède (système de comptes notionnels), les Pays-Bas (fonds de pension capitalisés) et le Danemark ont déjà réformé profondément. La Belgique est en retard sur cette transition.</p>
+      <p style="margin-top:10px;"><strong>La stratégie rationnelle :</strong> traiter la pension légale comme un plancher incertain — pas comme un plafond. Construire le 3ème pilier (épargne pension) et le 4ème pilier (ETF, immo) comme si la pension légale allait être 20-30% plus faible que les projections actuelles. Si elle reste stable, tant mieux — tu auras simplement plus de capital à disposition.</p>
+    </div>
+  </div>
+  <div class="source-block"><span class="source-block-label">Sources</span>
+    <a href="https://www.cevengagement.be/fr/rapport-annuel" target="_blank" rel="noopener" class="source-pill">🔗 CEV — Comité d'Étude sur le Vieillissement</a>
+    <a href="https://www.mypension.be" target="_blank" rel="noopener" class="source-pill">🔗 MyPension.be — simulation personnalisée</a>
+    <a href="https://www.nbb.be/doc/ts/publications/other/vieillissement2024.pdf" target="_blank" rel="noopener" class="source-pill">🔗 BNB — Rapport vieillissement 2024</a>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="combien">
+  <h3>💰 Combien te faudra-t-il réellement ?</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>La pension légale belge couvre en moyenne <strong>60% du salaire moyen de carrière</strong> pour un salarié à temps plein, et beaucoup moins pour un indépendant. Si tu dépenses 3.000 €/mois aujourd'hui, tu devras probablement compter sur 2.500-2.800 € à la retraite (les dépenses diminuent mais pas autant qu'on le pense).</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0;">
+        <div style="background:var(--s3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--muted);font-weight:700;margin-bottom:4px;">Pension légale salarié</div>
+          <div style="font-size:1.2rem;font-weight:700;color:#E8C23A;">~1.400 €</div>
+          <div style="font-size:0.64rem;color:var(--muted);">médiane belge 2026</div>
+        </div>
+        <div style="background:var(--s3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--muted);font-weight:700;margin-bottom:4px;">Pension légale indépendant</div>
+          <div style="font-size:1.2rem;font-weight:700;color:var(--rose);">~900 €</div>
+          <div style="font-size:0.64rem;color:var(--muted);">médiane belge 2026</div>
+        </div>
+        <div style="background:var(--s3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--muted);font-weight:700;margin-bottom:4px;">Âge légal retraite</div>
+          <div style="font-size:1.2rem;font-weight:700;color:#5BB8D4;">67 ans</div>
+          <div style="font-size:0.64rem;color:var(--muted);">depuis 2030</div>
+        </div>
+      </div>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p>La formule de pension belge : <em>(revenu moyen de carrière × taux × années validées) / 45</em>. Le "taux" est 0,60 pour un isolé, 0,75 pour un ménage. Une carrière incomplète (temps partiel, chômage, maladie) réduit proportionnellement la pension. Les années d'études assimilées, les périodes de chômage et de maladie comptent partiellement selon les régimes. La simulation précise sur MyPension.be est la seule vraie référence.</p>
+    </div>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="simulateur">
+  <h3>🧮 Simulateur — capital à constituer pour ta retraite</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <div id="tool-ep"></div>
+      <script>document.addEventListener('DOMContentLoaded',()=>WW_Tools?.calculateurEpargnePension?.('tool-ep'));</script>
+    </div>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="manque">
+  <h3>📉 Combler le manque — dans quel ordre</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <ol style="font-size:0.84rem;color:var(--text2);line-height:2.2;padding-left:18px;margin:10px 0;">
+        <li><strong style="color:var(--text);">Épargne pension 3ème pilier</strong> — réduction d'impôt garantie, faire en premier</li>
+        <li><strong style="color:var(--text);">PLCI / EIP</strong> — si indépendant ou dirigeant de société</li>
+        <li><strong style="color:var(--text);">ETF monde en DCA</strong> — 4ème pilier, long terme, le plus efficace sur 20 ans</li>
+        <li><strong style="color:var(--text);">Immobilier</strong> — si capacité d'emprunt et gestion locative possible</li>
+      </ol>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>Optimisation fiscale avancée :</strong> pour un dirigeant de société, l'ordre optimal est EIP (déductible IS 25%) → dividendes VVPRbis (PM 15%) → branche 23 si objectif successoral → ETF en direct. L'EIP est le dispositif le plus fiscalement efficace pour un dirigeant : la prime est déductible IS pour la société, et la taxe finale à la retraite est de 10% (taux de cotisation spéciale).</p>
+    </div>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="timing">
+  <h3>⏱️ À quel âge commencer — l'impact des intérêts composés</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Le temps est ton meilleur allié. 100 €/mois investis à 25 ans valent bien plus que 200 €/mois investis à 45 ans, même avec le double de versements.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0;">
+        <div style="background:rgba(126,200,160,0.07);border:1px solid rgba(126,200,160,0.20);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.62rem;color:#7EC8A0;font-weight:700;margin-bottom:4px;">Commence à 25 ans</div>
+          <div style="font-size:0.78rem;color:var(--muted);">200 €/mois pendant 40 ans à 7%</div>
+          <div style="font-size:1.1rem;font-weight:700;color:#7EC8A0;margin-top:4px;">525.000 €</div>
+        </div>
+        <div style="background:rgba(232,194,58,0.07);border:1px solid rgba(232,194,58,0.20);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.62rem;color:#E8C23A;font-weight:700;margin-bottom:4px;">Commence à 35 ans</div>
+          <div style="font-size:0.78rem;color:var(--muted);">200 €/mois pendant 30 ans à 7%</div>
+          <div style="font-size:1.1rem;font-weight:700;color:#E8C23A;margin-top:4px;">243.000 €</div>
+        </div>
+        <div style="background:rgba(232,124,195,0.07);border:1px solid rgba(232,124,195,0.20);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--rose);font-weight:700;margin-bottom:4px;">Commence à 45 ans</div>
+          <div style="font-size:0.78rem;color:var(--muted);">200 €/mois pendant 20 ans à 7%</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--rose);margin-top:4px;">104.000 €</div>
+        </div>
+      </div>
+      <div class="info-box">💡 Même montant versé, 5× moins de capital si on attend 20 ans de plus. Le meilleur moment pour commencer était hier. Le deuxième meilleur moment, c'est maintenant.</div>
+    </div>
+  </div>
+</div>
+
+<div class="see-also">
+  <div class="see-also-label">Voir aussi</div>
+  <a href="/budget/epargne.html" class="see-also-pill">💰 Épargne long terme</a>
+  <a href="/budget/rente.html" class="see-also-pill">🔥 Vivre de son capital</a>
+  <a href="/fiscal/independants.html" class="see-also-pill">👤 Indépendants</a>
+  <a href="/invest/etf.html" class="see-also-pill">📈 ETF</a>
+</div>
+</div>
+
+
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body></html>

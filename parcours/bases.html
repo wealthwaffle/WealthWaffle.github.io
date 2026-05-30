@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les bases de la finance — Inflation, Or, Devises — WealthWaffle</title>
+  <meta name="description" content="Comprendre les fondamentaux financiers : inflation, monnaie, or, devises. La base avant tout investissement.">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+
+<script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Les bases" };</script>
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+</div>
+
+<!-- TOC -->
+<nav class="toc-sidebar">
+  <a href="#argent">💵 L'argent</a>
+  <a href="#inflation">📉 L'inflation</a>
+  <a href="#or">🥇 L'or</a>
+  <a href="#devises">💱 Les devises</a>
+  <a href="#taux">🏦 Les taux</a>
+</nav>
+
+<div class="page" style="padding-top:80px;">
+  <div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/parcours/">Parcours</a><span>/</span><span>Les bases</span></div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;"><a href="/parcours/" class="source-pill">🗺️ Parcours</a><a href="/parcours/bases.html" class="source-pill" style="background:rgba(232,124,195,0.12);border-color:rgba(232,124,195,0.30);color:#E87CC3;">🎓 Les bases ←</a><a href="/parcours/glossaire.html" class="source-pill">📖 Glossaire</a><a href="/parcours/psychologie.html" class="source-pill">🧠 Psychologie</a></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><span style="color:#a0c4ff;">Les bases de l'argent</span></div>
+
+  <div class="reading-time"><span class="reading-time-badge">🌱 Débutant : ~10 min</span><span class="reading-time-badge">🚀 Avancé : ~22 min</span><span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span></div>
+<div class="eyebrow" style="background:rgba(160,196,255,0.10);color:#a0c4ff;">🎓 Les bases</div>
+  <h1 class="display">Comprendre l'argent<br><span style="color:#a0c4ff;">avant tout le reste</span></h1>
+  <p class="lead" style="margin-bottom:48px;">Avant d'investir, il faut comprendre ce qu'est l'argent, pourquoi il perd de la valeur, et quelles forces impactent votre pouvoir d'achat chaque jour.</p>
+
+  <!-- L'ARGENT -->
+  <div class="content-card toc-target" id="argent">
+    <h3>💵 Qu'est-ce que l'argent ?</h3>
+    <p>L'argent est un <strong>outil d'échange socialement accepté</strong>. Il remplace le troc en servant de valeur intermédiaire. La monnaie moderne (euro, dollar...) est une <strong>monnaie fiduciaire</strong> — elle n'est adossée à aucun actif physique (plus d'or depuis 1971), mais repose sur la confiance dans l'État émetteur.</p>
+    <p>Trois fonctions fondamentales de l'argent :</p>
+    <ul class="checklist">
+      <li><strong>Moyen d'échange</strong> : facilite les transactions sans troc.</li>
+      <li><strong>Unité de compte</strong> : permet de comparer la valeur des biens et services.</li>
+      <li><strong>Réserve de valeur</strong> : permet d'épargner pour le futur — mais imparfaitement, car l'inflation érode ce pouvoir.</li>
+    </ul>
+    <div class="info-box">💡 La Banque Centrale Européenne (BCE) contrôle la masse monétaire en zone euro. En créant plus de monnaie (quantitative easing), elle peut stimuler l'économie mais risque d'alimenter l'inflation. La politique monétaire impacte directement vos épargnes et vos crédits.</div>
+    <a class="source-link" href="https://www.ecb.europa.eu/explainers/tell-me/html/what-is-money.fr.html" target="_blank" rel="noopener">📎 Source : BCE — Qu'est-ce que la monnaie ?</a>
+    <a class="source-link" href="https://www.nbb.be/fr/articles/quest-ce-que-la-monnaie" target="_blank" rel="noopener" style="margin-left:8px;">📎 Source : BNB — Qu'est-ce que la monnaie ?</a>
+  </div>
+
+  <!-- INFLATION -->
+  <div class="content-card toc-target" id="inflation">
+    <h3>📉 L'inflation — l'ennemi silencieux de votre épargne</h3>
+    <p>L'inflation désigne la hausse générale et durable des prix, qui entraîne une perte du pouvoir d'achat de la monnaie. En d'autres termes : avec le même euro, vous achetez moins qu'avant.</p>
+
+    <div class="calculator">
+      <div class="calculator-title">🧮 Simulateur d'érosion du pouvoir d'achat</div>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Montant épargné (€)</label>
+          <input type="number" id="inf-amount" value="10000" min="100" step="100" oninput="calcInflation()">
+        </div>
+        <div class="calc-field">
+          <label>Taux d'inflation annuel (%)</label>
+          <input type="number" id="inf-rate" value="2.5" min="0" step="0.1" oninput="calcInflation()">
+        </div>
+        <div class="calc-field">
+          <label>Durée (années)</label>
+          <input type="number" id="inf-years" value="20" min="1" max="50" oninput="calcInflation()">
+        </div>
+        <div class="calc-field">
+          <label>Taux du compte épargne (%)</label>
+          <input type="number" id="inf-epargne" value="2.5" min="0" step="0.1" oninput="calcInflation()">
+        </div>
+      </div>
+      <div class="calc-result" style="flex-direction:column;align-items:flex-start;gap:8px;">
+        <div style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:8px;">
+          <div><div class="calc-result-label">Valeur réelle dans <span id="inf-years-label">20</span> ans</div><div class="calc-result-value" id="inf-real">0 €</div></div>
+          <div><div class="calc-result-label">Perte de pouvoir d'achat</div><div class="calc-result-value" style="background:linear-gradient(90deg,#E87CC3,#E8C23A);" id="inf-loss">0 €</div></div>
+        </div>
+        <div style="font-size:0.78rem;color:var(--muted);" id="inf-msg"></div>
+      </div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>Inflation belge récente :</strong></p>
+    <ul class="checklist">
+      <li>2022 : <strong>+9,59%</strong> — pic historique lié à la crise énergétique post-Covid et guerre en Ukraine.</li>
+      <li>2023 : <strong>+4,05%</strong> — décélération progressive.</li>
+      <li>2024 : <strong>~+3,2%</strong> — poursuite de la normalisation.</li>
+      <li>Objectif BCE : <strong>2%</strong> à moyen terme.</li>
+    </ul>
+    <div class="warn-box">⚠️ Un compte épargne réglementé belge à 2,50% avec une inflation à 2,5% = <strong>rendement réel de 0%</strong>. Votre argent ne prend pas de valeur — il maintient à peine son pouvoir d'achat. C'est pourquoi investir au-delà de l'épargne est nécessaire sur le long terme.</div>
+    <a class="source-link" href="https://statbel.fgov.be/fr/themes/consommateurs-et-prix-a-la-consommation/indice-des-prix-a-la-consommation" target="_blank" rel="noopener">📎 Source : Statbel — Indice des prix à la consommation</a>
+    <a class="source-link" href="https://www.nbb.be/fr/statistiques/prix-et-conjoncture/inflation" target="_blank" rel="noopener" style="margin-left:8px;">📎 Source : BNB — Inflation en Belgique</a>
+  </div>
+
+  <!-- OR -->
+  <div class="content-card toc-target" id="or">
+    <h3>🥇 L'or — valeur refuge ou investissement ?</h3>
+    <p>L'or est utilisé comme réserve de valeur depuis des millénaires. Sa rareté et son acceptation mondiale en font un actif "refuge" en période d'incertitude. Mais ce n'est pas un investissement productif — l'or ne génère ni dividendes, ni intérêts, ni loyers.</p>
+    <p><strong>Caractéristiques de l'or :</strong></p>
+    <ul class="checklist">
+      <li><strong>Protection contre l'inflation</strong> : historiquement, l'or maintient son pouvoir d'achat sur le très long terme.</li>
+      <li><strong>Décorrélation</strong> : tend à monter quand les marchés actions baissent — intéressant pour diversifier.</li>
+      <li><strong>Pas de rendement passif</strong> : contrairement aux actions (dividendes) ou à l'immo (loyers), l'or ne génère rien en détention.</li>
+      <li><strong>Volatilité modérée</strong> : moins volatile que les actions, mais des baisses de 30-40% sont possibles.</li>
+    </ul>
+    <p style="margin-top:14px;"><strong>Comment investir dans l'or en Belgique :</strong></p>
+    <ul class="checklist">
+      <li><strong>Or physique</strong> (lingots, pièces) : achat chez un négociant agréé. Frais de stockage et d'assurance. Coût de transaction élevé.</li>
+      <li><strong>ETF or</strong> (ex: iShares Physical Gold ETC — IGLN) : plus liquide, frais réduits. Soumis à la TOB de <span data-ww="tob_etf_cap" data-fmt="pct"></span>.</li>
+      <li><strong>Actions minières</strong> : exposition indirecte, plus volatile que l'or lui-même.</li>
+    </ul>
+    <p style="margin-top:14px;"><strong>Fiscalité belge de l'or :</strong></p>
+    <ul class="checklist">
+      <li><strong>Or physique</strong> : pas de TVA sur l'or d'investissement (lingots ≥ 995‰, pièces reconnues). Les plus-values sur l'or physique relèvent du même régime que les autres actifs — exonérées pour un bon père de famille, imposées à <span data-ww="crypto_speculateur" data-fmt="pct"></span> pour un spéculateur.</li>
+      <li><strong>ETF or</strong> : TOB de <span data-ww="tob_etf_cap" data-fmt="pct"></span> + régime ETF standard (pas de PM si capitalisant).</li>
+    </ul>
+    <div class="info-box">💡 La plupart des conseillers recommandent de ne pas dépasser <strong>5 à 10%</strong> d'or dans un portefeuille global. C'est un outil de diversification et de protection, pas un moteur de rendement.</div>
+    <a class="source-link" href="https://finances.belgium.be/fr/particuliers/epargne_et_investissements/taxe-boursiere" target="_blank" rel="noopener">📎 Source : SPF Finances — TOB</a>
+    <a class="source-link" href="https://www.wikifin.be/fr/investir/avant-dinvestir/quelle-part-de-votre-patrimoine-placer-dans-lor" target="_blank" rel="noopener" style="margin-left:8px;">📎 Source : Wikifin.be — Investir dans l'or</a>
+  </div>
+
+  <!-- DEVISES -->
+  <div class="content-card toc-target" id="devises">
+    <h3>💱 Les devises — le risque de change oublié</h3>
+    <p>Une devise est la monnaie d'un pays ou d'une zone économique. Le marché des changes (Forex) est le marché financier le plus liquide au monde, avec plus de 7.000 milliards de dollars échangés par jour.</p>
+    <p><strong>Pourquoi les devises importent pour un investisseur belge :</strong></p>
+    <ul class="checklist">
+      <li><strong>ETF en USD</strong> : un ETF S&P 500 libellé en dollars vous expose au risque de change EUR/USD. Si l'euro s'apprécie de 10% face au dollar, votre rendement en euros est diminué de ~10%.</li>
+      <li><strong>ETF hedgé vs non hedgé</strong> : certains ETF proposent une version "currency hedged" qui neutralise le risque de change — mais à un coût supplémentaire (~0,5-1%/an).</li>
+      <li><strong>Comptes en devises étrangères</strong> : à déclarer à la BNB comme tout compte étranger.</li>
+    </ul>
+    <p style="margin-top:14px;"><strong>La stratégie de la plupart des investisseurs long terme :</strong></p>
+    <p>Ne pas se couvrir (pas de hedge) sur les ETF actions globaux. Sur le très long terme, les fluctuations de change s'équilibrent, et le coût du hedge réduit le rendement. La couverture a plus de sens pour les investissements obligataires ou les horizons courts.</p>
+    <div class="info-box">💡 Un ETF MSCI World non hedgé donne environ 60% d'exposition aux États-Unis (en USD). Sur 20 ans, l'EUR/USD a peu varié en tendance — le risque de change est réel mais gérable à long terme sans couverture.</div>
+    <a class="source-link" href="https://www.wikifin.be/fr/investir/investissements-boursiers/fonds-de-placement/qu-est-ce-qu-un-fonds-de-placement-en-devises-etrangeres" target="_blank" rel="noopener">📎 Source : Wikifin.be — Fonds en devises étrangères</a>
+  </div>
+
+  <!-- TAUX D'INTÉRÊT -->
+  <div class="content-card toc-target" id="taux">
+    <h3>🏦 Les taux d'intérêt — comment ils impactent tout</h3>
+    <p>Les taux d'intérêt fixés par la BCE sont le levier principal de la politique monétaire. Ils influencent directement votre vie financière à de nombreux niveaux.</p>
+    <div class="compare-bars" style="margin:14px 0;">
+      <div style="font-size:0.75rem;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em;">Impact des taux élevés vs bas</div>
+      <div class="compare-bar"><span class="compare-bar-label">Épargne</span><div class="compare-bar-track"><div class="compare-bar-fill" style="background:#7EC8A0;" data-width="80"></div></div><span class="compare-bar-value" style="color:#7EC8A0;">Favorable</span></div>
+      <div class="compare-bar"><span class="compare-bar-label">Crédit immobilier</span><div class="compare-bar-track"><div class="compare-bar-fill" style="background:#E87CC3;" data-width="85"></div></div><span class="compare-bar-value" style="color:#E87CC3;">Défavorable</span></div>
+      <div class="compare-bar"><span class="compare-bar-label">Bourse (actions)</span><div class="compare-bar-track"><div class="compare-bar-fill" style="background:#E8C23A;" data-width="60"></div></div><span class="compare-bar-value" style="color:#E8C23A;">Variable</span></div>
+      <div class="compare-bar"><span class="compare-bar-label">Obligations</span><div class="compare-bar-track"><div class="compare-bar-fill" style="background:#E87CC3;" data-width="75"></div></div><span class="compare-bar-value" style="color:#E87CC3;">Négative court terme</span></div>
+    </div>
+    <ul class="checklist">
+      <li><strong>Taux élevés</strong> → meilleurs rendements sur comptes épargne et obligations → crédit plus cher → pression sur les valorisations boursières.</li>
+      <li><strong>Taux bas</strong> → épargne peu rémunérée → crédit facile → marchés actions et immo stimulés.</li>
+      <li><strong>La BCE a fortement relevé ses taux en 2022-2023</strong> pour lutter contre l'inflation, puis a amorcé une baisse en 2024-2025.</li>
+    </ul>
+    <a class="source-link" href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html" target="_blank" rel="noopener">📎 Source : BCE — Taux directeurs</a>
+    <a class="source-link" href="https://www.nbb.be/fr/statistiques/taux-et-marchés-des-capitaux" target="_blank" rel="noopener" style="margin-left:8px;">📎 Source : BNB — Taux et marchés</a>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-section" id="quiz-bases">
+    <div class="quiz-title">🧠 Quiz — Les bases de l'argent</div>
+    <div class="quiz-subtitle">3 questions pour vérifier ce que tu as retenu.</div>
+    <div class="quiz-progress">
+      <div class="quiz-dots">
+        <div class="quiz-dot current"></div><div class="quiz-dot"></div><div class="quiz-dot"></div>
+      </div>
+      <span class="quiz-counter">1 / 3</span>
+    </div>
+
+    <div class="quiz-question active">
+      <div class="quiz-q-text">Qu'est-ce que la monnaie fiduciaire ?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="0">Une monnaie adossée à l'or</button>
+        <button class="quiz-option" data-correct="1">Une monnaie basée sur la confiance dans l'État émetteur</button>
+        <button class="quiz-option" data-correct="0">Une monnaie numérique décentralisée</button>
+      </div>
+      <div class="quiz-feedback">✓ L'euro n'est plus adossé à l'or depuis 1971 (fin de Bretton Woods). Sa valeur repose sur la confiance dans la BCE et les États de la zone euro.</div>
+      <div class="quiz-next"><button class="btn-primary quiz-next-btn" style="font-size:0.82rem;padding:9px 16px;">Question suivante →</button></div>
+    </div>
+
+    <div class="quiz-question">
+      <div class="quiz-q-text">Un compte épargne à 2,5%/an avec une inflation à 2,5%/an — quel est votre rendement réel ?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="0">+2,5% — le taux affiché</button>
+        <button class="quiz-option" data-correct="0">+5% — les deux taux s'additionnent</button>
+        <button class="quiz-option" data-correct="1">≈ 0% — l'inflation annule le rendement nominal</button>
+      </div>
+      <div class="quiz-feedback">✓ Le rendement réel = taux nominal − inflation. À 2,5% − 2,5% = 0%. Votre pouvoir d'achat stagne. C'est pourquoi investir sur le long terme est essentiel.</div>
+      <div class="quiz-next"><button class="btn-primary quiz-next-btn" style="font-size:0.82rem;padding:9px 16px;">Question suivante →</button></div>
+    </div>
+
+    <div class="quiz-question">
+      <div class="quiz-q-text">Qu'est-ce que le risque de change pour un investisseur belge en ETF S&P 500 ?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="0">Le risque que la bourse américaine baisse</button>
+        <button class="quiz-option" data-correct="1">Le risque que l'euro s'apprécie face au dollar, réduisant le rendement en euros</button>
+        <button class="quiz-option" data-correct="0">Une taxe supplémentaire sur les ETF étrangers</button>
+      </div>
+      <div class="quiz-feedback">✓ Un ETF S&P 500 est libellé en USD. Si l'EUR/USD passe de 1,00 à 1,10 (+10%), votre ETF perd ~10% en termes de pouvoir d'achat en euros, même si les actions n'ont pas bougé.</div>
+      <div class="quiz-next"><button class="btn-primary quiz-next-btn" style="font-size:0.82rem;padding:9px 16px;">Voir mes résultats →</button></div>
+    </div>
+
+    <div class="quiz-result">
+      <div class="quiz-score"></div>
+      <div class="quiz-score-msg"></div>
+      <button class="btn-ghost" onclick="location.reload()" style="font-size:0.82rem;padding:9px 16px;">↩ Recommencer</button>
+    </div>
+  </div>
+
+  <div class="nl-bar" style="margin-top:40px;">
+    <h3>Guide gratuit — <em style="background:linear-gradient(90deg,#E87CC3,#5BB8D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal;">10 erreurs à éviter</em></h3>
+    <p>Reçois le PDF dans ta boîte.</p>
+    <div class="nl-form" id="nl-form-b"><input class="form-input" type="email" id="nl-email-b" placeholder="ton@email.be" onkeydown="if(event.key==='Enter') submitNL('nl-email-b','nl-form-b','nl-ok-b')"><button class="btn-primary" onclick="submitNL('nl-email-b','nl-form-b','nl-ok-b')">Je veux mon guide →</button></div>
+    <div class="nl-success" id="nl-ok-b">✓ Check ta boîte !</div>
+  </div>
+
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => { initQuiz('quiz-bases'); });
+
+function calcInflation() {
+  const amount = parseFloat(document.getElementById('inf-amount')?.value) || 0;
+  const rate = parseFloat(document.getElementById('inf-rate')?.value) || 2.5;
+  const years = parseInt(document.getElementById('inf-years')?.value) || 20;
+  const epargne = parseFloat(document.getElementById('inf-epargne')?.value) || 2.5;
+  document.getElementById('inf-years-label').textContent = years;
+  const realValue = amount * Math.pow(1 - (rate / 100), years);
+  const savings = amount * Math.pow(1 + (epargne / 100), years);
+  const realSavings = savings / Math.pow(1 + (rate / 100), years);
+  document.getElementById('inf-real').textContent = Math.round(realValue).toLocaleString('fr-BE') + ' €';
+  document.getElementById('inf-loss').textContent = Math.round(amount - realValue).toLocaleString('fr-BE') + ' €';
+  const diff = realSavings - amount;
+  document.getElementById('inf-msg').textContent = diff >= 0
+    ? `✓ Avec un compte épargne à ${epargne}%, votre pouvoir d'achat réel dans ${years} ans serait de ${Math.round(realSavings).toLocaleString('fr-BE')} € (+${Math.round(diff).toLocaleString('fr-BE')} €).`
+    : `⚠️ Avec un compte épargne à ${epargne}%, votre pouvoir d'achat réel dans ${years} ans serait de ${Math.round(realSavings).toLocaleString('fr-BE')} € (${Math.round(diff).toLocaleString('fr-BE')} €).`;
+}
+document.addEventListener('DOMContentLoaded', calcInflation);
+
+</script>
+
+<!-- Single JS bundle -->
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+<!-- PWA -->
+</body></html>

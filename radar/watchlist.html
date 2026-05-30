@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ma watchlist Radar — WealthWaffle — WealthWaffle</title>
+  <meta name="description" content="Tes projets equity et crowdlending suivis sur le Radar WealthWaffle.">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { name: "Watchlist", basePath: "/radar/", auth: true };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<script src="/assets/ww-bundle.js" defer></script>
+<script>
+/* ── WealthWaffle Config — à remplir dans Cloudflare Pages env vars ── */
+window.WW_CONFIG = {
+  SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
+  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'TON_ANON_KEY',
+  STRIPE_KEY:        window.__CF_STRIPE_KEY__         || 'pk_live_TON_KEY',
+  PRICES: {
+    socle_monthly:  window.__CF_PRICE_SOCLE_M__  || 'price_SOCLE_MENSUEL',
+    socle_annual:   window.__CF_PRICE_SOCLE_A__  || 'price_SOCLE_ANNUEL',
+    pilote_monthly: window.__CF_PRICE_PILOTE_M__ || 'price_PILOTE_MENSUEL',
+    pilote_annual:  window.__CF_PRICE_PILOTE_A__ || 'price_PILOTE_ANNUEL',
+    radar_monthly:  window.__CF_PRICE_RADAR_M__  || 'price_RADAR_MENSUEL',
+    radar_annual:   window.__CF_PRICE_RADAR_A__  || 'price_RADAR_ANNUEL',
+  },
+  SITE_URL: 'https://wealthwaffle.be',
+  TRIAL_DAYS: 7,
+  BREVO_KEY: window.__CF_BREVO_KEY__ || '',
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ── Auth helpers — WealthWaffle ─────────────────────────── */
+const { createClient } = supabase;
+const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+window.WW = { sb };
+
+async function getSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return null;
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+  window.WW.user    = session.user;
+  window.WW.profile = profile;
+  // Sync level to localStorage pour les outils et blurs
+  localStorage.setItem('ww_session', session.access_token);
+  localStorage.setItem('ww_plan', profile?.plan || 'socle');
+  return { user: session.user, profile };
+}
+
+async function requireAuth(minLevel) {
+  const LEVELS = { socle: 1, pilote: 2, radar: 3 };
+  const session = await getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
+  const userLevel  = LEVELS[session.profile?.plan] || 0;
+  const neededLevel = LEVELS[minLevel] || 1;
+  if (userLevel < neededLevel) { window.location.href = '/compte/inscription.html?plan=' + minLevel; return null; }
+  return session;
+}
+
+async function signOut() {
+  await sb.auth.signOut();
+  localStorage.removeItem('ww_session');
+  localStorage.removeItem('ww_plan');
+  window.location.href = '/';
+}
+</script>
+<div class="page" style="padding-top:80px;">
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/radar/">Radar</a><span>/</span><span>Ma watchlist</span></div>
+
+<div class="eyebrow" style="background:rgba(232,124,195,0.10);color:var(--rose);">👁️ Watchlist</div>
+<h1 class="display" style="font-size:1.6rem;">Mes projets suivis</h1>
+<p style="font-size:0.80rem;color:var(--muted);margin-bottom:24px;">Tous les projets que tu suis sur le Radar. Mis à jour en temps réel.</p>
+
+<div id="watchlist-container">
+  <div style="text-align:center;padding:40px;color:var(--muted);">Chargement…</div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const session = await requireAuth('radar');
+  if (!session) return;
+  const userId = session.user.id;
+
+  // Charger watchlist + projets
+  const { data: wl } = await sb.from('watchlist').select('project_id').eq('user_id', userId);
+  const ids = (wl||[]).map(w => w.project_id);
+
+  if (!ids.length) {
+    document.getElementById('watchlist-container').innerHTML =
+      '<div style="text-align:center;padding:40px;"><div style="font-size:2rem;margin-bottom:12px;">👁️</div><div style="color:var(--muted);">Ta watchlist est vide — <a href="/radar/" style="color:var(--rose);">parcourir le feed →</a></div></div>';
+    return;
+  }
+
+  const { data: projects } = await sb.from('projects').select('*').in('id', ids);
+  const list = projects || [];
+
+  document.getElementById('watchlist-container').innerHTML = list.length
+    ? list.map(p => `<div style="background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:0.90rem;font-weight:700;color:var(--text);">${p.name}</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;">${p.platform} · ${p.type}${p.rate ? ` · ${p.rate}%` : ''}</div>
+          </div>
+          ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener" style="font-size:0.74rem;font-weight:600;color:#5BB8D4;text-decoration:none;">Voir ↗</a>` : ''}
+        </div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:8px;line-height:1.6;">${p.summary}</div>
+      </div>`).join('')
+    : '<div style="text-align:center;padding:30px;color:var(--muted);">Projets introuvables.</div>';
+});
+</script>
+</body></html>

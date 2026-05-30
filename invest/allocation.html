@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allocation de portefeuille en Belgique — Guide 2026 — WealthWaffle</title>
+  <meta name="description" content="Profils investisseur, allocation actions/obligations/cash, diversification géographique. Simulateur d'allocation belge.">
+  <meta property="og:title" content="Allocation de portefeuille en Belgique — Guide 2026 — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Allocation", basePath: "/invest/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="page" style="padding-top:80px;"><div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/invest/">Investir</a><span>/</span><span>Allocation</span></div>
+<nav class="toc-sidebar">
+  <a href="#importance">🏗️ L'importance de l'allocation</a>
+  <a href="#profils">👤 3 profils types</a>
+  <a href="#classes">📦 Classes d'actifs</a>
+  <a href="#rebalancement">🔄 Rebalancement</a>
+  <a href="#fire-sim">🔥 Simulateur FIRE</a>
+</nav>
+<div class="eyebrow" style="background:rgba(91,184,212,0.10);color:#5BB8D4;">🎯 Allocation</div>
+<h1 class="display">Allocation de<br><span style="color:#5BB8D4;">portefeuille</span></h1>
+<p class="lead" style="margin-bottom:16px;">La décision la plus importante n'est pas "quel ETF" — c'est "quelle répartition". L'allocation explique 90% de la performance à long terme.</p>
+<div class="reading-time"><span class="reading-time-badge">🌱 Débutant : ~7 min</span><span class="reading-time-badge">🚀 Avancé : ~18 min</span><span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span></div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;"><a href="/invest/" class="source-pill">📈 Hub</a><a href="/invest/panorama.html" class="source-pill">🗺️ Panorama</a><a href="/invest/etf.html" class="source-pill">📊 ETF</a><a href="/invest/allocation.html" class="source-pill" style="background:rgba(91,184,212,0.12);border-color:rgba(91,184,212,0.30);color:#5BB8D4;">🎯 Allocation ←</a><a href="/invest/actions.html" class="source-pill">📉 Actions</a><a href="/invest/obligations.html" class="source-pill">💸 Obligations</a><a href="/invest/fonds.html" class="source-pill">🏦 Fonds</a><a href="/invest/equity.html" class="source-pill">🚀 Equity</a><a href="/invest/alternatives.html" class="source-pill">🌐 Alternatifs</a><a href="/invest/crypto.html" class="source-pill">₿ Crypto</a></div>
+<div class="content-card toc-target reveal" id="importance">
+  <h3>🏗️ L'allocation — la décision n°1</h3>
+  <div class="level-section">
+    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
+    <p>L'allocation c'est la répartition de ton épargne entre les grandes classes d'actifs : actions, obligations, immobilier, cash. Cette répartition détermine à la fois le rendement potentiel ET le risque de ton portefeuille. Un portefeuille 100% actions peut gagner 30% en un an — ou perdre 40%. Un portefeuille 60/40 est moins volatile mais aussi moins rentable sur le long terme.</p>
+    </div>
+    <div data-level="avance"><div class="level-badge">🚀 Avancé</div>
+    <p>Brinson, Hood & Beebower (1986, répliqué en 1991 et 2000) montrent que 91,5% de la variance des rendements d'un portefeuille s'explique par la politique d'allocation d'actifs — pas par la sélection de titres ni par le market timing. Ibbotson & Kaplan (2000) confirment : ~100% du niveau de rendement est expliqué par l'allocation. La sélection de titres et le timing expliquent moins de 5% en moyenne. L'énergie dépensée à choisir "le bon ETF" est donc 20 fois moins impactante que de choisir la bonne répartition.</p>
+    </div>
+  </div>
+</div>
+<div class="content-card toc-target reveal" id="profils">
+  <h3>👤 3 profils types</h3>
+  <div class="level-section">
+    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin:12px 0;">
+      <div style="background:rgba(126,200,160,0.07);border:1px solid rgba(126,200,160,0.20);border-radius:12px;padding:14px;">
+        <div style="font-size:0.86rem;font-weight:700;color:#7EC8A0;margin-bottom:6px;">🛡️ Défensif — horizon &lt; 5 ans ou aversion risque élevée</div>
+        <div style="font-size:0.80rem;color:var(--muted);">30% actions (ETF monde) · 40% obligations · 30% épargne/cash</div>
+        <div style="font-size:0.76rem;color:var(--muted2);margin-top:4px;">Rendement attendu : 3-5%/an · Perte max estimée : -15%</div>
+      </div>
+      <div style="background:rgba(91,184,212,0.07);border:1px solid rgba(91,184,212,0.20);border-radius:12px;padding:14px;">
+        <div style="font-size:0.86rem;font-weight:700;color:#5BB8D4;margin-bottom:6px;">⚖️ Équilibré — horizon 7-15 ans</div>
+        <div style="font-size:0.80rem;color:var(--muted);">60% actions (ETF monde) · 30% obligations · 10% cash</div>
+        <div style="font-size:0.76rem;color:var(--muted2);margin-top:4px;">Rendement attendu : 5-7%/an · Perte max estimée : -30%</div>
+      </div>
+      <div style="background:rgba(232,124,195,0.07);border:1px solid rgba(232,124,195,0.20);border-radius:12px;padding:14px;">
+        <div style="font-size:0.86rem;font-weight:700;color:var(--rose);margin-bottom:6px;">🚀 Croissance — horizon 15+ ans</div>
+        <div style="font-size:0.80rem;color:var(--muted);">90% actions (ETF monde) · 5% obligations · 5% cash (urgence uniquement)</div>
+        <div style="font-size:0.76rem;color:var(--muted2);margin-top:4px;">Rendement attendu : 7-9%/an · Perte max estimée : -50%</div>
+      </div>
+    </div>
+    </div>
+    <div data-level="avance"><div class="level-badge">🚀 Avancé</div>
+    <p><strong>Life-cycle investing :</strong> l'allocation optimale évolue avec l'âge. La règle heuristique "110 minus your age in stocks" (ex: 35 ans → 75% actions) est une simplification. Les recherches récentes (Lifecycle Investing, Ayres & Nalebuff) suggèrent d'être même plus agressif jeune (levier raisonnable via certains instruments) car le capital humain futur est déjà une "obligation implicite". En pratique : 90-100% actions pendant les 20 premières années d'investissement, puis dégressif vers 60-70% à 10 ans de la retraite, puis 40-50% en décumulation.</p>
+    </div>
+  </div>
+</div>
+<div class="content-card toc-target reveal" id="rebalancement">
+  <h3>🔄 Rebalancement — remettre le cap une fois par an</h3>
+  <div class="level-section">
+    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
+    <p>Après une année de forte hausse des actions, ton allocation peut dériver de 60/40 à 75/25. Le rebalancement consiste à vendre un peu d'actions (ce qui a monté) et acheter des obligations (ce qui a baissé) pour revenir à 60/40. En pratique, faire ça une fois par an — ou quand une classe dépasse de ±5% la cible. Cela force mécaniquement à "vendre haut, acheter bas".</p>
+    </div>
+    <div data-level="avance"><div class="level-badge">🚀 Avancé</div>
+    <p>Depuis jan. 2026, chaque vente génère une taxe PV 10%. Le rebalancement par vente a donc un coût fiscal. Alternatives : (1) rebalancement par achat uniquement — diriger les nouvelles contributions vers la classe sous-représentée, sans vendre. (2) Utiliser les dividendes pour rééquilibrer. (3) Tolérance bande plus large (±10% au lieu de ±5%) pour réduire la fréquence de rebalancement. Sur un portefeuille DCA pur en phase d'accumulation, le rebalancement par achat seul suffit généralement pendant 20 ans.</p>
+    </div>
+  </div>
+</div>
+<div class="content-card toc-target reveal" id="fire-sim">
+  <h3>🔥 Simulateur FIRE & objectif financier</h3>
+  <div id="tool-fire-alloc"></div>
+  <script>document.addEventListener('DOMContentLoaded',()=>WW_Tools?.simulateurFIRE?.('tool-fire-alloc'));</script>
+</div>
+<div class="see-also"><div class="see-also-label">Voir aussi</div>
+  <a href="/invest/etf.html" class="see-also-pill">📊 ETF</a>
+  <a href="/invest/panorama.html" class="see-also-pill">🗺️ Panorama</a>
+  <a href="/parcours/psychologie.html" class="see-also-pill">🧠 Psychologie</a>
+  <a href="/budget/rente.html" class="see-also-pill">🔥 Vivre de son capital</a>
+</div>
+</div>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body></html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WealthWaffle — La finance belge dans le bon ordre</title>
+  <meta name="description" content="Budget, fiscalité, investissement — la finance belge expliquée étape par étape. Sans jargon, sans produits à vendre.">
+  <meta property="og:title" content="WealthWaffle — La finance belge, ça se déguste">
+  <meta property="og:description" content="Budget, fiscalité, ETF — la finance belge expliquée dans l'ordre, sans jargon.">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:url" content="https://wealthwaffle.be">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_BE">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"WealthWaffle","url":"https://wealthwaffle.be","description":"Finance personnelle belge — budget, fiscalité, investissement","inLanguage":"fr-BE"}</script>
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Accueil" };</script>
+
+  <style>
+    /* ── Hero ───────────────────────────────────────────── */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+    .hero-waffle {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 24px;
+      display: block;
+      filter: drop-shadow(0 0 24px rgba(232,124,195,0.25));
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .hero-title span {
+      background: linear-gradient(90deg, #E87CC3, #5BB8D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(0.90rem, 2vw, 1.05rem);
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-scroll-hint {
+      margin-top: 40px;
+      font-size: 0.74rem;
+      color: var(--muted2);
+      letter-spacing: 0.06em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-scroll-arrow {
+      animation: bounce 1.6s ease-in-out infinite;
+      font-size: 1.1rem;
+      opacity: 0.5;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(5px); }
+    }
+
+    /* ── GPS — séparateur entre stades ─────────────────── */
+    .gps-connector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      color: var(--muted2);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .gps-connector::before,
+    .gps-connector::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--faint), transparent);
+    }
+
+    /* ── Stades ─────────────────────────────────────────── */
+    .stade {
+      border-radius: 24px;
+      padding: 36px;
+      margin: 8px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 600px) { .stade { padding: 24px 18px; } }
+
+    .stade-num {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 5rem;
+      font-weight: 400;
+      line-height: 1;
+      opacity: 0.08;
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .stade-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .stade-tagline {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 4vw, 1.9rem);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .stade-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 22px;
+    }
+
+    .stade-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    @media (max-width: 500px) { .stade-links { grid-template-columns: 1fr; } }
+
+    .stade-link {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 13px 15px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.18s, border-color 0.18s, transform 0.18s;
+    }
+    .stade-link:hover {
+      background: rgba(255,255,255,0.07);
+      transform: translateX(3px);
+    }
+    .stade-link-icon {
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    .stade-link-text {
+      flex: 1;
+    }
+    .stade-link-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .stade-link-desc {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .stade-link-arrow {
+      font-size: 0.78rem;
+      color: var(--muted2);
+      flex-shrink: 0;
+    }
+
+    /* Signal "es-tu ici ?" */
+    .stade-signal {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.80rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .stade-signal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    /* Couleurs par stade */
+    .stade-1 { background: rgba(126,200,160,0.06); border: 1px solid rgba(126,200,160,0.15); }
+    .stade-1 .stade-num { color: #7EC8A0; }
+    .stade-1 .stade-badge { background: rgba(126,200,160,0.12); color: #7EC8A0; border: 1px solid rgba(126,200,160,0.25); }
+    .stade-1 .stade-tagline { color: #7EC8A0; }
+    .stade-1 .stade-signal { background: rgba(126,200,160,0.06); border: 1px solid rgba(126,200,160,0.12); }
+    .stade-1 .stade-signal-dot { background: #7EC8A0; }
+    .stade-1 .stade-link:hover { border-color: rgba(126,200,160,0.30); }
+
+    .stade-2 { background: rgba(91,184,212,0.06); border: 1px solid rgba(91,184,212,0.15); }
+    .stade-2 .stade-num { color: #5BB8D4; }
+    .stade-2 .stade-badge { background: rgba(91,184,212,0.12); color: #5BB8D4; border: 1px solid rgba(91,184,212,0.25); }
+    .stade-2 .stade-tagline { color: #5BB8D4; }
+    .stade-2 .stade-signal { background: rgba(91,184,212,0.06); border: 1px solid rgba(91,184,212,0.12); }
+    .stade-2 .stade-signal-dot { background: #5BB8D4; }
+    .stade-2 .stade-link:hover { border-color: rgba(91,184,212,0.30); }
+
+    .stade-3 { background: rgba(232,124,195,0.06); border: 1px solid rgba(232,124,195,0.15); }
+    .stade-3 .stade-num { color: #E87CC3; }
+    .stade-3 .stade-badge { background: rgba(232,124,195,0.12); color: #E87CC3; border: 1px solid rgba(232,124,195,0.25); }
+    .stade-3 .stade-tagline { color: #E87CC3; }
+    .stade-3 .stade-signal { background: rgba(232,124,195,0.06); border: 1px solid rgba(232,124,195,0.12); }
+    .stade-3 .stade-signal-dot { background: #E87CC3; }
+    .stade-3 .stade-link:hover { border-color: rgba(232,124,195,0.30); }
+
+    /* ── Concept semaine — discret ──────────────────────── */
+    .concept-widget {
+      background: var(--s2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--rose);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 32px 0;
+      flex-wrap: wrap;
+    }
+    .concept-widget-left {
+      flex: 1;
+      min-width: 180px;
+    }
+    .concept-widget-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 4px;
+    }
+    .concept-widget-titre {
+      font-size: 0.90rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .concept-widget-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+
+<body>
+<div id="ww-nav-placeholder"></div>
+<div id="ww-ui-placeholder"></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="page" style="padding-top:64px;max-width:760px;">
+
+  <!-- ═══════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════ -->
+  <div class="hero reveal">
+    <img src="/IMG_5208.png"
+         alt="Waffy, la mascotte WealthWaffle — gaufre Pixar 3D aux yeux bleus ardoise"
+         class="hero-waffle">
+    <h1 class="hero-title">
+      La finance belge,<br>
+      <span>dans le bon ordre</span>
+    </h1>
+    <p class="hero-sub">
+      Pas de jargon. Pas de produits à vendre. Pas de raccourcis.<br>
+      Juste les bonnes étapes, dans le bon ordre, pour le bon contexte belge.
+    </p>
+    <div class="hero-cta-row">
+      <a href="/contenu/newsletter.html" class="btn-primary">Recevoir le guide PDF gratuit →</a>
+      <a href="/outils/" class="btn-secondary">Simulateurs interactifs</a>
+    </div>
+    <div id="hero-cta-dashboard" style="display:none;margin-top:12px;">
+      <a href="/dashboard/" class="btn-secondary" style="background:rgba(126,200,160,0.12);border-color:rgba(126,200,160,0.30);color:#7EC8A0;">→ Accéder à mon tableau de bord</a>
+    </div>
+    <script>
+      // Afficher le bouton dashboard si session active
+      document.addEventListener('DOMContentLoaded', () => {
+        const session = localStorage.getItem('ww_session') || sessionStorage.getItem('ww_session');
+        if (session) document.getElementById('hero-cta-dashboard').style.display = 'block';
+      });
+    </script>
+    <div class="hero-scroll-hint">
+      <span>Trouve ton stade</span>
+      <span class="hero-scroll-arrow">↓</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       INTRO GPS
+  ═══════════════════════════════════════════════════ -->
+  <div class="reveal" style="text-align:center;margin-bottom:32px;padding:0 8px;">
+    <p style="font-size:0.84rem;color:var(--muted);line-height:1.8;max-width:500px;margin:0 auto;">
+      La plupart des gens font l'erreur d'investir en bourse
+      avant d'avoir un fonds d'urgence. Ou de chercher des placements exotiques
+      avant d'avoir rempli leur épargne pension.
+      <strong style="color:var(--text);">L'ordre compte autant que les décisions.</strong>
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       STADE 1 — LA STRUCTURE
+  ═══════════════════════════════════════════════════ -->
+  <div class="stade stade-1 reveal" id="stade-1">
+    <div class="stade-num">01</div>
+
+    <div class="stade-badge">🛡️ Stade 1 — La structure</div>
+
+    <div class="stade-tagline">
+      Ton argent disparaît chaque mois.<br>Tu ne sais pas exactement pourquoi.
+    </div>
+
+    <div class="stade-signal">
+      <div class="stade-signal-dot"></div>
+      <div>
+        <strong style="color:var(--text);">Tu es ici si…</strong> tu n'as pas 3 mois de dépenses de côté,
+        si tu as des dettes à taux élevé, ou si tu n'arrives pas à épargner régulièrement
+        malgré un salaire correct. C'est le stade de la fondation — sans elle, tout le reste est fragile.
+      </div>
+    </div>
+
+    <p class="stade-desc">
+      Avant d'investir quoi que ce soit, il faut un socle solide :
+      comprendre où va ton argent, éliminer ce qui te coûte sans te rapporter,
+      et construire le filet de sécurité qui t'empêchera de tout liquider au mauvais moment.
+    </p>
+
+    <div class="stade-links">
+      <a href="/budget/" class="stade-link">
+        <span class="stade-link-icon">💶</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Budget & règle 50/30/20</div>
+          <div class="stade-link-desc">Comprendre et structurer ses dépenses</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="/budget/index.html#urgence" class="stade-link">
+        <span class="stade-link-icon">🛡️</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Le fonds d'urgence</div>
+          <div class="stade-link-desc">3 à 6 mois — la priorité absolue</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="/fiscal/index.html#fiche-paie" class="stade-link">
+        <span class="stade-link-icon">📋</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Décrypter sa fiche de paie</div>
+          <div class="stade-link-desc">ONSS, précompte, net vs brut</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="/budget/index.html#dettes" class="stade-link">
+        <span class="stade-link-icon">⚡</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Rembourser ou épargner ?</div>
+          <div class="stade-link-desc">La réponse mathématique selon ton taux</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+    </div>
+
+    <div style="margin-top:16px;font-size:0.76rem;color:var(--muted);display:flex;align-items:center;gap:8px;">
+      <span>✓ Stade 1 complété quand :</span>
+      <span>fonds d'urgence constitué · budget automatisé · aucune dette à taux > 4%</span>
+    </div>
+  </div>
+
+  <div class="gps-connector reveal">↓ Stade 1 complété ? Passe à l'optimisation</div>
+
+  <!-- ═══════════════════════════════════════════════════
+       STADE 2 — L'OPTIMISATION
+  ═══════════════════════════════════════════════════ -->
+  <div class="stade stade-2 reveal" id="stade-2">
+    <div class="stade-num">02</div>
+
+    <div class="stade-badge">⚙️ Stade 2 — L'optimisation</div>
+
+    <div class="stade-tagline">
+      Ton argent ne fuit plus.<br>Maintenant, récupère ce que l'État te doit.
+    </div>
+
+    <div class="stade-signal">
+      <div class="stade-signal-dot"></div>
+      <div>
+        <strong style="color:var(--text);">Tu es ici si…</strong> tu as un fonds d'urgence,
+        tu épargnes régulièrement, mais tu n'as pas encore fait ta déclaration d'épargne pension,
+        tu paies trop de frais sur tes contrats, ou tu ignores ce que te coûtent vraiment
+        les produits de ta banque.
+      </div>
+    </div>
+
+    <p class="stade-desc">
+      Le stade 2, c'est le nettoyage et la récupération.
+      L'État belge offre des avantages fiscaux significatifs — la plupart des Belges
+      n'en tirent pas le maximum. Et les frais cachés dans les fonds et contrats
+      engloutissent silencieusement des milliers d'euros par an.
+    </p>
+
+    <div class="stade-links">
+      <a href="/fiscal/" class="stade-link">
+        <span class="stade-link-icon">📋</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Déclaration fiscale belge</div>
+          <div class="stade-link-desc">Codes IPP, déductions, MyMinfin</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="/fiscal/index.html#pension" class="stade-link">
+        <span class="stade-link-icon">🏛️</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Épargne pension</div>
+          <div class="stade-link-desc"><span data-ww="ep_a_plafond" data-fmt="eur"></span>/an = <span data-ww-calc="ep_a_plafond * ep_a_taux / 100" data-fmt="eur"></span> remboursés</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="outils-fiscaux.html" class="stade-link">
+        <span class="stade-link-icon">🛠️</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Tous les plafonds 2026</div>
+          <div class="stade-link-desc">ELT, PLCI, Tax Shelter, droits auteur</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="invest-fonds.html" class="stade-link">
+        <span class="stade-link-icon">💸</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Les frais cachés de ta banque</div>
+          <div class="stade-link-desc">92% des fonds actifs ont sous-performé leur indice sur 15 ans (source : SPIVA Europe 2023, S&P Global)</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="/budget/epargne.html" class="stade-link">
+        <span class="stade-link-icon">💰</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Épargne long terme (ELT)</div>
+          <div class="stade-link-desc">Le bonus fiscal souvent oublié</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="independants.html" class="stade-link">
+        <span class="stade-link-icon">💼</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Indépendants & freelances</div>
+          <div class="stade-link-desc">PLCI, frais déductibles, statuts</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+    </div>
+
+    <div style="margin-top:16px;font-size:0.76rem;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span>✓ Stade 2 complété quand :</span>
+      <span>épargne pension maximisée · frais bancaires audités · déclaration optimisée</span>
+    </div>
+  </div>
+
+  <div class="gps-connector reveal">↓ Stade 2 complété ? Tu es prêt pour la croissance</div>
+
+  <!-- ═══════════════════════════════════════════════════
+       STADE 3 — LA CROISSANCE
+  ═══════════════════════════════════════════════════ -->
+  <div class="stade stade-3 reveal" id="stade-3">
+    <div class="stade-num">03</div>
+
+    <div class="stade-badge">🚀 Stade 3 — La croissance</div>
+
+    <div class="stade-tagline">
+      Tu optimises déjà.<br>Il est temps que l'argent travaille à ta place.
+    </div>
+
+    <div class="stade-signal">
+      <div class="stade-signal-dot"></div>
+      <div>
+        <strong style="color:var(--text);">Tu es ici si…</strong> tu as un fonds d'urgence solide,
+        tu maximises tes avantages fiscaux, et tu cherches à faire croître ton patrimoine
+        sur le long terme. L'investissement passif en ETF, l'immobilier, la diversification
+        géographique — c'est le stade de la liberté financière progressive.
+      </div>
+    </div>
+
+    <p class="stade-desc">
+      L'investissement n'est pas compliqué — il est compliqué par ceux qui ont intérêt à le rendre
+      compliqué. Un ETF monde en DCA mensuel sur 20 ans surpasse 92% des fonds actifs gérés par des
+      professionnels. La stratégie gagnante est simple, ennuyeuse, et ça fonctionne.
+    </p>
+
+    <div class="stade-links">
+      <a href="/invest/allocation.html" class="stade-link">
+        <span class="stade-link-icon">🎯</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Allocation de portefeuille</div>
+          <div class="stade-link-desc">Combien mettre dans quoi — commencer ici</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="/invest/etf.html" class="stade-link">
+        <span class="stade-link-icon">📈</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">ETF — Guide complet belge</div>
+          <div class="stade-link-desc">VWCE, IWDA, DCA, TOB, brokers</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="invest-allocation.html#geo" class="stade-link">
+        <span class="stade-link-icon">🌍</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Diversification géographique</div>
+          <div class="stade-link-desc">MSCI World, émergents, risque dollar</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="/immo/" class="stade-link">
+        <span class="stade-link-icon">🏠</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Immobilier belge</div>
+          <div class="stade-link-desc">Acheter vs louer, droits, rendement net</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="rente.html" class="stade-link">
+        <span class="stade-link-icon">💸</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Rente & décumulation</div>
+          <div class="stade-link-desc">La règle des 4%, vivre de son capital</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+      <a href="invest-panorama.html" class="stade-link">
+        <span class="stade-link-icon">🗺️</span>
+        <span class="stade-link-text">
+          <div class="stade-link-title">Panorama complet</div>
+          <div class="stade-link-desc">Tous les véhicules comparés</div>
+        </span>
+        <span class="stade-link-arrow">→</span>
+      </a>
+    </div>
+
+    <div style="margin-top:16px;font-size:0.76rem;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span>✓ Stade 3 en cours quand :</span>
+      <span>DCA mensuel automatisé · allocation définie · horizon 10+ ans respecté</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       CONCEPT DE LA SEMAINE — discret
+  ═══════════════════════════════════════════════════ -->
+  <div class="concept-widget reveal">
+    <div class="concept-widget-left">
+      <div class="concept-widget-eyebrow">💡 Concept de la semaine</div>
+      <div class="concept-widget-titre" id="concept-titre">Chargement...</div>
+    </div>
+    <div class="concept-widget-right">
+      <a id="concept-lien" href="concept-semaine.html" class="source-pill" style="font-size:0.78rem;">
+        Découvrir →
+      </a>
+      <a href="concept-semaine.html" style="font-size:0.70rem;color:var(--muted2);text-decoration:none;white-space:nowrap;">
+        Tous les concepts ›
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       RESSOURCES RAPIDES
+  ═══════════════════════════════════════════════════ -->
+  <div class="reveal" style="margin:24px 0 36px;">
+    <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+      Ressources utiles <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--faint),transparent);"></span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+      <a href="/parcours/glossaire.html" style="background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;text-decoration:none;transition:background 0.15s;" onmouseover="this.style.background='var(--s3)'" onmouseout="this.style.background='var(--s2)'">
+        <div style="font-size:1.2rem;margin-bottom:5px;">📖</div>
+        <div style="font-size:0.76rem;font-weight:700;color:var(--text);">Glossaire</div>
+        <div style="font-size:0.68rem;color:var(--muted);margin-top:2px;">80 termes</div>
+      </a>
+      <a href="/a-propos/faq.html" style="background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;text-decoration:none;transition:background 0.15s;" onmouseover="this.style.background='var(--s3)'" onmouseout="this.style.background='var(--s2)'">
+        <div style="font-size:1.2rem;margin-bottom:5px;">❓</div>
+        <div style="font-size:0.76rem;font-weight:700;color:var(--text);">FAQ</div>
+        <div style="font-size:0.68rem;color:var(--muted);margin-top:2px;">12 questions</div>
+      </a>
+      <a href="/outils/" style="background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;text-decoration:none;transition:background 0.15s;" onmouseover="this.style.background='var(--s3)'" onmouseout="this.style.background='var(--s2)'">
+        <div style="font-size:1.2rem;margin-bottom:5px;">🛠️</div>
+        <div style="font-size:0.76rem;font-weight:700;color:var(--text);">Simulateurs</div>
+        <div style="font-size:0.68rem;color:var(--muted);margin-top:2px;">11 outils</div>
+      </a>
+      <a href="/contenu/videos.html" style="background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;text-decoration:none;transition:background 0.15s;" onmouseover="this.style.background='var(--s3)'" onmouseout="this.style.background='var(--s2)'">
+        <div style="font-size:1.2rem;margin-bottom:5px;">🎬</div>
+        <div style="font-size:0.76rem;font-weight:700;color:var(--text);">Vidéos</div>
+        <div style="font-size:0.68rem;color:var(--muted);margin-top:2px;">YouTube</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       NEWSLETTER
+  ═══════════════════════════════════════════════════ -->
+  <div class="nl-bar reveal">
+    <h3>
+      <em style="background:linear-gradient(90deg,#E87CC3,#5BB8D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal;">10 erreurs financières</em>
+      que font 90% des Belges
+    </h3>
+    <p>Guide PDF gratuit + une newsletter simple, sans spam, sans affiliation cachée.</p>
+    <div class="nl-form" id="nl-index">
+      <input class="form-input" type="email" id="nle-index"
+        placeholder="ton@email.be" autocomplete="email"
+        onkeydown="if(event.key==='Enter') submitNL('nle-index','nl-index','nlok-index')">
+      <button class="btn-primary" onclick="submitNL('nle-index','nl-index','nlok-index')">
+        Recevoir →
+      </button>
+    </div>
+    <div class="nl-success" id="nlok-index">✓ À très vite dans ta boîte mail !</div>
+    <div style="font-size:0.72rem;color:var(--muted2);margin-top:10px;">
+      Pas de spam. Désabonnement en 1 clic. Données hébergées en Europe.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       DISCLAIMER FSMA
+  ═══════════════════════════════════════════════════ -->
+  <div style="margin:32px 0;padding:14px 16px;background:var(--s2);border-radius:12px;font-size:0.74rem;color:var(--muted2);line-height:1.65;text-align:center;">
+    📋 Contenu éducatif — non agréé FSMA — pas de conseil financier personnalisé.<br>
+    Vérifie toujours les informations auprès des <a href="/a-propos/sources.html" style="color:var(--cyan);">sources officielles</a> avant de prendre une décision.
+  </div>
+
+</div><!-- fin .page -->
+
+<div id="ww-footer-placeholder"></div>
+
+<script>
+/* ── Concept de la semaine ────────────────────────────────
+   Charge le concept depuis CONCEPTS_2026_DATA (ww-infra.js)
+   ou depuis le tableau local en fallback.
+────────────────────────────────────────────────────────── */
+(function() {
+  function getWeek() {
+    var now   = new Date();
+    var start = new Date(now.getFullYear(), 0, 1);
+    return Math.min(Math.ceil((now - start) / (1000 * 60 * 60 * 24 * 7)), 52);
+  }
+
+  function loadConcept() {
+    var data = window.CONCEPTS_2026_DATA || window.CONCEPTS_2026;
+    if (!data) { setTimeout(loadConcept, 300); return; }
+
+    var week = getWeek();
+    var c    = data.find(function(x) { return x.semaine === week; }) || data[0];
+
+    var titre = document.getElementById('concept-titre');
+    var lien  = document.getElementById('concept-lien');
+
+    if (titre) titre.textContent = c.titre;
+    if (lien)  { lien.href = c.url; }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadConcept);
+})();
+</script>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body>
+</html>

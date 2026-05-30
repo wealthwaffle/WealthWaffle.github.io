@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulateurs financiers belges 2026 — WealthWaffle</title>
+  <meta name="description" content="23 simulateurs financiers pour investisseurs belges. Budget 50/30/20, crédit hypothécaire, épargne pension, rendement locatif, FIRE, ETF vs AV. Gratuits et Pilote.">
+  <meta property="og:title" content="Simulateurs financiers belges — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Simulateurs", basePath: "/outils/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="page" style="padding-top:80px;">
+<div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><span>Simulateurs</span></div>
+
+<div class="eyebrow" style="background:rgba(91,184,212,0.10);color:#5BB8D4;">🧮 Simulateurs</div>
+<h1 class="display">23 simulateurs<br><span style="color:#5BB8D4;">financiers belges</span></h1>
+<p class="lead" style="margin-bottom:8px;">Budget, épargne, investissement, immobilier, fiscalité — tous les calculs dont tu as besoin, adaptés à la fiscalité belge 2026.</p>
+<div class="reading-time" style="margin-bottom:28px;">
+  <span class="reading-time-badge">🌐 6 outils publics gratuits</span>
+  <span class="reading-time-badge">🟢 8 outils Socle (compte gratuit)</span>
+  <span class="reading-time-badge">✈️ 9 outils Pilote (abonnement)</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1 — OUTILS PUBLICS (toujours visibles)
+════════════════════════════════════════════════════ -->
+<div style="margin-bottom:10px;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#5BB8D4;background:rgba(91,184,212,0.10);padding:4px 12px;border-radius:20px;border:1px solid rgba(91,184,212,0.25);">🌐 Accès libre</span>
+  <span style="font-size:0.72rem;color:var(--muted);">Sans compte · Toujours gratuits</span>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px;">
+
+  <div class="content-card reveal" style="margin:0;">
+    <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">💶 Décodeur 50/30/20</div>
+    <div id="t-503020"></div>
+    <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/budget/" style="color:var(--cyan);">Guide budget complet</a></div>
+  </div>
+
+  <div class="content-card reveal" style="margin:0;">
+    <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">⏱️ Coût réel en heures de travail</div>
+    <div id="t-cout"></div>
+    <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/budget/" style="color:var(--cyan);">Guide budget</a></div>
+  </div>
+
+  <div class="content-card reveal" style="margin:0;">
+    <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">📉 Convertisseur inflation</div>
+    <div id="t-inflation"></div>
+  </div>
+
+  <div class="content-card reveal" style="margin:0;">
+    <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🪞 Quiz biais cognitifs</div>
+    <div id="t-biais"></div>
+    <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/parcours/psychologie.html" style="color:var(--cyan);">Page psychologie</a></div>
+  </div>
+
+  <div class="content-card reveal" style="margin:0;">
+    <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">📖 Traducteur jargon</div>
+    <div id="t-jargon"></div>
+    <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/parcours/glossaire.html" style="color:var(--cyan);">Glossaire complet</a></div>
+  </div>
+
+  <div class="content-card reveal" style="margin:0;">
+    <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">📅 Frise temporelle projets</div>
+    <div id="t-frise"></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2 — OUTILS SOCLE (compte gratuit)
+════════════════════════════════════════════════════ -->
+<div style="margin-bottom:10px;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#7EC8A0;background:rgba(126,200,160,0.10);padding:4px 12px;border-radius:20px;border:1px solid rgba(126,200,160,0.25);">🟢 Socle — compte gratuit</span>
+  <span style="font-size:0.72rem;color:var(--muted);">Sauvegarde tes simulations · <a href="/compte/inscription.html" style="color:#7EC8A0;">Créer mon compte →</a></span>
+</div>
+
+<div id="socle-tools-wrapper">
+  <!-- Affiché si connecté Socle ou Pilote — sinon blur gate -->
+  <div id="socle-unlocked" style="display:none;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px;">
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🎯 Simulateur objectifs financiers</div>
+        <div id="t-objectifs"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/budget/" style="color:var(--cyan);">Guide budget</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">💳 Rembourser ou épargner ?</div>
+        <div id="t-dette"></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🛡️ Test fonds d'urgence</div>
+        <div id="t-urgence"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/budget/" style="color:var(--cyan);">Guide budget</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">📓 Journal de décisions</div>
+        <div id="t-journal"></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🧬 Budget par étape de vie</div>
+        <div id="t-budgetvie"></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🛡️ Estimateur budget assurances</div>
+        <div id="t-assur"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/fiscal/assurances.html" style="color:var(--cyan);">Guide assurances</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">📊 Impact taxe plus-value 10%</div>
+        <div id="t-taxepv"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/invest/" style="color:var(--cyan);">Fiscalité investisseur</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🔥 Simulateur FIRE</div>
+        <div id="t-fire"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/budget/rente.html" style="color:var(--cyan);">Vivre de son capital</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Blur gate si non connecté -->
+  <div id="socle-locked" class="blur-gate">
+    <div class="blur-gate-content">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="content-card" style="margin:0;"><div style="height:120px;background:var(--s3);border-radius:10px;"></div></div>
+        <div class="content-card" style="margin:0;"><div style="height:120px;background:var(--s3);border-radius:10px;"></div></div>
+        <div class="content-card" style="margin:0;"><div style="height:120px;background:var(--s3);border-radius:10px;"></div></div>
+        <div class="content-card" style="margin:0;"><div style="height:120px;background:var(--s3);border-radius:10px;"></div></div>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to bottom,transparent,var(--bg,#080717) 55%);padding:48px 20px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div style="background:var(--s2,#111127);border:1px solid rgba(126,200,160,0.28);border-radius:18px;padding:22px 24px;max-width:380px;box-shadow:0 8px 40px rgba(0,0,0,0.5);">
+        <div style="font-size:1.3rem;margin-bottom:6px;">🟢</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:var(--text);margin-bottom:6px;">8 simulateurs Socle</div>
+        <div style="font-size:0.78rem;color:var(--muted);line-height:1.65;margin-bottom:14px;">Objectifs, dettes, urgence, FIRE, taxe PV… Crée un compte gratuit pour y accéder et sauvegarder tes résultats.</div>
+        <a href="/compte/inscription.html" style="display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:12px;background:linear-gradient(135deg,#7EC8A0,#4aa87a);color:#fff;font-weight:700;font-size:0.86rem;text-decoration:none;">Créer mon compte gratuit →</a>
+        <div style="font-size:0.68rem;color:var(--muted2);margin-top:8px;">Sans carte bancaire · Accès immédiat</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3 — OUTILS PILOTE (abonnement)
+════════════════════════════════════════════════════ -->
+<div style="margin-bottom:10px;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#5BB8D4;background:rgba(91,184,212,0.10);padding:4px 12px;border-radius:20px;border:1px solid rgba(91,184,212,0.25);">✈️ Pilote — abonnement</span>
+  <span style="font-size:0.72rem;color:var(--muted);">14,99€/mois · 99€/an · <a href="/compte/inscription.html?plan=pilote" style="color:#5BB8D4;">7 jours gratuits →</a></span>
+</div>
+
+<div id="pilote-tools-wrapper">
+  <div id="pilote-unlocked" style="display:none;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px;">
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">💸 Impact frais cachés sur 30 ans</div>
+        <div id="t-frais"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/invest/fonds.html" style="color:var(--cyan);">Fonds actifs vs ETF</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">📜 Bon d'État vs compte épargne</div>
+        <div id="t-bons"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/invest/obligations.html" style="color:var(--cyan);">Obligations & bons d'État</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🏛️ Calculateur épargne pension</div>
+        <div id="t-pension"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/budget/epargne.html" style="color:var(--cyan);">Guide épargne long terme</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">💸 Simulateur obligations</div>
+        <div id="t-oblig"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/invest/obligations.html" style="color:var(--cyan);">Guide obligations</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">💰 Optimiseur rémunération dirigeant</div>
+        <div id="t-remun"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/fiscal/remuneration.html" style="color:var(--cyan);">Salaire vs dividendes</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🏦 Simulateur crédit hypothécaire</div>
+        <div id="t-credit"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/immo/financement.html" style="color:var(--cyan);">Financement hypothécaire</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🏠 Rendement locatif net-net</div>
+        <div id="t-locatif"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/immo/locatif.html" style="color:var(--cyan);">Investissement locatif</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">⚖️ ETF direct vs Branche 23</div>
+        <div id="t-etfav"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/invest/alternatives.html" style="color:var(--cyan);">Investissements alternatifs</a></div>
+      </div>
+
+      <div class="content-card" style="margin:0;grid-column:span 2;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">🎯 Arbre de décision investissement</div>
+        <div id="t-arbre"></div>
+        <div style="margin-top:10px;font-size:0.72rem;color:var(--muted2);">→ <a href="/invest/allocation.html" style="color:var(--cyan);">Guide allocation</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Blur gate Pilote -->
+  <div id="pilote-locked" class="blur-gate">
+    <div class="blur-gate-content">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="content-card" style="margin:0;"><div style="height:140px;background:var(--s3);border-radius:10px;"></div></div>
+        <div class="content-card" style="margin:0;"><div style="height:140px;background:var(--s3);border-radius:10px;"></div></div>
+        <div class="content-card" style="margin:0;"><div style="height:140px;background:var(--s3);border-radius:10px;"></div></div>
+        <div class="content-card" style="margin:0;"><div style="height:140px;background:var(--s3);border-radius:10px;"></div></div>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to bottom,transparent,var(--bg,#080717) 55%);padding:48px 20px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div style="background:var(--s2,#111127);border:1px solid rgba(91,184,212,0.28);border-radius:18px;padding:22px 24px;max-width:400px;box-shadow:0 8px 40px rgba(0,0,0,0.5);">
+        <div style="font-size:1.3rem;margin-bottom:6px;">✈️</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:var(--text);margin-bottom:6px;">9 simulateurs Pilote</div>
+        <div style="font-size:0.78rem;color:var(--muted);line-height:1.65;margin-bottom:14px;">Frais cachés, épargne pension Option A/B, crédit hypothécaire avec frais par région, rendement locatif net-net, rémunération dirigeant, ETF vs Branche 23 sur 35 ans…</div>
+        <a href="/compte/inscription.html?plan=pilote" style="display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:12px;background:linear-gradient(135deg,#5BB8D4,#3a98b4);color:#fff;font-weight:700;font-size:0.86rem;text-decoration:none;">Découvrir Pilote — 7 jours gratuits →</a>
+        <div style="font-size:0.68rem;color:var(--muted2);margin-top:8px;">14,99€/mois · 99€/an · Sans engagement</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="see-also">
+  <div class="see-also-label">Voir aussi</div>
+  <a href="/budget/" class="see-also-pill">💶 Budget</a>
+  <a href="/invest/" class="see-also-pill">📈 Investir</a>
+  <a href="/immo/" class="see-also-pill">🏠 Immo</a>
+  <a href="/fiscal/" class="see-also-pill">📋 Fiscalité</a>
+  <a href="/parcours/psychologie.html" class="see-also-pill">🧠 Psychologie</a>
+</div>
+</div>
+
+<script>
+// ── Gestion des accès selon niveau utilisateur ──────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    var session = localStorage.getItem('ww_session') || sessionStorage.getItem('ww_session');
+    var level   = localStorage.getItem('ww_plan') || 'public'; // 'public' | 'socle' | 'pilote' | 'radar'
+    var hasSocle  = session && (level === 'socle'  || level === 'pilote' || level === 'radar');
+    var hasPilote = session && (level === 'pilote' || level === 'radar');
+
+    // Afficher/masquer Socle
+    var socleUnlocked = document.getElementById('socle-unlocked');
+    var socleLocked   = document.getElementById('socle-locked');
+    if (hasSocle) {
+      if (socleUnlocked) socleUnlocked.style.display = 'block';
+      if (socleLocked)   socleLocked.style.display   = 'none';
+    } else {
+      if (socleUnlocked) socleUnlocked.style.display = 'none';
+      if (socleLocked)   socleLocked.style.display   = 'block';
+    }
+
+    // Afficher/masquer Pilote
+    var piloteUnlocked = document.getElementById('pilote-unlocked');
+    var piloteLocked   = document.getElementById('pilote-locked');
+    if (hasPilote) {
+      if (piloteUnlocked) piloteUnlocked.style.display = 'block';
+      if (piloteLocked)   piloteLocked.style.display   = 'none';
+    } else {
+      if (piloteUnlocked) piloteUnlocked.style.display = 'none';
+      if (piloteLocked)   piloteLocked.style.display   = 'block';
+    }
+  } catch(e) {}
+
+  // ── Initialiser les outils publics (toujours) ──────────────────
+  if (!window.WW_Tools) return;
+  var T = window.WW_Tools;
+
+  // Publics
+  T.decodeur503020        && T.decodeur503020('t-503020');
+  T.coutReel              && T.coutReel('t-cout');
+  T.convertisseurInflation&& T.convertisseurInflation('t-inflation');
+  T.quizBiais             && T.quizBiais('t-biais');
+  T.traducteurJargon      && T.traducteurJargon('t-jargon');
+  T.ligneTemps            && T.ligneTemps('t-frise');
+
+  // Socle — seulement si débloqué
+  var hasSocle = document.getElementById('socle-unlocked')?.style.display !== 'none';
+  if (hasSocle) {
+    T.simulateurObjectifs   && T.simulateurObjectifs('t-objectifs');
+    T.comparateurDette      && T.comparateurDette('t-dette');
+    T.testResistance        && T.testResistance('t-urgence');
+    T.journalDecisions      && T.journalDecisions('t-journal');
+    T.simulateurBudgetVie   && T.simulateurBudgetVie('t-budgetvie');
+    T.comparateurAssurances && T.comparateurAssurances('t-assur');
+    T.simulateurTaxePV      && T.simulateurTaxePV('t-taxepv');
+    T.simulateurFIRE        && T.simulateurFIRE('t-fire');
+  }
+
+  // Pilote — seulement si débloqué
+  var hasPilote = document.getElementById('pilote-unlocked')?.style.display !== 'none';
+  if (hasPilote) {
+    T.fraisCaches              && T.fraisCaches('t-frais');
+    T.simulateurBonsEtat       && T.simulateurBonsEtat('t-bons');
+    T.calculateurEpargnePension&& T.calculateurEpargnePension('t-pension');
+    T.simulateurObligations    && T.simulateurObligations('t-oblig');
+    T.optimiseurRemuneration   && T.optimiseurRemuneration('t-remun');
+    T.simulateurCredit         && T.simulateurCredit('t-credit');
+    T.rendementLocatifAvance   && T.rendementLocatifAvance('t-locatif');
+    T.comparateurETFvsAV       && T.comparateurETFvsAV('t-etfav');
+    T.arbreDecision            && T.arbreDecision('t-arbre');
+  }
+});
+</script>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body>
+</html>

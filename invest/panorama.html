@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panorama des placements belges 2026 — WealthWaffle</title>
+  <meta name="description" content="Vue d'ensemble de tous les placements disponibles en Belgique. Rendement, risque, liquidité, fiscalité comparés.">
+  <meta property="og:title" content="Panorama des placements belges 2026 — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Panorama placements", basePath: "/invest/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="page" style="padding-top:80px;"><div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/invest/">Investir</a><span>/</span><span>Panorama</span></div>
+<nav class="toc-sidebar">
+  <a href="#classes">📦 Classes d'actifs</a>
+  <a href="#tableau">📊 Tableau comparatif</a>
+  <a href="#fiscalite">📋 Fiscalité résumée</a>
+  <a href="#par-profil">👤 Par profil</a>
+</nav>
+<div class="eyebrow" style="background:rgba(91,184,212,0.10);color:#5BB8D4;">🗺️ Panorama</div>
+<h1 class="display">Tous les placements<br><span style="color:#5BB8D4;">en un coup d'œil</span></h1>
+<p class="lead" style="margin-bottom:16px;">Rendement historique, risque, liquidité, ticket minimum, fiscalité belge — tous les placements comparés pour te donner une boussole claire.</p>
+<div class="reading-time"><span class="reading-time-badge">🌱 Débutant : ~6 min</span><span class="reading-time-badge">🚀 Avancé : ~14 min</span><span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span></div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;"><a href="/invest/" class="source-pill">📈 Hub</a><a href="/invest/panorama.html" class="source-pill" style="background:rgba(91,184,212,0.12);border-color:rgba(91,184,212,0.30);color:#5BB8D4;">🗺️ Panorama ←</a><a href="/invest/etf.html" class="source-pill">📊 ETF</a><a href="/invest/allocation.html" class="source-pill">🎯 Allocation</a><a href="/invest/actions.html" class="source-pill">📉 Actions</a><a href="/invest/obligations.html" class="source-pill">💸 Obligations</a><a href="/invest/fonds.html" class="source-pill">🏦 Fonds</a><a href="/invest/equity.html" class="source-pill">🚀 Equity</a><a href="/invest/alternatives.html" class="source-pill">🌐 Alternatifs</a><a href="/invest/crypto.html" class="source-pill">₿ Crypto</a></div>
+
+<div class="content-card toc-target reveal" id="classes">
+  <h3>📦 Les grandes classes d'actifs</h3>
+  <div class="level-section">
+    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0;">
+      <div style="background:rgba(126,200,160,0.07);border-left:3px solid #7EC8A0;border-radius:0 10px 10px 0;padding:12px 14px;"><strong style="color:#7EC8A0;">Actions (équités)</strong> — Parts de propriété dans des entreprises. Rendement élevé long terme, volatilité élevée.</div>
+      <div style="background:rgba(91,184,212,0.07);border-left:3px solid #5BB8D4;border-radius:0 10px 10px 0;padding:12px 14px;"><strong style="color:#5BB8D4;">Obligations</strong> — Prêts à des États ou entreprises. Rendement plus faible, risque plus faible.</div>
+      <div style="background:rgba(232,124,195,0.07);border-left:3px solid var(--rose);border-radius:0 10px 10px 0;padding:12px 14px;"><strong style="color:var(--rose);">Immobilier</strong> — Direct ou via SIR. Rendement moyen, revenus locatifs, illiquide en direct.</div>
+      <div style="background:rgba(232,194,58,0.07);border-left:3px solid #E8C23A;border-radius:0 10px 10px 0;padding:12px 14px;"><strong style="color:#E8C23A;">Matières premières</strong> — Or, argent, pétrole, agricoles. Couverture inflation, pas de revenus.</div>
+      <div style="background:rgba(201,184,255,0.07);border-left:3px solid #c9b8ff;border-radius:0 10px 10px 0;padding:12px 14px;"><strong style="color:#c9b8ff;">Actifs alternatifs</strong> — Crypto, vin, forêts, crowdlending. Diversification, risques spécifiques élevés.</div>
+    </div>
+    </div>
+    <div data-level="avance"><div class="level-badge">🚀 Avancé</div>
+    <p>La corrélation entre classes d'actifs est la variable clé de la diversification. Actions et obligations ont historiquement une corrélation négative ou nulle en période de récession (les obligations montent quand les actions baissent). Cette relation s'est fragilisée en 2022 (hausse des taux = baisse des deux simultanément). L'or maintient une corrélation négative robuste avec les actions en crise. Les actifs alternatifs (immobilier, matières premières) ajoutent une dimension de diversification que les seules actions/obligations ne couvrent pas.</p>
+    </div>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="tableau">
+  <h3>📊 Tableau comparatif complet</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Placement</th><th>Rendement hist.</th><th>Risque</th><th>Liquidité</th><th>Ticket min.</th><th>Fiscalité BE</th></tr></thead>
+    <tbody>
+      <tr><td>ETF monde (VWCE)</td><td style="color:#7EC8A0;">~7-9%/an</td><td style="color:#E8C23A;">Moyen</td><td style="color:#7EC8A0;">Élevée</td><td>~100€</td><td>TOB 0,12% + PV 10%</td></tr>
+      <tr><td>Actions BE (Euronext)</td><td>Variable</td><td style="color:#E87CC3;">Élevé</td><td style="color:#7EC8A0;">Bonne</td><td>~50€</td><td>TOB 0,35% + PV 10% + PM 30%</td></tr>
+      <tr><td>Obligations d'État BE</td><td>2,5-4%/an</td><td style="color:#7EC8A0;">Faible</td><td style="color:#7EC8A0;">Bonne</td><td>~100€</td><td>PM 30% coupons + PV 10%</td></tr>
+      <tr><td>Compte épargne réglementé</td><td>0,5-1,5%/an</td><td style="color:#7EC8A0;">Nul</td><td style="color:#7EC8A0;">Immédiate</td><td>1€</td><td>PM 30% (exo <span data-ww="ep_exon" data-fmt="eur"></span>)</td></tr>
+      <tr><td>Épargne pension (3P)</td><td>3-6%/an (fonds)</td><td style="color:#E8C23A;">Faible-moyen</td><td style="color:#E87CC3;">Nulle avant 60 ans</td><td>10€</td><td>Réduction 25-30% + taxe 8% à 60 ans</td></tr>
+      <tr><td>Immo direct</td><td>3-6% net</td><td style="color:#E8C23A;">Moyen</td><td style="color:#E87CC3;">Très faible</td><td>50K€+</td><td>Précompte immo + IPP 16,5% si vente &lt;5 ans · Exo résidence principale</td></tr>
+      <tr><td>SIR belges (cotées)</td><td>4-7% dividende</td><td style="color:#E8C23A;">Moyen</td><td style="color:#7EC8A0;">Bonne</td><td>~50€</td><td>PM 15% (SIR agréées) + PV 10%</td></tr>
+      <tr><td>Or (ETF physique)</td><td>~5-7%/an LT</td><td style="color:#E8C23A;">Moyen</td><td style="color:#7EC8A0;">Bonne</td><td>~20€</td><td>TOB 0,12% + PV 10%</td></tr>
+      <tr><td>Bitcoin</td><td>Très variable</td><td style="color:#E87CC3;">Très élevé</td><td style="color:#E8C23A;">Moyenne</td><td>10€</td><td>PV 10% (LT) ou 33% (spéculatif)</td></tr>
+      <tr><td>Crowdlending</td><td>6-10% brut</td><td style="color:#E87CC3;">Élevé</td><td style="color:#E87CC3;">Faible</td><td>100€</td><td>PM 30% sur intérêts</td></tr>
+      <tr><td>Equity startup (Tax Shelter)</td><td>0 ou x5+</td><td style="color:#E87CC3;">Très élevé</td><td style="color:#E87CC3;">Quasi nulle</td><td>100€</td><td>Réduction IPP 45% + PV 10%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="warn-box">⚠️ <strong>Taxe plus-value 10% depuis janvier 2026</strong> — applicable sur tous les actifs financiers. Première déclaration : exercice 2027.</div>
+</div>
+
+<div class="content-card toc-target reveal" id="par-profil">
+  <h3>👤 Par profil — quelle allocation de base</h3>
+  <div class="level-section">
+    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin:12px 0;">
+      <div style="background:var(--s3);border-radius:12px;padding:14px;"><strong style="color:#7EC8A0;">Débutant / Défensif :</strong> <span style="color:var(--muted);font-size:0.82rem;">60% compte épargne · 30% épargne pension · 10% ETF monde</span></div>
+      <div style="background:var(--s3);border-radius:12px;padding:14px;"><strong style="color:#5BB8D4;">Équilibré :</strong> <span style="color:var(--muted);font-size:0.82rem;">20% épargne · 20% épargne pension · 50% ETF monde · 10% obligations</span></div>
+      <div style="background:var(--s3);border-radius:12px;padding:14px;"><strong style="color:#E87CC3;">Croissance / Long terme :</strong> <span style="color:var(--muted);font-size:0.82rem;">10% épargne urgence · 15% épargne pension · 75% ETF monde</span></div>
+    </div>
+    <a href="/invest/allocation.html" class="btn-secondary" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;">🎯 Guide allocation détaillé →</a>
+    </div>
+  </div>
+</div>
+
+<div class="see-also"><div class="see-also-label">Voir aussi</div>
+  <a href="/invest/etf.html" class="see-also-pill">📊 ETF</a>
+  <a href="/invest/allocation.html" class="see-also-pill">🎯 Allocation</a>
+  <a href="/invest/alternatives.html" class="see-also-pill">🌐 Alternatifs</a>
+  <a href="/outils/" class="see-also-pill">🧮 Simulateurs</a>
+</div>
+</div>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body></html>

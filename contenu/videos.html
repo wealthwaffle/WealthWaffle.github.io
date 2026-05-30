@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vidéos finance belge — WealthWaffle — WealthWaffle</title>
+  <meta name="description" content="Toutes les vidéos WealthWaffle sur la finance personnelle belge. Budget, ETF, immo, fiscalité, crypto.">
+  <meta property="og:title" content="Vidéos finance belge — WealthWaffle — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Vidéos", basePath: "/contenu/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="page" style="padding-top:80px;">
+<div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/contenu/">Contenu</a><span>/</span><span>Vidéos</span></div>
+<div id="ww-nav-placeholder"></div>
+</div>
+<div class="page" style="padding-top:80px;max-width:960px;">
+  <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><span>Vidéos</span></div>
+
+  <div class="eyebrow" style="background:rgba(232,124,195,0.10);color:var(--rose);">&#127910; Vidéos</div>
+  <h1 class="display">La finance belge<br><span style="color:var(--rose);">en moins de 2 minutes</span></h1>
+  <p class="lead" style="margin-bottom:24px;">Chaque semaine une nouvelle vidéo. Budget, ETF, fiscalité, immobilier — sans jargon.</p>
+
+  <!-- Plateformes -->
+  <div class="platform-row">
+    <a href="https://www.youtube.com/@WealthWaffle_be" target="_blank" rel="noopener" class="platform-btn">
+      <div class="platform-btn-icon">&#9654;&#65039;</div>
+      <div class="platform-btn-name">YouTube</div>
+      <div class="platform-btn-sub">@WealthWaffle_be</div>
+    </a>
+    <a href="https://www.tiktok.com/@WealthWaffle_be" target="_blank" rel="noopener" class="platform-btn">
+      <div class="platform-btn-icon">&#127925;</div>
+      <div class="platform-btn-name">TikTok</div>
+      <div class="platform-btn-sub">@WealthWaffle_be</div>
+    </a>
+    <a href="https://www.instagram.com/WealthWaffle_be" target="_blank" rel="noopener" class="platform-btn">
+      <div class="platform-btn-icon">&#128247;</div>
+      <div class="platform-btn-name">Instagram</div>
+      <div class="platform-btn-sub">@WealthWaffle_be</div>
+    </a>
+  </div>
+
+  <!-- Statut API -->
+  <div id="yt-status" style="display:none;font-size:.80rem;color:var(--muted);margin-bottom:12px;"></div>
+
+  <!-- Compteur vidéos -->
+  <div style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+    <span id="yt-count">Dernières vidéos</span>
+    <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--faint),transparent);"></span>
+  </div>
+
+  <!-- Grille vidéos -->
+  <div id="yt-grid" class="yt-grid">
+    <!-- Skeletons pendant le chargement -->
+    <div class="yt-skeleton"></div>
+    <div class="yt-skeleton"></div>
+    <div class="yt-skeleton"></div>
+    <div class="yt-skeleton"></div>
+    <div class="yt-skeleton"></div>
+    <div class="yt-skeleton"></div>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="nl-bar" style="margin-top:48px;">
+    <h3>Nouvelle vid&#233;o chaque semaine &#8212; <em style="background:linear-gradient(90deg,#E87CC3,#5BB8D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal;">re&#231;ois-les dans ta bo&#238;te</em></h3>
+    <p>Newsletter gratuite + guide PDF "10 erreurs financi&#232;res que font 90% des Belges".</p>
+    <div class="nl-form" id="nl-videos">
+      <input class="form-input" type="email" id="nle-videos" placeholder="ton@email.be" autocomplete="email"
+        onkeydown="if(event.key==='Enter')submitNL('nle-videos','nl-videos','nlok-videos')">
+      <button class="btn-primary" onclick="submitNL('nle-videos','nl-videos','nlok-videos')">S'abonner &#8594;</button>
+    </div>
+    <div class="nl-success" id="nlok-videos">&#10003; &#192; tr&#232;s vite dans ta bo&#238;te mail !</div>
+  </div>
+
+  <div class="see-also">
+    <div class="see-also-label">Voir aussi</div>
+    <a href="/a-propos/faq.html" class="see-also-link">&#10067; FAQ</a>
+    <a href="concept-semaine.html" class="see-also-link">&#128161; Concept de la semaine</a>
+    <a href="/invest/" class="see-also-link">&#128200; Investir</a>
+    <a href="/outils/" class="see-also-link">&#128293; Les outils</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     YouTube Auto-Load
+     
+     CONFIG : ajouter ta clé API YouTube et l'ID de ta chaîne
+     dans data.js :
+     
+       yt_api_key:     'AIza...ta_cle_ici',
+       yt_channel_id:  'UCxxxxxx...ton_channel_id',
+       yt_max_results: 12,    // nombre de vidéos à afficher
+     
+     Comment obtenir une clé API YouTube :
+     1. console.cloud.google.com → Créer un projet
+     2. Activer "YouTube Data API v3"
+     3. Identifiants → Créer une clé API
+     4. Restreindre à l'URL wealthwaffle.be pour la sécurité
+     
+     Comment trouver l'ID de ta chaîne :
+     YouTube → Settings → Advanced → Channel ID
+     ou regarder l'URL : youtube.com/channel/UC...
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+(function() {
+  // Catégories et icônes par mots-clés dans le titre
+  const CATS = [
+    { keys:['budget','épargne','urgence','dépense','dettes'],     cat:'budget',    icon:'💶' },
+    { keys:['etf','invest','bourse','action','dividende','dca'],   cat:'invest',    icon:'📈' },
+    { keys:['impôt','fiscal','déclaration','tob','taxe','tob'],    cat:'fiscalite', icon:'📋' },
+    { keys:['immo','appartement','maison','loyer','acheter'],      cat:'immo',      icon:'🏠' },
+    { keys:['crypto','bitcoin','blockchain','nft'],                cat:'crypto',    icon:'₿'  },
+    { keys:['base','inflation','monnaie','or','devises'],          cat:'bases',     icon:'📚' },
+  ];
+
+  function getCategory(title) {
+    const tl = title.toLowerCase();
+    for (const c of CATS) {
+      if (c.keys.some(k => tl.includes(k))) return c;
+    }
+    return { cat:'all', icon:'🧇' };
+  }
+
+  function renderVideo(item) {
+    const vid   = item.id?.videoId;
+    const snip  = item.snippet;
+    if (!vid || !snip) return '';
+    const { cat, icon } = getCategory(snip.title);
+    const isShort = snip.title.toLowerCase().includes('short') ||
+                    (snip.thumbnails?.maxres?.height > snip.thumbnails?.maxres?.width);
+    const embedClass = isShort ? 'video-embed-shorts' : 'video-embed-landscape';
+
+    return `<div class="video-card" data-theme="${cat}">
+      <div class="${embedClass}">
+        <iframe
+          src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1"
+          title="${snip.title.replace(/"/g,'&quot;')}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+      <div class="video-info">
+        <div class="video-cat">${icon} ${cat === 'all' ? 'WealthWaffle' : cat.charAt(0).toUpperCase() + cat.slice(1)}</div>
+        <div class="video-title">${snip.title}</div>
+        <div class="video-desc" style="font-size:0.76rem;color:var(--muted);">
+          ${new Date(snip.publishedAt).toLocaleDateString('fr-BE', {day:'numeric',month:'long',year:'numeric'})}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function loadVideos() {
+    const D   = window.WW_DATA || {};
+    const key = D.yt_api_key;
+    const cid = D.yt_channel_id;
+    const max = D.yt_max_results || 12;
+    const grid = document.getElementById('video-grid');
+    if (!grid) return;
+
+    // Pas encore configuré
+    if (!key || !cid || key === 'VOTRE_CLE_API_ICI') {
+      console.log('WealthWaffle: YouTube API non configurée. Ajouter yt_api_key et yt_channel_id dans data.js');
+      return; // Les placeholders existants restent visibles
+    }
+
+    // Appel API YouTube Data v3
+    const url = `https://www.googleapis.com/youtube/v3/search?` +
+      `part=snippet&channelId=${cid}&maxResults=${max}` +
+      `&order=date&type=video&key=${key}`;
+
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        if (data.error) {
+          console.warn('YouTube API error:', data.error.message);
+          return;
+        }
+        const items = data.items || [];
+        if (!items.length) return;
+        // Remplacer toute la grille par les vraies vidéos
+        grid.innerHTML = items.map(renderVideo).join('');
+      })
+      .catch(e => console.warn('YouTube fetch error:', e));
+  }
+
+  document.addEventListener('DOMContentLoaded', loadVideos);
+})();
+</script>
+<div id="ww-footer-placeholder"></div>
+<script>
+/*
+ * YouTube API auto-loader
+ * Config dans data.js :
+ *   yt_channel_id : 'UCxxxxxxxxxxxxxxxxx'  <- ID chaîne YouTube
+ *   yt_api_key    : 'AIzaSy...'            <- Clé API YouTube Data v3
+ *   yt_max_results: 12                     <- Nombre de vidéos (défaut: 12)
+ *
+ * Comment trouver l'ID de ta chaîne :
+ *   1. Va sur youtube.com/channel/... (l'URL complète)
+ *   2. Ou : YouTube Studio > Paramètres > Informations sur la chaîne > ID de la chaîne
+ *
+ * Comment créer la clé API :
+ *   1. console.cloud.google.com
+ *   2. Créer un projet "WealthWaffle"
+ *   3. APIs > YouTube Data API v3 > Activer
+ *   4. Identifiants > Créer une clé API
+ *   5. Restreindre la clé : HTTP referrers > wealthwaffle.be/*
+ */
+
+(function() {
+  'use strict';
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('fr-BE', { day:'numeric', month:'long', year:'numeric' });
+  }
+
+  function renderSkeletons(n) {
+    const g = document.getElementById('yt-grid');
+    if (!g) return;
+    g.innerHTML = Array(n).fill('<div class="yt-skeleton"></div>').join('');
+  }
+
+  function renderVideos(items) {
+    const g = document.getElementById('yt-grid');
+    const count = document.getElementById('yt-count');
+    if (!g) return;
+
+    if (!items || items.length === 0) {
+      g.innerHTML = '<p style="color:var(--muted);font-size:.86rem;grid-column:1/-1;text-align:center;padding:32px 0;">Aucune vid&#233;o trouv&#233;e. V&#233;rifie la configuration dans data.js.</p>';
+      return;
+    }
+
+    if (count) count.textContent = items.length + ' derni&#232;re' + (items.length > 1 ? 's' : '') + ' vid&#233;o' + (items.length > 1 ? 's' : '');
+
+    g.innerHTML = items.map(item => {
+      const vid = item.id?.videoId || item.snippet?.resourceId?.videoId;
+      const title = item.snippet?.title || '';
+      const thumb = item.snippet?.thumbnails?.medium?.url || item.snippet?.thumbnails?.default?.url || '';
+      const date = item.snippet?.publishedAt ? formatDate(item.snippet.publishedAt) : '';
+      const url = `https://www.youtube.com/watch?v=${vid}`;
+
+      return `<a href="${url}" target="_blank" rel="noopener" class="yt-card">
+        <div class="yt-thumb-wrap">
+          ${thumb ? `<img src="${thumb}" alt="${title.replace(/"/g,'')}" loading="lazy">` : ''}
+          <div class="yt-play-btn">&#9654;</div>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">${title}</div>
+          ${date ? `<div class="yt-date">${date}</div>` : ''}
+        </div>
+      </a>`;
+    }).join('');
+  }
+
+  function showError(msg) {
+    const status = document.getElementById('yt-status');
+    const g = document.getElementById('yt-grid');
+    if (status) { status.textContent = msg; status.style.display = 'block'; }
+    if (g) g.innerHTML = '<p style="color:var(--muted);font-size:.84rem;grid-column:1/-1;text-align:center;padding:32px 0;">&#128249; Les vid&#233;os ne sont pas encore configur&#233;es.<br><br>&#8594; <a href="https://www.youtube.com/@WealthWaffle_be" target="_blank" rel="noopener" style="color:#E87CC3;">Voir la cha&#238;ne YouTube directement</a></p>';
+  }
+
+  async function loadYouTubeVideos() {
+    const D = window.WW_DATA || {};
+    const channelId = D.yt_channel_id;
+    const apiKey    = D.yt_api_key;
+    const maxRes    = D.yt_max_results || 12;
+
+    // Pas de config — afficher message d'aide
+    if (!channelId || !apiKey ||
+        channelId === 'UC_TON_CHANNEL_ID' ||
+        apiKey    === 'TA_CLE_API_YOUTUBE') {
+      showError('YouTube non configur&#233; — ajouter yt_channel_id et yt_api_key dans data.js');
+      return;
+    }
+
+    try {
+      // Étape 1 : récupérer les uploads de la chaîne
+      const channelRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${apiKey}`
+      );
+      if (!channelRes.ok) throw new Error(`API error ${channelRes.status}`);
+      const channelData = await channelRes.json();
+
+      if (channelData.error) throw new Error(channelData.error.message);
+      const uploadsId = channelData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+      if (!uploadsId) throw new Error('Playlist uploads introuvable');
+
+      // Étape 2 : récupérer les dernières vidéos
+      const videosRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsId}&maxResults=${maxRes}&key=${apiKey}`
+      );
+      if (!videosRes.ok) throw new Error(`API error ${videosRes.status}`);
+      const videosData = await videosRes.json();
+
+      if (videosData.error) throw new Error(videosData.error.message);
+      renderVideos(videosData.items || []);
+
+    } catch(err) {
+      console.error('YouTube API:', err.message);
+      showError('Erreur API YouTube : ' + err.message);
+    }
+  }
+
+  // Charger au DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadYouTubeVideos);
+  } else {
+    loadYouTubeVideos();
+  }
+})();
+</script>
+</div>
+<script src="/assets/data.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body></html>

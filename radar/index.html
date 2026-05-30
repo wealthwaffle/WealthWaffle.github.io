@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar Equity — WealthWaffle — WealthWaffle</title>
+  <meta name="description" content="Feed projets equity et crowdlending belges. Analyse scoring, verdict, watchlist. Accès Radar uniquement.">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { name: "Radar", basePath: "/radar/", auth: true };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<script src="/assets/ww-bundle.js" defer></script>
+<script>
+/* ── WealthWaffle Config — à remplir dans Cloudflare Pages env vars ── */
+window.WW_CONFIG = {
+  SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
+  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'TON_ANON_KEY',
+  STRIPE_KEY:        window.__CF_STRIPE_KEY__         || 'pk_live_TON_KEY',
+  PRICES: {
+    socle_monthly:  window.__CF_PRICE_SOCLE_M__  || 'price_SOCLE_MENSUEL',
+    socle_annual:   window.__CF_PRICE_SOCLE_A__  || 'price_SOCLE_ANNUEL',
+    pilote_monthly: window.__CF_PRICE_PILOTE_M__ || 'price_PILOTE_MENSUEL',
+    pilote_annual:  window.__CF_PRICE_PILOTE_A__ || 'price_PILOTE_ANNUEL',
+    radar_monthly:  window.__CF_PRICE_RADAR_M__  || 'price_RADAR_MENSUEL',
+    radar_annual:   window.__CF_PRICE_RADAR_A__  || 'price_RADAR_ANNUEL',
+  },
+  SITE_URL: 'https://wealthwaffle.be',
+  TRIAL_DAYS: 7,
+  BREVO_KEY: window.__CF_BREVO_KEY__ || '',
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ── Auth helpers — WealthWaffle ─────────────────────────── */
+const { createClient } = supabase;
+const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+window.WW = { sb };
+
+async function getSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return null;
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+  window.WW.user    = session.user;
+  window.WW.profile = profile;
+  // Sync level to localStorage pour les outils et blurs
+  localStorage.setItem('ww_session', session.access_token);
+  localStorage.setItem('ww_plan', profile?.plan || 'socle');
+  return { user: session.user, profile };
+}
+
+async function requireAuth(minLevel) {
+  const LEVELS = { socle: 1, pilote: 2, radar: 3 };
+  const session = await getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
+  const userLevel  = LEVELS[session.profile?.plan] || 0;
+  const neededLevel = LEVELS[minLevel] || 1;
+  if (userLevel < neededLevel) { window.location.href = '/compte/inscription.html?plan=' + minLevel; return null; }
+  return session;
+}
+
+async function signOut() {
+  await sb.auth.signOut();
+  localStorage.removeItem('ww_session');
+  localStorage.removeItem('ww_plan');
+  window.location.href = '/';
+}
+</script>
+<style>
+.filters { display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--faint); }
+.filter-btn { font-size:0.72rem;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--s2);color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.18s; }
+.filter-btn.active { background:rgba(232,124,195,0.12);border-color:rgba(232,124,195,0.30);color:var(--rose); }
+.project-card { background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:18px 16px;margin-bottom:10px;transition:border-color 0.18s,transform 0.18s; }
+.project-card:hover { border-color:rgba(232,124,195,0.20);transform:translateX(2px); }
+.project-title { font-size:0.92rem;font-weight:700;color:var(--text);margin-bottom:2px; }
+.project-meta { font-size:0.72rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px; }
+.project-platform { background:var(--s3);border-radius:6px;padding:2px 7px;font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em; }
+.verdict-badge { font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;flex-shrink:0; }
+.verdict-interessant { background:rgba(126,200,160,0.12);color:#7EC8A0;border:1px solid rgba(126,200,160,0.25); }
+.verdict-surveiller  { background:rgba(232,194,58,0.12);color:#E8C23A;border:1px solid rgba(232,194,58,0.25); }
+.verdict-insuffisant { background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid var(--border); }
+.verdict-trop_risque { background:rgba(232,124,195,0.08);color:var(--rose);border:1px solid rgba(232,124,195,0.20); }
+.project-summary { font-size:0.80rem;color:var(--muted);line-height:1.65;margin-bottom:12px; }
+.score-row { display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px; }
+.score-label { font-size:0.60rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted2);margin-bottom:3px; }
+.score-bar { height:5px;background:var(--s3);border-radius:3px;overflow:hidden; }
+.score-fill { height:100%;border-radius:3px;transition:width 0.4s; }
+.follow-btn { font-size:0.74rem;font-weight:600;padding:7px 14px;border-radius:9px;border:1px solid var(--border);background:var(--s3);color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.18s; }
+.follow-btn.watched { background:rgba(232,124,195,0.10);border-color:rgba(232,124,195,0.30);color:var(--rose); }
+</style>
+
+<div class="page" style="padding-top:80px;">
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><span>Radar Equity</span></div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+  <div>
+    <div class="eyebrow" style="background:rgba(232,124,195,0.10);color:var(--rose);display:inline-block;">📡 Radar</div>
+    <h1 class="display" style="font-size:1.6rem;margin-top:6px;">Projets equity & crowdlending</h1>
+  </div>
+  <a href="/radar/watchlist.html" style="padding:9px 16px;border-radius:10px;border:1px solid var(--border);background:var(--s2);color:var(--muted);font-size:0.78rem;font-weight:600;text-decoration:none;">👁️ Ma watchlist</a>
+</div>
+<p style="font-size:0.80rem;color:var(--muted);margin-bottom:20px;">Projets analysés par WealthWaffle — scoring conviction, verdict, accès direct aux plateformes. Mis à jour en continu.</p>
+
+<div class="filters" id="filters">
+  <button class="filter-btn active" onclick="filterProjects('all', this)">Tous</button>
+  <button class="filter-btn" onclick="filterProjects('interessant', this)">✅ Intéressant</button>
+  <button class="filter-btn" onclick="filterProjects('surveiller', this)">👀 À surveiller</button>
+  <button class="filter-btn" onclick="filterProjects('crowdlending', this)">🤝 Crowdlending</button>
+  <button class="filter-btn" onclick="filterProjects('equity', this)">🚀 Equity</button>
+  <button class="filter-btn" onclick="filterProjects('immo', this)">🏠 Immo</button>
+</div>
+
+<div id="feed-container">
+  <div style="text-align:center;padding:40px;color:var(--muted);">Chargement des projets…</div>
+</div>
+</div>
+
+<script>
+let allProjects = [];
+let watchedIds  = new Set();
+let userId      = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const session = await requireAuth('radar');
+  if (!session) return;
+  userId = session.user.id;
+
+  // Charger watchlist
+  const { data: wl } = await sb.from('watchlist').select('project_id').eq('user_id', userId);
+  watchedIds = new Set((wl||[]).map(w => w.project_id));
+
+  // Charger projets depuis Supabase
+  const { data: projects } = await sb.from('projects').select('*').order('created_at', { ascending: false });
+  allProjects = projects || [];
+  renderProjects(allProjects);
+});
+
+function renderProjects(list) {
+  const container = document.getElementById('feed-container');
+  if (!list.length) { container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">Aucun projet pour ce filtre.</div>'; return; }
+
+  container.innerHTML = list.map(p => {
+    const verdictClass = `verdict-${p.verdict}`;
+    const verdictLabel = { interessant:'✅ Intéressant', surveiller:'👀 À surveiller', insuffisant:'Insuffisant', trop_risque:'⚠️ Trop risqué' }[p.verdict] || p.verdict;
+    const isWatched = watchedIds.has(p.id);
+    const scoreColor = (s) => s >= 7 ? '#7EC8A0' : s >= 5 ? '#E8C23A' : '#E87CC3';
+    return `<div class="project-card" data-type="${p.type}" data-verdict="${p.verdict}">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;">
+        <div>
+          <div class="project-title">${p.name}</div>
+          <div class="project-meta">
+            <span class="project-platform">${p.platform}</span>
+            <span>${p.type}</span>
+            ${p.min_invest ? `<span>Min. ${p.min_invest}€</span>` : ''}
+            ${p.rate ? `<span style="color:#7EC8A0;">${p.rate}%</span>` : ''}
+          </div>
+        </div>
+        <span class="verdict-badge ${verdictClass}">${verdictLabel}</span>
+      </div>
+      <div class="project-summary">${p.summary}</div>
+      ${p.score_risque !== undefined ? `<div class="score-row">
+        <div><div class="score-label">Risque</div><div class="score-bar"><div class="score-fill" style="width:${p.score_risque*10}%;background:${scoreColor(10-p.score_risque)};"></div></div></div>
+        <div><div class="score-label">Conviction</div><div class="score-bar"><div class="score-fill" style="width:${p.score_conviction*10}%;background:${scoreColor(p.score_conviction)};"></div></div></div>
+        <div><div class="score-label">Liquidité</div><div class="score-bar"><div class="score-fill" style="width:${p.score_liquidite*10}%;background:${scoreColor(p.score_liquidite)};"></div></div></div>
+      </div>` : ''}
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener" style="font-size:0.74rem;font-weight:600;color:#5BB8D4;text-decoration:none;">Voir le projet ↗</a>` : ''}
+        <button class="follow-btn ${isWatched?'watched':''}" onclick="toggleWatch('${p.id}', this)">
+          ${isWatched ? '👁️ Suivi' : '+ Suivre'}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterProjects(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = filter === 'all' ? allProjects
+    : allProjects.filter(p => p.type === filter || p.verdict === filter);
+  renderProjects(filtered);
+}
+
+async function toggleWatch(projectId, btn) {
+  if (!userId) return;
+  if (watchedIds.has(projectId)) {
+    watchedIds.delete(projectId); btn.textContent = '+ Suivre'; btn.classList.remove('watched');
+    await sb.from('watchlist').delete().eq('user_id', userId).eq('project_id', projectId);
+  } else {
+    watchedIds.add(projectId); btn.textContent = '👁️ Suivi'; btn.classList.add('watched');
+    await sb.from('watchlist').insert({ user_id: userId, project_id: projectId });
+  }
+}
+</script>
+</body></html>
