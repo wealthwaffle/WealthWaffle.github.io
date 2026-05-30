@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programme Doctrine — WealthWaffle</title>
+  <meta name="description" content="Doctrine, c'est un parcours financier structuré en 3 niveaux : Socle (gratuit), Pilote (14,99€/mois) et Radar. Pas un cours. Un programme qui te fait avancer.">
+  <meta property="og:title" content="Programme Doctrine — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Programme Doctrine", basePath: "/" };</script>
+  <style>
+    .prog-hero { text-align:center; padding:60px 0 48px; }
+    .prog-cards { display:flex; flex-direction:column; gap:16px; margin:0 0 48px; }
+    .prog-card { background:var(--s2); border:1px solid var(--border); border-radius:20px; padding:24px 20px; position:relative; transition:transform 0.2s, border-color 0.2s; }
+    .prog-card:hover { transform:translateY(-3px); }
+    .prog-card.featured { border-color:rgba(232,124,195,0.40); background:rgba(232,124,195,0.04); }
+    .prog-card.featured::before { content:'⭐ Le plus populaire'; position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#E87CC3,#5BB8D4); color:#fff; font-size:0.62rem; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; padding:4px 14px; border-radius:20px; white-space:nowrap; }
+    .prog-eyebrow { font-size:0.66rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:4px 12px; border-radius:20px; display:inline-block; margin-bottom:12px; }
+    .prog-name { font-family:'DM Serif Display',serif; font-style:italic; font-size:1.6rem; color:var(--text); margin-bottom:4px; }
+    .prog-tagline { font-size:0.82rem; color:var(--muted); margin-bottom:20px; line-height:1.6; }
+    .prog-price-block { margin-bottom:20px; }
+    .prog-price-main { font-size:2rem; font-weight:800; color:var(--text); }
+    .prog-price-period { font-size:0.80rem; color:var(--muted); margin-left:4px; }
+    .prog-price-annual { font-size:0.76rem; color:#7EC8A0; margin-top:4px; }
+    .prog-features { list-style:none; padding:0; margin:0 0 20px; display:flex; flex-direction:column; gap:8px; }
+    .prog-features li { font-size:0.82rem; color:var(--text2); display:flex; align-items:flex-start; gap:10px; line-height:1.55; }
+    .prog-features li::before { content:'✓'; color:#7EC8A0; font-weight:700; flex-shrink:0; margin-top:1px; }
+    .prog-features li.locked { color:var(--muted); }
+    .prog-features li.locked::before { content:'—'; color:var(--muted); }
+    .prog-cta-primary { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:14px; border-radius:13px; border:none; background:linear-gradient(135deg,#E87CC3,#5BB8D4); color:#fff; font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.90rem; cursor:pointer; text-decoration:none; transition:opacity 0.18s; box-sizing:border-box; }
+    .prog-cta-primary:hover { opacity:0.88; }
+    .prog-cta-secondary { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:13px; border-radius:13px; border:1px solid var(--border); background:var(--s3); color:var(--text2); font-family:'DM Sans',sans-serif; font-weight:600; font-size:0.88rem; cursor:pointer; text-decoration:none; transition:all 0.18s; box-sizing:border-box; }
+    .prog-cta-secondary:hover { border-color:rgba(232,124,195,0.30); color:var(--text); }
+    .billing-toggle { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:32px; }
+    .toggle-track { width:44px; height:24px; background:rgba(232,124,195,0.20); border-radius:12px; position:relative; cursor:pointer; border:1px solid rgba(232,124,195,0.30); transition:background 0.2s; }
+    .toggle-track.annual { background:rgba(232,124,195,0.60); }
+    .toggle-thumb { width:18px; height:18px; background:#fff; border-radius:50%; position:absolute; top:2px; left:2px; transition:transform 0.2s; box-shadow:0 1px 4px rgba(0,0,0,0.3); }
+    .toggle-track.annual .toggle-thumb { transform:translateX(20px); }
+    .toggle-label { font-size:0.82rem; color:var(--muted); font-weight:500; }
+    .toggle-label.active { color:var(--text); font-weight:700; }
+    .badge-economy { background:rgba(126,200,160,0.12); color:#7EC8A0; border:1px solid rgba(126,200,160,0.25); font-size:0.64rem; font-weight:700; padding:2px 8px; border-radius:20px; margin-left:6px; }
+    .how-step { display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-bottom:1px solid var(--faint); }
+    .how-step:last-child { border-bottom:none; }
+    .how-num { width:32px; height:32px; border-radius:50%; background:rgba(232,124,195,0.12); border:1px solid rgba(232,124,195,0.25); color:var(--rose); font-weight:700; font-size:0.80rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .dfaq details { border-radius:12px; overflow:hidden; margin-bottom:6px; }
+    .dfaq summary { background:var(--s3); padding:13px 16px; cursor:pointer; font-size:0.84rem; font-weight:600; color:var(--text); list-style:none; display:flex; justify-content:space-between; }
+    .dfaq summary::-webkit-details-marker { display:none; }
+    .dfaq details[open] summary { border-radius:12px 12px 0 0; }
+    .dfaq .dfaq-a { background:var(--s3); border-top:1px solid var(--faint); padding:0 16px 14px; font-size:0.80rem; color:var(--muted); line-height:1.7; }
+  </style>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<div class="page" style="padding-top:80px;">
+
+  <!-- ── HERO ── -->
+  <div class="prog-hero">
+    <div class="eyebrow" style="background:rgba(232,124,195,0.10);color:var(--rose);">✈️ Programme Doctrine</div>
+    <h1 style="font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(2rem,7vw,3rem);line-height:1.1;color:var(--text);margin:16px 0 18px;">
+      La finance, ça s'apprend<br><span style="color:var(--rose);">dans le bon ordre</span>
+    </h1>
+    <p style="font-size:0.92rem;color:var(--muted);max-width:440px;margin:0 auto 12px;line-height:1.7;">
+      Doctrine, c'est un parcours structuré en 3 niveaux progressifs.<br>Pas un cours. Pas un abonnement passif. Un programme qui te fait avancer.
+    </p>
+    <p style="font-size:0.78rem;color:var(--muted2);margin-bottom:0;">Accès immédiat · Sans engagement · 7 jours d'essai gratuit sur Pilote et Radar</p>
+  </div>
+
+  <!-- ── TOGGLE MENSUEL / ANNUEL ── -->
+  <div class="billing-toggle">
+    <span class="toggle-label active" id="label-monthly">Mensuel</span>
+    <div class="toggle-track" id="billing-toggle" onclick="toggleBilling()">
+      <div class="toggle-thumb"></div>
+    </div>
+    <span class="toggle-label" id="label-annual">Annuel <span class="badge-economy">−2 mois offerts</span></span>
+  </div>
+
+  <!-- ── CARDS ── -->
+  <div class="prog-cards">
+
+    <!-- SOCLE -->
+    <div class="prog-card">
+      <div class="prog-eyebrow" style="background:rgba(126,200,160,0.12);color:#7EC8A0;">🟢 Socle</div>
+      <div class="prog-name">Socle</div>
+      <div class="prog-tagline">Arrêter l'hémorragie. Comprendre où va ton argent. Poser les bases.</div>
+      <div class="prog-price-block">
+        <span class="prog-price-main">Gratuit</span>
+        <div class="prog-price-annual" style="color:var(--muted);">Compte requis · Accès immédiat · Pour toujours</div>
+      </div>
+      <ul class="prog-features">
+        <li>Accès à tous les guides du site (budget, investir, immo, fiscalité)</li>
+        <li>8 simulateurs Socle — objectifs, dettes, urgence, FIRE, taxe PV…</li>
+        <li>Parcours guidé personnalisé selon ton profil et ton sujet prioritaire</li>
+        <li>Progression sauvegardée — reprends où tu t'es arrêté</li>
+        <li>Mode Débutant et Avancé sur toutes les pages</li>
+        <li class="locked">Simulateurs avancés Pilote (crédit, pension, locatif net-net…)</li>
+        <li class="locked">Radar Equity — feed projets et watchlist</li>
+      </ul>
+      <a href="/compte/inscription.html" class="prog-cta-secondary">Créer mon compte gratuit →</a>
+    </div>
+
+    <!-- PILOTE -->
+    <div class="prog-card featured">
+      <div class="prog-eyebrow" style="background:rgba(232,124,195,0.12);color:var(--rose);">✈️ Pilote</div>
+      <div class="prog-name">Pilote</div>
+      <div class="prog-tagline">Construire sa stratégie. Optimiser sa fiscalité. Investir avec méthode.</div>
+      <div class="prog-price-block">
+        <div>
+          <span class="prog-price-main" id="pilote-price">14,99€</span>
+          <span class="prog-price-period" id="pilote-period">/mois</span>
+        </div>
+        <div class="prog-price-annual" id="pilote-annual" style="display:none;">Facturé 99€/an — soit 2 mois offerts</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;" id="pilote-trial">7 jours d'essai gratuit · Sans carte bancaire</div>
+      </div>
+      <ul class="prog-features">
+        <li>Tout ce qui est dans Socle</li>
+        <li>9 simulateurs Pilote — crédit hypothécaire, épargne pension, rendement locatif net-net, ETF vs Branche 23, optimiseur rémunération dirigeant…</li>
+        <li>Contenu avancé — stratégies, nuances fiscales, formules détaillées</li>
+        <li>Simulateurs avec sauvegarde Supabase — retrouve tes calculs à tout moment</li>
+        <li>Accès prioritaire aux nouvelles fonctionnalités</li>
+        <li class="locked">Radar Equity — feed projets et watchlist</li>
+      </ul>
+      <a href="/compte/inscription.html?plan=pilote" class="prog-cta-primary" id="pilote-cta">Commencer l'essai gratuit →</a>
+      <div style="text-align:center;font-size:0.68rem;color:var(--muted);margin-top:8px;">Sans engagement · Annulation à tout moment</div>
+    </div>
+
+    <!-- RADAR -->
+    <div class="prog-card">
+      <div class="prog-eyebrow" style="background:rgba(91,184,212,0.12);color:#5BB8D4;">📡 Radar</div>
+      <div class="prog-name">Radar</div>
+      <div class="prog-tagline">Analyser des projets equity et crowdlending. Construire une conviction. Suivre ses positions.</div>
+      <div class="prog-price-block">
+        <div>
+          <span class="prog-price-main" id="radar-price">19,99€</span>
+          <span class="prog-price-period" id="radar-period">/mois</span>
+        </div>
+        <div class="prog-price-annual" id="radar-annual" style="display:none;">Facturé 129€/an — soit 2 mois offerts</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;">7 jours d'essai gratuit · Sans carte bancaire</div>
+      </div>
+      <ul class="prog-features">
+        <li>Tout ce qui est dans Pilote</li>
+        <li>Feed Radar — projets equity, crowdlending et immo analysés et scorés</li>
+        <li>Verdict WealthWaffle sur chaque projet — conviction, risque, liquidité</li>
+        <li>Watchlist personnalisée — suis les projets qui t'intéressent</li>
+        <li>Alertes nouvelles opportunités</li>
+        <li>Accès prioritaire aux analyses sectorielles approfondies</li>
+      </ul>
+      <a href="/compte/inscription.html?plan=radar" class="prog-cta-primary" id="radar-cta">Commencer l'essai gratuit →</a>
+      <div style="text-align:center;font-size:0.68rem;color:var(--muted);margin-top:8px;">Sans engagement · Annulation à tout moment</div>
+    </div>
+
+  </div>
+
+  <!-- ── COMPARATIF RAPIDE ── -->
+  <div style="background:var(--s2);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:40px;">
+    <div style="font-size:0.74rem;font-weight:700;text-transform:uppercase;letter-spacing:0.10em;color:var(--muted);margin-bottom:16px;">📊 Comparatif</div>
+    <div class="table-wrap"><table style="font-size:0.78rem;">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Fonctionnalité</th>
+          <th style="text-align:center;color:#7EC8A0;">Socle</th>
+          <th style="text-align:center;color:var(--rose);">Pilote</th>
+          <th style="text-align:center;color:#5BB8D4;">Radar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Guides complets (budget, invest, immo, fiscal)</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td></tr>
+        <tr><td>Mode Débutant & Avancé</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td></tr>
+        <tr><td>6 simulateurs publics</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td></tr>
+        <tr><td>8 simulateurs Socle</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td></tr>
+        <tr><td>Parcours guidé personnalisé</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td></tr>
+        <tr><td>9 simulateurs Pilote avancés</td><td style="text-align:center;color:var(--muted);">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td></tr>
+        <tr><td>Sauvegarde des simulations</td><td style="text-align:center;color:var(--muted);">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td></tr>
+        <tr><td>Feed Radar — projets analysés</td><td style="text-align:center;color:var(--muted);">—</td><td style="text-align:center;color:var(--muted);">—</td><td style="text-align:center;">✅</td></tr>
+        <tr><td>Watchlist & alertes</td><td style="text-align:center;color:var(--muted);">—</td><td style="text-align:center;color:var(--muted);">—</td><td style="text-align:center;">✅</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- ── COMMENT ÇA MARCHE ── -->
+  <div style="margin-bottom:40px;">
+    <h2 style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.4rem;color:var(--text);margin-bottom:20px;">Comment ça marche</h2>
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div>
+        <div style="font-size:0.86rem;font-weight:700;color:var(--text);margin-bottom:3px;">Crée ton compte gratuit</div>
+        <div style="font-size:0.78rem;color:var(--muted);line-height:1.65;">Email + mot de passe. Quiz d'onboarding en 2 questions (niveau + profil). Accès immédiat au Socle.</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div>
+        <div style="font-size:0.86rem;font-weight:700;color:var(--text);margin-bottom:3px;">Suis ton parcours guidé</div>
+        <div style="font-size:0.78rem;color:var(--muted);line-height:1.65;">Les pages sont proposées dans l'ordre logique selon ton objectif. Ta progression est sauvegardée automatiquement.</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div>
+        <div style="font-size:0.86rem;font-weight:700;color:var(--text);margin-bottom:3px;">Passe à Pilote quand tu veux aller plus loin</div>
+        <div style="font-size:0.78rem;color:var(--muted);line-height:1.65;">7 jours d'essai gratuit. Accès immédiat aux 9 simulateurs avancés. Annulable à tout moment depuis le dashboard.</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">4</div>
+      <div>
+        <div style="font-size:0.86rem;font-weight:700;color:var(--text);margin-bottom:3px;">Radar si tu veux analyser des projets</div>
+        <div style="font-size:0.78rem;color:var(--muted);line-height:1.65;">Le feed Radar est mis à jour en continu avec des projets equity et crowdlending analysés et scorés par WealthWaffle.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FAQ ── -->
+  <div style="margin-bottom:48px;">
+    <h2 style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.4rem;color:var(--text);margin-bottom:20px;">Questions fréquentes</h2>
+    <div class="dfaq">
+
+      <details>
+        <summary>Dois-je commencer par Socle ou puis-je aller directement à Pilote ?<span>▾</span></summary>
+        <div class="dfaq-a">Tu peux commencer directement par Pilote avec l'essai gratuit de 7 jours. Mais si tu commences ton parcours en finance perso, le Socle te donnera déjà énormément — les 8 simulateurs et tous les guides sont gratuits. Pilote a du sens quand tu veux aller plus loin sur les calculs avancés (crédit, pension, locatif, rémunération dirigeant).</div>
+      </details>
+
+      <details>
+        <summary>Puis-je annuler à tout moment ?<span>▾</span></summary>
+        <div class="dfaq-a">Oui. Aucun engagement. Tu annules depuis ton dashboard en un clic. Si tu annules pendant l'essai de 7 jours, aucun centime n'est prélevé. Après, la facturation s'arrête à la fin de la période en cours.</div>
+      </details>
+
+      <details>
+        <summary>C'est quoi la différence avec le contenu gratuit sur le site ?<span>▾</span></summary>
+        <div class="dfaq-a">Le contenu Socle (guides, mode débutant + avancé, 8 simulateurs) est accessible avec un compte gratuit. Pilote déverrouille les 9 simulateurs avancés qui font des calculs personnalisés complexes (crédit avec frais par région, rendement locatif net-net avec RC, optimiseur salaire/dividendes pour dirigeants…). Radar ajoute le feed de projets analysés.</div>
+      </details>
+
+      <details>
+        <summary>Est-ce que c'est du conseil financier personnalisé ?<span>▾</span></summary>
+        <div class="dfaq-a">Non. WealthWaffle est un outil éducatif et informatif. Le contenu et les simulateurs sont à titre indicatif uniquement — ils ne constituent pas un conseil financier personnalisé au sens de la loi. Pour les décisions importantes (investissements conséquents, restructuration patrimoniale, fiscalité complexe), consulte un professionnel agréé FSMA.</div>
+      </details>
+
+      <details>
+        <summary>Le parrainage, comment ça marche ?<span>▾</span></summary>
+        <div class="dfaq-a">Si tu invites un ami qui souscrit à Pilote ou Radar, tu reçois du temps gratuit sur ton abonnement : 1 semaine si ton filleul choisit le mensuel, 1 mois s'il choisit l'annuel. Pas de plafond — tu retrouves ton lien de parrainage dans ton dashboard.</div>
+      </details>
+
+      <details>
+        <summary>Radar, c'est pour qui exactement ?<span>▾</span></summary>
+        <div class="dfaq-a">Pour les investisseurs qui s'intéressent à l'equity crowdfunding (startups, projets immobiliers, crowdlending) et qui veulent une analyse structurée avant d'investir. Le Radar fournit un scoring conviction/risque/liquidité sur chaque projet, avec un verdict WealthWaffle. Ce n'est pas une recommandation d'investissement — c'est une aide à l'analyse.</div>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- ── CTA FINAL ── -->
+  <div style="background:linear-gradient(135deg,rgba(232,124,195,0.08),rgba(91,184,212,0.08));border:1px solid rgba(232,124,195,0.20);border-radius:20px;padding:32px 24px;text-align:center;margin-bottom:40px;">
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.4rem;color:var(--text);margin-bottom:8px;">Commence par le Socle.<br>C'est gratuit. C'est déjà beaucoup.</div>
+    <p style="font-size:0.80rem;color:var(--muted);margin-bottom:20px;line-height:1.65;">Des centaines de Belges ont déjà commencé leur parcours. Tu peux passer à Pilote quand tu veux — sans pression.</p>
+    <a href="/compte/inscription.html" class="prog-cta-primary" style="max-width:320px;margin:0 auto;">Créer mon compte gratuit →</a>
+    <div style="font-size:0.68rem;color:var(--muted2);margin-top:10px;">Sans carte bancaire · Accès immédiat · Socle gratuit pour toujours</div>
+  </div>
+
+  <div class="see-also">
+    <div class="see-also-label">Voir aussi</div>
+    <a href="/a-propos/faq.html" class="see-also-pill">❓ FAQ</a>
+    <a href="/outils/" class="see-also-pill">🧮 Simulateurs</a>
+    <a href="/compte/parrainage.html" class="see-also-pill">🎁 Parrainage</a>
+    <a href="/a-propos/affiliation.html" class="see-also-pill">🔗 Transparence</a>
+  </div>
+
+</div>
+
+<script>
+let isAnnual = false;
+
+const PRICES = {
+  pilote: { monthly: '14,99€', annual: '8,25€', annualTotal: '99€' },
+  radar:  { monthly: '19,99€', annual: '10,75€', annualTotal: '129€' },
+};
+
+function toggleBilling() {
+  isAnnual = !isAnnual;
+  const track = document.getElementById('billing-toggle');
+  track.classList.toggle('annual', isAnnual);
+  document.getElementById('label-monthly').classList.toggle('active', !isAnnual);
+  document.getElementById('label-annual').classList.toggle('active', isAnnual);
+
+  // Pilote
+  document.getElementById('pilote-price').textContent  = isAnnual ? PRICES.pilote.annual : PRICES.pilote.monthly;
+  document.getElementById('pilote-period').textContent = isAnnual ? '/mois*' : '/mois';
+  document.getElementById('pilote-annual').style.display = isAnnual ? 'block' : 'none';
+  document.getElementById('pilote-cta').href = `/compte/inscription.html?plan=pilote&billing=${isAnnual?'annual':'monthly'}`;
+
+  // Radar
+  document.getElementById('radar-price').textContent  = isAnnual ? PRICES.radar.annual : PRICES.radar.monthly;
+  document.getElementById('radar-period').textContent = isAnnual ? '/mois*' : '/mois';
+  document.getElementById('radar-annual').style.display = isAnnual ? 'block' : 'none';
+  document.getElementById('radar-cta').href = `/compte/inscription.html?plan=radar&billing=${isAnnual?'annual':'monthly'}`;
+}
+</script>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body>
+</html>
