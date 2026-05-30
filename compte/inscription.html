@@ -48,11 +48,19 @@ window.WW_CONFIG = {
     <div id="step-1" style="background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:28px 24px;">
       <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.10em;color:var(--muted);margin-bottom:16px;">Étape 1 / 3 — Tes informations</div>
       <div id="error-msg" style="display:none;background:rgba(232,124,195,0.08);border:1px solid rgba(232,124,195,0.25);border-radius:10px;padding:10px 14px;font-size:0.80rem;color:var(--rose);margin-bottom:14px;"></div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.72rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Prénom</label>
-        <input type="text" id="prenom" placeholder="Ton prénom" autocomplete="given-name"
-          style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);outline:none;box-sizing:border-box;"
-          onfocus="this.style.borderColor='rgba(126,200,160,0.45)'" onblur="this.style.borderColor='var(--border)'">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+        <div>
+          <label style="font-size:0.72rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Prénom</label>
+          <input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name"
+            style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);outline:none;box-sizing:border-box;"
+            onfocus="this.style.borderColor='rgba(126,200,160,0.45)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div>
+          <label style="font-size:0.72rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Nom</label>
+          <input type="text" id="nom" placeholder="Nom de famille" autocomplete="family-name"
+            style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);outline:none;box-sizing:border-box;"
+            onfocus="this.style.borderColor='rgba(126,200,160,0.45)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
       </div>
       <div style="margin-bottom:12px;">
         <label style="font-size:0.72rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Email</label>

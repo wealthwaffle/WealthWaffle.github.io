@@ -1,0 +1,51 @@
+<!-- WealthWaffle — UI Components (loaded dynamically via components.js) -->
+
+<!-- ── Cookie Banner ── -->
+<div class="cookie-banner" id="cookie-banner">
+  <div class="cookie-top">
+    <span class="cookie-emoji">🍪</span>
+    <div class="cookie-text">
+      <h4>Cookies analytiques</h4>
+      <p>Données anonymisées uniquement. <button onclick="openModal('privacy')" style="background:none;border:none;color:var(--cyan);cursor:pointer;font-size:inherit;padding:0;">En savoir plus</button></p>
+    </div>
+  </div>
+  <div class="cookie-actions">
+    <button class="btn-cookie-ok" onclick="acceptCookies()">Accepter</button>
+    <button class="btn-cookie-no" onclick="refuseCookies()">Refuser</button>
+  </div>
+</div>
+
+<!-- ── Modal overlay ── -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ── Modal templates ── -->
+<template id="tpl-legal">
+  <div class="legal-header"><span class="legal-icon">⚖️</span><h2>Mentions légales</h2><p class="legal-updated">2026</p></div>
+  <div class="legal-section"><h3>Éditeur</h3><p>Site personnel — WealthWaffle. Contact : <a href="mailto:contact@wealthwaffle.be">contact@wealthwaffle.be</a></p></div>
+  <div class="legal-section"><h3>Hébergement</h3><p>OVH SAS — 2 rue Kellermann, 59100 Roubaix, France.</p></div>
+  <div class="legal-section"><h3>Contenu</h3><p>À visée éducative uniquement. WealthWaffle n'est pas agréé FSMA et ne constitue pas un conseil financier personnalisé.</p></div>
+  <div class="legal-section"><h3>Propriété intellectuelle</h3><p>Contenus et outils protégés. Toute reproduction sans autorisation est interdite.</p></div>
+</template>
+
+<template id="tpl-cgu">
+  <div class="legal-header"><span class="legal-icon">📄</span><h2>Conditions générales d'utilisation</h2></div>
+  <div class="legal-section"><h3>Objet</h3><p>WealthWaffle est une plateforme éducative en finance personnelle destinée aux adultes résidant en Belgique.</p></div>
+  <div class="legal-section"><h3>Responsabilité</h3><p>WealthWaffle n'est pas agréé FSMA. Tout contenu est fourni à titre pédagogique. Aucune décision financière ne devrait être prise sur la seule base de ce contenu.</p></div>
+  <div class="legal-section"><h3>Droit applicable</h3><p>Droit belge. Tout litige relève des tribunaux compétents de Belgique.</p></div>
+</template>
+
+<template id="tpl-privacy">
+  <div class="legal-header"><span class="legal-icon">🔒</span><h2>Vie privée (RGPD)</h2></div>
+  <div class="legal-section"><h3>Responsable du traitement</h3><p>WealthWaffle — contact@wealthwaffle.be</p></div>
+  <div class="legal-section"><h3>Données collectées</h3><p>Adresse e-mail uniquement, sur base volontaire (inscription newsletter).</p></div>
+  <div class="legal-section"><h3>Finalité</h3><p>Envoi de la newsletter WealthWaffle et du guide PDF téléchargeable.</p></div>
+  <div class="legal-section"><h3>Sous-traitants</h3><p>Mailerlite (gestion e-mails) · OVH (hébergement).</p></div>
+  <div class="legal-section"><h3>Vos droits</h3><p>Accès, rectification, suppression : <a href="mailto:contact@wealthwaffle.be">contact@wealthwaffle.be</a> · Réclamation : <a href="https://www.autoriteprotectiondonnees.be" target="_blank">autoriteprotectiondonnees.be</a></p></div>
+  <div class="legal-section"><h3>Cookies</h3><p>Données analytiques anonymisées stockées localement (localStorage). Aucun cookie tiers publicitaire.</p></div>
+</template>

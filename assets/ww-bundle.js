@@ -432,9 +432,9 @@ window.WW_Search = {
   document.addEventListener('DOMContentLoaded', async () => {
     // Load components
     await Promise.all([
-      loadComponent('nav.html', 'ww-nav-placeholder'),
-      loadComponent('footer.html', 'ww-footer-placeholder'),
-      loadComponent('ui-components.html', 'ww-ui-placeholder'),
+      loadComponent('/assets/nav.html', 'ww-nav-placeholder'),
+      loadComponent('/assets/footer.html', 'ww-footer-placeholder'),
+      loadComponent('/assets/ui-components.html', 'ww-ui-placeholder'),
     ]);
     // Init after load
     setActiveNav();
@@ -2122,4 +2122,124 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
   window.WW_showModalPilote  = showModalPilote;
   window.WW_showBanner       = showBanner;
 
+})();
+
+
+/* ═══════════════════════════════════════════════════════════
+   ONBOARDING POPUP — WealthWaffle
+   Apparaît une seule fois à la première visite
+   Non bloquante · Fermable · Sauvegarde en localStorage
+═══════════════════════════════════════════════════════════ */
+
+(function initOnboarding() {
+  // Ne pas afficher sur les pages auth/compte/dashboard
+  const skipPaths = ['/compte/', '/dashboard/', '/radar/'];
+  if (skipPaths.some(p => location.pathname.startsWith(p))) return;
+  // Ne pas afficher si déjà complété
+  if (localStorage.getItem('ww_onboarding_done')) return;
+
+  function buildPopup() {
+    const overlay = document.createElement('div');
+    overlay.id = 'ww-onboarding-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(8,7,23,0.75);z-index:9000;display:flex;align-items:flex-end;justify-content:center;padding:0 0 24px;animation:fadeIn 0.3s ease both;backdrop-filter:blur(4px);';
+
+    overlay.innerHTML = `
+      <div style="background:var(--s2,#111127);border:1px solid rgba(255,255,255,0.10);border-radius:22px;padding:24px 22px;width:100%;max-width:420px;box-shadow:0 -8px 60px rgba(0,0,0,0.5);animation:slideUp 0.35s ease both;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.15rem;color:var(--text);">Bienvenue 🧇</div>
+          <button onclick="document.getElementById('ww-onboarding-overlay').remove();localStorage.setItem('ww_onboarding_done','1');"
+            style="background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:4px 8px;border-radius:8px;" title="Fermer">✕</button>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">Deux questions rapides pour personnaliser ton expérience — rien d'obligatoire, tout est modifiable après.</p>
+
+        <div style="margin-bottom:14px;">
+          <div style="font-size:0.70rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">Tu te considères plutôt :</div>
+          <div style="display:flex;gap:6px;">
+            <button onclick="selectOnboardingLevel('debutant',this)"
+              class="ob-btn" style="flex:1;padding:10px 8px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;transition:all 0.18s;">
+              🌱 Débutant<br><span style="font-size:0.68rem;opacity:0.7;">Je commence</span>
+            </button>
+            <button onclick="selectOnboardingLevel('avance',this)"
+              class="ob-btn" style="flex:1;padding:10px 8px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;transition:all 0.18s;">
+              🚀 Avancé<br><span style="font-size:0.68rem;opacity:0.7;">J'investis déjà</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <div style="font-size:0.70rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">Mon profil :</div>
+          <div style="display:flex;gap:6px;">
+            <button onclick="selectOnboardingProfile('particulier',this)"
+              class="ob-btn" style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.74rem;cursor:pointer;transition:all 0.18s;">
+              🙋 Salarié
+            </button>
+            <button onclick="selectOnboardingProfile('independant',this)"
+              class="ob-btn" style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.74rem;cursor:pointer;transition:all 0.18s;">
+              💼 Indépendant
+            </button>
+            <button onclick="selectOnboardingProfile('dirigeant',this)"
+              class="ob-btn" style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.74rem;cursor:pointer;transition:all 0.18s;">
+              🏢 Dirigeant
+            </button>
+          </div>
+        </div>
+
+        <button onclick="closeOnboarding()"
+          style="width:100%;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;transition:opacity 0.18s;">
+          C'est parti →
+        </button>
+
+        <div style="text-align:center;margin-top:10px;font-size:0.68rem;color:var(--muted2);">
+          Modifiable à tout moment dans <a href="/dashboard/" style="color:var(--muted);">ton dashboard</a>
+        </div>
+      </div>`;
+
+    document.body.appendChild(overlay);
+  }
+
+  window.selectOnboardingLevel = function(level, btn) {
+    document.querySelectorAll('#ww-onboarding-overlay .ob-btn[onclick*="Level"]').forEach(b => {
+      b.style.borderColor = 'var(--border)'; b.style.background = 'var(--s3)'; b.style.color = 'var(--muted)';
+    });
+    btn.style.borderColor = 'rgba(126,200,160,0.45)';
+    btn.style.background  = 'rgba(126,200,160,0.10)';
+    btn.style.color       = '#7EC8A0';
+    localStorage.setItem('ww_level', level);
+    document.body.setAttribute('data-level', level);
+    // Appliquer immédiatement si setLevel existe
+    if (typeof setLevel === 'function') setLevel(level);
+  };
+
+  window.selectOnboardingProfile = function(prof, btn) {
+    document.querySelectorAll('#ww-onboarding-overlay .ob-btn[onclick*="Profile"]').forEach(b => {
+      b.style.borderColor = 'var(--border)'; b.style.background = 'var(--s3)'; b.style.color = 'var(--muted)';
+    });
+    btn.style.borderColor = 'rgba(91,184,212,0.45)';
+    btn.style.background  = 'rgba(91,184,212,0.10)';
+    btn.style.color       = '#5BB8D4';
+    localStorage.setItem('ww_profile', prof);
+  };
+
+  window.closeOnboarding = function() {
+    const overlay = document.getElementById('ww-onboarding-overlay');
+    if (overlay) {
+      overlay.style.animation = 'fadeOut 0.2s ease both';
+      setTimeout(() => overlay.remove(), 200);
+    }
+    localStorage.setItem('ww_onboarding_done', '1');
+  };
+
+  // Afficher la popup 2 secondes après le chargement (pas intrusif)
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(buildPopup, 2000);
+  });
+
+  // CSS pour les animations
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideUp { from { transform:translateY(40px);opacity:0; } to { transform:translateY(0);opacity:1; } }
+    @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+    @keyframes fadeOut { from { opacity:1; } to { opacity:0; } }
+  `;
+  document.head.appendChild(style);
 })();

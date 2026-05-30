@@ -2355,22 +2355,18 @@ body[data-level="avance"] .expert-expand-btn {
 
 /* Masquer tous les niveaux non-débutant par défaut */
 .level-section [data-level="avance"],
-.level-section [data-level="expert"] {
-  display: none;
-}
+.level-section [data-level="debutant"],
+.level-section [data-level="expert"] { display: none; }
 
-/* Quand le niveau est sélectionné, afficher le bon et cacher les autres */
-body[data-level="debutant"] .level-section [data-level="debutant"]  { display: block; }
-body[data-level="debutant"] .level-section [data-level="avance"]  { display: none;  }
-body[data-level="debutant"] .level-section [data-level="expert"]    { display: none;  }
+body[data-level="debutant"] .level-section [data-level="debutant"] { display: block; }
+body[data-level="debutant"] .level-section [data-level="avance"]   { display: none;  }
+body[data-level="debutant"] .level-section [data-level="expert"]   { display: none;  }
 
-body[data-level="avance"] .level-section [data-level="debutant"]  { display: none;  }
-body[data-level="avance"] .level-section [data-level="avance"]  { display: block; }
-body[data-level="avance"] .level-section [data-level="expert"]    { display: none;  }
+body[data-level="avance"] .level-section [data-level="debutant"]   { display: none;  }
+body[data-level="avance"] .level-section [data-level="avance"]     { display: block; }
+body[data-level="avance"] .level-section [data-level="expert"]     { display: none;  }
 
-body[data-level="avance"] .level-section [data-level="debutant"]    { display: none;  }
-body[data-level="avance"] .level-section [data-level="avance"]    { display: none;  }
-body[data-level="avance"] .level-section [data-level="expert"]      { display: block; }
+/* Règles niveau — corrigées juin 2026 */
 
 /* ═══ CLASSES MANQUANTES — ajoutées lors de l'audit CSS ═══ */
 
