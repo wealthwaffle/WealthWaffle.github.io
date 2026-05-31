@@ -209,3 +209,179 @@ create index if not exists idx_projects_verdict   on projects (verdict);
 -- Tables : profiles | page_views | referrals | referral_conversions |
 --          lead_magnet_requests | watchlist | projects | error_reports
 -- ═══════════════════════════════════════════════════════════════════════
+
+-- ═══════════════════════════════════════════════════════════════════════
+-- RADAR V2 — Nouvelles tables
+-- ═══════════════════════════════════════════════════════════════════════
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 9. USER_INVESTMENTS — Portefeuille personnel (Boussole)
+-- ───────────────────────────────────────────────────────────────────────
+create table if not exists user_investments (
+  id              uuid default gen_random_uuid() primary key,
+  user_id         uuid references profiles(id) on delete cascade not null,
+  entreprise_name text not null,
+  amount_invested numeric not null default 0,
+  sector          text not null,   -- Immobilier | Énergie & Transition | Tech & Logiciels | Santé & Biotech | Consommation & Retail | Industrie | Autre
+  country         text not null,   -- Belgique | France | Luxembourg | Pays-Bas | Autre Europe | Hors Europe
+  investment_date date,
+  created_at      timestamptz default now()
+);
+
+alter table user_investments enable row level security;
+create policy "Utilisateur gère ses investissements"
+  on user_investments for all using (auth.uid() = user_id);
+
+create index if not exists idx_investments_user on user_investments (user_id);
+create index if not exists idx_investments_sector on user_investments (sector);
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 10. PROJECTS_SUBMISSIONS — Flux de soumission communautaire
+-- ───────────────────────────────────────────────────────────────────────
+create table if not exists projects_submissions (
+  id              uuid default gen_random_uuid() primary key,
+  submitted_by    uuid references profiles(id) on delete set null,
+  nom_entreprise  text not null,
+  url_plateforme  text,                    -- obligatoire pour flux public
+  document_path   text,                   -- chemin PDF dans Supabase Storage (analyse privée)
+  type_analyse    text default 'publique'
+                  check (type_analyse in ('publique','avantage_48h','privee')),
+  statut          text default 'en_attente_validation'
+                  check (statut in (
+                    'en_attente_validation',
+                    'ia_en_cours',
+                    'en_attente_relecture',
+                    'publie',
+                    'publie_prive',
+                    'refuse'
+                  )),
+  credits_debites integer default 0,       -- 0 (public) | 1 (48h) | 2 (privé)
+  rapport_ia      jsonb,                   -- {note, forces, faiblesses, risques, synthese, data_financieres}
+  admin_notes     text,                    -- notes de relecture admin
+  published_at    timestamptz,
+  embargo_until   timestamptz,             -- pour avantage 48h
+  created_at      timestamptz default now(),
+  updated_at      timestamptz default now()
+);
+
+alter table projects_submissions enable row level security;
+create policy "Utilisateur voit ses soumissions"
+  on projects_submissions for select using (auth.uid() = submitted_by);
+create policy "Utilisateur insère ses soumissions"
+  on projects_submissions for insert with check (auth.uid() = submitted_by);
+create policy "Admin full access"
+  on projects_submissions for all using (auth.role() = 'service_role');
+
+-- Lecture publique des projets publiés
+create policy "Lecture projets publiés"
+  on projects_submissions for select using (
+    statut = 'publie' and type_analyse != 'privee'
+  );
+
+create index if not exists idx_submissions_statut  on projects_submissions (statut);
+create index if not exists idx_submissions_user    on projects_submissions (submitted_by);
+create index if not exists idx_submissions_type    on projects_submissions (type_analyse);
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 11. USER_MODERATION_STATS — Anti-guignol
+-- ───────────────────────────────────────────────────────────────────────
+create table if not exists user_moderation_stats (
+  user_id          uuid primary key references profiles(id) on delete cascade,
+  total_submitted  integer default 0,
+  public_accepted  integer default 0,
+  private_accepted integer default 0,
+  total_rejected   integer default 0,
+  last_submission  timestamptz,            -- pour le rate limiting
+  submissions_today    integer default 0, -- reset quotidien
+  submissions_week     integer default 0, -- reset hebdomadaire
+  updated_at       timestamptz default now()
+);
+
+alter table user_moderation_stats enable row level security;
+create policy "Utilisateur voit ses stats"
+  on user_moderation_stats for select using (auth.uid() = user_id);
+create policy "Système met à jour les stats"
+  on user_moderation_stats for all using (auth.role() = 'service_role');
+
+create index if not exists idx_modstats_user on user_moderation_stats (user_id);
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 12. CREDITS_TRANSACTIONS — Historique des achats de crédits
+-- ───────────────────────────────────────────────────────────────────────
+create table if not exists credits_transactions (
+  id          uuid default gen_random_uuid() primary key,
+  user_id     uuid references profiles(id) on delete cascade not null,
+  amount      integer not null,            -- +N (achat) ou -N (consommation)
+  reason      text,                        -- 'achat_stripe' | 'analyse_privee' | 'analyse_48h'
+  stripe_pi   text,                        -- Stripe Payment Intent ID
+  created_at  timestamptz default now()
+);
+
+alter table credits_transactions enable row level security;
+create policy "Utilisateur voit ses transactions"
+  on credits_transactions for select using (auth.uid() = user_id);
+create policy "Système insère les transactions"
+  on credits_transactions for insert with check (auth.uid() = user_id or auth.role() = 'service_role');
+
+create index if not exists idx_credits_user on credits_transactions (user_id);
+
+-- ───────────────────────────────────────────────────────────────────────
+-- Colonnes à ajouter dans profiles pour Radar V2
+-- ───────────────────────────────────────────────────────────────────────
+alter table profiles add column if not exists credits_prives     integer default 0;
+alter table profiles add column if not exists capital_total      numeric default 0;
+alter table profiles add column if not exists montant_max_ticket numeric default 0;
+alter table profiles add column if not exists pct_max_ticket     numeric default 0;
+alter table profiles add column if not exists secteurs_exclus    text[] default '{}';
+alter table profiles add column if not exists bonus_days_remaining integer default 0;
+alter table profiles add column if not exists bonus_applied_until  timestamptz;
+
+-- INDEX supplémentaires
+create index if not exists idx_user_investments_user   on user_investments (user_id);
+create index if not exists idx_credits_transactions_user on credits_transactions (user_id);
+
+-- ───────────────────────────────────────────────────────────────────────
+-- AJOUTS V2 — Décisions Radar juin 2026
+-- ───────────────────────────────────────────────────────────────────────
+
+-- Rate limiting : reset quotidien et hebdomadaire via cron job Supabase
+-- Cron : "0 0 * * *" → reset submissions_today = 0
+-- Cron : "0 0 * * 1" → reset submissions_week = 0
+
+-- Scraping : table pour tracker les snapshots quotidiens des plateformes
+create table if not exists scraping_snapshots (
+  id              uuid default gen_random_uuid() primary key,
+  platform        text not null,               -- 'spreds' | 'raizers' | 'ecco-nova' | etc.
+  platform_url    text not null,
+  project_name    text,
+  project_url     text,
+  raw_data        jsonb,                        -- données brutes extraites
+  is_new          boolean default true,         -- nouveau par rapport à la veille
+  scraping_date   date default current_date,
+  processed       boolean default false,        -- soumis à analyse IA ?
+  created_at      timestamptz default now()
+);
+
+alter table scraping_snapshots enable row level security;
+create policy "Admin lecture snapshots"
+  on scraping_snapshots for all using (auth.role() = 'service_role');
+
+create index if not exists idx_snapshots_date     on scraping_snapshots (scraping_date);
+create index if not exists idx_snapshots_platform on scraping_snapshots (platform);
+create index if not exists idx_snapshots_new      on scraping_snapshots (is_new) where is_new = true;
+
+-- rapport_ia structure JSON attendue (documentation) :
+-- {
+--   "fiche_recap":        { score_classique, base, score_pct, score_hors_ts, delta_ts, moat_tier, verdict, ticket, cout_reel, downside_protection, roic_projete, top3_forces, top3_risques, pre_mortem, acquéreurs, question_critique },
+--   "etape0":             { mode, instrument, cercle_competence, power_law, pourquoi_crowdfunding, kill_switches_declenches, anti_portfolio },
+--   "criteres": [
+--     { id, nom, score, max, sous_criteres: [...], commentaire }   -- 14 critères
+--   ],
+--   "modules_optionnels": { deeptech, d2c, dnvb, impact, geo },
+--   "pre_mortem":         { angle_mort, fast_follower, capital_starvation, optionnalite, antagoniste },
+--   "epreuve_feu":        [ 7 vérifications ],
+--   "simulation_sortie":  { conservateur, base, optimiste },
+--   "ticket_conclusion":  { ticket, cout_reel, downside_pct, breakeven_pct, roic, moat_tier, multiple_cible, acquéreurs, question_critique },
+--   "meta":               { score_confiance, donnees_manquantes, criteres_exclusion, plateforme, tax_shelter_taux, devise }
+-- }
+

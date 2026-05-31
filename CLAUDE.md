@@ -1,43 +1,106 @@
-Tu travailles sur le projet WealthWaffle — site de finance personnelle belge francophone.
+# CLAUDE.md — WealthWaffle
 
-REPO GITHUB : [ton-repo]/wealthwaffle-be
-SITE : wealthwaffle.be (Cloudflare Pages, déploiement auto depuis main)
+## Règles absolues
 
-RÈGLES CODE NON-NÉGOCIABLES :
-- Zéro nav/footer/head en dur dans les pages — tout est injecté par /assets/ww-bundle.js
-- Tous les chemins sont absolus : /assets/, /invest/, /immo/, etc.
-- data-level="debutant" et data-level="avance" uniquement (jamais confirme/expert)
-- Les composants nav/footer/ui-components sont dans /assets/ et chargés via fetch('/assets/nav.html')
-- data.js = source unique des valeurs fiscales — jamais hardcoder un montant fiscal
-- Zéro duplication : outils définis dans /assets/tools.js, appelés via container ID
+- Lire le fichier avant de modifier · modifier uniquement la zone concernée · minimiser les diffs
+- Jamais de nav/footer/head en dur dans une page
+- Jamais de valeur fiscale en dur — utiliser `data.js`
+- Jamais de variable d’environnement en dur
+- Jamais renommer/déplacer un fichier sans demande explicite
+- Zéro CSS inline — tout dans `ww-all.css` avec commentaire de section
+- Zéro duplication de logique, contenu ou données
+- Expliquer les impacts avant tout changement structurel
 
-ARCHITECTURE :
-- assets/ — ww-all.css, ww-bundle.js, data.js, tools.js, nav.html, footer.html, ui-components.html
-- budget/(4) invest/(11) immo/(7) fiscal/(11) outils/(1) parcours/(4) contenu/(2)
-- a-propos/(4) legal/(3) compte/(4) dashboard/(1) radar/(2)
-- Racine : index.html, 404.html, sw.js, manifest.json
+## Conventions de code
 
-PROGRAMME DOCTRINE :
-- Socle (gratuit, compte requis) · Pilote (14,99€/mois ou 99€/an, 7j essai) · Radar (/radar/)
-- Blurs → /compte/inscription.html?plan=pilote selon niveau d'accès
-- Auth Supabase à /compte/ · Variables env Cloudflare (jamais en dur)
+- Chemins : absolus uniquement (`/assets/`, `/invest/`)
+- IDs outils : underscores (`t_urgence` jamais `t-urgence`)
+- `data-level` : `"debutant"` ou `"avance"` uniquement
+- Ordre scripts : `tools.js` → `data.js` → `ww-bundle.js`
+- Init outils : `window.addEventListener('load', ...)` — jamais `DOMContentLoaded`
+- Plan utilisateur : `localStorage.getItem('ww_plan')` — pas du DOM
 
-BRAND :
-- Palette : Rose #E87CC3 · Bleu nuit #1E1D38 · Cyan #5BB8D4 · Terracotta #C4724A
-- Police : DM Serif Display (titres) + DM Sans (body)
-- Mascotte : Waffy (waffle Pixar-style, sage green, yeux slate blue, chaussures cognac)
-- Slogans actifs : "La finance, ça se déguste." | "Dans 10 ans, tu te remercieras."
-- Slogans retirés (ne jamais utiliser) : "La gaufre, elle juge pas." | "Mange une gaufre, investis l'autre."
+## Composants injectés
 
-CONTENU :
-- Deux modes : Débutant (data-level="debutant") et Avancé (data-level="avance")
-- Sujet traité sur 2 pages → mention courte + lien sur la page secondaire, développement complet sur la page principale
-- Disclaimer obligatoire (crypto/fiscal/immo/invest) : "Cette vidéo est à titre informatif uniquement et ne constitue pas un conseil financier personnalisé."
-- Taxe PV 10% = actifs financiers uniquement (ETF, actions, crypto) — PAS l'immo direct
-- Immo direct : IPP 16,5% si vente <5 ans (hors résidence principale) · 33% terrain <8 ans
+`nav.html` · `footer.html` · `ui-components.html` — chargés via `fetch('/assets/xxx.html')` dans `ww-bundle.js`.  
+`<div id="ww-ui-placeholder"></div>` suffit dans chaque page.
 
-AVANT CHAQUE MODIFICATION :
-1. Lire le fichier existant avant d'écrire
-2. Ne modifier que ce qui est demandé — ne pas réécrire les sections non concernées
-3. Vérifier qu'aucune nav/footer n'est ajoutée en dur
-4. Commit avec message clair : "feat(immo): ajout section levier hypothécaire"
+## Mode lecture
+
+- Avancé : blocs `debutant` + `avance` visibles simultanément
+- Débutant : bloc `debutant` + bouton `.ww-toggle-avance` par section (classe `.ww-local-avance`)
+- Toggle global : `setLevelNav(level)` dans `ww-bundle.js`
+
+## Preview sans Supabase
+
+`?ww_preview=radar|pilote|socle` · `?ww_preview=off` pour quitter
+
+## Fiscalité (immuable jusqu’en janvier)
+
+- Taxe PV 10% : actifs financiers uniquement — pas l’immobilier direct
+- Revente immo < 5 ans (hors résidence principale) : IPP 16,5%
+- Terrain < 8 ans : 33% · Valeurs dans `data.js`
+
+## Slogans
+
+- ✅ “La finance, ça se déguste.” · “Dans 10 ans, tu te remercieras.”
+- ❌ “La gaufre, elle juge pas.” · “Mange une gaufre, investis l’autre.”
+
+## Disclaimer obligatoire
+
+Crypto, fiscalité, immo, investissement : *“Cette page est à titre informatif uniquement et ne constitue pas un conseil financier personnalisé.”*
+
+## Format de commit
+
+`feat(scope): desc` · `fix(scope): desc` · `docs(scope): desc`
+
+## Checklist avant modification
+
+1. Lire le fichier · 2. Zone concernée uniquement · 3. Pas de nav/footer en dur · 4. Conventions OK · 5. `node --check` si bundle modifié
+
+## Template de page minimal
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Titre] — WealthWaffle</title>
+  <meta name="description" content="[Description]">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "[Nom page]", basePath: "/[dossier]/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<div class="page" style="padding-top:80px;">
+  <!-- contenu ici -->
+</div>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body>
+</html>
+```
+
+`tools.js` uniquement si la page contient des outils. `data-level` sur `.level-section > [data-level]`. Pas de CSS inline.
+
+## Workflow de livraison
+
+- Modifications en arrière-plan sans livraison automatique
+- Livraison uniquement sur demande explicite **“commit + fichiers”**
+- Sur “commit + fichiers” : message de commit GitHub + `present_files` des fichiers modifiés uniquement
+- Jamais d’explication de ce qui a été fait sauf demande explicite
+
+## Mode Dev (optimisé mobile)
+
+- **Brainstorming** : si flou/complexe, pas de code immédiat — questions + challenge + alternatives (mode Tech Lead)
+- **Suivi auto** : après chaque tâche/bug, fournir les blocs exacts à copier-coller pour `STATUS.md` et `ROADMAP.md`
+- **Format** : ultra-concis — jamais de réécriture complète, uniquement les lignes modifiées
+- **Contexte** : analyser l’arborescence via connecteur GitHub avant chaque modification
