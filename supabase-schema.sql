@@ -164,6 +164,33 @@ create policy "Lecture authentifiée"
 create policy "Écriture admin"
   on projects for all using (auth.role() = 'service_role');
 
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 8. ERROR_REPORTS — signalements d'erreurs de contenu
+-- ───────────────────────────────────────────────────────────────────────
+create table if not exists error_reports (
+  id          uuid default gen_random_uuid() primary key,
+  page        text not null,                   -- ex: "Guide ETF (/invest/etf.html)"
+  description text not null,                  -- l'erreur décrite par l'utilisateur
+  correction  text,                           -- correction suggérée
+  source      text,                           -- lien ou référence
+  email       text,                           -- email du signalant (optionnel)
+  user_id     uuid references profiles(id) on delete set null,
+  status      text default 'nouveau'
+              check (status in ('nouveau','en_cours','corrige','refuse')),
+  created_at  timestamptz default now()
+);
+
+-- Insert public (non-connectés peuvent signaler)
+alter table error_reports enable row level security;
+create policy "Insert public erreurs"
+  on error_reports for insert with check (true);
+create policy "Lecture admin erreurs"
+  on error_reports for select using (auth.uid() is not null);
+
+create index if not exists idx_error_reports_status on error_reports (status);
+create index if not exists idx_error_reports_page   on error_reports (page);
+
 -- ───────────────────────────────────────────────────────────────────────
 -- INDEX pour les performances
 -- ───────────────────────────────────────────────────────────────────────
@@ -180,5 +207,5 @@ create index if not exists idx_projects_verdict   on projects (verdict);
 -- ═══════════════════════════════════════════════════════════════════════
 -- FIN DU SCHEMA
 -- Tables : profiles | page_views | referrals | referral_conversions |
---          lead_magnet_requests | watchlist | projects
+--          lead_magnet_requests | watchlist | projects | error_reports
 -- ═══════════════════════════════════════════════════════════════════════
