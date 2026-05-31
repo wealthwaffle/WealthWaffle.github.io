@@ -1,214 +1,322 @@
-<!-- WealthWaffle — Navigation Component (loaded dynamically) -->
-<nav id="ww-nav">
-  <a href="index.html" class="nav-brand">Wealth<em>Waffle</em> 🧇</a>
+<!-- WealthWaffle — Navigation -->
+<nav id="ww-nav" style="
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:60px;
+  background:rgba(8,7,23,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+">
+  <!-- Logo -->
+  <a href="/" style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);text-decoration:none;flex-shrink:0;">
+    Wealth<span style="color:var(--rose);">Waffle</span> 🧇
+  </a>
 
-  <!-- Desktop mega-menu -->
-  <div class="nav-mega-wrap">
+  <!-- Desktop — 3 menus thématiques -->
+  <div id="ww-nav-desktop" style="display:flex;align-items:center;gap:4px;margin:0 auto;padding:0 16px;">
 
-    <!-- PARTICULIER -->
-    <div class="mega-group">
-      <button class="mega-trigger" data-group="particulier">
-        👤 Particulier <span class="mega-arrow">▾</span>
-      </button>
-      <div class="mega-panel" data-panel="particulier">
-        <div class="mega-col">
-          <div class="mega-col-title">Je débute</div>
-          <a href="bases.html">🎓 Les bases de l'argent</a>
-          <a href="budget.html">💶 Budget & Épargne</a>
-          <a href="parcours.html">🗺️ Parcours du Belge</a>
-          <a href="glossaire.html">📖 Glossaire</a>
-          <a href="videos.html">&#127910; Vidéos</a>
-          <a href="faq.html">❓ FAQ</a>
-          <a href="concept-semaine.html">💡 Concept de la semaine</a>
+    <!-- Je démarre -->
+    <div class="ww-dropdown">
+      <button class="ww-nav-btn">Je démarre <span style="font-size:0.6rem;opacity:0.6;">▾</span></button>
+      <div class="ww-dropdown-panel">
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Fondamentaux</div>
+          <a href="/parcours/bases.html">🎓 Les bases</a>
+          <a href="/parcours/">🗺️ Mon parcours</a>
+          <a href="/parcours/glossaire.html">📖 Glossaire</a>
+          <a href="/parcours/psychologie.html">🧠 Mindset & Psychologie</a>
+          <a href="/contenu/concept-semaine.html">💡 Concept de la semaine</a>
         </div>
-        <div class="mega-col">
-          <div class="mega-col-title">J'investis</div>
-          <a href="invest.html">📈 Investir — vue d'ensemble</a>
-          <a href="invest-allocation.html">🎯 Allocation de portefeuille</a>
-          <a href="invest-etf.html">📈 ETF — Guide complet</a>
-          <a href="invest-actions.html">📊 Stock Picking</a>
-          <a href="invest-obligations.html">📜 Obligations</a>
-          <a href="epargne-long-terme.html">💰 Épargne long terme</a>
-          <a href="invest-equity.html">💼 Equity non coté</a>
-          <a href="invest-fonds.html">📦 Fonds actifs vs ETF</a>
-          <a href="invest-panorama.html">🗺️ Panorama investissements</a>
-          <a href="alternatives.html">🌐 Investir autrement</a>
-          <a href="crypto.html">₿ Crypto</a>
-          <a href="calculateur-retraite.html">🧮 Simulateur retraite</a>
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Budget & Épargne</div>
+          <a href="/budget/">💶 Gérer son budget</a>
+          <a href="/budget/epargne.html">💰 Épargne long terme</a>
+          <a href="/budget/retraite.html">🏛️ Préparer sa retraite</a>
+          <a href="/budget/banques.html">🏦 Comparatif banques</a>
+          <a href="/budget/rente.html">🔥 Vivre de son capital</a>
         </div>
-        <div class="mega-col">
-          <div class="mega-col-title">J'optimise</div>
-          <a href="immo.html">🏠 Immobilier</a>
-          <a href="tax.html">📋 Fiscalité</a>
-          <a href="succession.html">🏛️ Succession</a>
-          <a href="tax.html#plus-values">📈 Plus-values 10% (2026)</a>
-          <a href="tax.html#droits-auteur-it">💻 Droits d'auteur IT</a>
-          <a href="simulateur-apport.html">🔄 Achat vs ETF</a>
-          <a href="rente.html">💸 Rente & Décumulation</a>
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Contenu & Outils</div>
+          <a href="/contenu/videos.html">🎬 Vidéos</a>
+          <a href="/contenu/newsletter.html">📬 Newsletter</a>
+          <a href="/outils/">🧮 Simulateurs gratuits</a>
+          <a href="/a-propos/faq.html">❓ FAQ</a>
         </div>
       </div>
     </div>
 
-    <!-- INDÉPENDANT -->
-    <div class="mega-group">
-      <button class="mega-trigger" data-group="independant">
-        💼 Indépendant <span class="mega-arrow">▾</span>
-      </button>
-      <div class="mega-panel" data-panel="independant">
-        <div class="mega-col">
-          <div class="mega-col-title">Ma fiscalité</div>
-          <a href="independants.html">💼 Guide indépendants</a>
-          <a href="independants.html#plci-detail">🏛️ PLCI & EIP</a>
-          <a href="independants.html#tva">💳 TVA</a>
-          <a href="independants.html#versements">📅 Versements anticipés</a>
-          <a href="outils-fiscaux.html">🛠️ Simulateurs fiscaux</a>
+    <!-- J'investis -->
+    <div class="ww-dropdown">
+      <button class="ww-nav-btn">J'investis <span style="font-size:0.6rem;opacity:0.6;">▾</span></button>
+      <div class="ww-dropdown-panel">
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Investissement</div>
+          <a href="/invest/">📈 Vue d'ensemble</a>
+          <a href="/invest/panorama.html">🗺️ Panorama placements</a>
+          <a href="/invest/allocation.html">🎯 Allocation</a>
+          <a href="/invest/etf.html">📊 ETF — Guide complet</a>
+          <a href="/invest/fonds.html">🏦 Fonds actifs vs ETF</a>
         </div>
-        <div class="mega-col">
-          <div class="mega-col-title">Mon épargne</div>
-          <a href="independants.html#plci-detail">💰 PLCI détaillée</a>
-          <a href="tax.html#pension">🏛️ Épargne pension</a>
-          <a href="calculateur-retraite.html">🧮 Simulateur retraite</a>
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Produits</div>
+          <a href="/invest/actions.html">📉 Actions</a>
+          <a href="/invest/obligations.html">💸 Obligations & Bons d'État</a>
+          <a href="/invest/alternatives.html">🌐 Alternatifs</a>
+          <a href="/invest/crypto.html">₿ Crypto</a>
+          <a href="/invest/comparateurs.html">🔗 Comparateurs officiels</a>
         </div>
-        <div class="mega-col">
-          <div class="mega-col-title">Ma société ?</div>
-          <a href="societes.html">🏢 PP vs Société</a>
-          <a href="societes.html#is">📊 Impôt des sociétés</a>
-          <a href="societes.html#eip-detail">🛡️ EIP dirigeant</a>
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Immobilier</div>
+          <a href="/immo/">🏠 Vue d'ensemble</a>
+          <a href="/immo/achat.html">🔑 Acheter en Belgique</a>
+          <a href="/immo/financement.html">🏦 Financement</a>
+          <a href="/immo/locatif.html">💰 Investissement locatif</a>
+          <a href="/immo/renovation.html">🔨 Rénovation</a>
+          <a href="/immo/alternatif.html">🔗 Immo alternatif</a>
         </div>
       </div>
     </div>
 
-    <!-- SOCIÉTÉ -->
-    <div class="mega-group">
-      <button class="mega-trigger" data-group="societe">
-        🏢 Société <span class="mega-arrow">▾</span>
-      </button>
-      <div class="mega-panel" data-panel="societe">
-        <div class="mega-col">
-          <div class="mega-col-title">Fiscalité</div>
-          <a href="societes.html">🏢 Guide sociétés</a>
-          <a href="societes.html#is">📊 IS 20% / 25%</a>
-          <a href="societes.html#vvprbis">📈 VVPRbis</a>
-          <a href="societes.html#reserve-liq">💰 Réserve liquidation</a>
+    <!-- Aller plus loin -->
+    <div class="ww-dropdown">
+      <button class="ww-nav-btn">Aller plus loin <span style="font-size:0.6rem;opacity:0.6;">▾</span></button>
+      <div class="ww-dropdown-panel">
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Fiscalité</div>
+          <a href="/fiscal/">📋 Vue d'ensemble</a>
+          <a href="/fiscal/independants.html">👤 Indépendants</a>
+          <a href="/fiscal/societes.html">🏢 Sociétés</a>
+          <a href="/fiscal/remuneration.html">💰 Rémunération dirigeant</a>
+          <a href="/fiscal/succession.html">🏛️ Succession & donation</a>
+          <a href="/fiscal/tax-shelter.html">🎬 Tax Shelter</a>
         </div>
-        <div class="mega-col">
-          <div class="mega-col-title">Rémunération</div>
-          <a href="societes.html#remuneration">💶 Salaire vs dividende</a>
-          <a href="societes.html#eip-detail">🛡️ EIP</a>
-          <a href="independants.html#plci-detail">🏛️ PLCI</a>
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Optimisation</div>
+          <a href="/fiscal/management.html">🔑 Société de management</a>
+          <a href="/fiscal/tva.html">💱 TVA</a>
+          <a href="/fiscal/frais.html">🧾 Frais déductibles</a>
+          <a href="/fiscal/assurances.html">🛡️ Assurances</a>
+          <a href="/fiscal/fiscaliste.html">⚖️ Trouver un fiscaliste</a>
         </div>
-        <div class="mega-col">
-          <div class="mega-col-title">Planification</div>
-          <a href="succession.html">🏛️ Succession</a>
-          <a href="tax.html#plus-values">📈 Plus-values 10% (2026)</a>
-          <a href="tax.html#droits-auteur-it">💻 Droits d'auteur IT</a>
-          <a href="tax.html#cheatsheet">📋 Codes fiscaux</a>
-          </div>
+        <div class="ww-dp-col">
+          <div class="ww-dp-label">Outils avancés</div>
+          <a href="/outils/">🧮 Tous les simulateurs</a>
+          <a href="/invest/equity.html">🚀 Equity & Tax Shelter</a>
+          <a href="/immo/regions.html">🗺️ Droits par région</a>
+          <a href="/radar/">📡 Radar Equity</a>
+          <a href="/programme">✈️ Programme Doctrine</a>
+        </div>
       </div>
     </div>
 
-    <!-- OUTILS -->
-    <a href="outils.html" class="nav-link-plain">🛠️ Outils</a>
-    <a href="outils-fiscaux.html" class="nav-link-plain">📊 Outils fiscaux</a>
-    </div>
+  </div>
 
-  <!-- Right side -->
-  <div class="nav-right">
+  <!-- Droite — Auth + burger -->
+  <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+
+    <!-- Recherche desktop -->
     <div class="ww-search-wrap" style="position:relative;">
-      <input id="ww-search-input" class="form-input nav-search" type="text" placeholder="🔍 Rechercher..."
+      <input id="ww-search-input" type="text" placeholder="Rechercher…"
+        style="width:140px;background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:0.76rem;color:var(--text);outline:none;"
         autocomplete="off" oninput="doSearch(this.value)" onfocus="doSearch(this.value)"
         onblur="setTimeout(()=>closeSearch(),200)">
       <div class="ww-search-results" id="ww-search-results"></div>
     </div>
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Mode clair / sombre">🌙</button>
-    <a href="newsletter.html" class="nav-cta">🎁 Guide gratuit</a>
-    <button class="burger" id="burger-btn" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
+
+    <!-- Thème -->
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Mode clair/sombre"
+      style="background:none;border:1px solid var(--border);color:var(--muted);font-size:0.9rem;padding:6px 9px;border-radius:9px;cursor:pointer;">🌙</button>
+
+    <!-- CTA auth — swappé par JS selon session -->
+    <div id="ww-auth-cta">
+      <a href="/compte/connexion.html" id="ww-btn-login"
+        style="font-size:0.76rem;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:9px;border:1px solid var(--border);font-family:'DM Sans',sans-serif;white-space:nowrap;">
+        Se connecter
+      </a>
+      <a href="/compte/inscription.html" id="ww-btn-register"
+        style="font-size:0.76rem;font-weight:700;color:#fff;text-decoration:none;padding:7px 13px;border-radius:9px;background:linear-gradient(135deg,var(--rose),#b8449a);font-family:'DM Sans',sans-serif;white-space:nowrap;margin-left:4px;">
+        Commencer gratuitement
+      </a>
+      <a href="/dashboard/" id="ww-btn-dashboard" style="display:none;font-size:0.76rem;font-weight:700;color:#fff;text-decoration:none;padding:7px 13px;border-radius:9px;background:linear-gradient(135deg,var(--rose),#b8449a);font-family:'DM Sans',sans-serif;white-space:nowrap;">
+        Mon espace →
+      </a>
+    </div>
+
+    <!-- Burger mobile -->
+    <button class="burger" id="burger-btn" onclick="toggleMenu()" aria-label="Menu"
+      style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;">
+      <span style="display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;transition:0.25s;"></span>
+      <span style="display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;transition:0.25s;"></span>
+      <span style="display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;transition:0.25s;"></span>
     </button>
+
   </div>
 </nav>
 
-<!-- Mobile menu -->
-<div class="mobile-menu" id="mobile-menu">
+<!-- ══════════════════════════════════════
+     MENU MOBILE — drawer depuis la droite
+══════════════════════════════════════ -->
+<div id="mobile-menu" style="
+  display:none;flex-direction:column;
+  position:fixed;top:60px;right:0;bottom:0;width:min(320px,100vw);
+  background:var(--bg);border-left:1px solid var(--border);
+  z-index:190;overflow-y:auto;padding:16px 18px 40px;
+  transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
+">
 
-  <!-- Level + theme toggles -->
-  <div class="mobile-toggles">
-    <div class="mobile-toggle-row">
-      <span class="mobile-toggle-label">Mode</span>
-      <div class="level-toggle" id="level-toggle-mobile"></div>
-    </div>
-    <div class="mobile-toggle-row">
-      <span class="mobile-toggle-label">Thème</span>
-      <button class="theme-btn-mobile" onclick="toggleTheme()">🌙 Basculer</button>
-    </div>
+  <!-- Auth mobile -->
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;" id="ww-auth-mobile">
+    <a href="/compte/inscription.html" onclick="closeMenu()"
+      style="display:block;text-align:center;padding:11px;border-radius:11px;background:linear-gradient(135deg,var(--rose),#b8449a);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.86rem;text-decoration:none;">
+      Commencer gratuitement →
+    </a>
+    <a href="/compte/connexion.html" onclick="closeMenu()"
+      style="display:block;text-align:center;padding:10px;border-radius:11px;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.82rem;text-decoration:none;">
+      Se connecter
+    </a>
   </div>
 
-  <!-- Profile accordions -->
-  <div class="mobile-profile-group">
-    <button class="mobile-profile-btn" onclick="toggleMobileGroup('mp-particulier')">
-      👤 Particulier <span>▾</span>
+  <!-- Séparateur -->
+  <div style="height:1px;background:var(--faint);margin-bottom:12px;"></div>
+
+  <!-- Accordéons mobile -->
+  <div class="mob-group">
+    <button class="mob-btn" onclick="toggleMobileGroup('mob-demarre')">
+      🌱 Je démarre <span class="mob-arrow">▾</span>
     </button>
-    <div class="mobile-profile-links" id="mp-particulier">
-      <div class="mobile-sub-title">Je débute</div>
-      <a href="bases.html" onclick="closeMenu()">🎓 Les bases</a>
-      <a href="budget.html" onclick="closeMenu()">💶 Budget & Épargne</a>
-      <a href="parcours.html" onclick="closeMenu()">🗺️ Parcours du Belge</a>
-      <a href="glossaire.html" onclick="closeMenu()">📖 Glossaire</a>
-      <a href="videos.html" onclick="closeMenu()">&#127910; Vidéos</a>
-      <a href="faq.html" onclick="closeMenu()">❓ FAQ</a>
-      <a href="concept-semaine.html" onclick="closeMenu()">💡 Concept</a>
-      <div class="mobile-sub-title">J'investis</div>
-      <a href="invest.html" onclick="closeMenu()">📈 Vue d'ensemble</a>
-      <a href="invest-allocation.html" onclick="closeMenu()">🎯 Allocation</a>
-      <a href="invest-etf.html" onclick="closeMenu()">📈 ETF</a>
-      <a href="invest-actions.html" onclick="closeMenu()">📊 Stock Picking</a>
-      <a href="invest-obligations.html" onclick="closeMenu()">📜 Obligations</a>
-      <a href="epargne-long-terme.html" onclick="closeMenu()">💰 Épargne long terme</a>
-      <a href="invest-equity.html" onclick="closeMenu()">💼 Equity non coté</a>
-      <a href="invest-fonds.html" onclick="closeMenu()">📦 Fonds actifs vs ETF</a>
-      <a href="invest-panorama.html" onclick="closeMenu()">🗺️ Panorama</a>
-      <a href="alternatives.html" onclick="closeMenu()">🌐 Investir autrement</a>
-      <a href="crypto.html" onclick="closeMenu()">₿ Crypto</a>
-      <div class="mobile-sub-title">J'optimise</div>
-      <a href="immo.html" onclick="closeMenu()">🏠 Immobilier</a>
-      <a href="tax.html" onclick="closeMenu()">📋 Fiscalité</a>
-      <a href="succession.html" onclick="closeMenu()">🏛️ Succession</a>
-      <a href="rente.html" onclick="closeMenu()">💸 Rente & Décumulation</a>
+    <div class="mob-links" id="mob-demarre">
+      <a href="/parcours/bases.html" onclick="closeMenu()">🎓 Les bases</a>
+      <a href="/parcours/" onclick="closeMenu()">🗺️ Mon parcours</a>
+      <a href="/parcours/glossaire.html" onclick="closeMenu()">📖 Glossaire</a>
+      <a href="/parcours/psychologie.html" onclick="closeMenu()">🧠 Mindset</a>
+      <a href="/budget/" onclick="closeMenu()">💶 Budget</a>
+      <a href="/budget/epargne.html" onclick="closeMenu()">💰 Épargne</a>
+      <a href="/budget/retraite.html" onclick="closeMenu()">🏛️ Retraite</a>
+      <a href="/budget/banques.html" onclick="closeMenu()">🏦 Banques</a>
+      <a href="/contenu/videos.html" onclick="closeMenu()">🎬 Vidéos</a>
+      <a href="/contenu/concept-semaine.html" onclick="closeMenu()">💡 Concept de la semaine</a>
+      <a href="/outils/" onclick="closeMenu()">🧮 Simulateurs</a>
     </div>
   </div>
 
-  <div class="mobile-profile-group">
-    <button class="mobile-profile-btn" onclick="toggleMobileGroup('mp-independant')">
-      💼 Indépendant <span>▾</span>
+  <div class="mob-group">
+    <button class="mob-btn" onclick="toggleMobileGroup('mob-investis')">
+      📈 J'investis <span class="mob-arrow">▾</span>
     </button>
-    <div class="mobile-profile-links" id="mp-independant">
-      <a href="independants.html" onclick="closeMenu()">💼 Guide complet</a>
-      <a href="independants.html#plci-detail" onclick="closeMenu()">🏛️ PLCI & EIP</a>
-      <a href="independants.html#tva" onclick="closeMenu()">💳 TVA</a>
-      <a href="independants.html#versements" onclick="closeMenu()">📅 Versements anticipés</a>
-      <a href="societes.html" onclick="closeMenu()">🏢 Passer en société ?</a>
+    <div class="mob-links" id="mob-investis">
+      <a href="/invest/" onclick="closeMenu()">📈 Investir — vue d'ensemble</a>
+      <a href="/invest/etf.html" onclick="closeMenu()">📊 ETF</a>
+      <a href="/invest/allocation.html" onclick="closeMenu()">🎯 Allocation</a>
+      <a href="/invest/actions.html" onclick="closeMenu()">📉 Actions</a>
+      <a href="/invest/obligations.html" onclick="closeMenu()">💸 Obligations</a>
+      <a href="/invest/alternatives.html" onclick="closeMenu()">🌐 Alternatifs</a>
+      <a href="/invest/crypto.html" onclick="closeMenu()">₿ Crypto</a>
+      <a href="/immo/" onclick="closeMenu()">🏠 Immobilier</a>
+      <a href="/immo/achat.html" onclick="closeMenu()">🔑 Acheter</a>
+      <a href="/immo/locatif.html" onclick="closeMenu()">💰 Locatif</a>
+      <a href="/immo/renovation.html" onclick="closeMenu()">🔨 Rénovation</a>
     </div>
   </div>
 
-  <div class="mobile-profile-group">
-    <button class="mobile-profile-btn" onclick="toggleMobileGroup('mp-societe')">
-      🏢 Société <span>▾</span>
+  <div class="mob-group">
+    <button class="mob-btn" onclick="toggleMobileGroup('mob-loin')">
+      🚀 Aller plus loin <span class="mob-arrow">▾</span>
     </button>
-    <div class="mobile-profile-links" id="mp-societe">
-      <a href="societes.html" onclick="closeMenu()">🏢 Guide sociétés</a>
-      <a href="societes.html#vvprbis" onclick="closeMenu()">📈 VVPRbis</a>
-      <a href="societes.html#reserve-liq" onclick="closeMenu()">💰 Réserve liquidation</a>
-      <a href="societes.html#remuneration" onclick="closeMenu()">💶 Salaire vs dividende</a>
+    <div class="mob-links" id="mob-loin">
+      <a href="/fiscal/" onclick="closeMenu()">📋 Fiscalité</a>
+      <a href="/fiscal/independants.html" onclick="closeMenu()">👤 Indépendants</a>
+      <a href="/fiscal/societes.html" onclick="closeMenu()">🏢 Sociétés</a>
+      <a href="/fiscal/remuneration.html" onclick="closeMenu()">💰 Rémunération</a>
+      <a href="/fiscal/succession.html" onclick="closeMenu()">🏛️ Succession</a>
+      <a href="/fiscal/tax-shelter.html" onclick="closeMenu()">🎬 Tax Shelter</a>
+      <a href="/invest/equity.html" onclick="closeMenu()">🚀 Equity</a>
+      <a href="/radar/" onclick="closeMenu()">📡 Radar Equity</a>
     </div>
   </div>
 
-  <div class="mobile-divider"></div>
-  <a href="outils.html" onclick="closeMenu()">🛠️ Outils & Simulateurs</a>
-  <a href="outils-fiscaux.html" onclick="closeMenu()">📊 Outils fiscaux</a>
-  <a href="comparateurs.html" onclick="closeMenu()">📊 Comparateurs</a>
-  <a href="succession.html" onclick="closeMenu()">🏛️ Succession</a>
-      <a href="rente.html" onclick="closeMenu()">💸 Rente & Décumulation</a>
-  <a href="apropos.html" onclick="closeMenu()">ℹ️ À propos</a>
-  <a href="doctrine.html" onclick="closeMenu()">📘 Programme Doctrine</a>
-  <a href="newsletter.html" onclick="closeMenu()" class="nav-cta" style="margin-top:8px;text-align:center;">🎁 Guide gratuit</a>
+  <!-- Séparateur -->
+  <div style="height:1px;background:var(--faint);margin:12px 0;"></div>
+
+  <a href="/programme" onclick="closeMenu()"
+    style="display:block;text-align:center;padding:11px;border-radius:11px;background:linear-gradient(135deg,rgba(232,124,195,0.15),rgba(91,184,212,0.15));border:1px solid rgba(232,124,195,0.25);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.84rem;text-decoration:none;margin-bottom:8px;">
+    ✈️ Programme Doctrine
+  </a>
+  <a href="/a-propos/" onclick="closeMenu()"
+    style="display:block;text-align:center;padding:9px;color:var(--muted);font-size:0.78rem;text-decoration:none;">
+    À propos · FAQ · Sources
+  </a>
+
 </div>
+
+<!-- Overlay pour fermer le menu -->
+<div id="mobile-overlay" onclick="closeMenu()"
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:189;"></div>
+
+<style>
+/* ── Dropdown desktop ── */
+.ww-dropdown { position:relative; }
+.ww-nav-btn {
+  background:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:0.80rem;font-weight:600;
+  color:var(--muted);padding:8px 12px;border-radius:9px;
+  transition:color 0.18s,background 0.18s;white-space:nowrap;
+}
+.ww-nav-btn:hover, .ww-dropdown:hover .ww-nav-btn { color:var(--text);background:var(--s2); }
+.ww-dropdown-panel {
+  display:none;position:absolute;top:calc(100% + 8px);left:50%;
+  transform:translateX(-50%);
+  background:var(--s2);border:1px solid var(--border);border-radius:16px;
+  padding:18px;gap:20px;min-width:520px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);z-index:300;
+  grid-template-columns:1fr 1fr 1fr;
+}
+.ww-dropdown:hover .ww-dropdown-panel { display:grid; }
+.ww-dp-label {
+  font-size:0.62rem;font-weight:700;letter-spacing:0.10em;
+  text-transform:uppercase;color:var(--muted2);margin-bottom:8px;
+}
+.ww-dropdown-panel a {
+  display:block;font-size:0.80rem;color:var(--muted);
+  text-decoration:none;padding:5px 8px;border-radius:8px;
+  transition:background 0.15s,color 0.15s;white-space:nowrap;
+}
+.ww-dropdown-panel a:hover { background:var(--s3);color:var(--text); }
+
+/* ── Mobile accordéons ── */
+.mob-group { border-bottom:1px solid var(--faint); }
+.mob-btn {
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  background:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:0.86rem;font-weight:700;
+  color:var(--text);padding:13px 4px;
+}
+.mob-arrow { font-size:0.7rem;color:var(--muted);transition:transform 0.2s; }
+.mob-links { display:none;flex-direction:column;gap:2px;padding-bottom:10px; }
+.mob-links.open { display:flex; }
+.mob-group.open .mob-arrow { transform:rotate(180deg); }
+.mob-links a {
+  font-size:0.82rem;color:var(--muted);text-decoration:none;
+  padding:7px 10px;border-radius:8px;transition:background 0.15s,color 0.15s;
+}
+.mob-links a:hover { background:var(--s2);color:var(--text); }
+
+/* ── Burger open state ── */
+#burger-btn.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+#burger-btn.open span:nth-child(2) { opacity:0; }
+#burger-btn.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+/* ── Responsive ── */
+@media (max-width:768px) {
+  #ww-nav-desktop { display:none !important; }
+  #burger-btn { display:flex !important; }
+  .ww-search-wrap { display:none; }
+  #ww-btn-login, #ww-btn-register { display:none !important; }
+  #ww-btn-dashboard { display:none !important; }
+}
+@media (min-width:769px) {
+  #burger-btn { display:none !important; }
+}
+@media (max-width:1100px) {
+  .ww-nav-btn { font-size:0.74rem;padding:7px 8px; }
+  #ww-btn-login { display:none; }
+}
+</style>
