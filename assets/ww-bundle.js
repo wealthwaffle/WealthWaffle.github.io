@@ -2308,3 +2308,141 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
   `;
   document.head.appendChild(style);
 })();
+
+
+/* ═══════════════════════════════════════════════════════════
+   BANDEAU NUDGE — lead magnet contextuel sous la nav
+   Affiché après 5 pages vues sans compte
+═══════════════════════════════════════════════════════════ */
+(function initNudgeBar() {
+  // Définir le lead magnet selon la page visitée
+  const LEAD_MAGNETS = {
+    etf:        { text: '📊 <strong>Guide ETF belge</strong> — les 5 ETF à connaître, la fiscalité 2026 et le DCA automatique.', magnet: 'guide-etf' },
+    invest:     { text: '📊 <strong>Simulateur d\'allocation</strong> — trouve ta répartition idéale ETF/obligations/cash selon ton profil.', magnet: 'simulateur-allocation' },
+    fiscal:     { text: '✅ <strong>Checklist fiscale belge</strong> — toutes les déductions à ne pas manquer pour ta déclaration 2026.', magnet: 'checklist-fiscal' },
+    parcours:   { text: '🎁 <strong>10 erreurs financières que font 90% des Belges</strong> — le guide PDF gratuit.', magnet: 'guide-10-erreurs' },
+    budget:     { text: '📊 <strong>Excel budget belge</strong> — ton tableau de bord budget/épargne/investissement prêt à l\'emploi.', magnet: 'excel-budget' },
+    immo:       { text: '🏠 <strong>Checklist achat immo belge</strong> — toutes les étapes, les pièges et les documents à prévoir.', magnet: 'checklist-immo' },
+    crypto:     { text: '₿ <strong>Guide crypto débutant</strong> — wallets, exchanges, fiscalité belge 2026 en une page.', magnet: 'guide-crypto' },
+    taxshelter: { text: '🎬 <strong>Guide Tax Shelter startups</strong> — comment réduire votre impôt de 45% légalement.', magnet: 'guide-taxshelter' },
+    or:         { text: '🥇 <strong>Guide achat or Belgique</strong> — lingots, pièces, ETF : où acheter et comment éviter les pièges.', magnet: 'guide-or' },
+    default:    { text: '🎁 <strong>10 erreurs financières que font 90% des Belges</strong> — le guide PDF gratuit.', magnet: 'guide-10-erreurs' },
+  };
+
+  function getContext() {
+    const path = location.pathname;
+    if (path.includes('/or'))                                              return 'or';
+    if (path.includes('/etf'))                                             return 'etf';
+    if (path.includes('/crypto'))                                          return 'crypto';
+    if (path.includes('/tax-shelter'))                                     return 'taxshelter';
+    if (path.startsWith('/invest') || path.startsWith('/invest/actions'))  return 'invest';
+    if (path.startsWith('/fiscal') || path.startsWith('/budget/rente') || path.startsWith('/budget/epargne')) return 'fiscal';
+    if (path.startsWith('/immo'))                                          return 'immo';
+    if (path.startsWith('/budget'))                                        return 'budget';
+    if (path.startsWith('/parcours') || path.startsWith('/parcours/bases')) return 'parcours';
+    return 'default';
+  }
+
+  function shouldShow() {
+    if (localStorage.getItem('ww_session'))    return false; // connecté
+    if (localStorage.getItem('ww_nudge_done')) return false; // déjà soumis
+    if (localStorage.getItem('ww_nudge_closed')) return false; // fermé manuellement
+    const views = parseInt(localStorage.getItem('ww_page_views') || '0');
+    return views >= 1;
+  }
+
+  function showNudge() {
+    const bar = document.getElementById('ww-nudge-bar');
+    const txt = document.getElementById('nudge-text');
+    if (!bar || !txt) return;
+    const ctx = getContext();
+    const lm  = LEAD_MAGNETS[ctx];
+    txt.innerHTML = lm.text;
+    bar.setAttribute('data-magnet', lm.magnet);
+    bar.style.display = 'block';
+    document.body.classList.add('has-nudge');
+  }
+
+  window.closeNudge = function() {
+    const bar = document.getElementById('ww-nudge-bar');
+    if (bar) bar.style.display = 'none';
+    document.body.classList.remove('has-nudge');
+    localStorage.setItem('ww_nudge_closed', '1');
+  };
+
+  window.submitNudge = async function() {
+    const email  = document.getElementById('nudge-email')?.value?.trim();
+    const magnet = document.getElementById('ww-nudge-bar')?.getAttribute('data-magnet');
+    const btn    = document.getElementById('nudge-btn');
+    if (!email || !email.includes('@')) {
+      document.getElementById('nudge-email').style.borderColor = 'var(--rose)';
+      return;
+    }
+    if (btn) { btn.textContent = '⏳'; btn.disabled = true; }
+    try {
+      // 1. Brevo
+      await fetch('https://api.brevo.com/v3/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'api-key': window.WW_CONFIG?.BREVO_KEY || '' },
+        body: JSON.stringify({ email, listIds: [3], attributes: { LEAD_MAGNET: magnet, SOURCE: 'nudge_bar' }, updateEnabled: true }),
+      });
+      // 2. Supabase — table lead_magnet_requests
+      if (window.WW?.sb) {
+        const userId = window.WW?.user?.id || null;
+        await window.WW.sb.from('lead_magnet_requests').insert({
+          email,
+          magnet,
+          user_id: userId,
+          page: location.pathname,
+          source: 'nudge_bar',
+          created_at: new Date().toISOString(),
+        });
+      }
+    } catch(e) {}
+    localStorage.setItem('ww_nudge_done', '1');
+    const bar = document.getElementById('ww-nudge-bar');
+    if (bar) bar.innerHTML = '<div style="text-align:center;padding:8px;font-size:0.80rem;color:#7EC8A0;font-weight:600;">✅ C\'est envoyé ! Vérifie ta boîte mail.</div>';
+    setTimeout(closeNudge, 3000);
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Incrémenter le compteur de pages vues
+    const views = parseInt(localStorage.getItem('ww_page_views') || '0') + 1;
+    localStorage.setItem('ww_page_views', views.toString());
+    // Afficher le bandeau si conditions remplies
+    if (shouldShow()) setTimeout(showNudge, 800);
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   RÉGLAGE NIVEAU DEPUIS LA NAV
+═══════════════════════════════════════════════════════════ */
+window.setLevelNav = function(level) {
+  localStorage.setItem('ww_level', level);
+  document.body.setAttribute('data-level', level);
+  // Mettre à jour les boutons desktop
+  const deb = document.getElementById('nav-lvl-deb');
+  const adv = document.getElementById('nav-lvl-adv');
+  const mdeb = document.getElementById('mob-lvl-deb');
+  const madv = document.getElementById('mob-lvl-adv');
+  const activeStyle  = 'border-color:rgba(126,200,160,0.45);background:rgba(126,200,160,0.10);color:#7EC8A0;';
+  const inactiveStyle = 'border:1px solid var(--border);background:var(--s3);color:var(--muted);';
+  if (level === 'debutant') {
+    [deb, mdeb].forEach(b => b && (b.style.cssText += activeStyle));
+    [adv, madv].forEach(b => b && (b.style.cssText += inactiveStyle));
+  } else {
+    [adv, madv].forEach(b => b && (b.style.cssText += activeStyle));
+    [deb, mdeb].forEach(b => b && (b.style.cssText += inactiveStyle));
+  }
+  // Sync avec Supabase si connecté
+  if (window.WW?.sb && window.WW?.user) {
+    window.WW.sb.from('profiles').update({ level }).eq('id', window.WW.user.id).then(()=>{});
+  }
+};
+
+/* Init état des boutons niveau au chargement */
+document.addEventListener('DOMContentLoaded', function() {
+  const level = localStorage.getItem('ww_level') || 'debutant';
+  setLevelNav(level);
+});
+
