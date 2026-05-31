@@ -1,4 +1,10 @@
 /*
+/* ── Détection file:// — les fetch échouent en local sans serveur ── */
+if (location.protocol === 'file:') {
+  console.warn('WealthWaffle : fichiers ouverts en local (file://). ' +
+    'Le header/footer et certains outils ne s\'affichent pas correctement sans serveur HTTP. ' +
+    'Utilise "npx serve ." ou déploie sur Cloudflare Pages pour tester.');
+}
  * ═══════════════════════════════════════════════════════════
  * WEALTHWAFFLE — ww-bundle.js
  * Fichier unique regroupant tous les scripts du site
@@ -430,12 +436,37 @@ window.WW_Search = {
 
   /* ── Init all after DOM ready ── */
   document.addEventListener('DOMContentLoaded', async () => {
-    // Load components
+    // Charger les composants — injection directe dans le body si placeholders absents
+    async function loadOrInject(url, placeholderId, position) {
+      const el = document.getElementById(placeholderId);
+      try {
+        const r = await fetch(url);
+        if (!r.ok) throw new Error();
+        const html = await r.text();
+        if (el) {
+          el.innerHTML = html;
+        } else {
+          // Placeholder absent — injecter directement
+          const tmp = document.createElement('div');
+          tmp.id = placeholderId;
+          tmp.innerHTML = html;
+          if (position === 'start') {
+            document.body.insertBefore(tmp, document.body.firstChild);
+          } else {
+            document.body.appendChild(tmp);
+          }
+        }
+      } catch(e) {
+        console.warn('WW: Could not load ' + url);
+      }
+    }
+
     await Promise.all([
-      loadComponent('/assets/nav.html', 'ww-nav-placeholder'),
-      loadComponent('/assets/footer.html', 'ww-footer-placeholder'),
-      loadComponent('/assets/ui-components.html', 'ww-ui-placeholder'),
+      loadOrInject('/assets/nav.html', 'ww-nav-placeholder', 'start'),
+      loadOrInject('/assets/footer.html', 'ww-footer-placeholder', 'end'),
+      loadOrInject('/assets/ui-components.html', 'ww-ui-placeholder', 'start'),
     ]);
+
     // Init after load
     setActiveNav();
     initMegaMenu();
