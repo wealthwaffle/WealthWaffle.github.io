@@ -235,7 +235,7 @@ window.WW_Tools = (function() {
       const epargne = rev * 0.20;
       if (epargne < 200) {
         alert.style.display='block';
-        alert.innerHTML = `⚠️ <strong>Ton enveloppe épargne est de ${eur(epargne)}/mois.</strong> C'est peu — mais c'est mieux que rien. Priorité : constitution d'un fonds d'urgence de ${eur(rev * 3)} (3 mois de revenus). <a href="budget.html#urgence" style="color:${C.cyan};">Guide →</a>`;
+        alert.innerHTML = `⚠️ <strong>Ton enveloppe épargne est de ${eur(epargne)}/mois.</strong> C'est peu — mais c'est mieux que rien. Priorité : constitution d'un fonds d'urgence de ${eur(rev * 3)} (3 mois de revenus). <a href="/budget/#urgence" style="color:${C.cyan};">Guide →</a>`;
       } else {
         alert.style.display='none';
       }
@@ -302,7 +302,7 @@ window.WW_Tools = (function() {
         `Ton taux horaire net est de <strong>${eur(tauxHoraire)}/h</strong>. ` +
         `Avant d'acheter quelque chose, demande-toi si ça vaut ${texte} de ta vie. ` +
         (equivalent.length ? `C'est l'équivalent de ${equivalent.join(' ou ')}.` : '') +
-        ` <a href="budget.html" style="color:${C.cyan};">Reprendre le contrôle de son budget →</a>`;
+        ` <a href="/budget/" style="color:${C.cyan};">Reprendre le contrôle de son budget →</a>`;
       res.style.display='block';
     };
   }
@@ -348,15 +348,15 @@ window.WW_Tools = (function() {
       if (diff > 1) {
         verdict.style.cssText = `border-radius:12px;padding:20px;text-align:center;margin-bottom:12px;background:${C.rose}14;border:1px solid ${C.rose}33;`;
         verdict.innerHTML = `<div style="font-size:1.4rem;margin-bottom:6px;">💳</div><div style="font-weight:700;color:${C.rose};font-size:1rem;">Rembourse ton prêt en priorité</div><div style="font-size:0.80rem;color:var(--muted,#888);margin-top:4px;">Ton prêt te coûte ${pct(pret)}/an — ton épargne te rapporte ${pct(epargne)}/an. Tu perds ${pct(diff)} chaque année en gardant cet argent de côté.</div>`;
-        detail.innerHTML = `Chaque euro remboursé t'économise ${pct(pret)} d'intérêts garanti. Ton épargne ne te rapporte que ${pct(epargne)}. La différence de ${pct(diff)} est certaine — c'est comme un investissement sans risque à ${pct(diff)}. <br><br><strong>Exception :</strong> garde toujours ton fonds d'urgence (3-6 mois) même si tu rembourses. <a href="budget.html#urgence" style="color:${C.cyan};">Guide fonds d'urgence →</a>`;
+        detail.innerHTML = `Chaque euro remboursé t'économise ${pct(pret)} d'intérêts garanti. Ton épargne ne te rapporte que ${pct(epargne)}. La différence de ${pct(diff)} est certaine — c'est comme un investissement sans risque à ${pct(diff)}. <br><br><strong>Exception :</strong> garde toujours ton fonds d'urgence (3-6 mois) même si tu rembourses. <a href="/budget/#urgence" style="color:${C.cyan};">Guide fonds d'urgence →</a>`;
       } else if (diff < -1) {
         verdict.style.cssText = `border-radius:12px;padding:20px;text-align:center;margin-bottom:12px;background:${C.green}14;border:1px solid ${C.green}33;`;
         verdict.innerHTML = `<div style="font-size:1.4rem;margin-bottom:6px;">💰</div><div style="font-weight:700;color:${C.green};font-size:1rem;">Épargne et investis en priorité</div><div style="font-size:0.80rem;color:var(--muted,#888);margin-top:4px;">Ton épargne rapporte ${pct(epargne)}/an — ton prêt ne coûte que ${pct(pret)}/an. Tu gagnes ${pct(-diff)}/an en investissant plutôt qu'en remboursant.</div>`;
-        detail.innerHTML = `Ton prêt est bon marché — tu as raison de l'utiliser comme levier. Investis la différence dans des ETF world. <a href="invest-etf.html" style="color:${C.cyan};">Guide ETF →</a>`;
+        detail.innerHTML = `Ton prêt est bon marché — tu as raison de l'utiliser comme levier. Investis la différence dans des ETF world. <a href="/invest/etf.html" style="color:${C.cyan};">Guide ETF →</a>`;
       } else {
         verdict.style.cssText = `border-radius:12px;padding:20px;text-align:center;margin-bottom:12px;background:${C.gold}14;border:1px solid ${C.gold}33;`;
         verdict.innerHTML = `<div style="font-size:1.4rem;margin-bottom:6px;">⚖️</div><div style="font-weight:700;color:${C.gold};font-size:1rem;">L'écart est minime (${pct(Math.abs(diff))})</div><div style="font-size:0.80rem;color:var(--muted,#888);margin-top:4px;">Mathématiquement quasi-équivalent. Priorité : ton fonds d'urgence d'abord.</div>`;
-        detail.innerHTML = `Dans ce cas, la meilleure stratégie dépend de ton profil psychologique. Si les dettes te stressent, rembourse. Si tu veux maximiser, investis. Les deux sont raisonnables. <a href="budget.html" style="color:${C.cyan};">En savoir plus →</a>`;
+        detail.innerHTML = `Dans ce cas, la meilleure stratégie dépend de ton profil psychologique. Si les dettes te stressent, rembourse. Si tu veux maximiser, investis. Les deux sont raisonnables. <a href="/budget/" style="color:${C.cyan};">En savoir plus →</a>`;
       }
       res.style.display='block';
     };
@@ -430,7 +430,7 @@ window.WW_Tools = (function() {
       document.getElementById(`${uid}_comment`).innerHTML =
         `En ${ans} ans avec ${inflation}% d'inflation/an, tes ${eur(montant)} d'aujourd'hui n'auront plus qu'un pouvoir d'achat de <strong style="color:${C.terra};">${eur(reel)}</strong> — une perte de ${eur(perte)}. ` +
         `Laisser dormir son argent sur un compte courant n'est pas "sans risque" : c'est une perte assurée. ` +
-        `<a href="invest-etf.html" style="color:${C.cyan};">Comment battre l'inflation avec les ETF →</a>`;
+        `<a href="/invest/etf.html" style="color:${C.cyan};">Comment battre l'inflation avec les ETF →</a>`;
       res.style.display='block';
     };
   }
@@ -504,7 +504,7 @@ window.WW_Tools = (function() {
             : `Il te manque ${eur(-apres)} pour absorber cet imprévu sans t'endetter. Objectif : constituer ${eur(s.montant * 1.5)} de fonds d'urgence.`}
         </div>
         <div style="margin-top:10px;">
-          <a href="budget.html#urgence" style="color:${C.cyan};font-size:0.80rem;font-weight:600;">Comment constituer son fonds d'urgence →</a>
+          <a href="/budget/#urgence" style="color:${C.cyan};font-size:0.80rem;font-weight:600;">Comment constituer son fonds d'urgence →</a>
         </div>
       </div>`;
     };
@@ -566,7 +566,7 @@ window.WW_Tools = (function() {
               '📚 Les biais cognitifs nous touchent tous. La connaissance est le premier antidote.'}
           </div>
           <button onclick="location.reload()" style="${btnStyle(C.cyan)}">Recommencer</button>
-          <div style="margin-top:12px;"><a href="invest.html" style="color:${C.cyan};font-size:0.82rem;">Guide investissement →</a></div>
+          <div style="margin-top:12px;"><a href="/invest/" style="color:${C.cyan};font-size:0.82rem;">Guide investissement →</a></div>
         </div>`;
         return;
       }
@@ -773,13 +773,13 @@ window.WW_Tools = (function() {
             <div style="font-size:0.92rem;color:var(--text,#f0f0f0);line-height:1.7;margin-bottom:12px;">${found.simple}</div>
             ${found.exemple ? `<div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:10px;font-size:0.80rem;color:var(--muted,#888);line-height:1.6;"><strong style="color:${C.gold};">💡 Exemple :</strong> ${found.exemple}</div>` : ''}
           </div>
-          <div style="margin-top:8px;text-align:right;"><a href="glossaire.html" style="font-size:0.74rem;color:var(--muted,#888);">Voir le glossaire complet →</a></div>`;
+          <div style="margin-top:8px;text-align:right;"><a href="/parcours/glossaire.html" style="font-size:0.74rem;color:var(--muted,#888);">Voir le glossaire complet →</a></div>`;
         } else {
           result.style.display='block';
           result.innerHTML = `<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px;font-size:0.84rem;color:var(--muted,#888);">
             Je ne connais pas encore "<strong style="color:var(--text,#f0f0f0);">${query}</strong>". 
-            <a href="glossaire.html" style="color:${C.cyan};">Cherche dans le glossaire →</a> ou 
-            <a href="faq.html" style="color:${C.cyan};">pose la question à Waffy.</a>
+            <a href="/parcours/glossaire.html" style="color:${C.cyan};">Cherche dans le glossaire →</a> ou 
+            <a href="/a-propos/faq.html" style="color:${C.cyan};">pose la question à Waffy.</a>
           </div>`;
         }
       }, 600 + Math.random() * 400);
@@ -2600,4 +2600,319 @@ window.WW_Tools.comparateurETFvsAV = function(containerId) {
   };
 
   window[uid + '_calc']();
+};
+
+/* ════════════════════════════════════════════════════════════════════
+ * SIMULATEURS FISCAUX PRO — Pilote
+ * P1. PLCI — Cotisation optimale indépendant
+ * P2. IS vs IPP — Société ou personne physique ?
+ * P3. VVPRbis — PM réduit sur dividendes
+ * P4. Réserve de liquidation — stratégie complète
+ * ════════════════════════════════════════════════════════════════════ */
+
+/* ─── P1. SIMULATEUR PLCI ───────────────────────────────────────── */
+window.WW_Tools.simulateurPLCI = function(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const uid = 'plci_' + containerId;
+
+  el.innerHTML = `<div style="${baseStyle}">
+    ${toolTitle('🏛️', 'Simulateur PLCI', 'Calcule ta cotisation optimale pour la Pension Libre Complémentaire des Indépendants.')}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+      <div>
+        ${label('Revenu net imposable (€/an)')}
+        <input id="${uid}_revenu" type="number" min="0" placeholder="ex: 45 000" style="${inputStyle}" oninput="${uid}_calc()">
+      </div>
+      <div>
+        ${label('Statut')}
+        <select id="${uid}_statut" style="${inputStyle}" onchange="${uid}_calc()">
+          <option value="principal">Indépendant à titre principal</option>
+          <option value="complement">Indépendant à titre complémentaire</option>
+          <option value="dirigeant">Dirigeant de société (EIP)</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      ${label('Tranche marginale d\'imposition (%)')}
+      <input id="${uid}_tmi" type="number" min="25" max="50" value="50" style="${inputStyle}" oninput="${uid}_calc()">
+      <div style="font-size:0.68rem;color:var(--muted);margin-top:3px;">Belge à 50% dès ~46.440€ de revenus imposables (2026)</div>
+    </div>
+    <div id="${uid}_result"></div>
+  </div>`;
+
+  window[`${uid}_calc`] = function() {
+    const revenu = parseFloat(document.getElementById(`${uid}_revenu`)?.value) || 0;
+    const statut = document.getElementById(`${uid}_statut`)?.value;
+    const tmi    = parseFloat(document.getElementById(`${uid}_tmi`)?.value) || 50;
+    const res    = document.getElementById(`${uid}_result`);
+    if (!revenu || revenu < 1000) { res.innerHTML = ''; return; }
+
+    // Plafond PLCI 2026 : 8,17% du revenu net imposable, max 3.965,77 €
+    // Dirigeant EIP : 80% de la rémunération annuelle brute moyenne (règle des 80%)
+    let cotMax, label_statut;
+    if (statut === 'dirigeant') {
+      cotMax = Math.min(revenu * 0.80 / 12, revenu * 0.03); // approximation règle 80%
+      label_statut = 'EIP (règle des 80% — vérifier avec un courtier)';
+    } else {
+      cotMax = Math.min(revenu * 0.0817, 3965.77);
+      label_statut = statut === 'principal' ? 'Titre principal' : 'Titre complémentaire (plafond identique)';
+    }
+
+    const economieFiscale = cotMax * (tmi / 100);
+    const coutReel        = cotMax - economieFiscale;
+    const coutMensuel     = coutReel / 12;
+
+    res.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div style="background:var(--s3);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">COTISATION MAX</div>
+        <div style="font-size:1.3rem;font-weight:800;color:${C.green};">${eur(cotMax)}</div>
+        <div style="font-size:0.68rem;color:var(--muted);">/an · ${label_statut}</div>
+      </div>
+      <div style="background:var(--s3);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">ÉCONOMIE FISCALE</div>
+        <div style="font-size:1.3rem;font-weight:800;color:${C.rose};">-${eur(economieFiscale)}</div>
+        <div style="font-size:0.68rem;color:var(--muted);">à TMI ${tmi}%</div>
+      </div>
+      <div style="background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.20);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">COÛT RÉEL</div>
+        <div style="font-size:1.3rem;font-weight:800;color:${C.green};">${eur(coutReel)}</div>
+        <div style="font-size:0.68rem;color:var(--muted);">/an soit ${eur(coutMensuel)}/mois</div>
+      </div>
+      <div style="background:rgba(91,184,212,0.08);border:1px solid rgba(91,184,212,0.20);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">RENDEMENT FISCAL</div>
+        <div style="font-size:1.3rem;font-weight:800;color:${C.cyan};">${Math.round((economieFiscale/cotMax)*100)}%</div>
+        <div style="font-size:0.68rem;color:var(--muted);">retour immédiat via impôts</div>
+      </div>
+    </div>
+    <div style="background:rgba(232,194,58,0.06);border:1px solid rgba(232,194,58,0.18);border-radius:10px;padding:12px;font-size:0.76rem;color:var(--muted);line-height:1.7;">
+      💡 <strong>À la sortie (retraite) :</strong> la rente PLCI est imposée à 10% comme rente de conversion (taux réduit), plus les cotisations INASTI sur la rente. Le rendement net reste très favorable par rapport à l'absence de cotisation. <a href="/fiscal/independants.html" style="color:${C.cyan};">Guide complet indépendants →</a>
+    </div>
+    <div style="font-size:0.66rem;color:var(--muted2);margin-top:8px;">Plafond PLCI 2026 : 8,17% · max 3.965,77 € · Simulation indicative — consulter un courtier pour l'EIP</div>`;
+  };
+};
+
+/* ─── P2. SIMULATEUR IS vs IPP ──────────────────────────────────── */
+window.WW_Tools.simulateurISvsIPP = function(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const uid = 'isvipp_' + containerId;
+
+  el.innerHTML = `<div style="${baseStyle}">
+    ${toolTitle('🏢', 'IS vs IPP — Société ou personne physique ?', 'Compare la charge fiscale selon que tu exerces en société (IS) ou en personne physique (IPP).')}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+      <div>
+        ${label('Bénéfice annuel avant impôt (€)')}
+        <input id="${uid}_benefice" type="number" min="0" placeholder="ex: 80 000" style="${inputStyle}" oninput="${uid}_calc()">
+      </div>
+      <div>
+        ${label('Rémunération que tu te verses (€/an)')}
+        <input id="${uid}_remun" type="number" min="0" placeholder="ex: 45 000" style="${inputStyle}" oninput="${uid}_calc()">
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      ${label('Charges pro déductibles supplémentaires en société (€/an)')}
+      <input id="${uid}_charges" type="number" min="0" value="8000" style="${inputStyle}" oninput="${uid}_calc()">
+      <div style="font-size:0.68rem;color:var(--muted);margin-top:3px;">Voiture, téléphone, bureau, GSM, frais restaurant... souvent 6.000-15.000 €/an</div>
+    </div>
+    <div id="${uid}_result"></div>
+  </div>`;
+
+  window[`${uid}_calc`] = function() {
+    const benefice = parseFloat(document.getElementById(`${uid}_benefice`)?.value) || 0;
+    const remun    = parseFloat(document.getElementById(`${uid}_remun`)?.value) || 0;
+    const charges  = parseFloat(document.getElementById(`${uid}_charges`)?.value) || 0;
+    const res      = document.getElementById(`${uid}_result`);
+    if (!benefice || benefice < 1000) { res.innerHTML = ''; return; }
+
+    // IPP : bénéfice entier imposé au barème progressif
+    function calcIPP(rev) {
+      let imp = 0;
+      if (rev <= 15820)  imp = rev * 0.25;
+      else if (rev <= 27920) imp = 15820*0.25 + (rev-15820)*0.40;
+      else if (rev <= 48320) imp = 15820*0.25 + 12100*0.40 + (rev-27920)*0.45;
+      else imp = 15820*0.25 + 12100*0.40 + 20400*0.45 + (rev-48320)*0.50;
+      // Quotité exemptée ~10.160 €
+      imp = Math.max(0, imp - 10160*0.25);
+      return imp;
+    }
+
+    const ippTotal = calcIPP(benefice);
+
+    // IS : bénéfice - rémunération - charges = base IS
+    const baseIS   = Math.max(0, benefice - remun - charges);
+    const isReduit = Math.min(baseIS, 100000) * 0.20; // taux réduit 20% < 100K
+    const isNormal = Math.max(0, baseIS - 100000) * 0.25;
+    const isTotal  = isReduit + isNormal;
+    const ippDirigeant = calcIPP(remun);
+    const totalSociete = isTotal + ippDirigeant;
+    const economie     = ippTotal - totalSociete;
+
+    const color = economie > 0 ? C.green : C.rose;
+
+    res.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div style="background:var(--s3);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:0.64rem;color:var(--muted);font-weight:700;margin-bottom:6px;">EN PERSONNE PHYSIQUE (IPP)</div>
+        <div style="font-size:1.2rem;font-weight:800;color:${C.rose};">${eur(ippTotal)}</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;">Charge fiscale totale</div>
+        <div style="font-size:0.68rem;color:var(--muted);margin-top:2px;">TMI : ${benefice > 48320 ? '50%' : benefice > 27920 ? '45%' : '40%'}</div>
+      </div>
+      <div style="background:var(--s3);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:0.64rem;color:var(--muted);font-weight:700;margin-bottom:6px;">EN SOCIÉTÉ (IS + IPP dirigeant)</div>
+        <div style="font-size:1.2rem;font-weight:800;color:${C.cyan};">${eur(totalSociete)}</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;">IS ${eur(isTotal)} + IPP ${eur(ippDirigeant)}</div>
+        <div style="font-size:0.68rem;color:var(--muted);margin-top:2px;">Taux IS : ${baseIS <= 100000 ? '20%' : '20-25%'}</div>
+      </div>
+    </div>
+    <div style="background:${economie>0?'rgba(126,200,160,0.08)':'rgba(232,124,195,0.08)'};border:1px solid ${color}33;border-radius:12px;padding:14px;text-align:center;margin-bottom:10px;">
+      <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">${economie > 0 ? 'Économie avec la société' : 'Surcoût avec la société'}</div>
+      <div style="font-size:1.5rem;font-weight:800;color:${color};">${economie > 0 ? '-' : '+'}${eur(Math.abs(economie))}</div>
+      <div style="font-size:0.70rem;color:var(--muted);margin-top:4px;">par rapport à l'exercice en PP</div>
+    </div>
+    <div style="background:rgba(232,194,58,0.06);border:1px solid rgba(232,194,58,0.18);border-radius:10px;padding:12px;font-size:0.74rem;color:var(--muted);line-height:1.65;">
+      ⚠️ <strong>Ce calcul est simplifié.</strong> Il ne tient pas compte des cotisations sociales indépendant, des frais de constitution de société (~1.500€), de la comptabilité obligatoire (~2.000-4.000€/an), des assurances dirigeant, ni des avantages en nature. La société devient généralement intéressante au-delà de 50.000-60.000 € de bénéfice. <a href="/fiscal/societes.html" style="color:${C.cyan};">Guide sociétés →</a>
+    </div>
+    <div style="font-size:0.66rem;color:var(--muted2);margin-top:8px;">Barème IPP 2026 · IS 20% ≤100K€ / 25% · Simulation indicative — consulter un comptable</div>`;
+  };
+};
+
+/* ─── P3. SIMULATEUR VVPRbis ─────────────────────────────────────── */
+window.WW_Tools.simulateurVVPRbis = function(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const uid = 'vvpr_' + containerId;
+
+  el.innerHTML = `<div style="${baseStyle}">
+    ${toolTitle('💰', 'Simulateur VVPRbis', 'Compare le PM sur dividendes classique (30%) vs VVPRbis (15%) pour les PME éligibles.')}
+    <div style="margin-bottom:14px;">
+      ${label('Dividende brut que tu veux distribuer (€)')}
+      <input id="${uid}_div" type="number" min="0" placeholder="ex: 20 000" style="${inputStyle}" oninput="${uid}_calc()">
+    </div>
+    <div style="margin-bottom:14px;">
+      ${label('Ta société est éligible VVPRbis ?')}
+      <select id="${uid}_eligible" style="${inputStyle}" onchange="${uid}_calc()">
+        <option value="oui">Oui — constituée après le 1/07/2013, PME, en numéraire</option>
+        <option value="non">Non ou incertain</option>
+      </select>
+      <div style="font-size:0.68rem;color:var(--muted);margin-top:3px;">VVPRbis = 15% PM si parts émises depuis 01/07/2013, société PME, apport en numéraire (pas en nature)</div>
+    </div>
+    <div id="${uid}_result"></div>
+  </div>`;
+
+  window[`${uid}_calc`] = function() {
+    const div      = parseFloat(document.getElementById(`${uid}_div`)?.value) || 0;
+    const eligible = document.getElementById(`${uid}_eligible`)?.value;
+    const res      = document.getElementById(`${uid}_result`);
+    if (!div) { res.innerHTML = ''; return; }
+
+    const pm30  = div * 0.30;
+    const net30 = div - pm30;
+    const pm15  = div * 0.15;
+    const net15 = div - pm15;
+    const gain  = net15 - net30;
+
+    res.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div style="background:var(--s3);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">PM CLASSIQUE 30%</div>
+        <div style="font-size:1.1rem;font-weight:800;color:${C.rose};">-${eur(pm30)}</div>
+        <div style="font-size:0.80rem;font-weight:700;color:var(--text);margin-top:6px;">Net : ${eur(net30)}</div>
+      </div>
+      <div style="background:${eligible==='oui'?'rgba(126,200,160,0.08)':'var(--s3)'};border:${eligible==='oui'?'1px solid rgba(126,200,160,0.25)':'1px solid var(--border)'};border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.60rem;color:var(--muted);font-weight:700;margin-bottom:4px;">VVPRbis 15%</div>
+        <div style="font-size:1.1rem;font-weight:800;color:${eligible==='oui'?C.green:C.rose};">-${eur(pm15)}</div>
+        <div style="font-size:0.80rem;font-weight:700;color:var(--text);margin-top:6px;">Net : ${eur(net15)}</div>
+      </div>
+    </div>
+    ${eligible==='oui' ? `
+    <div style="background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.25);border-radius:12px;padding:12px;text-align:center;margin-bottom:10px;">
+      <div style="font-size:0.72rem;color:var(--muted);">Gain VVPRbis vs classique</div>
+      <div style="font-size:1.4rem;font-weight:800;color:${C.green};">+${eur(gain)}</div>
+      <div style="font-size:0.68rem;color:var(--muted);">soit ${Math.round((gain/div)*100)}% du dividende brut économisé</div>
+    </div>` : `
+    <div style="background:rgba(232,124,195,0.06);border-radius:10px;padding:10px;font-size:0.76rem;color:var(--muted);">
+      Ta société n'est pas éligible VVPRbis — PM 30% classique s'applique. Alternative : <strong>réserve de liquidation</strong> (10% ISOC + 5% PM à la liquidation = 14,5% total).
+    </div>`}
+    <div style="background:rgba(232,194,58,0.06);border:1px solid rgba(232,194,58,0.18);border-radius:10px;padding:10px;font-size:0.74rem;color:var(--muted);line-height:1.65;margin-top:8px;">
+      ⚠️ <strong>Condition clé VVPRbis :</strong> les dividendes de la 1ère et 2ème distribution sont à 20% et 15% PM (pas 15% dès la 1ère année). Vérifier avec un comptable agréé. <a href="/fiscal/societes.html" style="color:${C.cyan};">Guide VVPRbis complet →</a>
+    </div>
+    <div style="font-size:0.66rem;color:var(--muted2);margin-top:6px;">Taux PM 2026 · Simulation indicative</div>`;
+  };
+};
+
+/* ─── P4. SIMULATEUR RÉSERVE DE LIQUIDATION ─────────────────────── */
+window.WW_Tools.simulateurReserveLiq = function(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const uid = 'resliq_' + containerId;
+
+  el.innerHTML = `<div style="${baseStyle}">
+    ${toolTitle('🏦', 'Réserve de liquidation', 'Stratégie de sortie des bénéfices à 14,5% au lieu de 30% — pour PME à l\'IS.')}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+      <div>
+        ${label('Bénéfice net IS à mettre en réserve (€)')}
+        <input id="${uid}_reserve" type="number" min="0" placeholder="ex: 50 000" style="${inputStyle}" oninput="${uid}_calc()">
+      </div>
+      <div>
+        ${label('Dans combien d\'années tu veux retirer ?')}
+        <input id="${uid}_ans" type="number" min="5" max="30" value="10" style="${inputStyle}" oninput="${uid}_calc()">
+        <div style="font-size:0.68rem;color:var(--muted);margin-top:3px;">Min. 5 ans d'attente obligatoire</div>
+      </div>
+    </div>
+    <div id="${uid}_result"></div>
+  </div>`;
+
+  window[`${uid}_calc`] = function() {
+    const reserve = parseFloat(document.getElementById(`${uid}_reserve`)?.value) || 0;
+    const ans     = parseFloat(document.getElementById(`${uid}_ans`)?.value) || 5;
+    const res     = document.getElementById(`${uid}_result`);
+    if (!reserve) { res.innerHTML = ''; return; }
+
+    // Réserve de liquidation : 10% ISOC à la constitution
+    // Puis à la distribution (après 5 ans) : 5% PM supplémentaire = 14,5% total
+    // Avant 5 ans : 20% PM si distribué en dividende
+    // En comparaison : dividende classique 30% PM sur bénéfice NET IS
+    const taxeConstit   = reserve * 0.10;      // ISOC 10% à la mise en réserve
+    const netReserve    = reserve - taxeConstit; // ce qui entre dans la réserve
+    const pmApres5ans   = netReserve * 0.05;    // PM 5% si attente > 5 ans
+    const netFinal      = netReserve - pmApres5ans;
+    const tauxEffectif  = ((reserve - netFinal) / reserve * 100).toFixed(1);
+
+    // Comparaison dividende classique
+    const pmClassique   = reserve * 0.30;
+    const netClassique  = reserve - pmClassique;
+    const gain          = netFinal - netClassique;
+
+    const avertissement = ans < 5 ?
+      `<div style="background:rgba(232,124,195,0.08);border:1px solid ${C.rose}33;border-radius:10px;padding:10px;font-size:0.76rem;color:${C.rose};margin-bottom:10px;">⚠️ Attente minimale de 5 ans non atteinte. Avant 5 ans, le PM à la distribution passe à 20% au lieu de 5%.</div>` : '';
+
+    const pm_avant5 = ans < 5 ? netReserve * 0.20 : null;
+    const net_avant5 = ans < 5 ? netReserve - pm_avant5 : null;
+
+    res.innerHTML = `${avertissement}
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div style="background:var(--s3);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.58rem;color:var(--muted);font-weight:700;margin-bottom:4px;">ISOC IMMÉDIAT (10%)</div>
+        <div style="font-size:1rem;font-weight:800;color:${C.rose};">-${eur(taxeConstit)}</div>
+        <div style="font-size:0.66rem;color:var(--muted);margin-top:2px;">À la constitution</div>
+      </div>
+      <div style="background:var(--s3);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.58rem;color:var(--muted);font-weight:700;margin-bottom:4px;">PM DISTRIBUTION (5%)</div>
+        <div style="font-size:1rem;font-weight:800;color:${C.rose};">-${eur(pmApres5ans)}</div>
+        <div style="font-size:0.66rem;color:var(--muted);margin-top:2px;">Après ${Math.max(5,ans)} ans</div>
+      </div>
+      <div style="background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.25);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.58rem;color:#7EC8A0;font-weight:700;margin-bottom:4px;">NET REÇU</div>
+        <div style="font-size:1rem;font-weight:800;color:${C.green};">${eur(netFinal)}</div>
+        <div style="font-size:0.66rem;color:var(--muted);margin-top:2px;">Taux effectif ${tauxEffectif}%</div>
+      </div>
+    </div>
+    <div style="background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.25);border-radius:12px;padding:12px;text-align:center;margin-bottom:10px;">
+      <div style="font-size:0.72rem;color:var(--muted);">Gain vs dividende classique 30%</div>
+      <div style="font-size:1.4rem;font-weight:800;color:${C.green};">+${eur(gain)}</div>
+      <div style="font-size:0.68rem;color:var(--muted);">Net classique : ${eur(netClassique)} vs Réserve liq. : ${eur(netFinal)}</div>
+    </div>
+    <div style="background:rgba(232,194,58,0.06);border:1px solid rgba(232,194,58,0.18);border-radius:10px;padding:10px;font-size:0.74rem;color:var(--muted);line-height:1.65;">
+      <strong>Stratégie :</strong> mettre les bénéfices en réserve de liquidation chaque année → constituer un capital retraite dans la société → distribuer en dividende après la période minimale. Combinable avec VVPRbis si éligible. <a href="/fiscal/societes.html" style="color:${C.cyan};">Guide réserve de liquidation →</a>
+    </div>
+    <div style="font-size:0.66rem;color:var(--muted2);margin-top:6px;">ISOC 10% · PM 5% après 5 ans (20% avant) · 2026 · Simulation indicative</div>`;
+  };
 };
