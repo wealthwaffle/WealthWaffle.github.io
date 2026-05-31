@@ -1,11 +1,4 @@
-/*
-/* ── Détection file:// — les fetch échouent en local sans serveur ── */
-if (location.protocol === 'file:') {
-  console.warn('WealthWaffle : fichiers ouverts en local (file://). ' +
-    'Le header/footer et certains outils ne s\'affichent pas correctement sans serveur HTTP. ' +
-    'Utilise "npx serve ." ou déploie sur Cloudflare Pages pour tester.');
-}
- * ═══════════════════════════════════════════════════════════
+/* * ═══════════════════════════════════════════════════════════
  * WEALTHWAFFLE — ww-bundle.js
  * Fichier unique regroupant tous les scripts du site
  *
@@ -24,6 +17,12 @@ if (location.protocol === 'file:') {
  *   8. ww-infra.js    — Infrastructure (Matomo, raccourcis, print...)
  * ═══════════════════════════════════════════════════════════
  */
+
+/* ── Détection file:// ── */
+if (location.protocol === 'file:') {
+  console.warn('WealthWaffle: ouvrir en file:// bloque les fetch(). Lance "npx serve ." pour tester.');
+}
+
 
 /* ═══ 1/8 — WW CORE : thème, menu, newsletter, modals, cookies ═══ */
 
@@ -909,7 +908,7 @@ function injectDisclaimer() {
   if (document.querySelector('.ww-disclaimer')) return;
   const d = Object.assign(document.createElement('div'), { className: 'ww-disclaimer' });
   d.innerHTML = '<span>📋 Contenu éducatif — non agréé FSMA — pas de conseil financier personnalisé</span>' +
-    '<button class="ww-disclaimer-close" onclick="this.parentElement.style.display='none'" title="Fermer">✕</button>';
+    '<button class="ww-disclaimer-close" onclick="this.parentElement.style.display=\'none\'" title="Fermer">✕</button>';
   document.body.appendChild(d);
 }
 
