@@ -378,16 +378,35 @@ function updateAuthNav() {
   /* ── Search ── */
   window.doSearch = function(q) {
     const box = document.getElementById('ww-search-results');
-    if (!box || !window.WW_Search) return;
+    if (!box) return;
     if (!q || q.length < 2) { box.classList.remove('open'); return; }
-    const results = WW_Search.query(q);
+
+    let results = [];
+
+    // 1. Chercher dans search-index.js si disponible
+    if (window.WW_Search) {
+      results = WW_Search.query(q);
+    }
+
+    // 2. Fallback : chercher dans WW_TERMS (dictionnaire unifié)
+    if (results.length < 3 && window.WW_TERMS) {
+      const qL = q.toLowerCase();
+      const termResults = window.WW_TERMS
+        .filter(t => t.term.toLowerCase().includes(qL) || t.def.toLowerCase().includes(qL))
+        .slice(0, 4)
+        .map(t => ({ title: t.term, excerpt: t.def, page: t.url, anchor: '' }));
+      results = [...results, ...termResults].slice(0, 6);
+    }
+
     box.innerHTML = results.length
-      ? results.map(r => `
-          <a class="ww-search-result-item" href="${r.page}${r.anchor ? '#'+r.anchor : ''}">
-            <div class="ww-search-result-title">${WW_Search.highlight(r.title, q)}</div>
+      ? results.map(r => {
+          const hl = (str) => str.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'), m => `<mark>${m}</mark>`);
+          return `<a class="ww-search-result-item" href="${r.page}${r.anchor ? '#'+r.anchor : ''}">
+            <div class="ww-search-result-title">${hl(r.title)}</div>
             <div class="ww-search-result-page">${r.page.replace('.html','')}</div>
-            <div class="ww-search-result-excerpt">${WW_Search.highlight(r.excerpt, q)}</div>
-          </a>`).join('')
+            <div class="ww-search-result-excerpt">${hl(r.excerpt)}</div>
+          </a>`;
+        }).join('')
       : `<div class="ww-search-empty">Aucun résultat pour « ${q} »</div>`;
     box.classList.add('open');
   };
@@ -1340,22 +1359,160 @@ document.addEventListener('DOMContentLoaded', buildChat);
 // Each page sets window.WW_PAGE_META = { updated, name } in a tiny inline script
 // Fallback: generic values
 function injectPageMeta() {
-  const meta   = window.WW_PAGE_META || {};
+  const meta    = window.WW_PAGE_META || {};
   const updated = meta.updated || 'Janvier 2026';
-  const name    = meta.name    || document.title.replace(' — WealthWaffle','');
-  const subject = encodeURIComponent('Erreur signalée — ' + name);
+  const name    = meta.name || document.title.replace(' — WealthWaffle','');
 
+  // ── Barre page meta ──
   const el = document.createElement('div');
   el.className = 'ww-page-meta';
   el.innerHTML =
     '<span class="ww-last-updated">Mis à jour : ' + updated + '</span>' +
-    '<a href="mailto:contact@wealthwaffle.be?subject=' + subject +
-    '" class="ww-report-error" title="Signaler une erreur de contenu">⚑ Signaler une erreur</a>';
-
-  // Insert before footer
+    '<button class="ww-report-error" onclick="openErrorReport()" title="Signaler une erreur de contenu">⚑ Signaler une erreur</button>';
   const footer = document.getElementById('ww-footer-placeholder');
   if (footer) footer.before(el);
+
+  // ── Modal signalement erreur ──
+  if (document.getElementById('ww-error-modal')) return;
+  const modal = document.createElement('div');
+  modal.id = 'ww-error-modal';
+  modal.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(8,7,23,0.80);z-index:9100;align-items:center;justify-content:center;padding:20px;';
+  modal.innerHTML = `
+    <div style="background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:24px;width:100%;max-width:480px;position:relative;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);">⚑ Signaler une erreur</div>
+        <button onclick="closeErrorReport()" style="background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;">✕</button>
+      </div>
+      <p style="font-size:0.76rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">Merci de prendre le temps de signaler une erreur — ça nous aide à améliorer le contenu pour tous.</p>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div>
+          <label style="font-size:0.70rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Page concernée</label>
+          <input id="err-page" readonly style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:0.80rem;color:var(--muted);box-sizing:border-box;" value="">
+        </div>
+        <div>
+          <label style="font-size:0.70rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">L'erreur que tu as trouvée *</label>
+          <textarea id="err-description" rows="3" placeholder="Décris l'information incorrecte..." style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:0.80rem;color:var(--text);outline:none;resize:vertical;box-sizing:border-box;"></textarea>
+        </div>
+        <div>
+          <label style="font-size:0.70rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">La correction suggérée (si tu la connais)</label>
+          <textarea id="err-correction" rows="2" placeholder="Ce qui devrait être écrit à la place..." style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:0.80rem;color:var(--text);outline:none;resize:vertical;box-sizing:border-box;"></textarea>
+        </div>
+        <div>
+          <label style="font-size:0.70rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Source ou référence (optionnel)</label>
+          <input id="err-source" type="text" placeholder="Lien, document, règlement..." style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:0.80rem;color:var(--text);outline:none;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="font-size:0.70rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Ton email (pour qu'on te remercie)</label>
+          <input id="err-email" type="email" placeholder="ton@email.be" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:0.80rem;color:var(--text);outline:none;box-sizing:border-box;">
+        </div>
+        <div id="err-result" style="display:none;"></div>
+        <button onclick="submitErrorReport()" id="err-submit"
+          style="width:100%;padding:12px;border-radius:11px;border:none;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;">
+          Envoyer le signalement →
+        </button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  // Préremplir la page
+  document.getElementById('err-page').value = name + ' (' + location.pathname + ')';
+  // Préremplir email si connecté
+  if (window.WW?.user?.email) {
+    const emailField = document.getElementById('err-email');
+    if (emailField) emailField.value = window.WW.user.email;
+  }
 }
+
+window.openErrorReport = function() {
+  const modal = document.getElementById('ww-error-modal');
+  if (modal) { modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+};
+
+window.closeErrorReport = function() {
+  const modal = document.getElementById('ww-error-modal');
+  if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; }
+};
+
+window.submitErrorReport = async function() {
+  const description = document.getElementById('err-description')?.value?.trim();
+  const correction  = document.getElementById('err-correction')?.value?.trim();
+  const source      = document.getElementById('err-source')?.value?.trim();
+  const email       = document.getElementById('err-email')?.value?.trim();
+  const page        = document.getElementById('err-page')?.value;
+  const result      = document.getElementById('err-result');
+  const btn         = document.getElementById('err-submit');
+
+  if (!description) {
+    document.getElementById('err-description').style.borderColor = 'var(--rose)';
+    return;
+  }
+
+  btn.textContent = 'Envoi…'; btn.disabled = true;
+
+  const payload = {
+    page,
+    description,
+    correction: correction || null,
+    source: source || null,
+    email: email || null,
+    user_id: window.WW?.user?.id || null,
+    status: 'nouveau',
+    created_at: new Date().toISOString(),
+  };
+
+  try {
+    // 1. Supabase
+    if (window.WW?.sb) {
+      await window.WW.sb.from('error_reports').insert(payload);
+    }
+    // 2. Brevo — email à erreur@wealthwaffle.be
+    const pageName = window.WW_PAGE_META?.name || page;
+    await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'api-key': window.WW_CONFIG?.BREVO_KEY || '' },
+      body: JSON.stringify({
+        sender: { name: 'WealthWaffle Erreurs', email: 'noreply@wealthwaffle.be' },
+        to: [{ email: 'erreur@wealthwaffle.be', name: 'WealthWaffle' }],
+        subject: '⚑ Erreur signalée — ' + pageName,
+        htmlContent:
+          '<h2>Erreur signalée sur WealthWaffle</h2>' +
+          '<p><strong>Page :</strong> ' + page + '</p>' +
+          '<p><strong>Erreur :</strong> ' + description + '</p>' +
+          (correction ? '<p><strong>Correction suggérée :</strong> ' + correction + '</p>' : '') +
+          (source     ? '<p><strong>Source :</strong> ' + source + '</p>' : '') +
+          (email      ? '<p><strong>Signalé par :</strong> ' + email + '</p>' : '<p><em>Anonyme</em></p>'),
+      }),
+    });
+    // 3. Email de remerciement si email fourni
+    if (email) {
+      await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'api-key': window.WW_CONFIG?.BREVO_KEY || '' },
+        body: JSON.stringify({
+          sender: { name: 'WealthWaffle', email: 'noreply@wealthwaffle.be' },
+          to: [{ email }],
+          subject: 'Merci pour ton signalement — WealthWaffle 🧇',
+          htmlContent:
+            '<p>Merci d\'avoir pris le temps de signaler une erreur sur WealthWaffle.</p>' +
+            '<p>Notre équipe va vérifier et corriger si nécessaire. Si la correction est significative, nous t\'en informerons.</p>' +
+            '<p>Dans 10 ans, tu te remercieras. 🧇</p>' +
+            '<p>L\'équipe WealthWaffle</p>',
+        }),
+      });
+    }
+    if (result) {
+      result.style.display = 'block';
+      result.style.cssText = 'display:block;background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.25);border-radius:9px;padding:10px 14px;font-size:0.78rem;color:#7EC8A0;text-align:center;';
+      result.textContent = '✅ Signalement envoyé — merci ! On vérifie ça rapidement.';
+    }
+    btn.style.display = 'none';
+    setTimeout(closeErrorReport, 3000);
+  } catch(e) {
+    btn.textContent = 'Envoyer →'; btn.disabled = false;
+    if (result) { result.style.display = 'block'; result.textContent = 'Erreur d\'envoi — réessaie dans un instant.'; }
+  }
+};
 
 // ── Print button (discrete) ──────────────────────────────────
 function injectPrintButton() {
@@ -2446,3 +2603,204 @@ document.addEventListener('DOMContentLoaded', function() {
   setLevelNav(level);
 });
 
+
+/* ═══════════════════════════════════════════════════════════
+   MODE PREVIEW — simuler un compte sans Supabase
+   Usage : ajouter ?ww_preview=radar (ou socle / pilote) dans l'URL
+   Enlever avec ?ww_preview=off
+═══════════════════════════════════════════════════════════ */
+(function initPreviewMode() {
+  const param = new URLSearchParams(location.search).get('ww_preview');
+  if (!param) return;
+
+  if (param === 'off') {
+    ['ww_session','ww_plan','ww_level','ww_profile','ww_topic','ww_onboarding_done'].forEach(k => localStorage.removeItem(k));
+    console.info('WW Preview : session effacée');
+    return;
+  }
+
+  const validPlans = ['socle','pilote','radar'];
+  const plan = validPlans.includes(param) ? param : 'socle';
+
+  // Simuler une session
+  localStorage.setItem('ww_session', 'preview_token_' + plan);
+  localStorage.setItem('ww_plan',    plan);
+  localStorage.setItem('ww_level',   'avance');
+  localStorage.setItem('ww_profile', 'particulier');
+  localStorage.setItem('ww_topic',   'invest');
+  localStorage.setItem('ww_onboarding_done', '1');
+
+  // Simuler window.WW pour les pages auth
+  window.WW = window.WW || {};
+  window.WW.user    = { id: 'preview-user-id', email: 'preview@wealthwaffle.be' };
+  window.WW.profile = { plan, level: 'avance', prenom: 'Preview', nom: 'Mode' };
+
+  console.info('%c WW Preview actif — plan : ' + plan.toUpperCase(), 'background:#E87CC3;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold;');
+
+  // Bandeau de rappel visible
+  document.addEventListener('DOMContentLoaded', () => {
+    const bar = document.createElement('div');
+    bar.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#1E1D38;border:1px solid rgba(232,124,195,0.40);border-radius:12px;padding:8px 16px;font-family:"DM Sans",sans-serif;font-size:0.74rem;color:#E87CC3;z-index:9999;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.4);';
+    bar.innerHTML = '🧪 Mode preview : <strong>' + plan.toUpperCase() + '</strong> &nbsp;·&nbsp; <a href="?ww_preview=off" style="color:var(--muted);text-decoration:none;">Quitter →</a>';
+    document.body.appendChild(bar);
+  });
+})();
+
+
+/* ═══════════════════════════════════════════════════════════
+   TOGGLE LOCAL AVANCÉ — bouton par section
+   En mode débutant, ajoute un bouton "Voir la version avancée"
+   sous chaque bloc débutant qui a un bloc avancé correspondant
+═══════════════════════════════════════════════════════════ */
+function injectLevelToggles() {
+  // Ne rien faire en mode avancé (les deux blocs sont déjà visibles)
+  if ((localStorage.getItem('ww_level') || 'debutant') === 'avance') return;
+
+  document.querySelectorAll('.level-section').forEach(section => {
+    const debBlock = section.querySelector('[data-level="debutant"]');
+    const advBlock = section.querySelector('[data-level="avance"]');
+    if (!debBlock || !advBlock) return;
+    // Ne pas ajouter le bouton si déjà présent
+    if (section.querySelector('.ww-toggle-avance')) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'ww-toggle-avance';
+    btn.innerHTML = '🚀 Voir la version avancée';
+    btn.setAttribute('aria-expanded', 'false');
+
+    btn.onclick = function() {
+      const expanded = section.classList.toggle('ww-local-avance');
+      btn.innerHTML   = expanded ? '🌱 Masquer la version avancée' : '🚀 Voir la version avancée';
+      btn.setAttribute('aria-expanded', expanded.toString());
+      // Scroll doux vers le bloc avancé
+      if (expanded) setTimeout(() => advBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    };
+
+    debBlock.appendChild(btn);
+  });
+}
+
+/* Réinjecter les toggles si le niveau change */
+const _origSetLevel = window.setLevelNav;
+window.setLevelNav = function(level) {
+  if (_origSetLevel) _origSetLevel(level);
+  // Retirer tous les toggles existants et recréer selon le nouveau niveau
+  document.querySelectorAll('.ww-toggle-avance').forEach(b => b.remove());
+  document.querySelectorAll('.level-section.ww-local-avance').forEach(s => s.classList.remove('ww-local-avance'));
+  if (level === 'debutant') setTimeout(injectLevelToggles, 50);
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Attendre que le niveau soit appliqué
+  setTimeout(injectLevelToggles, 200);
+});
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   AUTOCOMPLÉTION UNIFIÉE — Point 63
+   Fonctionne sur toutes les barres de saisie marquées :
+     data-ww-autocomplete="search"    → recherche pages
+     data-ww-autocomplete="glossaire" → termes du glossaire
+     data-ww-autocomplete="jargon"    → traducteur jargon bancaire
+   Source unique : search-index.js + dictionnaire jargon + termes Radar
+═══════════════════════════════════════════════════════════════════ */
+(function initUnifiedAutocomplete() {
+
+  // Termes du glossaire + jargon bancaire + Radar (source unique locale)
+  window.WW_TERMS = [
+    // Finance générale
+    { term: "ETF", def: "Exchange-Traded Fund — fonds indiciel coté en bourse", url: "/invest/etf.html" },
+    { term: "DCA", def: "Dollar Cost Averaging — investissement périodique fixe", url: "/invest/etf.html" },
+    { term: "TAEG", def: "Taux Annuel Effectif Global — coût total d'un crédit en %/an", url: "/immo/financement.html" },
+    { term: "TOB", def: "Taxe sur les Opérations de Bourse — taxe belge sur les transactions", url: "/invest/etf.html" },
+    { term: "Précompte mobilier", def: "Impôt belge retenu à la source sur les revenus mobiliers (30%)", url: "/fiscal/independants.html" },
+    { term: "IPP", def: "Impôt des Personnes Physiques — impôt sur le revenu en Belgique", url: "/fiscal/independants.html" },
+    { term: "IS", def: "Impôt des Sociétés — impôt sur les bénéfices des entreprises belges", url: "/fiscal/societes.html" },
+    { term: "PLCI", def: "Pension Libre Complémentaire pour Indépendants", url: "/fiscal/independants.html" },
+    { term: "VVPRbis", def: "Verlaagde Voorheffing/Précompte Réduit — dividendes à 15% pour PME", url: "/fiscal/societes.html" },
+    { term: "Tax Shelter", def: "Mécanisme belge de réduction fiscale via startups ou audiovisuel", url: "/fiscal/tax-shelter.html" },
+    { term: "FIRE", def: "Financial Independence, Retire Early — indépendance financière", url: "/budget/rente.html" },
+    { term: "Fonds d'urgence", def: "Réserve liquide de 3 à 6 mois de dépenses", url: "/budget/epargne.html" },
+    { term: "Diversification", def: "Répartition des investissements pour réduire le risque", url: "/invest/allocation.html" },
+    { term: "Allocation", def: "Répartition du portefeuille entre différentes classes d'actifs", url: "/invest/allocation.html" },
+    { term: "Dividende", def: "Part du bénéfice distribuée aux actionnaires", url: "/invest/actions.html" },
+    { term: "Plus-value", def: "Gain réalisé lors de la revente d'un actif", url: "/fiscal/independants.html" },
+    // Termes Radar / PE
+    { term: "Moat", def: "Avantage concurrentiel durable d'une entreprise", url: "/invest/equity.html" },
+    { term: "ROIC", def: "Return on Invested Capital — rendement du capital investi", url: "/invest/equity.html" },
+    { term: "Burn rate", def: "Rythme auquel une startup consomme sa trésorerie", url: "/invest/equity.html" },
+    { term: "CAC", def: "Coût d'Acquisition Client — coût pour acquérir un nouveau client", url: "/invest/equity.html" },
+    { term: "LTV", def: "Lifetime Value — valeur totale générée par un client sur sa durée de vie", url: "/invest/equity.html" },
+    { term: "NRR", def: "Net Revenue Retention — rétention nette des revenus (SaaS)", url: "/invest/equity.html" },
+    { term: "ARR", def: "Annual Recurring Revenue — revenus récurrents annuels", url: "/invest/equity.html" },
+    { term: "Equity", def: "Part du capital d'une entreprise — investissement en fonds propres", url: "/invest/equity.html" },
+    { term: "Crowdfunding", def: "Financement participatif — levée de fonds auprès du grand public", url: "/invest/equity.html" },
+    { term: "Due diligence", def: "Audit approfondi d'un projet avant investissement", url: "/invest/equity.html" },
+    // Immo
+    { term: "Droits d'enregistrement", def: "Taxe belge à l'achat d'un bien immobilier (3-12,5% selon région)", url: "/immo/achat.html" },
+    { term: "Abattement", def: "Réduction de la base de calcul des droits d'enregistrement", url: "/immo/achat.html" },
+    { term: "SIR", def: "Société Immobilière Réglementée — équivalent belge des REITs", url: "/immo/alternatif.html" },
+    { term: "Rendement locatif", def: "Rapport entre les loyers perçus et le prix d'achat du bien", url: "/immo/locatif.html" },
+  ];
+
+  function buildDropdown(input) {
+    // Supprimer tout dropdown existant
+    const existing = document.getElementById('ww-autocomplete-dropdown');
+    if (existing) existing.remove();
+
+    const val = input.value.trim();
+    if (val.length < 2) return;
+
+    const q = val.toLowerCase();
+    const results = WW_TERMS.filter(t =>
+      t.term.toLowerCase().includes(q) || t.def.toLowerCase().includes(q)
+    ).slice(0, 6);
+
+    if (!results.length) return;
+
+    const dropdown = document.createElement('div');
+    dropdown.id = 'ww-autocomplete-dropdown';
+    dropdown.style.cssText = 'position:absolute;top:100%;left:0;right:0;background:var(--s2);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.35);z-index:1000;overflow:hidden;margin-top:4px;';
+
+    results.forEach(r => {
+      const item = document.createElement('a');
+      item.href = r.url;
+      item.style.cssText = 'display:block;padding:10px 14px;text-decoration:none;border-bottom:1px solid var(--faint);transition:background 0.15s;';
+      item.innerHTML = `<div style="font-size:0.80rem;font-weight:700;color:var(--text);">${r.term}</div><div style="font-size:0.70rem;color:var(--muted);margin-top:2px;">${r.def}</div>`;
+      item.onmouseover = () => item.style.background = 'var(--s3)';
+      item.onmouseout  = () => item.style.background = 'transparent';
+      dropdown.appendChild(item);
+    });
+
+    // Wrapper relatif
+    const wrapper = input.parentElement;
+    if (wrapper) {
+      const pos = window.getComputedStyle(wrapper).position;
+      if (pos === 'static') wrapper.style.position = 'relative';
+      wrapper.appendChild(dropdown);
+    }
+
+    // Fermer au clic extérieur
+    setTimeout(() => {
+      document.addEventListener('click', function close(e) {
+        if (!dropdown.contains(e.target) && e.target !== input) {
+          dropdown.remove();
+          document.removeEventListener('click', close);
+        }
+      });
+    }, 100);
+  }
+
+  function initInputs() {
+    document.querySelectorAll('[data-ww-autocomplete]').forEach(input => {
+      if (input.dataset.wwAutocompleteInit) return;
+      input.dataset.wwAutocompleteInit = '1';
+      input.addEventListener('input', () => buildDropdown(input));
+      input.addEventListener('focus',  () => { if (input.value.length > 1) buildDropdown(input); });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initInputs);
+  // Réinitialiser si le DOM change (injection dynamique)
+  new MutationObserver(initInputs).observe(document.body, { childList: true, subtree: true });
+})();
