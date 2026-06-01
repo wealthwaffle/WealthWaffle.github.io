@@ -11,11 +11,11 @@ Site complet · GitHub Pages (test) · Cloudflare Pages configuré mais pas enco
 - 27 simulateurs (`tools.js`) dont 4 fiscaux pro
 - Bandeau lead magnet contextuel · `/contenu/downloads.html`
 - Parrainage · Dashboard · Signalement erreur · Preview URL
-- `supabase-schema.sql` 13 tables · `programme.html`
+- `supabase-schema.sql` 13 tables · `doctrine.html`
 
 ## En cours
 
-- Radar V2 — architecture décidée, aucune page créée (voir ROADMAP)
+- Radar V2 — architecture décidée, aucune page créée (voir ROADMAP.md)
 - 8 fichiers lead magnets à créer
 - 11 emails Brevo à rédiger
 

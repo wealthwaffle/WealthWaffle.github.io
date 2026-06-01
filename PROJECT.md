@@ -52,7 +52,7 @@ compte/               connexion · inscription · mot-de-passe · callback · pa
 dashboard/            index
 radar/                index · watchlist [soumettre · boussole · projet → à créer]
 admin/                → à créer (auth Supabase whitelist)
-programme.html        landing commerciale
+doctrine.html        landing commerciale
 ```
 
 ## Organisation du contenu

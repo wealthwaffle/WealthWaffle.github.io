@@ -385,3 +385,61 @@ create index if not exists idx_snapshots_new      on scraping_snapshots (is_new)
 --   "meta":               { score_confiance, donnees_manquantes, criteres_exclusion, plateforme, tax_shelter_taux, devise }
 -- }
 
+-- Ajout colonne newsletter_optin sur lead_magnet_requests (RGPD — consentement explicite)
+alter table lead_magnet_requests add column if not exists newsletter_optin boolean default false;
+alter table lead_magnet_requests add column if not exists optin_date timestamptz;
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 14. USER_DOWNLOADS — historique téléchargements lead magnets
+-- ───────────────────────────────────────────────────────────────────────
+create table if not exists user_downloads (
+  id              uuid default gen_random_uuid() primary key,
+  user_id         uuid references profiles(id) on delete cascade,
+  email           text,                        -- si pas de compte
+  lead_magnet_id  integer not null,            -- 47 à 54
+  lead_magnet_key text not null,               -- 'budget' | 'etf' | 'allocation' | etc.
+  autoroute       text not null,               -- 'fondations' | 'invest' | 'fiscalite'
+  page_source     text,                        -- ex: 'fiscal/tax-shelter'
+  newsletter_optin boolean default false,
+  downloaded_at   timestamptz default now()
+);
+
+alter table user_downloads enable row level security;
+create policy "Utilisateur voit ses téléchargements"
+  on user_downloads for select using (auth.uid() = user_id);
+create policy "Insert public téléchargements"
+  on user_downloads for insert with check (true);
+
+create index if not exists idx_downloads_user   on user_downloads (user_id);
+create index if not exists idx_downloads_magnet on user_downloads (lead_magnet_id);
+create index if not exists idx_downloads_route  on user_downloads (autoroute);
+
+-- Colonnes supplémentaires dans profiles pour Brevo
+alter table profiles add column if not exists brevo_autoroute text;   -- 'fondations' | 'invest' | 'fiscalite'
+alter table profiles add column if not exists last_lead_id    integer;
+alter table profiles add column if not exists brevo_tags      text[];
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 15. USER_CONVERSION_METRICS — analytics & attribution marketing
+-- ───────────────────────────────────────────────────────────────────────
+create table if not exists user_conversion_metrics (
+  user_id                     uuid primary key references profiles(id) on delete cascade,
+  matomo_visitor_id           text,
+  landing_page                text,          -- première page vue
+  conversion_page             text,          -- page où l'inscription a eu lieu
+  total_pages_viewed_before   integer default 1,
+  utm_source                  text,          -- 'brevo' | 'tiktok' | 'instagram' | etc.
+  utm_medium                  text,          -- 'email' | 'social' | 'direct'
+  utm_campaign                text,          -- ex: 'autoroute_fiscalite_j7'
+  created_at                  timestamptz default now()
+);
+
+alter table user_conversion_metrics enable row level security;
+create policy "Admin lecture conversion metrics"
+  on user_conversion_metrics for all using (auth.role() = 'service_role');
+
+create index if not exists idx_conv_page     on user_conversion_metrics (conversion_page);
+create index if not exists idx_conv_campaign on user_conversion_metrics (utm_campaign);
+
+-- Colonne matomo_visitor_id dans profiles (lien Matomo ↔ Supabase)
+alter table profiles add column if not exists matomo_visitor_id text;

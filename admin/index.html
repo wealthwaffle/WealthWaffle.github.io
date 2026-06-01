@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waffy Admin 🧇</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <style>
+    /* ── Admin — styles spécifiques ── */
+    body { background:#0a0919; color:#e8e8f0; font-family:'DM Sans',sans-serif; min-height:100vh; }
+    .adm-header { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.07); position:sticky; top:0; background:#0a0919; z-index:10; }
+    .adm-title { font-family:'DM Serif Display',serif; font-style:italic; color:#E87CC3; font-size:1.2rem; margin:0; }
+    .adm-sub { font-size:0.68rem; color:#666; margin:2px 0 0; }
+    .adm-logout { background:none; border:1px solid #C4724A; color:#C4724A; border-radius:8px; padding:6px 12px; font-size:0.75rem; font-family:'DM Sans',sans-serif; cursor:pointer; }
+    .adm-logout:hover { background:rgba(196,114,74,0.1); }
+
+    .adm-main { padding:16px 20px; max-width:900px; margin:0 auto; }
+
+    /* KPI grid */
+    .adm-kpi-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+    @media(min-width:640px){ .adm-kpi-grid { grid-template-columns:repeat(4,1fr); } }
+    .adm-kpi { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:14px 12px; text-align:center; }
+    .adm-kpi-label { font-size:0.60rem; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:#666; display:block; margin-bottom:6px; }
+    .adm-kpi-value { font-family:'DM Serif Display',serif; font-size:1.8rem; line-height:1; }
+    .adm-kpi-value.cyan { color:#5BB8D4; }
+    .adm-kpi-value.rose { color:#E87CC3; }
+    .adm-kpi-value.green { color:#7EC8A0; }
+
+    /* Sections */
+    .adm-section { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:16px; margin-bottom:16px; }
+    .adm-section-title { font-family:'DM Serif Display',serif; font-style:italic; color:#5BB8D4; font-size:1rem; margin:0 0 4px; }
+    .adm-section-sub { font-size:0.70rem; color:#666; margin:0 0 14px; }
+    .adm-cols { display:grid; grid-template-columns:1fr; gap:14px; }
+    @media(min-width:640px){ .adm-cols { grid-template-columns:1fr 1fr; } }
+    .adm-col-title { font-size:0.60rem; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:#E87CC3; margin-bottom:8px; }
+    .adm-list { list-style:none; padding:0; margin:0; }
+    .adm-list li { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.78rem; }
+    .adm-list li:last-child { border-bottom:none; }
+    .adm-badge { font-size:0.62rem; font-weight:700; padding:2px 8px; border-radius:20px; }
+    .adm-badge.cyan { background:rgba(91,184,212,0.15); color:#5BB8D4; }
+    .adm-badge.rose { background:rgba(232,124,195,0.15); color:#E87CC3; }
+    .adm-badge.orange { background:rgba(196,114,74,0.15); color:#C4724A; }
+    .adm-badge.green { background:rgba(126,200,160,0.15); color:#7EC8A0; }
+
+    /* Radar table */
+    .adm-table { width:100%; border-collapse:collapse; font-size:0.78rem; }
+    .adm-table th { color:#666; font-size:0.60rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:6px 8px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.07); }
+    .adm-table td { padding:10px 8px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+    .adm-table tr { transition:opacity 0.3s ease; }
+    .adm-table tr.fading { opacity:0; }
+    .adm-btn-validate { background:rgba(126,200,160,0.15); border:1px solid rgba(126,200,160,0.3); color:#7EC8A0; border-radius:7px; padding:5px 10px; font-size:0.72rem; cursor:pointer; margin-right:4px; }
+    .adm-btn-reject { background:rgba(232,124,195,0.10); border:1px solid rgba(232,124,195,0.25); color:#E87CC3; border-radius:7px; padding:5px 10px; font-size:0.72rem; cursor:pointer; }
+    .adm-btn-validate:hover { background:rgba(126,200,160,0.25); }
+    .adm-btn-reject:hover { background:rgba(232,124,195,0.20); }
+
+    /* Errors */
+    .adm-errors { max-height:140px; overflow-y:auto; font-size:0.72rem; font-family:monospace; }
+    .adm-errors p { margin:2px 0; color:#f97316; }
+    .adm-errors p.ok { color:#7EC8A0; }
+
+    /* Loading skeleton */
+    .adm-skeleton { background:rgba(255,255,255,0.05); border-radius:6px; height:14px; width:60%; animation:pulse 1.4s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
+
+    /* Queue badge */
+    .adm-queue-badge { background:#5BB8D4; color:#0a0919; font-size:0.65rem; font-weight:700; border-radius:20px; padding:2px 9px; }
+  </style>
+</head>
+<body>
+
+<!-- Auth guard — bloque le rendu si non admin -->
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  window.__sb = createClient(
+    window.WW_CONFIG?.SUPABASE_URL || '',
+    window.WW_CONFIG?.SUPABASE_ANON_KEY || ''
+  );
+  const { data: { session } } = await window.__sb.auth.getSession();
+  if (!session || session.user.user_metadata?.role !== 'admin') {
+    window.location.href = '/compte/connexion.html?redirect=/admin/';
+  }
+</script>
+
+<script src="/assets/ww-bundle.js"></script>
+
+<header class="adm-header">
+  <div>
+    <h1 class="adm-title">Waffy Dashboard 🧇</h1>
+    <p class="adm-sub" id="adm-datetime">—</p>
+  </div>
+  <button class="adm-logout" id="adm-logout">Quitter</button>
+</header>
+
+<main class="adm-main">
+
+  <!-- ── KPI ── -->
+  <div class="adm-kpi-grid">
+    <div class="adm-kpi">
+      <span class="adm-kpi-label">Socle</span>
+      <div class="adm-kpi-value cyan" id="kpi-socle">—</div>
+    </div>
+    <div class="adm-kpi">
+      <span class="adm-kpi-label">Pilote</span>
+      <div class="adm-kpi-value rose" id="kpi-pilote">—</div>
+    </div>
+    <div class="adm-kpi">
+      <span class="adm-kpi-label">Radar</span>
+      <div class="adm-kpi-value rose" id="kpi-radar">—</div>
+    </div>
+    <div class="adm-kpi">
+      <span class="adm-kpi-label">MRR estimé</span>
+      <div class="adm-kpi-value green" id="kpi-mrr">—</div>
+    </div>
+  </div>
+
+  <!-- ── ANALYTICS ── -->
+  <div class="adm-section">
+    <h2 class="adm-section-title">📈 Tunnels de conversion</h2>
+    <p class="adm-section-sub">Pages d'inscription + campagnes Brevo (UTM)</p>
+    <div class="adm-cols">
+      <div>
+        <div class="adm-col-title">Top pages de conversion</div>
+        <ul class="adm-list" id="adm-top-pages"><li><div class="adm-skeleton"></div></li></ul>
+      </div>
+      <div>
+        <div class="adm-col-title">Top campagnes Brevo</div>
+        <ul class="adm-list" id="adm-top-emails"><li><div class="adm-skeleton"></div></li></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ERREURS SIGNALÉES ── -->
+  <div class="adm-section">
+    <h2 class="adm-section-title">⚑ Erreurs signalées</h2>
+    <p class="adm-section-sub">Contenus signalés par les lecteurs — à vérifier et corriger</p>
+    <ul class="adm-list" id="adm-errors-list"><li><div class="adm-skeleton"></div></li></ul>
+  </div>
+
+  <!-- ── RADAR FILE D'ATTENTE ── -->
+  <div class="adm-section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <h2 class="adm-section-title" style="margin:0;">📡 Radar — projets en attente</h2>
+      <span class="adm-queue-badge" id="adm-queue-count">0</span>
+    </div>
+    <p class="adm-section-sub">Dossiers scrapés à relire avant publication</p>
+    <div style="overflow-x:auto;">
+      <table class="adm-table">
+        <thead>
+          <tr>
+            <th>Plateforme</th>
+            <th>Projet</th>
+            <th>Score IA</th>
+            <th style="text-align:right;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="adm-radar-tbody">
+          <tr><td colspan="4" style="text-align:center;color:#666;padding:20px;">Chargement…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── LEADS ── -->
+  <div class="adm-section">
+    <h2 class="adm-section-title">📬 Derniers leads magnets</h2>
+    <p class="adm-section-sub">Téléchargements récents + opt-in newsletter</p>
+    <ul class="adm-list" id="adm-leads-list"><li><div class="adm-skeleton"></div></li></ul>
+  </div>
+
+  <!-- ── LOGS SYSTÈME ── -->
+  <div class="adm-section">
+    <h2 class="adm-section-title" style="font-size:0.85rem;">⚙️ Logs système</h2>
+    <div class="adm-errors" id="adm-sys-logs">
+      <p class="ok">Initialisation…</p>
+    </div>
+  </div>
+
+</main>
+
+<script type="module">
+const sb = window.__sb;
+
+/* ── Datetime ── */
+const now = new Date();
+document.getElementById('adm-datetime').textContent =
+  now.toLocaleDateString('fr-BE',{weekday:'long',day:'numeric',month:'long'}) + ' · ' +
+  now.toLocaleTimeString('fr-BE',{hour:'2-digit',minute:'2-digit'});
+
+/* ── Logout ── */
+document.getElementById('adm-logout').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  window.location.href = '/compte/connexion.html';
+});
+
+/* ── Log helper ── */
+function sysLog(msg, isError = false) {
+  const el = document.getElementById('adm-sys-logs');
+  const t = new Date().toLocaleTimeString('fr-BE');
+  const p = document.createElement('p');
+  p.className = isError ? '' : 'ok';
+  p.textContent = `[${t}] ${msg}`;
+  el.appendChild(p);
+  el.scrollTop = el.scrollHeight;
+}
+
+/* ── KPI financiers ── */
+async function loadKPIs() {
+  try {
+    const { data, error } = await sb.from('profiles').select('plan,billing_interval');
+    if (error) throw error;
+    let socle=0, pilote=0, radar=0, mrr=0;
+    (data||[]).forEach(u => {
+      if (u.plan === 'socle') { socle++; }
+      else if (u.plan === 'pilote') {
+        pilote++;
+        mrr += u.billing_interval === 'monthly' ? 14.99 : (99/12);
+      } else if (u.plan === 'radar') {
+        radar++;
+        mrr += u.billing_interval === 'monthly' ? 24.99 : (199/12);
+      }
+    });
+    document.getElementById('kpi-socle').textContent  = socle;
+    document.getElementById('kpi-pilote').textContent = pilote;
+    document.getElementById('kpi-radar').textContent  = radar;
+    document.getElementById('kpi-mrr').textContent    = Math.round(mrr) + ' €/mois';
+    sysLog(`KPI chargés — ${socle} Socle · ${pilote} Pilote · ${radar} Radar`);
+  } catch(e) { sysLog('Erreur KPI : ' + e.message, true); }
+}
+
+/* ── Analytics tunnels ── */
+async function loadAnalytics() {
+  try {
+    const { data, error } = await sb.from('user_conversion_metrics')
+      .select('conversion_page,utm_campaign').order('created_at',{ascending:false});
+    if (error) throw error;
+    const pages={}, camps={};
+    (data||[]).forEach(m => {
+      if (m.conversion_page) pages[m.conversion_page] = (pages[m.conversion_page]||0)+1;
+      if (m.utm_campaign && m.utm_campaign !== 'Aucune')
+        camps[m.utm_campaign] = (camps[m.utm_campaign]||0)+1;
+    });
+    const renderList = (id, obj, badgeClass) => {
+      const el = document.getElementById(id);
+      const entries = Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,5);
+      el.innerHTML = entries.length
+        ? entries.map(([k,v])=>`<li><span style="color:var(--text2);max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${k}</span><span class="adm-badge ${badgeClass}">${v}</span></li>`).join('')
+        : '<li style="color:#666;">Aucune donnée</li>';
+    };
+    renderList('adm-top-pages', pages, 'cyan');
+    renderList('adm-top-emails', camps, 'rose');
+    sysLog('Analytics chargés');
+  } catch(e) { sysLog('Erreur analytics : ' + e.message, true); }
+}
+
+/* ── Erreurs signalées ── */
+async function loadErrorReports() {
+  try {
+    const { data, error } = await sb.from('error_reports')
+      .select('id,page,description,status,created_at')
+      .eq('status','nouveau').order('created_at',{ascending:false}).limit(10);
+    if (error) throw error;
+    const el = document.getElementById('adm-errors-list');
+    el.innerHTML = (data||[]).length
+      ? (data||[]).map(e=>`<li>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:0.76rem;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${e.page}</div>
+            <div style="font-size:0.68rem;color:#666;margin-top:2px;">${e.description?.substring(0,80)}…</div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0;">
+            <button class="adm-btn-validate" onclick="resolveError('${e.id}','corrige')">✓</button>
+            <button class="adm-btn-reject" onclick="resolveError('${e.id}','refuse')">✕</button>
+          </div>
+        </li>`).join('')
+      : '<li style="color:#666;">Aucune erreur en attente 🎉</li>';
+    sysLog(`${(data||[]).length} erreur(s) en attente`);
+  } catch(e) { sysLog('Erreur reports : ' + e.message, true); }
+}
+
+window.resolveError = async (id, status) => {
+  const { error } = await sb.from('error_reports').update({status}).eq('id',id);
+  if (!error) loadErrorReports();
+};
+
+/* ── Radar file d'attente ── */
+async function loadRadarQueue() {
+  try {
+    const { data, error } = await sb.from('projects_submissions')
+      .select('id,nom_entreprise,url_plateforme,rapport_ia,type_analyse')
+      .eq('statut','en_attente_relecture').order('created_at',{ascending:true});
+    if (error) throw error;
+    const count = (data||[]).length;
+    document.getElementById('adm-queue-count').textContent = count;
+    const tbody = document.getElementById('adm-radar-tbody');
+    if (!count) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#666;padding:20px;">Aucun projet en attente 🧇</td></tr>';
+      return;
+    }
+    tbody.innerHTML = (data||[]).map(p => {
+      const score = p.rapport_ia?.fiche_recap?.score_pct ?? '—';
+      const plateforme = p.url_plateforme ? new URL(p.url_plateforme).hostname.replace('www.','') : '—';
+      return `<tr id="radar-row-${p.id}">
+        <td style="color:#5BB8D4;font-weight:600;">${plateforme}</td>
+        <td>${p.nom_entreprise}</td>
+        <td><span class="adm-badge orange">${score}${score!=='—'?'%':''}</span></td>
+        <td style="text-align:right;">
+          <button class="adm-btn-validate" onclick="publishProject('${p.id}')">✔ Publier</button>
+          <button class="adm-btn-reject" onclick="rejectProject('${p.id}')">✕</button>
+        </td>
+      </tr>`;
+    }).join('');
+    sysLog(`${count} projet(s) Radar en attente`);
+  } catch(e) { sysLog('Erreur Radar queue : ' + e.message, true); }
+}
+
+window.publishProject = async (id) => {
+  const { error } = await sb.from('projects_submissions')
+    .update({statut:'publie', published_at: new Date().toISOString()}).eq('id',id);
+  if (!error) fadeRow('radar-row-' + id, loadRadarQueue);
+};
+window.rejectProject = async (id) => {
+  const { error } = await sb.from('projects_submissions')
+    .update({statut:'refuse'}).eq('id',id);
+  if (!error) fadeRow('radar-row-' + id, loadRadarQueue);
+};
+function fadeRow(rowId, cb) {
+  const row = document.getElementById(rowId);
+  if (row) { row.classList.add('fading'); setTimeout(cb, 320); }
+  else cb();
+}
+
+/* ── Leads récents ── */
+async function loadLeads() {
+  try {
+    const { data, error } = await sb.from('lead_magnet_requests')
+      .select('email,lead_magnet_key,newsletter_optin,created_at')
+      .order('created_at',{ascending:false}).limit(8);
+    if (error) throw error;
+    const el = document.getElementById('adm-leads-list');
+    el.innerHTML = (data||[]).length
+      ? (data||[]).map(l=>`<li>
+          <span style="font-size:0.78rem;color:var(--text2);">${l.email||'—'} <span style="color:#666;">· ${l.lead_magnet_key||'—'}</span></span>
+          <span class="adm-badge ${l.newsletter_optin?'green':''}"> ${l.newsletter_optin?'✓ Newsletter':'—'}</span>
+        </li>`).join('')
+      : '<li style="color:#666;">Aucun lead pour l\'instant</li>';
+    sysLog('Leads chargés');
+  } catch(e) { sysLog('Erreur leads : ' + e.message, true); }
+}
+
+/* ── Lancement en parallèle ── */
+await Promise.all([loadKPIs(), loadAnalytics(), loadErrorReports(), loadRadarQueue(), loadLeads()]);
+</script>
+
+</body>
+</html>
