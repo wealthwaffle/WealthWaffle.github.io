@@ -443,3 +443,26 @@ create index if not exists idx_conv_campaign on user_conversion_metrics (utm_cam
 
 -- Colonne matomo_visitor_id dans profiles (lien Matomo ↔ Supabase)
 alter table profiles add column if not exists matomo_visitor_id text;
+alter table profiles add column if not exists billing_interval text default 'yearly' check (billing_interval in ('monthly','yearly'));
+
+-- ───────────────────────────────────────────────────────────────────────
+-- 16. CRYPTO_REPORTS — résumés fiscaux crypto (sauvegarde volontaire)
+-- ───────────────────────────────────────────────────────────────────────
+create table if not exists crypto_reports (
+  id          uuid default gen_random_uuid() primary key,
+  user_id     uuid references profiles(id) on delete cascade not null,
+  fiscal_year integer not null,
+  net_gain    numeric,
+  taxable_gain numeric,
+  summary     jsonb,
+  created_at  timestamptz default now(),
+  unique (user_id, fiscal_year)
+);
+alter table crypto_reports enable row level security;
+create policy "Utilisateur gère ses rapports crypto"
+  on crypto_reports for all using (auth.uid() = user_id);
+
+-- Colonnes add-on dans profiles
+alter table profiles add column if not exists has_crypto_addon boolean default false;
+alter table profiles add column if not exists crypto_reports_this_month integer default 0;
+alter table profiles add column if not exists crypto_reports_reset_at timestamptz;

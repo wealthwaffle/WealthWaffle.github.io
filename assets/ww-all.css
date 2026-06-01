@@ -2353,20 +2353,56 @@ body[data-level="avance"] .expert-expand-btn {
    Sans JS (pas de data-level sur body) : tout visible (sûr).
 ──────────────────────────────────────────────────────────── */
 
-/* Masquer tous les niveaux non-débutant par défaut */
-.level-section [data-level="avance"],
+/* ── Niveaux de lecture : nouvelle logique juin 2026 ────────
+   Mode DÉBUTANT : affiche débutant + bouton "voir avancé" par section
+   Mode AVANCÉ   : affiche débutant + avancé (les deux, dans l'ordre)
+   Le toggle local (bouton dans chaque section) est géré par JS
+────────────────────────────────────────────────────────── */
+
+/* Par défaut : masquer tout, JS applique ensuite */
 .level-section [data-level="debutant"],
+.level-section [data-level="avance"],
 .level-section [data-level="expert"] { display: none; }
 
+/* Mode DÉBUTANT : débutant visible, avancé masqué */
 body[data-level="debutant"] .level-section [data-level="debutant"] { display: block; }
 body[data-level="debutant"] .level-section [data-level="avance"]   { display: none;  }
 body[data-level="debutant"] .level-section [data-level="expert"]   { display: none;  }
 
-body[data-level="avance"] .level-section [data-level="debutant"]   { display: none;  }
+/* Mode AVANCÉ : les DEUX visibles (débutant d'abord, avancé en dessous) */
+body[data-level="avance"] .level-section [data-level="debutant"]   { display: block; }
 body[data-level="avance"] .level-section [data-level="avance"]     { display: block; }
 body[data-level="avance"] .level-section [data-level="expert"]     { display: none;  }
 
-/* Règles niveau — corrigées juin 2026 */
+/* Bouton toggle local "Voir la version avancée" / "Masquer" */
+.ww-toggle-avance {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(91,184,212,0.30);
+  background: rgba(91,184,212,0.07);
+  color: #5BB8D4;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.ww-toggle-avance:hover { background: rgba(91,184,212,0.14); }
+
+/* En mode débutant, masquer les blocs avancé sauf si .ww-local-avance est sur le parent */
+body[data-level="debutant"] .level-section.ww-local-avance [data-level="avance"] { display: block; }
+body[data-level="debutant"] .level-section.ww-local-avance .ww-toggle-avance    { display: none;  }
+
+/* Séparateur visuel entre débutant et avancé en mode avancé */
+body[data-level="avance"] .level-section [data-level="avance"] {
+  border-top: 1px solid rgba(91,184,212,0.15);
+  margin-top: 16px;
+  padding-top: 14px;
+}
 
 /* ═══ CLASSES MANQUANTES — ajoutées lors de l'audit CSS ═══ */
 
@@ -2689,3 +2725,18 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
   border-color: rgba(232,124,195,0.35);
   color: var(--text);
 }
+
+/* ── Calculateur Fiscal Crypto ─────────────────────────────── */
+.crypto-drop-zone {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:18px 12px; border:1.5px dashed var(--border); border-radius:14px;
+  background:var(--s2); cursor:pointer; transition:all 0.18s; text-align:center;
+  min-height:110px; gap:4px;
+}
+.crypto-drop-zone:hover, .crypto-drop-zone.drag-active {
+  border-color:rgba(232,124,195,0.45); background:rgba(232,124,195,0.05);
+}
+.crypto-drop-icon { font-size:1.6rem; }
+.crypto-drop-name { font-size:0.80rem; font-weight:700; color:var(--text); }
+.crypto-drop-hint { font-size:0.66rem; color:var(--muted); }
+.crypto-drop-status { font-size:0.70rem; color:var(--muted2); margin-top:4px; }

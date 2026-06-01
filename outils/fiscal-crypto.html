@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur Fiscal Crypto Belgique 2026 — WealthWaffle</title>
+  <meta name="description" content="Calculez vos plus-values crypto selon la méthode FIFO et les règles belges 2026. Import CSV Binance, Kraken, Coinbase. Rapport Excel prêt pour MyMinfin.">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <!-- PapaParse pour lecture CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <!-- SheetJS pour export Excel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Calculateur Fiscal Crypto 2026", basePath: "/outils/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="page" style="padding-top:80px;">
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/outils/">Outils</a><span>/</span><span>Fiscal Crypto</span></div>
+
+<div class="eyebrow" style="background:rgba(232,194,58,0.10);color:#E8C23A;">🪙 Add-on Conformité Crypto</div>
+<h1 class="display">Calculateur Fiscal<br><span style="color:#E8C23A;">Crypto Belgique 2026</span></h1>
+<p class="lead" style="margin-bottom:8px;">Import CSV → FIFO → rapport Excel prêt pour MyMinfin. Calcul 100% local — aucune donnée envoyée sur nos serveurs.</p>
+<p style="font-size:0.76rem;color:var(--muted);margin-bottom:32px;">Méthode FIFO · Step-up 31/12/2025 · Franchise 10.000€ · Régimes 10% / 33%</p>
+
+<!-- Accès réservé -->
+<div id="crypto-access-gate" style="display:none;">
+  <div class="content-card" style="text-align:center;padding:32px;">
+    <div style="font-size:2rem;margin-bottom:12px;">🔒</div>
+    <h3 style="font-family:'DM Serif Display',serif;font-style:italic;">Add-on Conformité Crypto</h3>
+    <p style="font-size:0.84rem;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto 20px;">Cet outil est disponible avec l'add-on Conformité Crypto à 49€/an. Accès illimité aux rapports pour l'année fiscale en cours.</p>
+    <a href="/doctrine.html?addon=crypto" class="btn-primary" style="display:inline-flex;padding:12px 24px;">Activer l'add-on — 49€/an →</a>
+    <div style="font-size:0.68rem;color:var(--muted2);margin-top:8px;">Inclus dans Pilote + Radar · Annulable à tout moment</div>
+  </div>
+</div>
+
+<!-- Calculateur (visible si add-on actif ou preview) -->
+<div id="crypto-calculator">
+
+  <!-- ÉTAPE 1 — Import fichiers -->
+  <div class="content-card reveal" id="step-import">
+    <h3>📁 Étape 1 — Importe tes fichiers CSV</h3>
+    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:20px;">Ajoute un ou plusieurs fichiers. Toutes les plateformes sont combinées dans un seul calcul FIFO.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+      <!-- Binance -->
+      <label class="crypto-drop-zone" id="zone-binance" ondragover="dragOver(event,'binance')" ondrop="drop(event,'binance')" ondragleave="dragLeave(event,'binance')">
+        <div class="crypto-drop-icon">🔶</div>
+        <div class="crypto-drop-name">Binance</div>
+        <div class="crypto-drop-hint">Transaction History CSV (FR)</div>
+        <input type="file" accept=".csv" onchange="loadFile(event,'binance')" style="display:none;" id="file-binance">
+        <div class="crypto-drop-status" id="status-binance">Glisse ici ou clique</div>
+      </label>
+
+      <!-- Kraken -->
+      <label class="crypto-drop-zone" id="zone-kraken" ondragover="dragOver(event,'kraken')" ondrop="drop(event,'kraken')" ondragleave="dragLeave(event,'kraken')">
+        <div class="crypto-drop-icon">🐙</div>
+        <div class="crypto-drop-name">Kraken</div>
+        <div class="crypto-drop-hint">Spot Trades Export CSV</div>
+        <input type="file" accept=".csv" onchange="loadFile(event,'kraken')" style="display:none;" id="file-kraken">
+        <div class="crypto-drop-status" id="status-kraken">Glisse ici ou clique</div>
+      </label>
+
+      <!-- Coinbase -->
+      <label class="crypto-drop-zone" id="zone-coinbase" ondragover="dragOver(event,'coinbase')" ondrop="drop(event,'coinbase')" ondragleave="dragLeave(event,'coinbase')">
+        <div class="crypto-drop-icon">🔵</div>
+        <div class="crypto-drop-name">Coinbase</div>
+        <div class="crypto-drop-hint">Transactions Export CSV</div>
+        <input type="file" accept=".csv" onchange="loadFile(event,'coinbase')" style="display:none;" id="file-coinbase">
+        <div class="crypto-drop-status" id="status-coinbase">Glisse ici ou clique</div>
+      </label>
+
+      <!-- Autre -->
+      <label class="crypto-drop-zone" id="zone-autre" ondragover="dragOver(event,'autre')" ondrop="drop(event,'autre')" ondragleave="dragLeave(event,'autre')">
+        <div class="crypto-drop-icon">📄</div>
+        <div class="crypto-drop-name">Autre plateforme</div>
+        <div class="crypto-drop-hint">Bittrex / format standard</div>
+        <input type="file" accept=".csv" onchange="loadFile(event,'autre')" style="display:none;" id="file-autre">
+        <div class="crypto-drop-status" id="status-autre">Glisse ici ou clique</div>
+      </label>
+    </div>
+
+    <div id="import-summary" style="display:none;background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.20);border-radius:12px;padding:12px;font-size:0.82rem;color:var(--muted);"></div>
+  </div>
+
+  <!-- ÉTAPE 2 — Step-up 31/12/2025 -->
+  <div class="content-card reveal" id="step-stepup" style="margin-top:12px;">
+    <h3>📅 Étape 2 — Valeurs au 31/12/2025 <span style="font-size:0.70rem;font-weight:400;color:var(--muted);">(step-up)</span></h3>
+    <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;margin-bottom:14px;">Les actifs que tu détenais avant le 1er janvier 2026 bénéficient du <strong>step-up</strong> : leur valeur au 31/12/2025 remplace le prix d'achat historique. Tu ne paies ainsi aucun impôt sur les gains réalisés avant 2026.</p>
+
+    <div id="stepup-fields">
+      <p style="font-size:0.78rem;color:var(--muted);">⏳ Importe tes fichiers CSV d'abord — les actifs détectés apparaîtront ici automatiquement.</p>
+    </div>
+
+    <div style="margin-top:12px;">
+      <button onclick="loadStepUpFromCoinGecko()" style="font-size:0.76rem;padding:7px 14px;border-radius:9px;border:1px solid rgba(91,184,212,0.30);background:rgba(91,184,212,0.07);color:#5BB8D4;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;">
+        🔄 Charger depuis CoinGecko (31/12/2025)
+      </button>
+      <span style="font-size:0.68rem;color:var(--muted);margin-left:8px;">Appel API gratuit — prix de clôture officiels</span>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 3 — Autres plus-values -->
+  <div class="content-card reveal" id="step-other" style="margin-top:12px;">
+    <h3>📊 Étape 3 — Autres plus-values 2026 <span style="font-size:0.70rem;font-weight:400;color:var(--muted);">(franchise commune)</span></h3>
+    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;">La franchise de 10.000€ est commune à tous tes actifs financiers (crypto + ETF + actions). Si tu as déjà déclaré des plus-values sur d'autres actifs, indique-les ici pour optimiser ta déclaration.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <label style="font-size:0.70rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Plus-values ETF / actions (€)</label>
+        <input type="number" id="other-etf" value="0" min="0" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:0.84rem;color:var(--text);outline:none;box-sizing:border-box;">
+      </div>
+      <div>
+        <label style="font-size:0.70rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Autres plus-values financières (€)</label>
+        <input type="number" id="other-misc" value="0" min="0" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:0.84rem;color:var(--text);outline:none;box-sizing:border-box;">
+      </div>
+    </div>
+    <p style="font-size:0.70rem;color:var(--muted);margin-top:8px;">💡 Si ton total ETF+actions dépasse 10.000€, il peut être plus intéressant de déclarer les plus-values crypto (moins complexes à calculer) et d'y imputer la franchise plutôt qu'à tes ETF.</p>
+  </div>
+
+  <!-- ÉTAPE 4 — Validation et calcul -->
+  <div class="content-card reveal" id="step-calc" style="margin-top:12px;">
+    <h3>✅ Étape 4 — Vérification et calcul</h3>
+
+    <div style="background:rgba(232,194,58,0.07);border:1px solid rgba(232,194,58,0.20);border-radius:12px;padding:14px;margin-bottom:16px;">
+      <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
+        <input type="checkbox" id="check-data" style="margin-top:3px;flex-shrink:0;">
+        <span style="font-size:0.80rem;color:var(--muted);line-height:1.6;">Je certifie avoir vérifié que mes fichiers CSV contiennent l'ensemble de mes transactions. Je comprends que cet outil est une <strong>aide au calcul</strong> basée sur la méthode FIFO et non un conseil fiscal. Je vérifierai le rapport avant toute déclaration.</span>
+      </label>
+    </div>
+
+    <div style="background:rgba(91,184,212,0.06);border:1px solid rgba(91,184,212,0.18);border-radius:10px;padding:12px;margin-bottom:16px;font-size:0.76rem;color:var(--muted);line-height:1.65;">
+      🔒 <strong>Traitement 100% local.</strong> Tes transactions ne quittent jamais ton navigateur. Seul le résumé final peut être sauvegardé dans ton profil WealthWaffle (optionnel).
+    </div>
+
+    <button id="btn-calc" onclick="runCalculation()" style="width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#E8C23A,#c9a420);color:#1E1D38;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;">
+      🧮 Calculer mes plus-values
+    </button>
+  </div>
+
+  <!-- RÉSULTATS -->
+  <div id="results-section" style="display:none;margin-top:12px;">
+
+    <!-- Synthèse -->
+    <div class="content-card" style="background:rgba(126,200,160,0.05);border-color:rgba(126,200,160,0.20);">
+      <h3 style="color:#7EC8A0;">📊 Synthèse fiscale 2026</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--muted);margin-bottom:4px;">PV NETTE CRYPTO 2026</div>
+          <div style="font-size:1.4rem;font-weight:800;color:var(--text);" id="res-net">—</div>
+        </div>
+        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--muted);margin-bottom:4px;">FRANCHISE RESTANTE</div>
+          <div style="font-size:1.4rem;font-weight:800;color:#5BB8D4;" id="res-franchise">—</div>
+        </div>
+        <div style="background:rgba(126,200,160,0.10);border:1px solid rgba(126,200,160,0.25);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--muted);margin-bottom:4px;">IMPOSABLE (gestion normale)</div>
+          <div style="font-size:1.4rem;font-weight:800;color:#7EC8A0;" id="res-taxable">—</div>
+        </div>
+        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--muted);margin-bottom:4px;">IMPÔT ESTIMÉ (10%)</div>
+          <div style="font-size:1.4rem;font-weight:800;color:#E8C23A;" id="res-tax10">—</div>
+        </div>
+      </div>
+
+      <div id="res-warnings" style="display:none;background:rgba(232,124,195,0.07);border:1px solid rgba(232,124,195,0.20);border-radius:10px;padding:12px;font-size:0.76rem;color:var(--muted);line-height:1.7;margin-bottom:14px;"></div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button onclick="downloadExcel()" style="flex:1;padding:12px;border-radius:11px;border:none;background:linear-gradient(135deg,#7EC8A0,#5ab37a);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.86rem;cursor:pointer;">
+          📥 Télécharger le rapport Excel
+        </button>
+        <button onclick="saveToProfile()" style="padding:12px 16px;border-radius:11px;border:1px solid var(--border);background:var(--s3);color:var(--text2);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.84rem;cursor:pointer;">
+          💾 Sauvegarder dans mon profil
+        </button>
+      </div>
+      <div style="font-size:0.66rem;color:var(--muted2);margin-top:8px;text-align:center;">
+        Le rapport Excel contient le détail complet de toutes les transactions, le solde inventaire actuel et la synthèse fiscale.
+      </div>
+    </div>
+
+    <!-- Learning Rewards / Airdrops -->
+    <div id="income-section" style="display:none;margin-top:12px;">
+      <div class="content-card" style="background:rgba(232,194,58,0.05);border-color:rgba(232,194,58,0.20);">
+        <h3 style="color:#E8C23A;">⚠️ Revenus à vérifier séparément</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Ces transactions (Learning Rewards, Airdrops, staking) sont dans une <strong>zone grise fiscale belge</strong>. L'approche prudente est de les déclarer comme revenus divers. Consulte un fiscaliste pour ton cas précis.</p>
+        <div id="income-list" style="font-size:0.78rem;color:var(--muted);"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #crypto-calculator -->
+
+<!-- Disclaimer légal -->
+<div style="background:var(--s2);border-top:1px solid var(--faint);margin-top:32px;padding:20px;border-radius:12px;">
+  <div style="font-size:0.68rem;color:var(--muted2);line-height:1.8;max-width:600px;">
+    <strong>Informations légales :</strong> WealthWaffle fournit un outil d'aide au calcul de plus-values basé sur la méthode FIFO. Ce service est une assistance automatisée et non un conseil fiscal. L'exactitude du calcul dépend des fichiers fournis. L'utilisateur est seul responsable de la vérification des données avant déclaration. Aucun historique de transaction n'est stocké sur nos serveurs — le calcul est effectué localement dans votre navigateur. Déclarez vos comptes étrangers au PCC (BNB) si ce n'est pas encore fait.
+  </div>
+</div>
+
+</div><!-- .page -->
+
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+
+<script>
+/* ── État global ── */
+const state = {
+  files: { binance: null, kraken: null, coinbase: null, autre: null },
+  allTxs: [],
+  stepUpValues: {},
+  result: null
+};
+
+/* ── Drag & drop zones ── */
+function dragOver(e, platform) {
+  e.preventDefault();
+  document.getElementById('zone-' + platform).classList.add('drag-active');
+}
+function dragLeave(e, platform) {
+  document.getElementById('zone-' + platform).classList.remove('drag-active');
+}
+function drop(e, platform) {
+  e.preventDefault();
+  dragLeave(e, platform);
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file, platform);
+}
+function loadFile(e, platform) {
+  const file = e.target.files[0];
+  if (file) processFile(file, platform);
+}
+
+function processFile(file, platform) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const text = e.target.result;
+    state.files[platform] = text;
+    updateStatus(platform, `✅ ${file.name} (${Math.round(file.size/1024)}KB)`);
+    parseAllFiles();
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+function updateStatus(platform, msg) {
+  const el = document.getElementById('status-' + platform);
+  const zone = document.getElementById('zone-' + platform);
+  if (el) { el.textContent = msg; el.style.color = '#7EC8A0'; }
+  if (zone) zone.style.borderColor = 'rgba(126,200,160,0.40)';
+}
+
+/* ── Parsing et détection des actifs ── */
+function parseAllFiles() {
+  if (!window.WW_Crypto) return;
+  const C = window.WW_Crypto;
+  state.allTxs = [];
+
+  if (state.files.binance)   state.allTxs.push(...C.parseBinance(state.files.binance));
+  if (state.files.kraken)    state.allTxs.push(...C.parseKraken(state.files.kraken));
+  if (state.files.coinbase)  state.allTxs.push(...C.parseCoinbase(state.files.coinbase));
+  if (state.files.autre)     state.allTxs.push(...C.parseBittrex(state.files.autre));
+
+  const total = state.allTxs.length;
+  const summary = document.getElementById('import-summary');
+  if (summary) {
+    summary.style.display = 'block';
+    summary.innerHTML = `✅ <strong>${total} transactions</strong> importées depuis ${Object.values(state.files).filter(Boolean).length} fichier(s). Détection des actifs en cours…`;
+  }
+
+  // Générer les champs step-up pour les actifs détectés
+  generateStepUpFields();
+}
+
+function generateStepUpFields() {
+  const STEP_UP_DATE = new Date('2025-12-31T23:59:59Z');
+  const assets = new Set();
+  state.allTxs.forEach(tx => {
+    if (['BUY','INCOME','AIRDROP','LEARNING_REWARD'].includes(tx.type) && tx.date <= STEP_UP_DATE) {
+      assets.add(tx.asset);
+    }
+  });
+
+  const container = document.getElementById('stepup-fields');
+  if (!container) return;
+
+  if (assets.size === 0) {
+    container.innerHTML = '<p style="font-size:0.78rem;color:var(--muted);">✅ Aucun actif détenu avant 2026 — pas de step-up nécessaire.</p>';
+    return;
+  }
+
+  let html = '<p style="font-size:0.78rem;color:var(--muted);margin-bottom:12px;">Actifs détectés avant le 01/01/2026. Entre le prix en EUR au 31/12/2025 (ou clique sur "Charger depuis CoinGecko") :</p>';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  [...assets].sort().forEach(asset => {
+    html += `<div>
+      <label style="font-size:0.70rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">${asset} (€/unité)</label>
+      <input type="number" id="stepup-${asset}" min="0" step="0.01" placeholder="Prix au 31/12/2025"
+        style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--text);outline:none;box-sizing:border-box;"
+        oninput="state.stepUpValues['${asset}'] = parseFloat(this.value) || 0">
+    </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+/* ── Chargement CoinGecko ── */
+async function loadStepUpFromCoinGecko() {
+  const COINGECKO_IDS = {
+    'BTC': 'bitcoin', 'ETH': 'ethereum', 'ADA': 'cardano', 'SOL': 'solana',
+    'BNB': 'binancecoin', 'XRP': 'ripple', 'MATIC': 'matic-network',
+    'DOT': 'polkadot', 'LINK': 'chainlink', 'LTC': 'litecoin',
+    'XLM': 'stellar', 'XMR': 'monero', 'DASH': 'dash', 'GMX': 'gmx',
+    'KAVA': 'kava', 'CFG': 'centrifuge', 'TIA': 'celestia', 'GRT': 'the-graph',
+    'NEAR': 'near', 'XRP': 'ripple', 'XCN': 'chain-2', 'VET': 'vechain',
+  };
+
+  const assets = Object.keys(state.stepUpValues).length > 0
+    ? Object.keys(state.stepUpValues)
+    : [...document.querySelectorAll('[id^="stepup-"]')].map(el => el.id.replace('stepup-',''));
+
+  if (assets.length === 0) {
+    alert('Importe d\'abord tes fichiers CSV pour détecter les actifs.');
+    return;
+  }
+
+  // Date 31/12/2025 → timestamp Unix
+  const date = '31-12-2025';
+
+  for (const asset of assets) {
+    const cgId = COINGECKO_IDS[asset];
+    if (!cgId) continue;
+    try {
+      const url = `https://api.coingecko.com/api/v3/coins/${cgId}/history?date=${date}&localization=false`;
+      const resp = await fetch(url);
+      const data = await resp.json();
+      const price = data?.market_data?.current_price?.eur;
+      if (price) {
+        state.stepUpValues[asset] = price;
+        const input = document.getElementById(`stepup-${asset}`);
+        if (input) { input.value = price.toFixed(2); input.style.borderColor = 'rgba(126,200,160,0.40)'; }
+      }
+    } catch(e) {
+      console.warn('CoinGecko erreur pour', asset, e);
+    }
+    await new Promise(r => setTimeout(r, 300)); // rate limit
+  }
+}
+
+/* ── Calcul FIFO ── */
+function runCalculation() {
+  if (!document.getElementById('check-data').checked) {
+    alert('Coche la case de validation avant de calculer.');
+    return;
+  }
+  if (state.allTxs.length === 0) {
+    alert('Importe au moins un fichier CSV.');
+    return;
+  }
+
+  const otherGains = {
+    etf: parseFloat(document.getElementById('other-etf').value) || 0,
+    actions: parseFloat(document.getElementById('other-misc').value) || 0,
+  };
+
+  state.result = window.WW_Crypto.runFIFO(state.allTxs, state.stepUpValues, otherGains);
+  displayResults(state.result, otherGains);
+}
+
+function displayResults(result, otherGains) {
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('res-net').textContent = result.netGain2026.toLocaleString('fr-BE') + ' €';
+  document.getElementById('res-franchise').textContent = result.remainingFranchise.toLocaleString('fr-BE') + ' €';
+  document.getElementById('res-taxable').textContent = result.taxableGain.toLocaleString('fr-BE') + ' €';
+  document.getElementById('res-tax10').textContent = Math.round(result.taxableGain * 0.10).toLocaleString('fr-BE') + ' €';
+
+  if (result.warnings.length) {
+    const w = document.getElementById('res-warnings');
+    w.style.display = 'block';
+    w.innerHTML = '<strong>⚠️ Avertissements (' + result.warnings.length + ') :</strong><br>' +
+      result.warnings.slice(0,5).map(x => '• ' + x).join('<br>');
+  }
+
+  if (result.incomeLines && result.incomeLines.length) {
+    const s = document.getElementById('income-section');
+    const l = document.getElementById('income-list');
+    s.style.display = 'block';
+    l.innerHTML = result.incomeLines.map(g =>
+      `<div style="padding:6px 0;border-bottom:1px solid var(--faint);">${g.date} · ${g.platform} · ${g.asset} · ${g.type} · ${g.proceeds} € — ${g.note || 'À qualifier avec un fiscaliste'}</div>`
+    ).join('');
+  }
+
+  document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function downloadExcel() {
+  if (!state.result) { alert('Lance d\'abord le calcul.'); return; }
+  const otherGains = {
+    etf: parseFloat(document.getElementById('other-etf').value) || 0,
+    actions: parseFloat(document.getElementById('other-misc').value) || 0,
+  };
+  window.WW_Crypto.exportExcel(state.result, state.stepUpValues, otherGains);
+}
+
+async function saveToProfile() {
+  if (!state.result) return;
+  if (!window.WW?.sb) { alert('Connecte-toi pour sauvegarder.'); return; }
+  const { error } = await window.WW.sb.from('crypto_reports').upsert({
+    user_id: window.WW.user.id,
+    fiscal_year: 2026,
+    net_gain: state.result.netGain2026,
+    taxable_gain: state.result.taxableGain,
+    summary: {
+      netGain: state.result.netGain2026,
+      taxable: state.result.taxableGain,
+      franchise: state.result.remainingFranchise,
+      warnings: state.result.warnings.length
+    },
+    created_at: new Date().toISOString()
+  });
+  if (!error) alert('✅ Rapport sauvegardé dans ton profil.');
+}
+
+/* ── Vérification accès add-on ── */
+window.addEventListener('load', function() {
+  const plan = localStorage.getItem('ww_plan') || 'socle';
+  const hasAddon = localStorage.getItem('ww_addon_crypto') === '1'
+    || ['pilote','radar'].includes(plan); // Pilote+ inclus en preview
+
+  // En mode preview toujours visible
+  const preview = new URLSearchParams(location.search).get('ww_preview');
+  if (!hasAddon && !preview) {
+    document.getElementById('crypto-access-gate').style.display = 'block';
+    document.getElementById('crypto-calculator').style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>

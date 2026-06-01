@@ -2933,3 +2933,583 @@ window.WW_Tools.simulateurReserveLiq = function(containerId) {
     <div style="font-size:0.66rem;color:var(--muted2);margin-top:6px;">ISOC 10% · PM 5% après 5 ans (20% avant) · 2026 · Simulation indicative</div>`;
   };
 };
+
+/* ════════════════════════════════════════════════════════════════════
+ * MOTEUR FIFO CRYPTO — Hub Conformité Fiscale Belgique 2026
+ * Parsers : Binance (FR) · Kraken · Coinbase · Bittrex
+ * Calcul : FIFO + step-up 31/12/2025 + franchise 10.000€
+ * Export : Excel via SheetJS
+ * ════════════════════════════════════════════════════════════════════ */
+
+window.WW_Crypto = (function() {
+
+  /* ── Types d'opérations Binance → action normalisée ── */
+  const BINANCE_OPS = {
+    'Transaction Buy':            'BUY',
+    'Auto-Invest Transaction':    'BUY_OR_SELL', // résolu par signe du Change
+    'Binance Convert':            'BUY_OR_SELL',
+    'Transaction Sold':           'SELL',
+    'Transaction Revenue':        'SELL_PROCEEDS', // contrepartie EUR d'une vente
+    'Transaction Spend':          'BUY_COST',      // contrepartie EUR d'un achat
+    'Withdraw':                   'TRANSFER_OUT',
+    'Deposit':                    'TRANSFER_IN',
+    'Simple Earn Flexible Interest': 'INCOME',
+    'Simple Earn Locked Rewards': 'INCOME',
+    'Launchpool Airdrop - User Claim Distribution': 'AIRDROP',
+    'Referral Commission':        'IGNORE',
+    'Transaction Fee':            'FEE',
+    'Small Assets Exchange BNB':  'IGNORE',
+    'Simple Earn Flexible Subscription': 'IGNORE',
+    'Simple Earn Flexible Redemption':   'IGNORE',
+    'Simple Earn Locked Subscription':   'IGNORE',
+    'Simple Earn Locked Redemption':     'IGNORE',
+    'Token Swap - Distribution':  'IGNORE',
+    'BNB Vault Rewards':          'INCOME',
+    'Distribution':               'INCOME',
+    'Asset Recovery':             'IGNORE',
+    'Merchant Acquiring':         'IGNORE',
+    'Pre Auth - Capture':         'IGNORE',
+    'Buy Crypto With Fiat':       'BUY',
+  };
+
+  /* ── Parser Binance CSV (FR) ──
+     Colonnes : Identifiant utilisateur, Durée, Compte, Opération, Jeton, Change, Remarque
+     Stratégie : grouper par timestamp pour reconstituer prix EUR
+  ── */
+  function parseBinance(csvText) {
+    const rows = Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
+    const txs = [];
+
+    // Grouper par timestamp pour apparier EUR ↔ crypto
+    const byTime = {};
+    rows.forEach(r => {
+      const t = r['Durée'] || r['Duration'] || '';
+      if (!byTime[t]) byTime[t] = [];
+      byTime[t].push(r);
+    });
+
+    Object.entries(byTime).forEach(([ts, group]) => {
+      const eurLines = group.filter(r => r['Jeton'] === 'EUR');
+      const cryptoLines = group.filter(r => r['Jeton'] !== 'EUR' && r['Jeton'] !== 'USDT' && r['Jeton'] !== 'BUSD' && r['Jeton'] !== 'USDC');
+      const stableLines = group.filter(r => ['USDT','BUSD','USDC'].includes(r['Jeton']));
+
+      // Cas achat : Transaction Spend EUR + Transaction Buy crypto
+      group.forEach(r => {
+        const op = r['Opération'] || r['Operation'] || '';
+        const token = r['Jeton'] || '';
+        const change = parseFloat(r['Change'] || 0);
+        const action = BINANCE_OPS[op];
+
+        if (!action || action === 'IGNORE' || action === 'FEE') return;
+        if (token === 'EUR') return; // la contrepartie EUR sera lue depuis eurLines
+
+        const date = parseBinanceDate(ts);
+        let eurAmount = null;
+
+        // Trouver la contrepartie EUR dans le groupe
+        if (action === 'BUY' || action === 'BUY_COST') {
+          const spend = group.find(x => x['Jeton'] === 'EUR' && parseFloat(x['Change']) < 0);
+          if (spend) eurAmount = Math.abs(parseFloat(spend['Change']));
+        } else if (action === 'SELL' || action === 'SELL_PROCEEDS') {
+          const revenue = group.find(x => (x['Jeton'] === 'EUR' || x['Jeton'] === 'USDT') && parseFloat(x['Change']) > 0);
+          if (revenue) eurAmount = parseFloat(revenue['Change']);
+        } else if (action === 'BUY_OR_SELL') {
+          if (change > 0) {
+            // Réception crypto = BUY
+            const spend = group.find(x => (x['Jeton'] === 'EUR' || x['Jeton'] === 'USDT' || x['Jeton'] === 'BUSD') && parseFloat(x['Change']) < 0);
+            if (spend) { eurAmount = Math.abs(parseFloat(spend['Change'])); }
+          } else {
+            // Envoi crypto = SELL
+            const revenue = group.find(x => (x['Jeton'] === 'EUR' || x['Jeton'] === 'USDT' || x['Jeton'] === 'BUSD') && parseFloat(x['Change']) > 0);
+            if (revenue) { eurAmount = parseFloat(revenue['Change']); }
+          }
+        }
+
+        if (action === 'INCOME' || action === 'AIRDROP') {
+          txs.push({
+            date, platform: 'Binance', asset: normalizeAsset(token),
+            type: action === 'AIRDROP' ? 'AIRDROP' : 'INCOME',
+            qty: Math.abs(change), eurAmount: null, eurUnitPrice: null,
+            raw: op
+          });
+          return;
+        }
+
+        if (action === 'TRANSFER_IN' || action === 'TRANSFER_OUT') {
+          txs.push({
+            date, platform: 'Binance', asset: normalizeAsset(token),
+            type: change > 0 ? 'TRANSFER_IN' : 'TRANSFER_OUT',
+            qty: Math.abs(change), eurAmount: null, eurUnitPrice: null,
+            raw: op
+          });
+          return;
+        }
+
+        const isBuy = change > 0 || action === 'BUY';
+        if (eurAmount !== null && Math.abs(change) > 0) {
+          txs.push({
+            date, platform: 'Binance', asset: normalizeAsset(token),
+            type: isBuy ? 'BUY' : 'SELL',
+            qty: Math.abs(change),
+            eurAmount: eurAmount,
+            eurUnitPrice: eurAmount / Math.abs(change),
+            raw: op
+          });
+        }
+      });
+    });
+
+    return txs;
+  }
+
+  /* ── Parser Kraken CSV ──
+     Colonnes : txid, pair, time, type, price, cost, fee, vol
+  ── */
+  function parseKraken(csvText) {
+    const rows = Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
+    const txs = [];
+
+    rows.forEach(r => {
+      const pair = r['pair'] || '';
+      const type = (r['type'] || '').toLowerCase();
+      const price = parseFloat(r['price'] || 0);
+      const cost  = parseFloat(r['cost'] || 0);
+      const fee   = parseFloat(r['fee'] || 0);
+      const vol   = parseFloat(r['vol'] || 0);
+      const time  = r['time'] || '';
+
+      if (!pair || !type || vol === 0) return;
+
+      // Extraire base et quote depuis la paire (ex: ETH/EUR, ADA/EUR, XBT/EUR)
+      const parts = pair.split('/');
+      if (parts.length !== 2) return;
+      let base  = normalizeAsset(parts[0]);
+      const quote = parts[1];
+
+      const date = new Date(time);
+
+      // Si la paire est en EUR : price et cost sont déjà en EUR
+      if (quote === 'EUR') {
+        txs.push({
+          date, platform: 'Kraken', asset: base,
+          type: type === 'buy' ? 'BUY' : 'SELL',
+          qty: vol,
+          eurAmount: cost,
+          eurUnitPrice: price,
+          fee: fee,
+          raw: pair
+        });
+      } else if (quote === 'BTC' || quote === 'XBT') {
+        // Paire crypto/BTC — EUR inconnu → marquer pour enrichissement
+        txs.push({
+          date, platform: 'Kraken', asset: base,
+          type: type === 'buy' ? 'BUY' : 'SELL',
+          qty: vol,
+          eurAmount: null, // à enrichir avec taux BTC/EUR du jour
+          eurUnitPrice: null,
+          quoteCurrency: 'BTC',
+          quoteAmount: cost,
+          fee: fee,
+          needsConversion: true,
+          raw: pair
+        });
+      }
+    });
+
+    return txs;
+  }
+
+  /* ── Parser Coinbase CSV ──
+     Colonnes : ID, Timestamp, Transaction Type, Asset, Quantity Transacted,
+                Price Currency, Price at Transaction, Subtotal, Total, Fees, Notes
+     Header sur 2 lignes à ignorer
+  ── */
+  function parseCoinbase(csvText) {
+    // Coinbase a 3 lignes de header avant les données
+    const lines = csvText.split('\n');
+    let dataStart = 0;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].startsWith('ID,') || lines[i].startsWith('"ID"')) {
+        dataStart = i;
+        break;
+      }
+    }
+    const dataText = lines.slice(dataStart).join('\n');
+    const rows = Papa.parse(dataText, { header: true, skipEmptyLines: true }).data;
+    const txs = [];
+
+    const TYPE_MAP = {
+      'Buy': 'BUY', 'Sell': 'SELL',
+      'Convert': 'SELL', // Convert = vente de l'actif source
+      'Send': 'TRANSFER_OUT', 'Receive': 'TRANSFER_IN',
+      'Learning Reward': 'LEARNING_REWARD',
+      'Coinbase Earn': 'INCOME',
+      'Inflation Reward': 'INCOME',
+      'Staking Income': 'INCOME',
+    };
+
+    rows.forEach(r => {
+      const type = r['Transaction Type'] || '';
+      const asset = normalizeAsset(r['Asset'] || '');
+      const qty = Math.abs(parseFloat(r['Quantity Transacted'] || 0));
+      const priceRaw = (r['Price at Transaction'] || '').replace(/[€$,]/g, '');
+      const totalRaw = (r['Total (inclusive of fees and/or spread)'] || '').replace(/[€$,]/g, '');
+      const feeRaw   = (r['Fees and/or Spread'] || '').replace(/[€$,]/g, '');
+      const price  = parseFloat(priceRaw) || 0;
+      const total  = Math.abs(parseFloat(totalRaw) || 0);
+      const fee    = Math.abs(parseFloat(feeRaw) || 0);
+      const date   = new Date(r['Timestamp'] || r['ID'] || '');
+      const action = TYPE_MAP[type];
+
+      if (!action || qty === 0) return;
+
+      if (action === 'LEARNING_REWARD') {
+        txs.push({
+          date, platform: 'Coinbase', asset,
+          type: 'LEARNING_REWARD',
+          qty, eurAmount: total, eurUnitPrice: price,
+          raw: type,
+          note: 'Learning Reward — voir traitement fiscal (zone grise)'
+        });
+        return;
+      }
+
+      if (action === 'TRANSFER_IN' || action === 'TRANSFER_OUT') {
+        txs.push({ date, platform: 'Coinbase', asset, type: action, qty, eurAmount: null, eurUnitPrice: null, raw: type });
+        return;
+      }
+
+      if (action === 'INCOME') {
+        txs.push({ date, platform: 'Coinbase', asset, type: 'INCOME', qty, eurAmount: total, eurUnitPrice: price, raw: type });
+        return;
+      }
+
+      txs.push({
+        date, platform: 'Coinbase', asset,
+        type: action,
+        qty,
+        eurAmount: total,
+        eurUnitPrice: price,
+        fee,
+        raw: type
+      });
+    });
+
+    return txs;
+  }
+
+  /* ── Parser Bittrex CSV ──
+     Colonnes : TXID, Time (UTC), Transaction, Order Type, Market, Base, Quote,
+                Price, Quantity (Base), Fees (Quote), Total (Quote), Approx Value (USD)
+  ── */
+  function parseBittrex(csvText) {
+    // Ignorer les 3 premières lignes (header utilisateur)
+    const lines = csvText.split('\n').filter(l => l.trim());
+    let dataStart = 0;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].startsWith('TXID,') || lines[i].includes('Transaction,')) {
+        dataStart = i;
+        break;
+      }
+    }
+    const dataText = lines.slice(dataStart).join('\n');
+    const rows = Papa.parse(dataText, { header: true, skipEmptyLines: true }).data;
+    const txs = [];
+
+    rows.forEach(r => {
+      const transaction = (r['Transaction'] || '').toLowerCase();
+      const base  = normalizeAsset(r['Base'] || '');
+      const quote = r['Quote'] || '';
+      const price = parseFloat(r['Price'] || 0);
+      const qty   = parseFloat(r['Quantity (Base)'] || 0);
+      const total = parseFloat(r['Total (Quote)'] || 0);
+      const usd   = parseFloat(r['Approx Value (USD)'] || 0);
+      const date  = new Date(r['Time (UTC)'] || '');
+
+      if (!base || qty === 0) return;
+
+      // Bittrex = paires en BTC → EUR inconnu, on utilise USD approximatif
+      txs.push({
+        date, platform: 'Bittrex', asset: base,
+        type: transaction === 'sold' ? 'SELL' : 'BUY',
+        qty,
+        eurAmount: null,
+        eurUnitPrice: null,
+        usdAmount: usd,
+        quoteCurrency: quote,
+        quoteAmount: total,
+        needsConversion: true,
+        raw: `${r['Market']} ${r['Transaction']}`
+      });
+    });
+
+    return txs;
+  }
+
+  /* ── Normalisation des noms de crypto ── */
+  const ASSET_ALIASES = {
+    'XBT': 'BTC', 'XETH': 'ETH', 'XXBT': 'BTC', 'XLTC': 'LTC',
+    'XXLM': 'XLM', 'XXMR': 'XMR', 'XZEC': 'ZEC', 'XXRP': 'XRP',
+    'ZUSD': 'USD', 'ZEUR': 'EUR', 'DASH': 'DASH'
+  };
+  function normalizeAsset(s) {
+    const u = (s || '').toUpperCase().trim();
+    return ASSET_ALIASES[u] || u;
+  }
+
+  /* ── Parse date Binance "YY-MM-DD HH:mm:ss" ── */
+  function parseBinanceDate(s) {
+    if (!s) return new Date(0);
+    const parts = s.match(/(\d{2})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})/);
+    if (!parts) return new Date(s);
+    const [, yy, mm, dd, hh, mi, ss] = parts;
+    return new Date(`20${yy}-${mm}-${dd}T${hh}:${mi}:${ss}Z`);
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+   * MOTEUR FIFO
+   * Input : tableau normalisé de transactions (toutes plateformes)
+   * Output : { gains, summary, warnings }
+   ══════════════════════════════════════════════════════════════ */
+  function runFIFO(txs, stepUpValues, otherGains) {
+    // stepUpValues : { BTC: 45000, ETH: 2200, ... } — valeurs EUR/unité au 31/12/2025
+    // otherGains : { etf: 0, actions: 0 } — autres PV pour calcul franchise
+
+    const STEP_UP_DATE = new Date('2025-12-31T23:59:59Z');
+    const FRANCHISE = 10000;
+
+    // Trier chronologiquement
+    const sorted = [...txs].filter(t =>
+      ['BUY','SELL','LEARNING_REWARD','AIRDROP','INCOME'].includes(t.type) && t.qty > 0
+    ).sort((a, b) => a.date - b.date);
+
+    // Inventaire FIFO par asset : [{qty, costEur, date}]
+    const inventory = {};
+    const gains = [];
+    const warnings = [];
+
+    // Appliquer le step-up : pour chaque actif détenu au 31/12/2025,
+    // remplacer le coût d'acquisition historique par la valeur step-up
+    function applyStepUp() {
+      Object.keys(inventory).forEach(asset => {
+        const stepPrice = stepUpValues[asset];
+        if (!stepPrice) return;
+        inventory[asset] = inventory[asset].map(lot => {
+          if (lot.date <= STEP_UP_DATE) {
+            return { ...lot, costEur: lot.qty * stepPrice, stepUpApplied: true };
+          }
+          return lot;
+        });
+      });
+    }
+
+    // Phase 1 : traiter toutes les transactions AVANT 2026
+    const before2026 = sorted.filter(t => t.date.getFullYear() < 2026);
+    const from2026   = sorted.filter(t => t.date.getFullYear() >= 2026);
+
+    before2026.forEach(tx => {
+      processTx(tx, inventory, gains, warnings, false);
+    });
+
+    // Appliquer le step-up sur les lots historiques
+    applyStepUp();
+
+    // Phase 2 : traiter les transactions 2026+
+    from2026.forEach(tx => {
+      processTx(tx, inventory, gains, warnings, true);
+    });
+
+    // Calcul PV totale 2026
+    const totalGain2026 = gains
+      .filter(g => g.year >= 2026 && g.gain > 0)
+      .reduce((s, g) => s + g.gain, 0);
+    const totalLoss2026 = gains
+      .filter(g => g.year >= 2026 && g.gain < 0)
+      .reduce((s, g) => s + g.gain, 0);
+    const netGain2026 = totalGain2026 + totalLoss2026;
+
+    // Franchise 10.000€ commune à tous actifs financiers
+    const totalOtherGains = (otherGains.etf || 0) + (otherGains.actions || 0);
+    const franchiseUsedByOthers = Math.min(totalOtherGains, FRANCHISE);
+    const remainingFranchise = Math.max(0, FRANCHISE - franchiseUsedByOthers);
+    const taxableGain = Math.max(0, netGain2026 - remainingFranchise);
+
+    // Income / Airdrop / Learning Reward 2026
+    const incomeLines = gains.filter(g => g.year >= 2026 && g.type !== 'SELL');
+
+    return {
+      gains,
+      netGain2026: Math.round(netGain2026 * 100) / 100,
+      totalOtherGains,
+      remainingFranchise: Math.round(remainingFranchise * 100) / 100,
+      taxableGain: Math.round(taxableGain * 100) / 100,
+      incomeLines,
+      inventory, // solde actuel
+      warnings
+    };
+  }
+
+  function processTx(tx, inventory, gains, warnings, isTaxable) {
+    const asset = tx.asset;
+    if (!inventory[asset]) inventory[asset] = [];
+
+    if (tx.type === 'BUY') {
+      if (!tx.eurAmount || tx.eurAmount <= 0) {
+        warnings.push(`[${tx.platform}] ${tx.date.toISOString().slice(0,10)} — ${asset} achat sans prix EUR (${tx.qty} unités). Ignoré dans le calcul FIFO.`);
+        return;
+      }
+      inventory[asset].push({ qty: tx.qty, costEur: tx.eurAmount, date: tx.date });
+    }
+
+    else if (tx.type === 'SELL') {
+      if (!tx.eurAmount || tx.eurAmount <= 0) {
+        warnings.push(`[${tx.platform}] ${tx.date.toISOString().slice(0,10)} — ${asset} vente sans prix EUR. Ignorée.`);
+        return;
+      }
+      let toSell = tx.qty;
+      let totalCost = 0;
+      const lots = inventory[asset] || [];
+
+      while (toSell > 0.000001 && lots.length > 0) {
+        const lot = lots[0];
+        if (lot.qty <= toSell) {
+          totalCost += lot.costEur;
+          toSell -= lot.qty;
+          lots.shift();
+        } else {
+          const ratio = toSell / lot.qty;
+          totalCost += lot.costEur * ratio;
+          lot.qty -= toSell;
+          lot.costEur -= lot.costEur * ratio;
+          toSell = 0;
+        }
+      }
+      if (toSell > 0.001) {
+        warnings.push(`[${tx.platform}] ${tx.date.toISOString().slice(0,10)} — ${asset} vente de ${tx.qty} mais inventaire insuffisant (manque ${toSell.toFixed(4)}). Vérifiez vos imports.`);
+      }
+
+      if (isTaxable) {
+        const gain = tx.eurAmount - totalCost - (tx.fee || 0);
+        gains.push({
+          date: tx.date.toISOString().slice(0,10),
+          year: tx.date.getFullYear(),
+          platform: tx.platform, asset,
+          type: 'SELL',
+          qtyMoved: tx.qty,
+          proceeds: Math.round(tx.eurAmount * 100) / 100,
+          costBasis: Math.round(totalCost * 100) / 100,
+          gain: Math.round(gain * 100) / 100
+        });
+      }
+      inventory[asset] = lots;
+    }
+
+    else if (['LEARNING_REWARD','AIRDROP','INCOME'].includes(tx.type)) {
+      // Prix de revient = valeur EUR reçue
+      if (tx.eurAmount) {
+        inventory[asset].push({ qty: tx.qty, costEur: tx.eurAmount, date: tx.date });
+      }
+      if (isTaxable) {
+        gains.push({
+          date: tx.date.toISOString().slice(0,10),
+          year: tx.date.getFullYear(),
+          platform: tx.platform, asset,
+          type: tx.type,
+          qtyMoved: tx.qty,
+          proceeds: tx.eurAmount || 0,
+          costBasis: 0,
+          gain: tx.eurAmount || 0,
+          note: tx.note || ''
+        });
+      }
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+   * EXPORT EXCEL (SheetJS)
+   * Génère un fichier .xlsx avec 3 onglets
+   ══════════════════════════════════════════════════════════════ */
+  function exportExcel(result, stepUpValues, otherGains) {
+    if (typeof XLSX === 'undefined') {
+      alert('SheetJS non chargé. Rechargez la page et réessayez.');
+      return;
+    }
+
+    const wb = XLSX.utils.book_new();
+
+    // ── Onglet 1 : Synthèse ──
+    const synthesis = [
+      ['WealthWaffle — Rapport Fiscal Crypto Belgique 2026', '', '', ''],
+      ['Généré le', new Date().toLocaleDateString('fr-BE'), '', ''],
+      ['', '', '', ''],
+      ['SYNTHÈSE', '', '', ''],
+      ['Plus-value brute crypto 2026', result.netGain2026 + ' €', '', ''],
+      ['Autres PV déclarées (ETF/actions)', otherGains.etf + otherGains.actions + ' €', '', ''],
+      ['Franchise utilisée par autres actifs', (10000 - result.remainingFranchise) + ' €', '', ''],
+      ['Franchise restante pour crypto', result.remainingFranchise + ' €', '', ''],
+      ['PLUS-VALUE IMPOSABLE CRYPTO', result.taxableGain + ' €', '', '⬅ À reporter dans MyMinfin'],
+      ['', '', '', ''],
+      ['Taux applicable — gestion normale', '10%', '', ''],
+      ['Impôt estimé (gestion normale)', Math.round(result.taxableGain * 0.10) + ' €', '', ''],
+      ['Taux applicable — spéculatif', '33%', '', ''],
+      ['Impôt estimé (spéculatif)', Math.round(result.taxableGain * 0.33) + ' €', '', ''],
+      ['', '', '', ''],
+      ['⚠️ AVERTISSEMENT', '', '', ''],
+      ['Cet outil est une aide au calcul basée sur la méthode FIFO.', '', '', ''],
+      ['Il ne constitue pas un conseil fiscal. Vérifiez vos données avant déclaration.', '', '', ''],
+      ['En cas de doute, consultez un comptable ou fiscaliste agréé.', '', '', ''],
+    ];
+
+    // Step-up utilisé
+    if (Object.keys(stepUpValues).length) {
+      synthesis.push(['', '', '', '']);
+      synthesis.push(['VALEURS STEP-UP AU 31/12/2025', '', '', '']);
+      Object.entries(stepUpValues).forEach(([asset, price]) => {
+        synthesis.push([asset, price + ' €/unité', '', '']);
+      });
+    }
+
+    const ws1 = XLSX.utils.aoa_to_sheet(synthesis);
+    ws1['!cols'] = [{wch:45},{wch:20},{wch:10},{wch:35}];
+    XLSX.utils.book_append_sheet(wb, ws1, 'Synthèse');
+
+    // ── Onglet 2 : Détail des plus-values ──
+    const detail = [
+      ['Date', 'Plateforme', 'Actif', 'Type', 'Quantité', 'Produit (€)', 'Coût de revient (€)', 'Plus/Moins-value (€)', 'Note']
+    ];
+    result.gains.filter(g => g.year >= 2026).forEach(g => {
+      detail.push([
+        g.date, g.platform, g.asset, g.type,
+        g.qtyMoved, g.proceeds, g.costBasis,
+        g.gain, g.note || ''
+      ]);
+    });
+    detail.push(['']);
+    detail.push(['TOTAL', '', '', '', '', '', '', result.netGain2026, '']);
+
+    const ws2 = XLSX.utils.aoa_to_sheet(detail);
+    ws2['!cols'] = [{wch:12},{wch:12},{wch:8},{wch:18},{wch:14},{wch:14},{wch:20},{wch:22},{wch:40}];
+    XLSX.utils.book_append_sheet(wb, ws2, 'Détail PV 2026');
+
+    // ── Onglet 3 : Solde inventaire ──
+    const inv = [['Actif', 'Quantité totale', 'Coût de revient total (€)', 'Prix unitaire moyen (€)']];
+    Object.entries(result.inventory).forEach(([asset, lots]) => {
+      const totalQty  = lots.reduce((s, l) => s + l.qty, 0);
+      const totalCost = lots.reduce((s, l) => s + l.costEur, 0);
+      if (totalQty > 0.00001) {
+        inv.push([asset, Math.round(totalQty*10000)/10000, Math.round(totalCost*100)/100, Math.round(totalCost/totalQty*100)/100]);
+      }
+    });
+    const ws3 = XLSX.utils.aoa_to_sheet(inv);
+    ws3['!cols'] = [{wch:10},{wch:18},{wch:26},{wch:24}];
+    XLSX.utils.book_append_sheet(wb, ws3, 'Inventaire actuel');
+
+    XLSX.writeFile(wb, `WealthWaffle_Crypto_${new Date().getFullYear()}.xlsx`);
+  }
+
+  /* ── Exposition publique ── */
+  return {
+    parseBinance, parseKraken, parseCoinbase, parseBittrex,
+    runFIFO, exportExcel, normalizeAsset
+  };
+})();
