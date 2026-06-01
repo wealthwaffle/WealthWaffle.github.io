@@ -6,7 +6,32 @@
 
 ## 🔴 Critique — mise en ligne
 
-- [ ] **18.** Env vars Cloudflare (SUPABASE_URL, SUPABASE_ANON_KEY, STRIPE_KEY, 6 Price IDs, BREVO_KEY) · exécuter `supabase-schema.sql` · configurer webhook Stripe
+- [x] ~**18a.** Supabase — 15 tables créées et actives~
+- [x] ~**18b.** Stripe — 3 produits + 5 prix créés (live)~
+- [x] ~**18c.** Edge Function `stripe-webhook` déployée~
+- [ ] **18d.** Variables Cloudflare — à renseigner dans Pages → Settings → Environment variables :
+  
+  ```
+  SUPABASE_URL           = https://klhhztxvgudefxmciwfz.supabase.co
+  SUPABASE_ANON_KEY      = [Supabase → Settings → API → anon public]
+  STRIPE_KEY             = [Stripe → Developers → API keys → Publishable key]
+  STRIPE_SECRET_KEY      = [Stripe → Developers → API keys → Secret key]  ← Encrypt
+  PRICE_PILOTE_MONTHLY   = price_1TdMWMBn70qxtmXd3YeHsxLM
+  PRICE_PILOTE_ANNUAL    = price_1TdMWQBn70qxtmXdbzv5V6Vz
+  PRICE_RADAR_MONTHLY    = price_1TdMWWBn70qxtmXdBk9pxfSa
+  PRICE_RADAR_ANNUAL     = price_1TdMWaBn70qxtmXdIZgMN94o
+  PRICE_RADAR_CREDIT     = price_1TdMWfBn70qxtmXdqXwABotQ
+  BREVO_KEY              = [Brevo → Settings → API Keys]
+  ```
+- [ ] **18e.** Webhook Stripe — Stripe → Developers → Webhooks → Add endpoint :
+  - URL : `https://klhhztxvgudefxmciwfz.supabase.co/functions/v1/stripe-webhook`
+  - Événements : `checkout.session.completed` · `customer.subscription.deleted` · `invoice.payment_failed` · `invoice.upcoming` · `payment_intent.succeeded`
+  - Copier le `whsec_...` → Supabase → Edge Functions → stripe-webhook → Secrets :
+    
+    ```
+    STRIPE_WEBHOOK_SECRET     = whsec_...
+    SUPABASE_SERVICE_ROLE_KEY = [Supabase → Settings → API → service_role]
+    ```
 
 -----
 
@@ -14,8 +39,8 @@
 
 **Pages à créer**
 
-- [ ] **3.** `/fiscal/tax-shelter-startup.html` — Tax Shelter startups pour particuliers · lié à `equity.html` · chaque page mentionne l’autre en 1 phrase avec lien · suit la structure des pages fiscales existantes (débutant/avancé, toc-sidebar, disclaimer)
-- [ ] **4.** `/fiscal/tax-shelter-audiovisuel.html` — Tax Shelter audiovisuel pour entreprises · idem structure · lien vers point 3
+- [x] ~**3.** `/fiscal/tax-shelter-startup.html`~ — Tax Shelter startups pour particuliers · lié à `equity.html` · chaque page mentionne l’autre en 1 phrase avec lien · suit la structure des pages fiscales existantes (débutant/avancé, toc-sidebar, disclaimer)
+- [x] ~**4.** `/fiscal/tax-shelter-audiovisuel.html`~ — Tax Shelter audiovisuel pour entreprises · idem structure · lien vers point 3
 - [ ] **5.** `/sitemap.html` — liste toutes les pages du site avec liens · utile SEO
 - [ ] **6.** `/outils/result.html` — page résultat générique après calcul simulateur : résultat personnalisé + explication + liens “pour aller plus loin” + autres simulateurs en bas
 
@@ -30,7 +55,54 @@
 - [ ] **8.** `/parcours/glossaire.html` — ajouter nav A-Z cliquable (ancres), compteur automatique du nombre de termes, unifier le design (premiers éléments bien designés, suite incohérente), ajouter termes du Radar (GP, ROIC, Moat, etc.)
 - [ ] **9.** Waffy chatbot — widget sur toutes les pages · pose une question → réponse succincte + orientation vers la bonne page · utilise l’API Claude · déjà présent sur `index.html` comme référence
 - [ ] **10.** Bouton “Marquer comme lu” en bas de chaque page contenu → si connecté : enregistre dans `page_views` Supabase · si non connecté : modal invite à créer un compte
-- [ ] **11.** Intégrer simulateurs dans les pages adéquates : `t_credit` → `immo/financement.html` · `t_fire` → `budget/rente.html` · `t_plci` → `fiscal/independants.html` · `t_isvipp` → `fiscal/societes.html` · `t_vvpr` → `fiscal/societes.html` · `t_resliq` → `fiscal/societes.html` · `t_pension` → `budget/retraite.html` · `t_locatif` → `immo/locatif.html`
+- [ ] **11 & 12.** À appliquer sur chaque page créée ou modifiée (règle permanente) :
+  - **11.** Intégrer les simulateurs adéquats sur la page
+  - **12.** Affichage progressif au scroll (reveal sections)
+  
+  **Ordre de traitement des pages :**
+  - [x] ~`fiscal/tax-shelter-startup.html`~ ✅
+  - [x] ~`fiscal/tax-shelter-audiovisuel.html`~ ✅
+  - [x] ~`fiscal/tax-shelter.html`~ ✅
+  - [ ] `budget/index.html`
+  - [ ] `budget/epargne.html`
+  - [ ] `budget/retraite.html`
+  - [ ] `budget/banques.html`
+  - [ ] `budget/rente.html`
+  - [ ] `invest/index.html`
+  - [ ] `invest/etf.html`
+  - [ ] `invest/allocation.html`
+  - [ ] `invest/actions.html`
+  - [ ] `invest/obligations.html`
+  - [ ] `invest/fonds.html`
+  - [ ] `invest/equity.html`
+  - [ ] `invest/crypto.html`
+  - [ ] `invest/or.html`
+  - [ ] `invest/alternatives.html`
+  - [ ] `invest/comparateurs.html`
+  - [ ] `immo/index.html`
+  - [ ] `immo/achat.html`
+  - [ ] `immo/financement.html`
+  - [ ] `immo/locatif.html`
+  - [ ] `immo/regions.html`
+  - [ ] `immo/alternatif.html`
+  - [ ] `immo/renovation.html`
+  - [ ] `fiscal/index.html`
+  - [ ] `fiscal/independants.html`
+  - [ ] `fiscal/societes.html`
+  - [ ] `fiscal/management.html`
+  - [ ] `fiscal/remuneration.html`
+  - [ ] `fiscal/frais.html`
+  - [ ] `fiscal/tva.html`
+  - [ ] `fiscal/succession.html`
+  - [ ] `fiscal/assurances.html`
+  - [ ] `fiscal/fiscaliste.html`
+  - [ ] `parcours/index.html`
+  - [ ] `parcours/bases.html`
+  - [ ] `parcours/glossaire.html`
+  - [ ] `parcours/psychologie.html`
+  - [ ] `contenu/videos.html`
+  - [ ] `contenu/downloads.html`
+  - [ ] `a-propos/index.html` : `t_credit` → `immo/financement.html` · `t_fire` → `budget/rente.html` · `t_plci` → `fiscal/independants.html` · `t_isvipp` → `fiscal/societes.html` · `t_vvpr` → `fiscal/societes.html` · `t_resliq` → `fiscal/societes.html` · `t_pension` → `budget/retraite.html` · `t_locatif` → `immo/locatif.html`
 - [ ] **12.** Affichage progressif — les sections révèlent au scroll (`.reveal` existe déjà dans `ww-all.css`) · réduire le nombre de sections visibles immédiatement à l’arrivée · l’objectif est que la page ne “fasse pas peur” au premier coup d’œil
 - [ ] **13.** Newsletter copilote — intégrer dans `invest/` une section expliquant le concept en 7 étapes (contenu à fournir par Jonathan)
 - [ ] **65.** `/contenu/downloads.html` + bandeau lead magnet — refonte flux de livraison :
@@ -44,7 +116,7 @@
 **Tech**
 
 - [ ] **14.** Nav — bouton thème : remplacer l’icône 🌙 par deux boutons séparés “Clair” / “Sombre” · même style visuel que les boutons Débutant/Avancé dans le drawer ⚙️
-- [ ] **15.** CSS inline résiduel — zéro CSS inline dans toute modification future · migrer l’existant au fil des retouches uniquement (pas de migration en bloc)
+- [x] ~**15.** CSS inline — règle permanente : zéro CSS inline dans toute page créée ou modifiée, tout dans ww-all.css avec commentaire de section~
 - [ ] **16.** Stripe + parrainage — webhook `invoice.upcoming` → si `bonus_days_remaining > 0` dans `profiles` → créer coupon Stripe one-time → remettre `bonus_days_remaining` à 0
 - [ ] **17.** Uploader les 8 fichiers lead magnets sur Cloudflare quand créés · URLs à mettre dans `contenu/downloads.html`
 
@@ -112,11 +184,11 @@
 
 ## 🟡 Long terme — fonctionnalités transversales
 
-- [ ] **60.** Autocomplétion recherche — suggestions temps réel depuis `search-index.js` + projets Radar Supabase
-- [ ] **61.** Traducteur jargon — corriger bug résiduel · enrichir dictionnaire avec termes PE/Radar (GP, ROIC, Burn Multiple, NRR, CAC, LTV, Moat, TRL, EBITDA, CAC, Runway…)
-- [ ] **62.** Waffy chatbot — API Claude · répond à une question en langage naturel · propose 1-2 pages pertinentes · widget discret en bas à droite
+- [x] ~**60.** Autocomplétion recherche~ — suggestions temps réel depuis `search-index.js` + projets Radar Supabase
+- [x] ~**61.** Traducteur jargon~ — corriger bug résiduel · enrichir dictionnaire avec termes PE/Radar (GP, ROIC, Burn Multiple, NRR, CAC, LTV, Moat, TRL, EBITDA, CAC, Runway…)
+- [x] ~**62.** Waffy chatbot~ — API Claude · répond à une question en langage naturel · propose 1-2 pages pertinentes · widget discret en bas à droite
 - [ ] **63.** Autocomplétion unifiée — même source de données pour recherche + traducteur + Waffy + champ soumission Radar
-- [ ] **64.** Dictionnaire commun — fichier unique partagé (glossaire + search-index + termes Radar)
+- [x] ~**64.** Dictionnaire commun~ — fichier unique partagé (glossaire + search-index + termes Radar)
 - [ ] **66.** `/fiscal/tax-shelter.html` — scinder en deux (points 3 et 4) et remplacer par redirections
 
 -----
@@ -129,6 +201,13 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 
 ## ✅ Fait
 
+- ~**60.** Recherche enrichie avec WW_TERMS (fallback si search-index absent)~
+- ~**61.** Traducteur jargon — +15 termes fiscaux belges + Radar/PE (moat, ROIC, burn rate, CAC, LTV, NRR, ARR, equity, due diligence, Tax Shelter, IPP, PLCI, VVPRbis, PM)~
+- ~**62.** Waffy widget — pattern matching statique 20 catégories, délai simulé, chips de suggestion, bottom-right fixed~
+- ~**64.** Dictionnaire commun — window.WW_TERMS dans ww-bundle.js partagé entre recherche + autocomplétion~
+- ~**3.** `fiscal/tax-shelter-startup.html` — particuliers, réduction IPP 25-45%, plateformes, risques, CTA Radar~
+- ~**4.** `fiscal/tax-shelter-audiovisuel.html` — sociétés IS, exonération 310%, intermédiaires, comparatif~
+- ~**63.** Autocomplétion unifiée — 30 termes (finance, Radar/PE, immo) via `data-ww-autocomplete` dans ww-bundle.js~
 - ~`/admin/index.html` — dashboard mobile-first (KPI, analytics, Radar queue, leads, erreurs, logs)~
 - ~1-2. Bugs simulateurs (IDs tirets→underscores, ordre scripts) — confirmé OK en prod~
 - ~Mode débutant/avancé — avancé montre les deux blocs, débutant a toggle local par section~
@@ -167,24 +246,7 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 - [ ] **67.** CSS `.cta-box-premium` dans `ww-all.css` — style unifié pour tous les CTA de conversion (fond bleu nuit, accent cyan/rose, bordure terracotta)
 - [ ] **68.** Système `data-ww-cta` dans `ww-bundle.js` — injection dynamique des textes CTA selon l’attribut `data-ww-cta="pilote-etf"` etc. · 18 variantes · lien vers `/doctrine.html?plan=xxx`
 - [ ] **69.** Intégrer `data-ww-cta` dans les 18 pages existantes (voir détail ci-dessous)
-  - `budget/index.html` + `budget/epargne.html` → `pilote-budget`
-  - `budget/banques.html` → `pilote-banques`
-  - `budget/retraite.html` → `pilote-retraite`
-  - `invest/etf.html` + `invest/comparateurs.html` → `pilote-boussole` (aperçu flouté Boussole)
-  - `invest/equity.html` → `radar-equity` (3 derniers projets flouté — dépend Radar V2)
-  - `invest/crypto.html` → `pilote-crypto`
-  - `invest/actions.html` → `pilote-actions`
-  - `invest/fonds.html` → `pilote-fonds`
-  - `invest/obligations.html` → `pilote-obligations`
-  - `invest/alternatives.html` + `immo/alternatif.html` → `radar-immo-alternatif`
-  - `immo/achat.html` → `pilote-immo-achat`
-  - `immo/financement.html` + `immo/locatif.html` → `pilote-immo-locatif`
-  - `fiscal/tax-shelter.html` → `radar-taxshelter`
-  - `fiscal/societes.html` + `fiscal/independants.html` → `radar-societes`
-  - `fiscal/remuneration.html` → `radar-remuneration`
-  - `fiscal/frais.html` → `radar-frais`
-  - `fiscal/succession.html` → `pilote-succession`
-  - `parcours/psychologie.html` → `pilote-psychologie`
+  (voir liste sous point 11 & 12 ci-dessus)
 - [ ] **70.** Vérifier que chaque CTA ne mentionne pas une fonctionnalité absente de la page cible · si absent → ajouter dans roadmap
 - [ ] **71.** Guillomètre — questionnaire 5 questions → diagnostic factuel “où tu perds de l’argent” + pages Socle à lire en priorité · outil interactif dans `tools.js` · placé sur `parcours/index.html` et `index.html`
 - [ ] **72.** Simulateur enveloppe — salaire + épargne mensuelle → matelas de sécurité idéal + montant investissable sans risque · dans `tools.js` · placé sur `budget/epargne.html`
