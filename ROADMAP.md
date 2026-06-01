@@ -201,6 +201,8 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 
 ## ✅ Fait
 
+- ~**101.** `invest/crypto-plateformes.html` — comparatif 11 exchanges + cold wallets + hot wallets + checklist sécurité + MiCA~
+- ~**102.** `fiscal/crypto.html` — 3 régimes + FIFO + step-up + franchise + déclaration MyMinfin + CTA calculateur~
 - ~**60.** Recherche enrichie avec WW_TERMS (fallback si search-index absent)~
 - ~**61.** Traducteur jargon — +15 termes fiscaux belges + Radar/PE (moat, ROIC, burn rate, CAC, LTV, NRR, ARR, equity, due diligence, Tax Shelter, IPP, PLCI, VVPRbis, PM)~
 - ~**62.** Waffy widget — pattern matching statique 20 catégories, délai simulé, chips de suggestion, bottom-right fixed~
@@ -336,7 +338,7 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 ## 🪙 Hub Conformité Fiscale Crypto
 
 - [x] ~**101.** `/invest/crypto-plateformes.html` — comparatif exchanges (Binance, Bitvavo, Kraken, Trade Republic, Bitpanda, Coinbase, Crypto.com, Revolut, Bybit, OKX, eToro) + cold wallets (Ledger, Trezor, BitBox02) + hot wallets (MetaMask, Trust, Exodus)~
-- [ ] **102.** `/fiscal/crypto.html` — fiscalité crypto belge 2026 : 3 régimes (10%/33%/progressif), franchise 10K€, step-up 31/12/2025, FIFO, déclaration PCC, Learning Rewards, déclaration MyMinfin · section publique + CTA add-on 49€
+- [x] ~**102.** `/fiscal/crypto.html` — fiscalité crypto belge 2026 : 3 régimes (10%/33%/progressif), franchise 10K€, step-up 31/12/2025, FIFO, déclaration PCC, Learning Rewards, déclaration MyMinfin · section publique + CTA add-on 49€~
 - [x] ~**103.** `/outils/fiscal-crypto.html` — calculateur FIFO (réservé add-on 49€/an) : import CSV Binance/Kraken/Coinbase/Bittrex, moteur FIFO JS pur, step-up 31/12/2025, franchise 10K€, export Excel (SheetJS), rate limiting 5 rapports/mois~
 - [ ] **104.** Stripe — produit “Conformité Crypto” 49€/an récurrent · 5 rapports/mois max · évolutif vers ETF/actions
 - [ ] **105.** Supabase — table `exchange_rates` (taux journaliers EUR/crypto, chargée 1x/an via API CoinGecko) + table `crypto_reports` (résumés JSONB, stockage volontaire) + colonne `has_crypto_addon` dans profiles
