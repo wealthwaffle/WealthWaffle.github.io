@@ -12,6 +12,28 @@
  */
 
 window.WW_DATA = {
+  // ─── PROGRAMME DOCTRINE — PRIX ────────────────────────────
+  // Modifier ICI quand les prix changent — se propage partout
+  // Ne jamais mettre les prix en dur dans les pages HTML
+  prix: {
+    pilote_mensuel:    14.99,  // € — Pilote mensuel
+    pilote_annuel:     99,     // € — Pilote annuel (facturé en une fois)
+    pilote_mensuel_eq: 8.25,   // € — équivalent mensuel si annuel
+    radar_mensuel:     24.99,  // € — Radar mensuel
+    radar_annuel:      199,    // € — Radar annuel (facturé en une fois)
+    radar_mensuel_eq:  10.75,  // € — équivalent mensuel si annuel
+    crypto_addon:      49,     // € — Add-on Conformité Crypto (annuel)
+    trial_days:        7,      // jours — période d'essai gratuite
+  },
+
+  // ─── STATISTIQUES SITE ────────────────────────────────────
+  // Modifier ICI quand on ajoute des pages / outils / guides
+  stats: {
+    nb_pages:       58,   // pages de contenu
+    nb_simulateurs: 27,   // outils et simulateurs
+    nb_guides:       3,   // lead magnets disponibles
+    nb_themes:       5,   // thèmes couverts (budget, invest, immo, fiscal, crypto)
+  },
 
   annee: 2026,
   // ─── YOUTUBE API ──────────────────────────────────────────

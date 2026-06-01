@@ -369,10 +369,11 @@ function updateAuthNav() {
     const el = document.getElementById(id);
     if (!el) return;
     const isOpen = el.classList.toggle('open');
-    // Tourner la flèche via la classe open sur le groupe parent
     const group = el.closest('.mob-group');
     if (group) group.classList.toggle('open', isOpen);
   };
+  // Alias — nav.html utilise toggleMob()
+  window.toggleMob = window.toggleMobileGroup;
 
 
   /* ── Search ── */
@@ -969,24 +970,7 @@ function injectDisclaimer() {
 /* ─── MODE LECTURE ───────────────────────────────────────
    Sur mobile uniquement — simplifie l'affichage pour lire
 ────────────────────────────────────────────────────────── */
-const ReadMode = {
-  active: false,
-  toggle() {
-    this.active = !this.active;
-    document.body.classList.toggle('read-mode', this.active);
-    const btn = document.querySelector('.read-mode-btn');
-    if (btn) btn.textContent = this.active ? '✕ Quitter lecture' : '📖 Mode lecture';
-  },
-  init() {
-    if (window.innerWidth >= 768) return; // desktop uniquement non affiché
-    const btn = Object.assign(document.createElement('button'), {
-      className: 'read-mode-btn',
-      textContent: '📖 Mode lecture',
-      onclick: () => this.toggle()
-    });
-    document.body.appendChild(btn);
-  }
-};
+/* ReadMode supprimé */
 
 /* ─── BARRE DE PARTAGE ───────────────────────────────────
    Insérée automatiquement avant le footer
@@ -1047,7 +1031,6 @@ const Progress = {
 ────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   injectDisclaimer();
-  ReadMode.init();
   buildShareBar();
   Progress.init();
 });
@@ -1223,7 +1206,7 @@ function buildChat() {
   const container = document.createElement('div');
   container.id = 'waffy-chat';
   container.innerHTML = `
-    <button class="waffy-bubble" id="waffy-toggle" onclick="toggleWaffy()" title="Poser une question à Waffy">
+    <button class="waffy-bubble" id="waffy-toggle" onclick="event.preventDefault();toggleWaffy()" title="Poser une question à Waffy" type="button">
       <img src="IMG_5208.png" alt="Waffy" class="waffy-avatar" onerror="this.style.display='none';this.parentElement.innerHTML='🧇';">
       <span class="waffy-badge" id="waffy-badge">1</span>
     </button>
@@ -1242,6 +1225,7 @@ function buildChat() {
       </div>
       <div class="waffy-input-wrap">
         <input class="waffy-input" id="waffy-input" type="text" placeholder="Ex: Comment investir en ETF ?"
+          inputmode="text"
           onkeydown="if(event.key==='Enter') sendWaffy()">
         <button class="waffy-send" onclick="sendWaffy()">→</button>
       </div>
@@ -2634,6 +2618,12 @@ document.addEventListener('DOMContentLoaded', function() {
   window.WW = window.WW || {};
   window.WW.user    = { id: 'preview-user-id', email: 'preview@wealthwaffle.be' };
   window.WW.profile = { plan, level: 'avance', prenom: 'Preview', nom: 'Mode' };
+
+  // Fix timing : updateAuthNav lit le localStorage qui vient d'être écrit
+  // On le rappelle explicitement après l'injection preview
+  if (typeof updateAuthNav === 'function') updateAuthNav();
+  // Appliquer le niveau avancé immédiatement
+  if (typeof setLevelNav === 'function') setLevelNav('avance');
 
   console.info('%c WW Preview actif — plan : ' + plan.toUpperCase(), 'background:#E87CC3;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold;');
 

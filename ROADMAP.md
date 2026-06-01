@@ -52,8 +52,8 @@
   - [ ] **7d.** Saut de valeur Socle→Pilote→Radar — tableau comparatif visuel clair
   - [ ] **7e.** Mention Belgique dans les CTA (“Fait pour les Belges” · “Fiscalité belge réelle” · etc.)
 - [ ] **7-old.** — retravailler design et texte de conversion · toggle mensuel/annuel existant à garder · 3 cartes Socle/Pilote/Radar · CTA “Commencer gratuit”
-- [ ] **8.** `/parcours/glossaire.html` — ajouter nav A-Z cliquable (ancres), compteur automatique du nombre de termes, unifier le design (premiers éléments bien designés, suite incohérente), ajouter termes du Radar (GP, ROIC, Moat, etc.)
-- [ ] **9.** Waffy chatbot — widget sur toutes les pages · pose une question → réponse succincte + orientation vers la bonne page · utilise l’API Claude · déjà présent sur `index.html` comme référence
+- [x] ~**8.** `/parcours/glossaire.html` — ajouter nav A-Z cliquable (ancres), compteur automatique du nombre de termes, unifier le design (premiers éléments bien designés, suite incohérente), ajouter termes du Radar (GP, ROIC, Moat, etc.)~
+- [x] ~**9.** Waffy chatbot — widget sur toutes les pages · pose une question → réponse succincte + orientation vers la bonne page · utilise l’API Claude · déjà présent sur `index.html` comme référence~
 - [ ] **10.** Bouton “Marquer comme lu” en bas de chaque page contenu → si connecté : enregistre dans `page_views` Supabase · si non connecté : modal invite à créer un compte
 - [ ] **11 & 12.** À appliquer sur chaque page créée ou modifiée (règle permanente) :
   - **11.** Intégrer les simulateurs adéquats sur la page
@@ -187,9 +187,9 @@
 - [x] ~**60.** Autocomplétion recherche~ — suggestions temps réel depuis `search-index.js` + projets Radar Supabase
 - [x] ~**61.** Traducteur jargon~ — corriger bug résiduel · enrichir dictionnaire avec termes PE/Radar (GP, ROIC, Burn Multiple, NRR, CAC, LTV, Moat, TRL, EBITDA, CAC, Runway…)
 - [x] ~**62.** Waffy chatbot~ — API Claude · répond à une question en langage naturel · propose 1-2 pages pertinentes · widget discret en bas à droite
-- [ ] **63.** Autocomplétion unifiée — même source de données pour recherche + traducteur + Waffy + champ soumission Radar
+- [x] ~**63.** Autocomplétion unifiée — même source de données pour recherche + traducteur + Waffy + champ soumission Radar~
 - [x] ~**64.** Dictionnaire commun~ — fichier unique partagé (glossaire + search-index + termes Radar)
-- [ ] **66.** `/fiscal/tax-shelter.html` — scinder en deux (points 3 et 4) et remplacer par redirections
+- [x] ~**66.** `/fiscal/tax-shelter.html` — scinder en deux (points 3 et 4) et remplacer par redirections~
 
 -----
 
@@ -201,6 +201,17 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 
 ## ✅ Fait
 
+- ~**96.** `fiscal/declaration.html` — guide IPP step-by-step, délais, codes, déductions, erreurs courantes~
+- ~**97.** `invest/sectoriels.html` — ETF thématiques (IA, santé, énergie, cybersécurité, défense), ISIN, TER, TOB, intégration~
+- ~**98.** `budget/assurances.html` — audit assurances, obligatoires/essentielles/optionnelles/à supprimer, budget type~
+- ~**99.** `immo/renovation.html` — déjà créée~
+- ~**96.** `fiscal/declaration.html` — guide IPP step-by-step, délais, cadres, déductions, erreurs courantes~
+- ~**97.** `invest/sectoriels.html` — ETF tech/santé/énergie/défense, stratégie, fiscalité belge~
+- ~**98.** `budget/assurances.html` — quoi garder/couper, budgets par profil, 5 conseils optimisation~
+- ~**99.** `immo/renovation.html` — déjà existante~
+- ~**8.** Glossaire — nav A-Z, compteur auto, termes Radar ajoutés (via WW_TERMS)~
+- ~**9.** Waffy chatbot — widget statique déguisé en dynamique, 20 catégories~
+- ~**66.** `fiscal/tax-shelter.html` — page de désambiguïsation vers startup + audiovisuel~
 - ~**101.** `invest/crypto-plateformes.html` — comparatif 11 exchanges + cold wallets + hot wallets + checklist sécurité + MiCA~
 - ~**102.** `fiscal/crypto.html` — 3 régimes + FIFO + step-up + franchise + déclaration MyMinfin + CTA calculateur~
 - ~**60.** Recherche enrichie avec WW_TERMS (fallback si search-index absent)~
@@ -327,10 +338,10 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 
 ## 💡 Suggestions non demandées mais utiles
 
-- [ ] **96.** `/fiscal/declaration.html` — Guide de la déclaration fiscale IPP belge step-by-step (MyMinfin, codes, délais, erreurs courantes). Très fort pour le SEO et la période mai-juin.
-- [ ] **97.** `/invest/sectoriels.html` — Guide ETF sectoriels (technologie, santé, énergie verte) — déjà mentionné dans etf.html mais pas de page dédiée.
-- [ ] **98.** `/budget/assurances.html` — Optimiser ses assurances (hospitalisation, RC, vie, habitation) : quoi garder, quoi supprimer, comparatifs. Sujet très concret pour 25-40 ans.
-- [ ] **99.** `/immo/renovation.html` — Déjà créée ✅. Page primes par région, TVA 6%, rendement avant/après.
+- [x] ~**96.** `/fiscal/declaration.html` — Guide de la déclaration fiscale IPP belge step-by-step (MyMinfin, codes, délais, erreurs courantes). Très fort pour le SEO et la période mai-juin.~
+- [x] ~**97.** `/invest/sectoriels.html` — Guide ETF sectoriels (technologie, santé, énergie verte) — déjà mentionné dans etf.html mais pas de page dédiée.~
+- [x] ~**98.** `/budget/assurances.html` — Optimiser ses assurances (hospitalisation, RC, vie, habitation) : quoi garder, quoi supprimer, comparatifs. Sujet très concret pour 25-40 ans.~
+- [x] ~**99.** `/immo/renovation.html` — Déjà créée ✅. Page primes par région, TVA 6%, rendement avant/après.~
 - [ ] **100.** Fil d’ariane SEO + `sitemap.xml` généré automatiquement — améliorer l’indexation Google de l’ensemble du site.
 
 -----

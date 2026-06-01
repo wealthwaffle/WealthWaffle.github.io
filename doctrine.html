@@ -316,7 +316,7 @@
         <li class="locked">Radar — projets equity analysés</li>
       </ul>
       <a href="/compte/inscription.html?plan=pilote" class="pg-plan-cta-primary" id="pilote-cta">Commencer — 7 jours gratuits →</a>
-      <div class="pg-plan-note">Sans carte bancaire · Sans engagement · Annulable à tout moment</div>
+      <div class="pg-plan-note">7 jours gratuits · résiliation avant pour ne rien payer · annulable à tout moment</div>
     </div>
 
     <!-- Radar -->
@@ -341,7 +341,7 @@
         <li>Alertes nouveaux projets · Watchlist personnalisée</li>
       </ul>
       <a href="/compte/inscription.html?plan=radar" class="pg-plan-cta-primary" id="radar-cta">Commencer — 7 jours gratuits →</a>
-      <div class="pg-plan-note">Sans carte bancaire · Sans engagement · Annulable à tout moment</div>
+      <div class="pg-plan-note">7 jours gratuits · résiliation avant pour ne rien payer · annulable à tout moment</div>
     </div>
   </section>
 
@@ -384,7 +384,7 @@
     </h2>
     <p class="pg-final-sub reveal-up">Commence par le Socle. C'est gratuit. C'est déjà beaucoup.</p>
     <a href="/compte/inscription.html" class="pg-plan-cta-primary reveal-up" style="max-width:320px;margin:0 auto;">Créer mon compte gratuit →</a>
-    <div class="pg-final-note reveal-up">Sans carte bancaire · Accès immédiat · Socle gratuit pour toujours</div>
+    <div class="pg-final-note reveal-up">Accès immédiat · Socle gratuit pour toujours</div>
   </div>
 
   <!-- ── DISCLAIMER ── -->
@@ -397,9 +397,27 @@
 <script>
 /* ── Toggle mensuel/annuel ── */
 let billing = 'monthly';
+// Prix depuis data.js — WW_DATA.prix est la source unique
+function getPrice(plan, mode) {
+  const d = window.WW_DATA && window.WW_DATA.prix;
+  if (!d) return '—';
+  if (plan === 'pilote') return mode === 'annual'
+    ? d.pilote_mensuel_eq.toFixed(2).replace('.',',') + '€'
+    : d.pilote_mensuel.toFixed(2).replace('.',',') + '€';
+  if (plan === 'radar') return mode === 'annual'
+    ? d.radar_mensuel_eq.toFixed(2).replace('.',',') + '€'
+    : d.radar_mensuel.toFixed(2).replace('.',',') + '€';
+  return '—';
+}
+function getAnnualLabel(plan) {
+  const d = window.WW_DATA && window.WW_DATA.prix;
+  if (!d) return '';
+  return plan === 'pilote' ? 'Facturé ' + d.pilote_annuel + '€/an' : 'Facturé ' + d.radar_annuel + '€/an';
+}
+// Compatibilité avec setBilling qui utilise PRICES
 const PRICES = {
-  pilote: { monthly: '14,99€', annual: '8,25€', annualLabel: 'Facturé 99€/an' },
-  radar:  { monthly: '24,99€', annual: '10,75€', annualLabel: 'Facturé 199€/an' },
+  pilote: { get monthly() { return getPrice('pilote','monthly'); }, get annual() { return getPrice('pilote','annual'); }, get annualLabel() { return getAnnualLabel('pilote'); } },
+  radar:  { get monthly() { return getPrice('radar','monthly');  }, get annual() { return getPrice('radar','annual');  }, get annualLabel() { return getAnnualLabel('radar');  } },
 };
 
 function setBilling(mode) {
