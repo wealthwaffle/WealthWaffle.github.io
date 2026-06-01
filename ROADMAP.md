@@ -254,8 +254,8 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 - [ ] **74.** Radar flouté — liste projets scrapés visible pour tous (nom + plateforme) · note + résumé IA + rapport = flouté + cadenas · CTA “Débloquer” → `/doctrine.html?plan=radar` · pas de trial Radar — accès découverte permanent limité
 - [ ] **75.** Page `/a-propos/index.html` — retravailler en “Qui est derrière ce site” · philosophie BRAND.md · pourquoi pas d’influenceur · pourquoi Waffy · fait par un Belge pour les Belges · pas pour en vivre
 - [ ] **76.** Argumentaire doctrine.html — ajouter 3 sections : “Le coût de l’inaction” (calcul inflation vs 99€) · “Indépendance totale” (zéro commission plateforme) · “Le gain de temps” (50 pages → 5 min)
-- [ ] **77.** Graphiques et animations par page — rendre le contenu plus dynamique · voir détail ROADMAP
-- [ ] **78.** Encadrés Waffy — vulgarisation visuelle des concepts complexes · composant `.waffy-tip` dans `ui-components.html` · injecter sur les pages à fort jargon
+- [x] ~**77.** Graphiques et animations — règle permanente sur chaque page créée/modifiée~ — rendre le contenu plus dynamique · voir détail ROADMAP
+- [x] ~**78.** Encadrés Waffy `.waffy-tip` — règle permanente sur chaque page créée/modifiée~ — vulgarisation visuelle des concepts complexes · composant `.waffy-tip` dans `ui-components.html` · injecter sur les pages à fort jargon
 
 -----
 
@@ -313,3 +313,20 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 - [ ] **91.** `/admin/index.html` — encadré “Performances Marketing” : top 5 pages de conversion + top campagnes Brevo (requêtes SQL sur `user_conversion_metrics`) · données injectées dynamiquement via Supabase JS
 - [ ] **93.** Ajouter colonne `billing_interval text` (valeurs : ‘monthly’ | ‘yearly’) dans `profiles` — nécessaire pour calcul MRR admin
 - [ ] **92.** RGPD cookies — modal de consentement propre sur `legal/cookies.html` · Matomo en mode anonyme sans consentement · stitching activé uniquement si consentement accepté · géré dans `ww-bundle.js`
+
+-----
+
+## 🟠 Nouvelles pages à créer
+
+- [ ] **94.** `/immo/societe.html` — Quand passer son immo en société (SRL) ? Avantages IS, avantages personne physique, seuil de bascule, frais de constitution, exit strategy, risques sous-estimés. Lié à `fiscal/societes.html` + `fiscal/remuneration.html`.
+- [ ] **95.** `/fiscal/plus-value.html` — Taxe sur la plus-value : quels actifs sont concernés (actifs financiers vs immo), taux belge (10% PV ETF/actions, 16,5% immo hors RP < 5 ans, 33% terrain < 8 ans), exonérations possibles (bon père de famille, résidence principale, détention longue), stratégies légales de planification (délai de détention, apport en société, donation).
+
+-----
+
+## 💡 Suggestions non demandées mais utiles
+
+- [ ] **96.** `/fiscal/declaration.html` — Guide de la déclaration fiscale IPP belge step-by-step (MyMinfin, codes, délais, erreurs courantes). Très fort pour le SEO et la période mai-juin.
+- [ ] **97.** `/invest/sectoriels.html` — Guide ETF sectoriels (technologie, santé, énergie verte) — déjà mentionné dans etf.html mais pas de page dédiée.
+- [ ] **98.** `/budget/assurances.html` — Optimiser ses assurances (hospitalisation, RC, vie, habitation) : quoi garder, quoi supprimer, comparatifs. Sujet très concret pour 25-40 ans.
+- [ ] **99.** `/immo/renovation.html` — Déjà créée ✅. Page primes par région, TVA 6%, rendement avant/après.
+- [ ] **100.** Fil d’ariane SEO + `sitemap.xml` généré automatiquement — améliorer l’indexation Google de l’ensemble du site.
