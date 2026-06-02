@@ -237,3 +237,21 @@ Si “Non” → ouvrir le questionnaire guidage.
 
 Ne pas afficher “58 pages” ou “27 outils” en chiffres.
 Dire à la place : “Des outils interactifs pour calculer, pas juste lire” — l’idée c’est que c’est actif, pas encyclopédique.
+
+## Partenaires & outils tiers à évaluer
+
+- **Easyvest** — robo-advisor belge · potentiel partenariat ou affiliation
+- **Spreds** — plateforme equity belge · intégration Radar possible
+- **Blast** — plateforme investissement · contenu + affiliation
+- **Finary** — agrégateur de portefeuille · API pour portefeuilles J7
+- **Wallons-y** — levées de fonds wallonnes · partenariat contenu + distribution
+- **Odoo** — évaluer pour back-office / CRM interne WW (K5)
+- **Wallonie Entreprendre / Actya / UCM / Partena** — référencer dans J5
+
+## Pages futures commentées dans data.js
+
+Quand une page du Groupe J est créée :
+
+1. Créer le fichier HTML
+1. Décommenter la ligne dans `WW_DATA.pages`
+1. La page apparaît automatiquement dans le footer, les hubs et l’accueil

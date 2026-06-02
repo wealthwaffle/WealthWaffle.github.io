@@ -275,6 +275,72 @@
 
 -----
 
+-----
+
+## 🟡 GROUPE J — Nouvelles pages de contenu (backlog futur)
+
+> Pages à créer quand le contenu de base est stabilisé
+
+**Indépendants & Sociétés**
+
+- [ ] **J1.** `/fiscal/aides-independants.html` — 🆘 Aides & subsides indépendants · ASBL, CPAS, Wallonie Entreprendre, aides sociales · cotisations minimales · éviter de payer trop plus tard
+- [ ] **J2.** `/fiscal/aides-societes.html` — 🏗️ Aides & subsides pour sociétés · Activa, aides régionales, déductions d’investissement
+- [ ] **J3.** `/fiscal/couts-creation.html` — 💶 Coûts réels de création · comptable · notaire · fiscaliste · création société SRL/SA · comparatif prestataires
+- [ ] **J4.** `/fiscal/investir-independant-societe.html` — ⚖️ Investir en tant qu’indépendant vs en société · quel compte, quelle fiscalité, quelle stratégie
+- [ ] **J5.** `/parcours/entreprendre.html` — 🚀 Entreprendre en Belgique · Actya · Wallonie Entreprendre · Partena · UCM · étapes de création
+
+**Immobilier**
+
+- [ ] **J6.** `/immo/subsides.html` — 🏘️ Prêts à 0% et subsides · Prêt Vert wallon · PIVERT · RENoWatt · Myprime · primes PAE · par région
+
+**Investissement & Patrimoine**
+
+- [ ] **J7.** `/invest/portefeuilles.html` — 🗂️ Mes portefeuilles · créer plusieurs portefeuilles · export/import · lien plateformes belges (Bolero, Keytrade, Finary)
+- [ ] **J8.** `/invest/ia-finance.html` — 🤖 Finance & IA · outils IA pour gérer ses finances · robo-advisors · limites réglementaires · Easyvest · Spreds
+- [ ] **J9.** `/invest/incubateurs.html` — 🌱 Incubateurs & startups · LeanSquare · Chèque-Entreprise · Wex · Blast · Spreds · Wallons-y
+- [ ] **J10.** `/invest/club-investissement.html` — 🤝 Club d’investissement · investissement collectif · cadre légal belge · Blast · Spreds
+
+**Partenariats & Outils tiers**
+
+- [ ] **J11.** `/a-propos/partenaires.html` — 🤝 Partenaires · fiscalistes · comptables · Easyvest · Spreds · Finary · banques partenaires · qu’est-ce qu’ils m’apportent
+- [ ] **J12.** `/contenu/newsletter-archive.html` — 📬 Archives newsletter · contenu newsletter intégré dans une page du site
+
+**RGPD**
+
+- [ ] **J13.** Audit RGPD newsletter — double opt-in · consentement explicite · désinscription 1 clic · archivage · Brevo conforme · formulaires
+
+-----
+
+## ⚪ GROUPE K — Fonctionnalités avancées (vision long terme)
+
+**Guidage interactif**
+
+- [ ] **K1.** Mode guidage global — à l’inscription : choix “Lire librement” vs “Être guidé” · si guidé : questionnaire interactif (type choose-your-own-adventure) qui mène vers les pages selon les réponses
+- [ ] **K2.** `/parcours/aide.html` — 🧭 Comment utiliser le site · mode interactif · répondre à des questions → trouver ce qu’on cherche · guide pas à pas
+
+**Portefeuille guidé**
+
+- [ ] **K3.** Portefeuille guidé automatique (si réglementairement possible) · achat ETF programmé · seuils de retrait définis · opportunités sur pics · partenaire gestionnaire de fonds
+
+**IA & Automatisation**
+
+- [ ] **K4.** IAwaffle — accompagnement IA en 3 modes : débutant · avancé · expert · intégré à Waffy ou module séparé
+- [ ] **K5.** Odoo — évaluer si utile pour gestion back-office / CRM / comptabilité interne WW
+- [ ] **K6.** Gestion de portefeuille liée aux plateformes belges (API Bolero, Keytrade, Finary)
+- [ ] **K7.** API crypto — gestion du problème API · import automatique trades · calcul fiscal automatique
+
+**Multilangue**
+
+- [ ] **K8.** Barre de menu multilangue : FR · NL · DE · EN · architecture i18n à définir
+
+**Partenariats commerciaux**
+
+- [ ] **K9.** Partenariat gestionnaire de fonds / banque · définir ce qu’ils apportent (rendement, légitimité, distribution)
+- [ ] **K10.** Plateforme equity directe — WealthWaffle comme intermédiaire de levées de fonds · cadre légal FSMA · Wallons-y · Walterre
+- [ ] **K11.** Incubateur startup WW — programme d’accompagnement · partenaires · modèle de revenus
+
+-----
+
 ## ✅ Fait
 
 - ~**I5.** Modal contextuelle 8s — “Tu es au bon endroit ?” avec nom page depuis WW_DATA.pages · guidez-moi → WW_buildOnboarding()~

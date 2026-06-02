@@ -187,6 +187,108 @@ window.WW_DATA = {
   // ─── DIVIDENDES ───────────────────────────────────────────
   div_exoneration_pme: 800,    // € nets/an — exonérés pour PME non cotées
 
+  // ─── PAGES DU SITE ────────────────────────────────────────
+  // Source unique — nav, footer, accueil, hubs lisent ce tableau
+  // Ajouter une page ici = elle apparaît partout automatiquement
+  // themes : budget · invest · immo · fiscal · parcours · outils · contenu · programme
+  // level  : 'all' = tout le monde · 'pilote' · 'radar'
+  pages: [
+
+    // ── PARCOURS ─────────────────────────────────────────────
+    { url:'/parcours/bases.html',       emoji:'🧭', titre:'Par où commencer ?',           description:'Les bases pour débuter sans se perdre',                        theme:'parcours', level:'all'    },
+    { url:'/parcours/',                 emoji:'📍', titre:'Mon parcours personnalisé',     description:'Un chemin guidé selon ton profil et tes objectifs',             theme:'parcours', level:'all'    },
+    { url:'/parcours/psychologie.html', emoji:'🪞', titre:'Mindset & biais cognitifs',     description:'Comprendre ses biais pour mieux investir',                      theme:'parcours', level:'all'    },
+    { url:'/parcours/glossaire.html',   emoji:'📖', titre:'Glossaire',                     description:'60+ termes financiers expliqués simplement',                    theme:'parcours', level:'all'    },
+
+    // ── BUDGET ───────────────────────────────────────────────
+    { url:'/budget/',                   emoji:'🗂️', titre:'Gérer son budget',              description:'Reprendre le contrôle de ses finances au quotidien',            theme:'budget',   level:'all'    },
+    { url:'/budget/epargne.html',       emoji:'🪣', titre:'Épargner efficacement',          description:'Fonds d\'urgence, épargne long terme, stratégies',              theme:'budget',   level:'all'    },
+    { url:'/budget/banques.html',       emoji:'🏧', titre:'Quelle banque choisir ?',        description:'Comparatif banques belges et néobanques',                       theme:'budget',   level:'all'    },
+    { url:'/budget/assurances.html',    emoji:'🛡️', titre:'Assurances — quoi garder ?',    description:'Quoi garder, quoi supprimer, combien prévoir',                  theme:'budget',   level:'all'    },
+    { url:'/budget/retraite.html',      emoji:'⏳', titre:'Préparer sa retraite',           description:'Les 4 piliers pension et comment les optimiser',                theme:'budget',   level:'all'    },
+    { url:'/budget/rente.html',         emoji:'🔥', titre:'Vivre de son capital',           description:'Règle des 4%, décumulation, liberté financière',               theme:'budget',   level:'all'    },
+
+    // ── INVESTISSEMENT ───────────────────────────────────────
+    { url:'/invest/',                   emoji:'🗺️', titre:'Quel placement choisir ?',      description:'Tour d\'horizon de tous les placements disponibles',            theme:'invest',   level:'all'    },
+    { url:'/invest/panorama.html',      emoji:'🌍', titre:'Tour d\'horizon des placements', description:'Comprendre les grandes familles d\'actifs',                    theme:'invest',   level:'all'    },
+    { url:'/invest/allocation.html',    emoji:'⚖️', titre:'Répartir son argent',            description:'Construire un portefeuille équilibré selon son profil',         theme:'invest',   level:'all'    },
+    { url:'/invest/etf.html',           emoji:'📊', titre:'ETF — Guide complet',            description:'DCA, VWCE, fiscalité TOB — tout sur les ETF en Belgique',      theme:'invest',   level:'all'    },
+    { url:'/invest/sectoriels.html',    emoji:'🔬', titre:'ETF thématiques & sectoriels',   description:'IA, santé, énergie verte — surpondérer un secteur',             theme:'invest',   level:'all'    },
+    { url:'/invest/fonds.html',         emoji:'🆚', titre:'Fonds actifs vs ETF',            description:'Comprendre la différence et choisir',                          theme:'invest',   level:'all'    },
+    { url:'/invest/actions.html',       emoji:'📈', titre:'Bourse & actions',               description:'Investir en actions individuelles depuis la Belgique',          theme:'invest',   level:'all'    },
+    { url:'/invest/obligations.html',   emoji:'🏛️', titre:'Obligations & Bons d\'État',    description:'Bons d\'État belges, obligations d\'entreprise, rendements',    theme:'invest',   level:'all'    },
+    { url:'/invest/alternatives.html',  emoji:'🍷', titre:'Au-delà de la bourse',           description:'Vin, art, forêts, crowdlending — les alternatifs',              theme:'invest',   level:'all'    },
+    { url:'/invest/or.html',            emoji:'🥇', titre:'Or & matières premières',        description:'Lingots, ETF or, fiscalité — investir dans l\'or',             theme:'invest',   level:'all'    },
+    { url:'/invest/crypto.html',        emoji:'₿',  titre:'Crypto — Guide',                 description:'Bitcoin, Ethereum, fiscalité belge, stratégies',                theme:'invest',   level:'all'    },
+    { url:'/invest/crypto-plateformes.html', emoji:'💳', titre:'Plateformes & Wallets',    description:'Exchanges belges, cold wallets, checklist sécurité',            theme:'invest',   level:'all'    },
+    { url:'/invest/equity.html',        emoji:'🚀', titre:'Equity & Tax Shelter',           description:'Investir dans des startups belges et réduire ses impôts',      theme:'invest',   level:'all'    },
+    { url:'/invest/comparateurs.html',  emoji:'🔗', titre:'Comparateurs officiels',         description:'Outils officiels FSMA et BNB pour comparer',                   theme:'invest',   level:'all'    },
+
+    // ── IMMOBILIER ───────────────────────────────────────────
+    { url:'/immo/',                     emoji:'🏠', titre:'Investir dans la pierre',        description:'L\'immobilier belge de A à Z',                                 theme:'immo',     level:'all'    },
+    { url:'/immo/achat.html',           emoji:'🔑', titre:'Devenir propriétaire',           description:'Droits d\'enregistrement, notaire, étapes clés',               theme:'immo',     level:'all'    },
+    { url:'/immo/financement.html',     emoji:'💳', titre:'Financer son achat',             description:'Crédit hypothécaire, apport, assurance solde restant dû',      theme:'immo',     level:'all'    },
+    { url:'/immo/locatif.html',         emoji:'💶', titre:'Générer des loyers',             description:'Rendement locatif, fiscalité, gestion locative',               theme:'immo',     level:'all'    },
+    { url:'/immo/renovation.html',      emoji:'🔨', titre:'Rénover & revendre',             description:'Primes régionales, TVA 6%, rendement avant/après',             theme:'immo',     level:'all'    },
+    { url:'/immo/regions.html',         emoji:'🇧🇪',titre:'Bruxelles, Wallonie, Flandre',  description:'Droits d\'enregistrement et avantages par région',             theme:'immo',     level:'all'    },
+    { url:'/immo/alternatif.html',      emoji:'🏗️', titre:'Immo sans être propriétaire',   description:'SIR, SCPI, crowdfunding immobilier, tokénisation',              theme:'immo',     level:'all'    },
+    { url:'/immo/societe.html',         emoji:'🏢', titre:'Passer son immo en société',     description:'SRL, avantages IS, seuil de bascule, exit strategy',           theme:'immo',     level:'pilote' },
+
+    // ── FISCALITÉ ────────────────────────────────────────────
+    { url:'/fiscal/',                   emoji:'💡', titre:'Payer moins d\'impôts',          description:'Hub fiscalité belge — particuliers, indépendants, sociétés',   theme:'fiscal',   level:'all'    },
+    { url:'/fiscal/declaration.html',   emoji:'📝', titre:'Remplir sa déclaration',         description:'Guide MyMinfin, codes, délais, déductions à ne pas rater',     theme:'fiscal',   level:'all'    },
+    { url:'/fiscal/crypto.html',        emoji:'🪙', titre:'Fiscalité Crypto 2026',          description:'3 régimes, FIFO, step-up, franchise 10K€, déclaration',        theme:'fiscal',   level:'all'    },
+    { url:'/fiscal/independants.html',  emoji:'🧑‍💻',titre:'Je suis indépendant',           description:'Cotisations, frais, PLCI, TVA — guide complet',                theme:'fiscal',   level:'all'    },
+    { url:'/fiscal/societes.html',      emoji:'📉', titre:'Optimiser sa société',           description:'IS, VVPRbis, réserve de liquidation — les leviers fiscaux',    theme:'fiscal',   level:'pilote' },
+    { url:'/fiscal/remuneration.html',  emoji:'💰', titre:'Comment se payer ?',             description:'Salaire vs dividendes, optimisation rémunération dirigeant',   theme:'fiscal',   level:'pilote' },
+    { url:'/fiscal/frais.html',         emoji:'🧾', titre:'Frais déductibles',              description:'Quels frais déduire en tant que salarié ou indépendant',       theme:'fiscal',   level:'all'    },
+    { url:'/fiscal/tva.html',           emoji:'💱', titre:'TVA & franchise',                description:'Régimes TVA, franchise de taxe, déclarations',                 theme:'fiscal',   level:'all'    },
+    { url:'/fiscal/tax-shelter-startup.html',      emoji:'🌱', titre:'Tax Shelter Startups',      description:'Réduction IPP 25-45% en investissant dans des startups belges', theme:'fiscal', level:'all' },
+    { url:'/fiscal/tax-shelter-audiovisuel.html',  emoji:'🎬', titre:'Tax Shelter Audiovisuel',   description:'Exonération IS 310% pour les sociétés — productions belges',   theme:'fiscal', level:'pilote' },
+    { url:'/fiscal/assurances.html',    emoji:'🔐', titre:'Assurances fiscales',            description:'EIP, PLCI, assurance groupe — déduire ses assurances',         theme:'fiscal',   level:'pilote' },
+    { url:'/fiscal/succession.html',    emoji:'🤝', titre:'Protéger ses proches',           description:'Succession, donation, planification patrimoniale',              theme:'fiscal',   level:'all'    },
+    { url:'/fiscal/management.html',    emoji:'🏛️', titre:'Créer une holding',              description:'Société de management, avantages fiscaux, structure',          theme:'fiscal',   level:'pilote' },
+    { url:'/fiscal/plus-value.html',    emoji:'📉', titre:'Limiter l\'impôt sur ses gains', description:'Plus-values financières et immobilières — taux et exonérations',theme:'fiscal',  level:'all'    },
+    { url:'/fiscal/fiscaliste.html',    emoji:'⚖️', titre:'Trouver un fiscaliste',          description:'Quand consulter un expert et comment le choisir',              theme:'fiscal',   level:'all'    },
+
+    // ── OUTILS ───────────────────────────────────────────────
+    { url:'/outils/',                   emoji:'🔧', titre:'Calculer ma situation',          description:'27 simulateurs interactifs — résultats instantanés',           theme:'outils',   level:'all'    },
+    { url:'/outils/fiscal-crypto.html', emoji:'🪙', titre:'Calculateur Fiscal Crypto',      description:'FIFO, step-up 2025, franchise 10K€ — rapport Excel MyMinfin',  theme:'outils',   level:'pilote' },
+
+    // ── CONTENU ───────────────────────────────────────────────
+    { url:'/contenu/videos.html',          emoji:'🎬', titre:'Vidéos',                      description:'Toutes les vidéos WealthWaffle classées par thème',            theme:'contenu',  level:'all'    },
+    { url:'/contenu/downloads.html',       emoji:'📥', titre:'Guides PDF',                  description:'8 guides téléchargeables — budgets, ETF, crypto, immo...',    theme:'contenu',  level:'all'    },
+    { url:'/contenu/newsletter.html',      emoji:'📬', titre:'Newsletter',                  description:'Rejoindre la newsletter hebdomadaire',                         theme:'contenu',  level:'all'    },
+    { url:'/contenu/concept-semaine.html', emoji:'💡', titre:'Concept de la semaine',       description:'Un concept financier expliqué en 2 minutes, chaque semaine',  theme:'contenu',  level:'all'    },
+
+    // ── PROGRAMME ────────────────────────────────────────────
+    { url:'/doctrine.html',             emoji:'✈️', titre:'Programme Doctrine',             description:'Socle gratuit, Pilote 99€/an, Radar 199€/an',                 theme:'programme',level:'all'    },
+    { url:'/radar/',                    emoji:'📡', titre:'Analyser les projets',           description:'Feed Radar — projets equity belges analysés indépendamment',  theme:'programme',level:'radar'  },
+    { url:'/dashboard/',               emoji:'👤', titre:'Mon espace',                      description:'Ton tableau de bord personnel WealthWaffle',                   theme:'programme',level:'all'    },
+
+    // ── À PROPOS ──────────────────────────────────────────────
+    { url:'/a-propos/',                 emoji:'ℹ️', titre:'À propos',                       description:'Qui est derrière WealthWaffle ?',                              theme:'apropos',  level:'all'    },
+    { url:'/a-propos/faq.html',         emoji:'❓', titre:'FAQ',                            description:'Questions fréquentes sur le site et le programme',             theme:'apropos',  level:'all'    },
+    { url:'/a-propos/sources.html',     emoji:'📚', titre:'Sources',                        description:'Toutes les sources utilisées sur le site',                     theme:'apropos',  level:'all'    },
+    { url:'/a-propos/affiliation.html', emoji:'🔗', titre:'Transparence',                   description:'Notre politique d\'affiliation et de transparence',            theme:'apropos',  level:'all'    },
+
+    // ── PAGES FUTURES (Groupe J — à créer) ──────────────────
+    // Décommenter quand la page est créée
+    // { url:'/fiscal/aides-independants.html',       emoji:'🆘', titre:'Aides & subsides indépendants',        description:'ASBL, Wallonie Entreprendre, cotisations, aides',            theme:'fiscal',   level:'all' },
+    // { url:'/fiscal/aides-societes.html',           emoji:'🏗️', titre:'Aides & subsides sociétés',            description:'Activa, aides régionales, déductions investissement',          theme:'fiscal',   level:'pilote' },
+    // { url:'/fiscal/couts-creation.html',           emoji:'💶', titre:'Coûts de création',                    description:'Comptable, notaire, fiscaliste, SRL/SA — prix réels',          theme:'fiscal',   level:'all' },
+    // { url:'/fiscal/investir-independant-societe.html', emoji:'⚖️', titre:'Investir indépendant vs société',  description:'Quel compte, quelle fiscalité, quelle stratégie',              theme:'fiscal',   level:'pilote' },
+    // { url:'/parcours/entreprendre.html',           emoji:'🚀', titre:'Entreprendre en Belgique',             description:'Actya, Wallonie Entreprendre, Partena, UCM, étapes',           theme:'parcours', level:'all' },
+    // { url:'/immo/subsides.html',                   emoji:'🏘️', titre:'Prêts à 0% et subsides',              description:'Prêt Vert, PIVERT, RENoWatt, primes PAE par région',           theme:'immo',     level:'all' },
+    // { url:'/invest/portefeuilles.html',            emoji:'🗂️', titre:'Mes portefeuilles',                    description:'Créer plusieurs portefeuilles, export, Bolero, Finary',        theme:'invest',   level:'pilote' },
+    // { url:'/invest/ia-finance.html',               emoji:'🤖', titre:'Finance & IA',                         description:'Robo-advisors, outils IA, Easyvest, limites réglementaires',   theme:'invest',   level:'all' },
+    // { url:'/invest/incubateurs.html',              emoji:'🌱', titre:'Incubateurs & startups',               description:'LeanSquare, Blast, Spreds, Wallons-y, Chèque-Entreprise',     theme:'invest',   level:'all' },
+    // { url:'/a-propos/partenaires.html',            emoji:'🤝', titre:'Partenaires',                          description:'Fiscalistes, comptables, Easyvest, banques partenaires',       theme:'apropos',  level:'all' },
+    // { url:'/contenu/newsletter-archive.html',      emoji:'📬', titre:'Archives newsletter',                  description:'Tous les numéros de la newsletter WealthWaffle',              theme:'contenu',  level:'all' },
+    // { url:'/parcours/aide.html',                   emoji:'🧭', titre:'Comment utiliser le site',             description:'Mode interactif — trouver ce que tu cherches en 3 questions',  theme:'parcours', level:'all' },
+
+  ],
+
   // ─── PRIX FONDATEURS ──────────────────────────────────────
   // Prix actuels = prix fondateurs (bloqués à vie pour les premiers inscrits)
   // Prix futurs = augmentation prévue quand le site atteindra sa vitesse de croisière
