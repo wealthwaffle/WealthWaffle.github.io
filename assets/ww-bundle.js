@@ -2496,118 +2496,218 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
 ═══════════════════════════════════════════════════════════ */
 
 (function initOnboarding() {
-  // Ne pas afficher sur les pages auth/compte/dashboard
-  const skipPaths = ['/compte/', '/dashboard/', '/radar/'];
-  if (skipPaths.some(p => location.pathname.startsWith(p))) return;
-  // Ne pas afficher si déjà complété
+  const SKIP = ['/compte/', '/dashboard/', '/radar/', '/admin/'];
+  if (SKIP.some(p => location.pathname.startsWith(p))) return;
   if (localStorage.getItem('ww_onboarding_done')) return;
 
+  /* ── État interne ── */
+  const state = { level: null, profile: null, objectif: null, theme: null };
+
+  /* ── Helpers sélection bouton ── */
+  function selectBtn(group, value, color) {
+    document.querySelectorAll(`[data-ob-group="${group}"]`).forEach(b => {
+      b.style.borderColor = 'var(--border)';
+      b.style.background  = 'var(--s3)';
+      b.style.color       = 'var(--muted)';
+    });
+    const active = document.querySelector(`[data-ob-group="${group}"][data-ob-val="${value}"]`);
+    if (active) {
+      active.style.borderColor = color + '80';
+      active.style.background  = color + '18';
+      active.style.color       = color;
+    }
+    state[group] = value;
+    checkAllAnswered();
+  }
+
+  function checkAllAnswered() {
+    const btn = document.getElementById('ob-submit');
+    if (!btn) return;
+    const done = state.level && state.profile && state.objectif && state.theme;
+    btn.style.opacity = done ? '1' : '0.45';
+    btn.disabled = !done;
+  }
+
+  /* ── Recommandations selon profil + objectif ── */
+  function getRecommendations() {
+    const pages = window.WW_DATA?.pages || [];
+    const MAP = {
+      'epargner':  ['budget','parcours'],
+      'investir':  ['invest','outils'],
+      'impots':    ['fiscal','outils'],
+      'immo':      ['immo','fiscal'],
+      'retraite':  ['budget','invest'],
+    };
+    const themes = MAP[state.objectif] || ['parcours','budget'];
+    // Si indépendant ou dirigeant → fiscal en priorité
+    if (['independant','dirigeant'].includes(state.profile)) themes.unshift('fiscal');
+    const seen = new Set();
+    const recs = [];
+    for (const theme of themes) {
+      for (const p of pages) {
+        if (p.theme === theme && p.level === 'all' && !seen.has(p.url)) {
+          recs.push(p);
+          seen.add(p.url);
+          if (recs.length >= 3) break;
+        }
+      }
+      if (recs.length >= 3) break;
+    }
+    return recs;
+  }
+
+  /* ── Construction du popup ── */
   function buildPopup() {
     const overlay = document.createElement('div');
     overlay.id = 'ww-onboarding-overlay';
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(8,7,23,0.75);z-index:9000;display:flex;align-items:flex-end;justify-content:center;padding:0 0 24px;animation:fadeIn 0.3s ease both;backdrop-filter:blur(4px);';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(8,7,23,0.80);z-index:9000;display:flex;align-items:flex-end;justify-content:center;padding:0 0 20px;animation:fadeIn 0.3s ease both;backdrop-filter:blur(4px);';
+
+    const BTN = 'display:inline-flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;padding:10px 6px;border-radius:11px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:\'DM Sans\',sans-serif;font-size:0.76rem;cursor:pointer;transition:all 0.18s;text-align:center;line-height:1.3;';
+    const LABEL = 'font-size:0.60rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;';
 
     overlay.innerHTML = `
-      <div style="background:var(--s2,#111127);border:1px solid rgba(255,255,255,0.10);border-radius:22px;padding:24px 22px;width:100%;max-width:420px;box-shadow:0 -8px 60px rgba(0,0,0,0.5);animation:slideUp 0.35s ease both;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-          <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.15rem;color:var(--text);">Bienvenue 🧇</div>
-          <button onclick="document.getElementById('ww-onboarding-overlay').remove();localStorage.setItem('ww_onboarding_done','1');"
-            style="background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:4px 8px;border-radius:8px;" title="Fermer">✕</button>
-        </div>
-        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">Deux questions rapides pour personnaliser ton expérience — rien d'obligatoire, tout est modifiable après.</p>
+    <div style="background:var(--s2,#111127);border:1px solid rgba(255,255,255,0.10);border-radius:22px 22px 16px 16px;padding:22px 20px 20px;width:100%;max-width:440px;box-shadow:0 -8px 60px rgba(0,0,0,0.5);animation:slideUp 0.35s ease both;">
 
-        <div style="margin-bottom:14px;">
-          <div style="font-size:0.70rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">Tu te considères plutôt :</div>
-          <div style="display:flex;gap:6px;">
-            <button onclick="selectOnboardingLevel('debutant',this)"
-              class="ob-btn" style="flex:1;padding:10px 8px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;transition:all 0.18s;">
-              🌱 Débutant<br><span style="font-size:0.68rem;opacity:0.7;">Je commence</span>
-            </button>
-            <button onclick="selectOnboardingLevel('avance',this)"
-              class="ob-btn" style="flex:1;padding:10px 8px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;transition:all 0.18s;">
-              🚀 Avancé<br><span style="font-size:0.68rem;opacity:0.7;">J'investis déjà</span>
-            </button>
-          </div>
-        </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);">Bienvenue sur WealthWaffle 🧇</div>
+        <button onclick="window.closeOnboarding()" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px 8px;">✕</button>
+      </div>
+      <p style="font-size:0.76rem;color:var(--muted);margin-bottom:18px;line-height:1.55;">4 questions rapides — tout est modifiable ensuite dans ⚙️</p>
 
-        <div style="margin-bottom:18px;">
-          <div style="font-size:0.70rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">Mon profil :</div>
-          <div style="display:flex;gap:6px;">
-            <button onclick="selectOnboardingProfile('particulier',this)"
-              class="ob-btn" style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.74rem;cursor:pointer;transition:all 0.18s;">
-              🙋 Salarié
-            </button>
-            <button onclick="selectOnboardingProfile('independant',this)"
-              class="ob-btn" style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.74rem;cursor:pointer;transition:all 0.18s;">
-              💼 Indépendant
-            </button>
-            <button onclick="selectOnboardingProfile('dirigeant',this)"
-              class="ob-btn" style="flex:1;padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.74rem;cursor:pointer;transition:all 0.18s;">
-              🏢 Dirigeant
-            </button>
-          </div>
+      <!-- Q1 : Profil -->
+      <div style="margin-bottom:14px;">
+        <div style="${LABEL}">1. Tu es…</div>
+        <div style="display:flex;gap:6px;">
+          <button style="${BTN}flex:1;" data-ob-group="profile" data-ob-val="particulier"
+            onclick="selectOnboardingVal('profile','particulier','#7EC8A0')">
+            🙋<span style="font-size:0.70rem;">Salarié</span>
+          </button>
+          <button style="${BTN}flex:1;" data-ob-group="profile" data-ob-val="independant"
+            onclick="selectOnboardingVal('profile','independant','#7EC8A0')">
+            🧑‍💻<span style="font-size:0.70rem;">Indépendant</span>
+          </button>
+          <button style="${BTN}flex:1;" data-ob-group="profile" data-ob-val="dirigeant"
+            onclick="selectOnboardingVal('profile','dirigeant','#7EC8A0')">
+            🏢<span style="font-size:0.70rem;">Dirigeant</span>
+          </button>
         </div>
+      </div>
 
-        <button onclick="closeOnboarding()"
-          style="width:100%;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;transition:opacity 0.18s;">
-          C'est parti →
-        </button>
-
-        <div style="text-align:center;margin-top:10px;font-size:0.68rem;color:var(--muted2);">
-          Modifiable à tout moment dans <a href="/dashboard/" style="color:var(--muted);">ton dashboard</a>
+      <!-- Q2 : Objectif -->
+      <div style="margin-bottom:14px;">
+        <div style="${LABEL}">2. Ton objectif principal ?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+          <button style="${BTN}" data-ob-group="objectif" data-ob-val="epargner"
+            onclick="selectOnboardingVal('objectif','epargner','#5BB8D4')">
+            🪣<span style="font-size:0.70rem;">Épargner</span>
+          </button>
+          <button style="${BTN}" data-ob-group="objectif" data-ob-val="investir"
+            onclick="selectOnboardingVal('objectif','investir','#5BB8D4')">
+            📈<span style="font-size:0.70rem;">Investir</span>
+          </button>
+          <button style="${BTN}" data-ob-group="objectif" data-ob-val="impots"
+            onclick="selectOnboardingVal('objectif','impots','#5BB8D4')">
+            💡<span style="font-size:0.70rem;">Moins d'impôts</span>
+          </button>
+          <button style="${BTN}" data-ob-group="objectif" data-ob-val="immo"
+            onclick="selectOnboardingVal('objectif','immo','#5BB8D4')">
+            🔑<span style="font-size:0.70rem;">Acheter un bien</span>
+          </button>
+          <button style="${BTN}grid-column:span 2;" data-ob-group="objectif" data-ob-val="retraite"
+            onclick="selectOnboardingVal('objectif','retraite','#5BB8D4')">
+            ⏳<span style="font-size:0.70rem;">Préparer ma retraite</span>
+          </button>
         </div>
-      </div>`;
+      </div>
+
+      <!-- Q3 : Niveau -->
+      <div style="margin-bottom:14px;">
+        <div style="${LABEL}">3. Ton niveau ?</div>
+        <div style="display:flex;gap:6px;">
+          <button style="${BTN}flex:1;" data-ob-group="level" data-ob-val="debutant"
+            onclick="selectOnboardingVal('level','debutant','#7EC8A0')">
+            🌱<span style="font-size:0.70rem;">Je commence</span>
+          </button>
+          <button style="${BTN}flex:1;" data-ob-group="level" data-ob-val="avance"
+            onclick="selectOnboardingVal('level','avance','#7EC8A0')">
+            🚀<span style="font-size:0.70rem;">J'ai des bases</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q4 : Thème -->
+      <div style="margin-bottom:18px;">
+        <div style="${LABEL}">4. Interface</div>
+        <div style="display:flex;gap:6px;">
+          <button style="${BTN}flex:1;" data-ob-group="theme" data-ob-val="dark"
+            onclick="selectOnboardingVal('theme','dark','#E87CC3')">
+            🌙<span style="font-size:0.70rem;">Sombre</span>
+          </button>
+          <button style="${BTN}flex:1;" data-ob-group="theme" data-ob-val="light"
+            onclick="selectOnboardingVal('theme','light','#E87CC3')">
+            ☀️<span style="font-size:0.70rem;">Clair</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <button id="ob-submit" onclick="window.closeOnboarding()" disabled
+        style="width:100%;padding:13px;border-radius:12px;border:none;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;opacity:0.45;transition:opacity 0.2s;">
+        C'est parti →
+      </button>
+
+      <!-- Waffy tip -->
+      <div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding:9px 12px;background:rgba(255,255,255,0.03);border-radius:10px;">
+        <span style="font-size:1.1rem;">🧇</span>
+        <span style="font-size:0.68rem;color:var(--muted2);line-height:1.5;">À tout moment, Waffy en bas à droite peut te guider vers la bonne page.</span>
+      </div>
+    </div>`;
 
     document.body.appendChild(overlay);
+    checkAllAnswered();
   }
 
-  window.selectOnboardingLevel = function(level, btn) {
-    document.querySelectorAll('#ww-onboarding-overlay .ob-btn[onclick*="Level"]').forEach(b => {
-      b.style.borderColor = 'var(--border)'; b.style.background = 'var(--s3)'; b.style.color = 'var(--muted)';
-    });
-    btn.style.borderColor = 'rgba(126,200,160,0.45)';
-    btn.style.background  = 'rgba(126,200,160,0.10)';
-    btn.style.color       = '#7EC8A0';
-    localStorage.setItem('ww_level', level);
-    document.body.setAttribute('data-level', level);
-    // Appliquer immédiatement si setLevel existe
-    if (typeof setLevel === 'function') setLevel(level);
+  /* ── Sélection d'une réponse ── */
+  window.selectOnboardingVal = function(group, value, color) {
+    selectBtn(group, value, color);
   };
 
-  window.selectOnboardingProfile = function(prof, btn) {
-    document.querySelectorAll('#ww-onboarding-overlay .ob-btn[onclick*="Profile"]').forEach(b => {
-      b.style.borderColor = 'var(--border)'; b.style.background = 'var(--s3)'; b.style.color = 'var(--muted)';
-    });
-    btn.style.borderColor = 'rgba(91,184,212,0.45)';
-    btn.style.background  = 'rgba(91,184,212,0.10)';
-    btn.style.color       = '#5BB8D4';
-    localStorage.setItem('ww_profile', prof);
-  };
-
+  /* ── Fermeture et sauvegarde ── */
   window.closeOnboarding = function() {
+    // Appliquer le thème
+    if (state.theme) {
+      const isDark = state.theme === 'dark';
+      document.documentElement.setAttribute('data-theme', state.theme);
+      localStorage.setItem('ww_theme', state.theme);
+      if (typeof applyTheme === 'function') applyTheme(state.theme);
+    }
+    // Appliquer le niveau
+    if (state.level) {
+      localStorage.setItem('ww_level', state.level);
+      document.body.setAttribute('data-level', state.level);
+      if (typeof setLevelNav === 'function') setLevelNav(state.level);
+    }
+    // Sauvegarder profil et objectif
+    if (state.profile)  localStorage.setItem('ww_profile',  state.profile);
+    if (state.objectif) localStorage.setItem('ww_topic',    state.objectif);
+
+    localStorage.setItem('ww_onboarding_done', '1');
+
     const overlay = document.getElementById('ww-onboarding-overlay');
     if (overlay) {
       overlay.style.animation = 'fadeOut 0.2s ease both';
-      setTimeout(() => overlay.remove(), 200);
+      setTimeout(() => overlay.remove(), 220);
     }
-    localStorage.setItem('ww_onboarding_done', '1');
   };
 
-  // Afficher la popup 2 secondes après le chargement (pas intrusif)
+  /* Exposer buildPopup pour réutilisation dans I6 (page accueil) */
+  window.WW_buildOnboarding = buildPopup;
+
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(buildPopup, 2000);
   });
 
-  // CSS pour les animations
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes slideUp { from { transform:translateY(40px);opacity:0; } to { transform:translateY(0);opacity:1; } }
-    @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
-    @keyframes fadeOut { from { opacity:1; } to { opacity:0; } }
-  `;
-  document.head.appendChild(style);
 })();
-
 
 /* ═══════════════════════════════════════════════════════════
    BANDEAU NUDGE — lead magnet contextuel sous la nav
@@ -2745,6 +2845,100 @@ document.addEventListener('DOMContentLoaded', function() {
   setLevelNav(level);
 });
 
+
+
+/* ═══════════════════════════════════════════════════════════
+   I5 — MODAL "TU ES AU BON ENDROIT ?"
+   ───────────────────────────────────────────────────────────
+   Conditions : onboarding non fait ET page ≠ index.html
+   Timing     : 8 secondes après chargement
+   But        : visiteur arrivé par un lien externe / search
+                qui n'est pas encore sur la bonne page
+═══════════════════════════════════════════════════════════ */
+(function initContextModal() {
+  const path = location.pathname;
+
+  // Ne pas afficher sur : accueil, auth, dashboard, radar, admin
+  const SKIP = ['/', '/index.html', '/compte/', '/dashboard/', '/radar/', '/admin/', '/legal/'];
+  if (SKIP.some(p => path === p || path.startsWith(p))) return;
+
+  // Ne pas afficher si onboarding déjà fait (utilisateur qui revient)
+  if (localStorage.getItem('ww_onboarding_done')) return;
+
+  // Ne pas afficher si déjà montré dans cette session
+  if (sessionStorage.getItem('ww_context_shown')) return;
+
+  // Trouver le nom de la page courante dans WW_DATA.pages
+  function getPageInfo() {
+    const pages = window.WW_DATA?.pages || [];
+    const cleanPath = path.replace(/\/$/, '');
+    return pages.find(p => p.url.replace(/\/$/, '') === cleanPath) || null;
+  }
+
+  function buildContextModal() {
+    const page = getPageInfo();
+    if (!page) return; // page inconnue → ne pas afficher
+
+    sessionStorage.setItem('ww_context_shown', '1');
+
+    const modal = document.createElement('div');
+    modal.id = 'ww-context-modal';
+    modal.style.cssText = [
+      'position:fixed;bottom:80px;right:16px;z-index:8500',
+      'background:var(--s2,#111127)',
+      'border:1px solid rgba(255,255,255,0.12)',
+      'border-radius:18px',
+      'padding:18px 18px 14px',
+      'width:min(300px,calc(100vw - 32px))',
+      'box-shadow:0 8px 40px rgba(0,0,0,0.45)',
+      'animation:slideUp 0.3s ease both',
+    ].join(';');
+
+    modal.innerHTML = `
+      <button onclick="document.getElementById('ww-context-modal').remove()"
+        style="position:absolute;top:10px;right:12px;background:none;border:none;color:var(--muted);font-size:0.9rem;cursor:pointer;padding:2px 6px;">✕</button>
+
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:1.4rem;flex-shrink:0;">${page.emoji}</span>
+        <div>
+          <div style="font-size:0.76rem;color:var(--muted);margin-bottom:1px;">Tu consultes</div>
+          <div style="font-size:0.88rem;font-weight:700;color:var(--text);line-height:1.3;">${page.titre}</div>
+        </div>
+      </div>
+
+      <p style="font-size:0.74rem;color:var(--muted);line-height:1.55;margin-bottom:14px;">
+        C'est bien ce que tu cherches ?
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <button onclick="document.getElementById('ww-context-modal').remove();sessionStorage.setItem('ww_context_ok','1');"
+          style="padding:10px;border-radius:10px;border:1px solid rgba(126,200,160,0.30);background:rgba(126,200,160,0.08);color:#7EC8A0;font-family:'DM Sans',sans-serif;font-size:0.80rem;font-weight:700;cursor:pointer;transition:all 0.18s;">
+          ✅ Oui, je suis au bon endroit
+        </button>
+        <button onclick="document.getElementById('ww-context-modal').remove();setTimeout(()=>{ if(typeof window.WW_buildOnboarding==='function') window.WW_buildOnboarding(); },100);"
+          style="padding:9px;border-radius:10px;border:1px solid rgba(91,184,212,0.25);background:rgba(91,184,212,0.06);color:#5BB8D4;font-family:'DM Sans',sans-serif;font-size:0.78rem;cursor:pointer;transition:all 0.18s;">
+          🧭 Non, guidez-moi
+        </button>
+      </div>
+
+      <div style="margin-top:10px;font-size:0.66rem;color:var(--muted2);text-align:center;line-height:1.4;">
+        Waffy 🧇 en bas à droite peut aussi t'aider
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Fermeture automatique après 20s sans interaction
+    setTimeout(() => {
+      const m = document.getElementById('ww-context-modal');
+      if (m) { m.style.animation = 'fadeOut 0.3s ease both'; setTimeout(() => m?.remove(), 300); }
+    }, 20000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(buildContextModal, 8000);
+  });
+})();
 
 /* ═══════════════════════════════════════════════════════════
    MODE PREVIEW — simuler un compte sans Supabase

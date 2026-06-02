@@ -84,7 +84,7 @@
 - [x] ~**I2.** `ww-bundle.js` + `footer.html` — `generateFooter()` lit `WW_DATA.pages`, `setActiveNav()` sur pathname complet, footer conteneur dynamique~
 - [x] ~**I3.** Composant `data-ww-hub="theme"` dans ww-bundle.js · injecté dans invest/fiscal/budget/immo/index.html · grilles statiques supprimées~
 - [x] ~**I4.** Onboarding 4 questions (profil, objectif, niveau, thème) — recommandations depuis WW_DATA.pages · tip Waffy · `WW_buildOnboarding` exposé pour réutilisation en I6~
-- [ ] **I5.** Modal “tu es au bon endroit ?” — si onboarding non fait ET page ≠ index.html → après 8s : “Tu es sur [page]. C’est bien ce que tu cherches ?” → [Oui] [Non → guidez-moi]
+- [x] ~**I5.** Modal “tu es au bon endroit ?” — après 8s · affiche emoji+titre de la page · [Oui je reste] [Non guidez-moi → ouvre onboarding] · fermeture auto 20s · 1x par session~
 - [ ] **I6.** `index.html` — refonte page d’accueil :
   - Hero : slogan + 2 boutons [Je sais ↓] [Guidez-moi ↓] · Waffy Guide · pas de compteurs froids
   - Section A “Je sais” : barre recherche (réutiliser code existant) + sitemap visuelle 6 thèmes · 3 pages/thème + “Voir tout →” · mobile = accordéons
@@ -277,6 +277,7 @@
 
 ## ✅ Fait
 
+- ~**I5.** Modal contextuelle 8s — “Tu es au bon endroit ?” avec nom page depuis WW_DATA.pages · guidez-moi → WW_buildOnboarding()~
 - ~**I4.** Onboarding 4 questions — profil/objectif/niveau/thème · recommandations WW_DATA.pages · tip Waffy · WW_buildOnboarding exposé~
 - ~**I3.** `initHubComponents()` — composant hub dynamique depuis WW_DATA.pages, grilles statiques remplacées dans 4 hubs, CSS injecté, badge niveau pilote/radar~
 - ~**I2.** `generateFooter()` depuis `WW_DATA.pages` · `setActiveNav()` corrigé pathname complet · `footer.html` → conteneur `#ww-footer-nav` dynamique~
