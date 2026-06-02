@@ -12,6 +12,29 @@
 - Zéro duplication de logique, contenu ou données
 - Expliquer les impacts avant tout changement structurel
 
+## Format de la ROADMAP — obligatoire
+
+La ROADMAP est structurée en **groupes par fichiers touchés**, pas en liste plate numérotée.
+
+**Structure de chaque groupe :**
+
+```
+## 🟠 GROUPE X — Nom du groupe (fichiers concernés)
+> Description courte de ce qui est groupé et pourquoi
+
+- [ ] **N.** Description courte · détails techniques si besoin
+- [ ] **N.** ...
+```
+
+**Règles de format :**
+
+- Un groupe = des points qui touchent les mêmes fichiers → 1 seul commit possible
+- Emoji de priorité : 🔴 critique · 🟠 court terme · 🟡 moyen terme · 🔵 long terme · 🟣 dédié · ⚪ futur
+- Les sous-listes de pages vont sous le point parent (pas de points séparés par page)
+- Les points faits vont dans `## ✅ Fait` en bas, avec `~~texte~~`
+- Ne jamais renuméroter les points — garder les numéros d’origine même s’ils ne sont plus dans l’ordre
+- Ajouter les nouveaux points dans le bon groupe avec le prochain numéro disponible
+
 ## Mise à jour obligatoire des docs à chaque session
 
 > **RÈGLE PERMANENTE — s’applique automatiquement, sans qu’on ait besoin de le demander**
@@ -38,6 +61,13 @@ Après chaque tâche complétée, mettre à jour immédiatement :
 **`STATUS.md`** :
 
 - Mettre à jour l’état de mise en ligne et les blocages actuels
+
+## Images — dossier `/img/`
+
+- **Toutes les images** vont dans `/img/` à la racine du repo — jamais à la racine, jamais dans `/assets/`
+- Chemins toujours absolus : `/img/waffy-logo.png` jamais `IMG_5202.png` ni `../img/waffy.png`
+- Nommage : kebab-case descriptif (`waffy-logo.png`, `waffy-avatar.png`, `og-image.jpg`)
+- Images actuelles à migrer : `IMG_5202.png` → `/img/waffy-logo.png` · `IMG_5208.png` → `/img/waffy-avatar.png`
 
 ## Conventions de code
 
