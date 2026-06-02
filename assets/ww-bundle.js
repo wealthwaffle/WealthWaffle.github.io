@@ -562,6 +562,7 @@ function updateAuthNav() {
     // Init after load
     setActiveNav();
     generateFooter();
+    initHubComponents();
     initMegaMenu();
     initBackTop();
     initTheme();
@@ -1754,6 +1755,123 @@ const WAFFY_CONTEXT = {
     { label: 'ELT cumul pension',   q: 'Cumuler épargne pension et ELT' },
   ],
 };
+
+
+/* ═══════════════════════════════════════════════════════════
+   COMPOSANT HUB DE THÈME (I3)
+   Usage : <div data-ww-hub="invest"></div>
+   Génère automatiquement la grille des pages du thème
+   depuis WW_DATA.pages — ajouter une page dans data.js suffit
+═══════════════════════════════════════════════════════════ */
+function initHubComponents() {
+  const containers = document.querySelectorAll('[data-ww-hub]');
+  if (!containers.length || !window.WW_DATA?.pages) return;
+
+  containers.forEach(container => {
+    const theme = container.dataset.wwHub;
+    const currentUrl = location.pathname.replace(/\/$/, '') || '/';
+
+    // Pages du thème, exclure la page courante (hub lui-même)
+    const pages = window.WW_DATA.pages.filter(p =>
+      p.theme === theme &&
+      p.url.replace(/\/$/, '') !== currentUrl
+    );
+
+    if (!pages.length) return;
+
+    // Couleurs accent par thème
+    const THEME_COLORS = {
+      parcours:  'rgba(91,184,212,0.30)',   // cyan
+      budget:    'rgba(126,200,160,0.30)',   // vert
+      invest:    'rgba(46,204,113,0.30)',    // emerald
+      immo:      'rgba(231,111,81,0.30)',    // sunset red
+      fiscal:    'rgba(108,52,131,0.30)',    // purple
+      outils:    'rgba(232,124,195,0.30)',   // rose
+      contenu:   'rgba(91,184,212,0.30)',    // cyan
+      programme: 'rgba(232,124,195,0.30)',   // rose
+      apropos:   'rgba(150,150,150,0.20)',   // gris
+    };
+    const accentColor = THEME_COLORS[theme] || 'rgba(255,255,255,0.10)';
+
+    container.innerHTML = `
+      <div class="ww-hub-grid">
+        ${pages.map(p => `
+          <a href="${p.url}" class="ww-hub-card" style="--hub-accent:${accentColor}">
+            <span class="ww-hub-emoji">${p.emoji}</span>
+            <div class="ww-hub-text">
+              <div class="ww-hub-title">${p.titre}</div>
+              <div class="ww-hub-desc">${p.description}</div>
+            </div>
+            ${p.level !== 'all' ? `<span class="ww-hub-badge">${p.level === 'pilote' ? '✈️' : '📡'}</span>` : ''}
+          </a>
+        `).join('')}
+      </div>
+    `;
+  });
+}
+
+/* CSS du composant hub injecté une seule fois */
+(function injectHubCSS() {
+  if (document.getElementById('ww-hub-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'ww-hub-styles';
+  style.textContent = `
+    .ww-hub-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 600px) {
+      .ww-hub-grid { grid-template-columns: 1fr; }
+    }
+    .ww-hub-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--s2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      text-decoration: none;
+      transition: border-color 0.18s, transform 0.18s, background 0.18s;
+      position: relative;
+    }
+    .ww-hub-card:hover {
+      border-color: var(--hub-accent, rgba(91,184,212,0.35));
+      transform: translateY(-2px);
+      background: var(--s3);
+    }
+    .ww-hub-emoji {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      width: 32px;
+      text-align: center;
+    }
+    .ww-hub-text { flex: 1; min-width: 0; }
+    .ww-hub-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .ww-hub-desc {
+      font-size: 0.70rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ww-hub-badge {
+      font-size: 0.68rem;
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      opacity: 0.6;
+    }
+  `;
+  document.head.appendChild(style);
+})();
 
 function initWaffyContextualReplies() {
   // Wait for Waffy to be built
