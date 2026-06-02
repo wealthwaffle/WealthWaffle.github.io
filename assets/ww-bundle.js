@@ -307,14 +307,53 @@ function updateAuthNav() {
 }
 
   /* ── Set active nav link ── */
+  /* ── Active nav link (I2 — pathname complet) ── */
   function setActiveNav() {
-    const page = location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('#ww-nav a').forEach(a => {
-      const href = a.getAttribute('href');
-      if (href === page || (page === '' && href === 'index.html')) {
-        a.classList.add('active');
+    const currentPath = location.pathname.replace(/\/$/, '') || '/';
+    document.querySelectorAll('#ww-nav a, #mobile-menu a').forEach(a => {
+      const href = (a.getAttribute('href') || '').replace(/\/$/, '');
+      if (!href || href === '#') return;
+      const isExact  = href === currentPath;
+      const isParent = href !== '/' && currentPath.startsWith(href + '/');
+      if (isExact || isParent) {
+        a.classList.add('ww-nav-active');
+        a.style.color = 'var(--text)';
       }
     });
+  }
+
+  /* ── Génère le footer depuis WW_DATA.pages (I2) ── */
+  function generateFooter() {
+    const container = document.getElementById('ww-footer-nav');
+    if (!container || !window.WW_DATA?.pages) return;
+
+    const FOOTER_COLS = [
+      { label: 'Je démarre',         themes: ['parcours','budget']            },
+      { label: "J'investis",         themes: ['invest','immo']                },
+      { label: 'Fiscalité & Outils', themes: ['fiscal','outils']              },
+      { label: 'WealthWaffle',       themes: ['contenu','programme','apropos'] },
+    ];
+    const EXCLUDE = ['/dashboard/', '/radar/watchlist.html'];
+    const pages = window.WW_DATA.pages.filter(p => !EXCLUDE.some(x => p.url.startsWith(x)));
+    const THEME_LABELS = {
+      invest:'Investissement', immo:'Immobilier',
+      contenu:'Contenus', programme:'Programme', apropos:'À propos',
+    };
+
+    container.innerHTML = FOOTER_COLS.map(col => {
+      const colPages = pages.filter(p => col.themes.includes(p.theme));
+      if (!colPages.length) return '';
+      let inner = '';
+      col.themes.forEach(theme => {
+        const group = colPages.filter(p => p.theme === theme);
+        if (!group.length) return;
+        if (col.themes.length > 1 && THEME_LABELS[theme]) {
+          inner += `<div class="footer-col-title" style="margin-top:10px;">${THEME_LABELS[theme]}</div>`;
+        }
+        inner += group.map(p => `<a href="${p.url}">${p.emoji} ${p.titre}</a>`).join('');
+      });
+      return `<div class="footer-col"><div class="footer-col-title">${col.label}</div>${inner}</div>`;
+    }).join('');
   }
 
   /* ── Mega-menu desktop ── */
@@ -522,6 +561,7 @@ function updateAuthNav() {
 
     // Init after load
     setActiveNav();
+    generateFooter();
     initMegaMenu();
     initBackTop();
     initTheme();

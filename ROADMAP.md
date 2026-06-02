@@ -80,8 +80,8 @@
 
 > Dépend du Groupe B (data.js) — faire B d’abord
 
-- [ ] **I1.** `data.js` — ajouter `WW_DATA.pages` : tableau structuré de toutes les pages avec `{url, emoji, titre, description, theme, level}` · source unique nav + footer + accueil + hubs
-- [ ] **I2.** `ww-bundle.js` — réécrire injection nav et footer pour qu’ils lisent `WW_DATA.pages` dynamiquement · ajouter une page = modifier data.js uniquement
+- [x] ~**I1.** `data.js` — `WW_DATA.pages` : 60 pages, 9 thèmes, emoji+titre+description+level~ : tableau structuré de toutes les pages avec `{url, emoji, titre, description, theme, level}` · source unique nav + footer + accueil + hubs
+- [x] ~**I2.** `ww-bundle.js` + `footer.html` — `generateFooter()` lit `WW_DATA.pages`, `setActiveNav()` sur pathname complet, footer conteneur dynamique~
 - [ ] **I3.** Pages hub de thème (`/invest/index.html`, `/fiscal/index.html`, `/budget/index.html`, `/immo/index.html`) — composant JS commun qui liste les pages du thème depuis `WW_DATA.pages` · même rendu partout
 - [ ] **I4.** Onboarding — fusionner popup actuel avec questionnaire 4 questions :
 1. Profil (Salarié / Indépendant / Dirigeant)
@@ -283,6 +283,8 @@
 
 ## ✅ Fait
 
+- ~**I2.** `generateFooter()` depuis `WW_DATA.pages` · `setActiveNav()` corrigé pathname complet · `footer.html` → conteneur `#ww-footer-nav` dynamique~
+- ~**I1.** `WW_DATA.pages` dans data.js — 60 pages, 9 thèmes (parcours/budget/invest/immo/fiscal/outils/contenu/programme/apropos), emoji+titre+description+level~
 - ~**84.** `lead_magnets` dans `data.js` — 8 guides complets avec autoroute Brevo~
 - ~**85.** `prix_fondateurs` dans `data.js` — stockés, non affichés~
 - ~**3.** `fiscal/tax-shelter-startup.html` — réduction IPP 25-45%, plateformes, risques, CTA Radar~
