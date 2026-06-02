@@ -77,6 +77,7 @@
 ## 🟡 GROUPE D — Pages HTML une par une (règle 11+12+15+77+78 sur chacune)
 
 > Pour chaque page : CSS inline → ww-all.css · Waffy tips · graphiques animés · simulateurs inline · titre H1 conforme PAGE_NAMES.md
+> Waffy : 1 seul par page · taille 80-140px · placement selon WAFFY_GUIDE.md · jamais dans texte dense
 
 **Priorité 1 — pages phares**
 
@@ -150,6 +151,12 @@
 - [ ] **7c.** CTA concrets — “Calculer mon PLCI optimal” plutôt que “Commencer”
 - [ ] **7d.** Tableau comparatif visuel Socle → Pilote → Radar clair
 - [ ] **7e.** Mention Belgique dans les CTA
+
+**Waffy — intégration sur le site**
+
+- [ ] **W1.** Générer les 33 visuels Waffy via Grok (prompts dans `WAFFY_GUIDE.md`) → dossier `/img/waffy/`
+- [ ] **W2.** Intégrer Waffy dans les 7 emplacements validés : `.waffy-tip` · résultats simulateurs · CTA fin de page · 404 · bloc débutant · onboarding · toasts email
+- [ ] **W3.** CSS `.waffy-tip` finalisé dans `ww-all.css` avec les tailles (80/100/120/140/150/200px) et positions (inline-left, inline-right, centré)
 
 **Outils**
 

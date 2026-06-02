@@ -360,3 +360,116 @@ Pixar-style 3D rendered waffle character named Waffy. Golden-brown Belgian waffl
 |Retraite & Rente     |Rose             |`#E87CC3`|Couleur WW signature — c’est LE rêve                    |
 |Programme Doctrine   |Rose → Cyan      |gradient |Couleur identité WealthWaffle                           |
 |Erreurs / 404        |Charcoal Grey    |`#2D3436`|Neutralité, pas d’alarme                                |
+
+-----
+
+## 📍 Règles de placement — où et comment
+
+### Les 4 règles d’or
+
+1. **Jamais deux fois par page** — une seule apparition, sinon perd son effet
+1. **Jamais dans le texte dense** — il va dans les pauses naturelles
+1. **Toujours à un moment émotionnel fort** — stress, réussite, curiosité, transition
+1. **Petit et discret** — 80-140px, aligné gauche/droite d’un texte court. Jamais centré en pleine page (sauf 404)
+
+### Les 7 emplacements validés
+
+|#|Emplacement                              |Taille|Waffy recommandé      |Déclencheur émotionnel |
+|-|-----------------------------------------|------|----------------------|-----------------------|
+|1|`.waffy-tip` milieu de page              |80px  |Thématique de la page |Après section complexe |
+|2|Résultat de simulateur                   |120px |Calculateur / Résultat|Surprise / satisfaction|
+|3|CTA fin de page (à côté du bouton)       |100px |Guide / Thématique    |Incitation à l’action  |
+|4|Page 404 et erreurs                      |200px |Oups                  |Utilisateur perdu      |
+|5|Premier bloc débutant (mode 🌱)           |80px  |Professeur            |Rassurer le débutant   |
+|6|Onboarding / inscription                 |150px |Guide                 |Transition importante  |
+|7|Toast / email confirmation téléchargement|60px  |Thématique            |Post-action            |
+
+### Ce qu’il ne faut JAMAIS faire
+
+- ❌ Dans les tableaux de données
+- ❌ Répété si `.waffy-tip` déjà présent sur la page
+- ❌ Dans la navigation
+- ❌ En pleine largeur sur mobile
+- ❌ En animation boucle infinie
+- ❌ Sur `doctrine.html` (CTAs déjà chargés)
+
+### Règle finale
+
+> **Waffy apparaît là où l’utilisateur ressent quelque chose.** Jamais là où il lit de l’information froide.
+
+-----
+
+## 🆕 Versions supplémentaires — emplacements spécifiques
+
+### Waffy Onboarding
+
+**Fichier :** `waffy-bienvenue.png`
+**Costume :** Rose → Cyan gradient (Doctrine)
+**Pose :** 3/4 droite, bras gauche ouvert vers l’utilisateur en geste d’accueil, bras droit tenant une petite boussole
+**Expression :** Enthusiastic Joy — grand sourire franc, yeux pétillants
+**Accessoire :** Petite boussole dans la main droite, confetti léger autour
+**Emplacement :** Page inscription + page bienvenue post-inscription · 150px centré
+**Message :** “Bienvenue — commençons par te trouver le bon point de départ”
+**Prompt :**
+
+> Pixar-style 3D rendered waffle character. Golden-brown waffle body, powdered sugar, slate blue eyes, cognac shoes. Arms and legs with gradient from rose pink (#E87CC3) to cyan (#5BB8D4). 3/4 right view, left arm open toward viewer in welcoming gesture, right hand holding a small golden compass. Enthusiastic joyful expression — big genuine smile, sparkling eyes. Light confetti pieces floating around. Transparent background. Pixar 3D warm lighting.
+
+-----
+
+### Waffy Inquiet (résultat simulateur mauvais)
+
+**Fichier :** `waffy-inquiet.png`
+**Costume :** Deep Purple `#6C3483`
+**Pose :** Face, main droite sur la joue (geste de réflexion inquiète), bras gauche croisé sous le droit
+**Expression :** Sourcils froncés mais pas alarmants, regard vers le bas, bouche légèrement courbée
+**Accessoire :** Petit point d’interrogation flottant, bulle de pensée vide
+**Emplacement :** Résultat simulateur décevant — avant le texte “voici ce qu’on peut faire” · 120px
+**Message :** “C’est pas là où tu veux être — mais voilà le chemin”
+**Prompt :**
+
+> Pixar-style 3D rendered waffle character. Golden-brown waffle body, powdered sugar, slate blue eyes, cognac shoes. Deep purple (#6C3483) arms and legs. Front view, right hand raised to cheek in worried-thinking pose, left arm crossed underneath. Concerned but not alarmed expression — furrowed brows, gaze slightly downward, small uncertain curve of mouth. Small floating question mark beside him, empty thought bubble above. Transparent background. Pixar 3D warm lighting.
+
+-----
+
+### Waffy Célébration (résultat simulateur excellent)
+
+**Fichier :** `waffy-celebration.png`
+**Costume :** Emerald Green `#2ECC71`
+**Pose :** Face, deux bras levés en V de victoire, légèrement bondissant
+**Expression :** Enthusiastic Joy maximum — bouche grande ouverte, yeux plissés de joie
+**Accessoire :** Confetti multicolores, étoiles dorées, petits feux d’artifice
+**Emplacement :** Résultat simulateur très positif · 140px
+**Message :** “Tu es sur la bonne voie — voilà ce que ça donne en 20 ans”
+**Prompt :**
+
+> Pixar-style 3D rendered waffle character. Golden-brown waffle body, powdered sugar, slate blue eyes, cognac shoes. Emerald green (#2ECC71) arms and legs. Front view, both arms raised high in V for victory gesture, body slightly lifted as if jumping. Maximum enthusiastic joy — mouth wide open in celebration, eyes squinting with happiness. Colorful confetti, golden stars, mini fireworks bursting around him. Transparent background. Pixar 3D warm lighting.
+
+-----
+
+### Waffy Email (toast / confirmation)
+
+**Fichier :** `waffy-email.png`
+**Costume :** Teal `#2A9D8F`
+**Pose :** 3/4 droite, main gauche tenant une petite enveloppe ouverte, main droite pouce levé
+**Expression :** Warm Friendly — sourire doux et rassurant
+**Accessoire :** Enveloppe ouverte avec une lettre qui sort, petite check ✓ verte
+**Emplacement :** Toast confirmation email envoyé · 60px · email de livraison lead magnet
+**Message :** “C’est en route !”
+**Prompt :**
+
+> Pixar-style 3D rendered waffle character. Golden-brown waffle body, powdered sugar, slate blue eyes, cognac shoes. Teal (#2A9D8F) arms and legs. 3/4 right view, left hand holding a small open envelope with a letter emerging, right hand thumbs up. Warm friendly expression — soft reassuring smile. Small green checkmark floating near the envelope. Transparent background. Pixar 3D warm lighting.
+
+-----
+
+### Waffy Débutant (mode lecture 🌱)
+
+**Fichier :** `waffy-debutant.png`
+**Costume :** Sage Green `#9DC183`
+**Pose :** 3/4 gauche, index levé doucement (pas autoritaire), tête légèrement inclinée vers l’utilisateur
+**Expression :** Warm Friendly — sourire bienveillant, sourcils légèrement relevés façon “je t’écoute”
+**Accessoire :** Petite étiquette “🌱 Version simple” flottante à côté
+**Emplacement :** En-tête du bloc débutant quand mode 🌱 actif · 80px inline droite
+**Message :** “Version accessible — tu peux toujours voir la version avancée en dessous”
+**Prompt :**
+
+> Pixar-style 3D rendered waffle character. Golden-brown waffle body, powdered sugar, slate blue eyes, cognac shoes. Sage green (#9DC183) arms and legs. 3/4 left view, right index finger gently raised (not commanding, more like a soft reminder), head slightly tilted toward viewer. Warm friendly expression — benevolent smile, eyebrows slightly raised in an “I’m here for you” gesture. Small floating label “Version simple 🌱” beside him. Transparent background. Pixar 3D warm lighting.
