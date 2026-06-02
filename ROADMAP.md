@@ -57,8 +57,8 @@
 
 ## 🟠 GROUPE B — `data.js` uniquement
 
-- [ ] **84.** Ajouter objet `LEAD_MAGNETS` dans `data.js` — id, file, autoroute par magnet (source unique)
-- [ ] **85.** Prix fondateurs dans `doctrine.html` — “Tarif fondateur bloqué à vie · Pilote 99€ → 149€ · Radar 199€ → 299€”
+- [x] ~**84.** `lead_magnets` dans `data.js` — 8 guides, id/key/titre/emoji/file/url_cdn/autoroute/brevo_tag/theme~
+- [x] ~**85.** `prix_fondateurs` dans `data.js` — pilote futur 149€, radar futur 299€, message “bloqué à vie” · NE PAS afficher encore sur le site~
 
 -----
 
@@ -283,6 +283,8 @@
 
 ## ✅ Fait
 
+- ~**84.** `lead_magnets` dans `data.js` — 8 guides complets avec autoroute Brevo~
+- ~**85.** `prix_fondateurs` dans `data.js` — stockés, non affichés~
 - ~**3.** `fiscal/tax-shelter-startup.html` — réduction IPP 25-45%, plateformes, risques, CTA Radar~
 - ~**4.** `fiscal/tax-shelter-audiovisuel.html` — exonération IS 310%, intermédiaires, comparatif~
 - ~**8.** Glossaire — nav A-Z, compteur auto, termes Radar (via WW_TERMS)~

@@ -187,6 +187,121 @@ window.WW_DATA = {
   // ─── DIVIDENDES ───────────────────────────────────────────
   div_exoneration_pme: 800,    // € nets/an — exonérés pour PME non cotées
 
+  // ─── PRIX FONDATEURS ──────────────────────────────────────
+  // Prix actuels = prix fondateurs (bloqués à vie pour les premiers inscrits)
+  // Prix futurs = augmentation prévue quand le site atteindra sa vitesse de croisière
+  // NE PAS AFFICHER les prix futurs sur le site tant que la décision n'est pas prise
+  prix_fondateurs: {
+    pilote_annuel_futur:  149,   // € — prix annuel prévu après la période fondateurs
+    radar_annuel_futur:   299,   // € — prix annuel prévu après la période fondateurs
+    // Note : pilote_mensuel et radar_mensuel futurs pas encore définis
+    message: 'Tarif fondateur bloqué à vie',
+  },
+
+  // ─── LEAD MAGNETS ─────────────────────────────────────────
+  // Source unique pour tous les guides téléchargeables
+  // url_cdn = chemin Cloudflare Pages vers le fichier
+  // autoroute = séquence Brevo déclenchée après téléchargement (A, B ou C)
+  // brevo_tag = tag ajouté au contact dans Brevo
+  lead_magnets: [
+    {
+      id:          1,
+      key:         'budget-belge',
+      titre:       'Mon Budget Belge',
+      description: 'Tableau 50/30/20 prêt à l\'emploi pour reprendre le contrôle',
+      emoji:       '🗂️',
+      file:        'budget-belge.xlsx',
+      url_cdn:     '/downloads/budget-belge.xlsx',  // ← à remplir après upload
+      autoroute:   'A',
+      brevo_tag:   'lead_budget',
+      theme:       'budget',
+    },
+    {
+      id:          2,
+      key:         'guide-etf',
+      titre:       'Guide ETF Belge 2026',
+      description: '5 ETF à connaître + fiscalité TOB + stratégie DCA',
+      emoji:       '📊',
+      file:        'guide-etf-belge.pdf',
+      url_cdn:     '/downloads/guide-etf-belge.pdf',
+      autoroute:   'B',
+      brevo_tag:   'lead_etf',
+      theme:       'invest',
+    },
+    {
+      id:          3,
+      key:         'allocation',
+      titre:       'Simulateur d\'Allocation',
+      description: 'Répartis ton portefeuille selon ton profil et ton horizon',
+      emoji:       '⚖️',
+      file:        'allocation-portefeuille.xlsx',
+      url_cdn:     '/downloads/allocation-portefeuille.xlsx',
+      autoroute:   'B',
+      brevo_tag:   'lead_allocation',
+      theme:       'invest',
+    },
+    {
+      id:          4,
+      key:         'checklist-immo',
+      titre:       'Checklist Achat Immobilier',
+      description: 'Étapes, documents, pièges et questions pour le notaire',
+      emoji:       '🔑',
+      file:        'checklist-achat-immo.pdf',
+      url_cdn:     '/downloads/checklist-achat-immo.pdf',
+      autoroute:   'B',
+      brevo_tag:   'lead_immo',
+      theme:       'immo',
+    },
+    {
+      id:          5,
+      key:         'checklist-fiscale',
+      titre:       'Checklist Fiscale 2026',
+      description: 'Toutes les déductions IPP par profil — à cocher avant le 30 juin',
+      emoji:       '📝',
+      file:        'checklist-fiscale-2026.pdf',
+      url_cdn:     '/downloads/checklist-fiscale-2026.pdf',
+      autoroute:   'C',
+      brevo_tag:   'lead_fiscal',
+      theme:       'fiscal',
+    },
+    {
+      id:          6,
+      key:         'guide-crypto',
+      titre:       'Guide Crypto Belge',
+      description: 'Exchanges, fiscalité 2026, déclaration BNB — tout ce qu\'il faut savoir',
+      emoji:       '₿',
+      file:        'guide-crypto-belge.pdf',
+      url_cdn:     '/downloads/guide-crypto-belge.pdf',
+      autoroute:   'B',
+      brevo_tag:   'lead_crypto',
+      theme:       'crypto',
+    },
+    {
+      id:          7,
+      key:         'guide-tax-shelter',
+      titre:       'Guide Tax Shelter',
+      description: 'Réduire son impôt en investissant dans des startups belges',
+      emoji:       '🌱',
+      file:        'guide-tax-shelter.pdf',
+      url_cdn:     '/downloads/guide-tax-shelter.pdf',
+      autoroute:   'C',
+      brevo_tag:   'lead_taxshelter',
+      theme:       'fiscal',
+    },
+    {
+      id:          8,
+      key:         'guide-or',
+      titre:       'Guide Or Belgique',
+      description: 'Lingots, ETF or, fiscalité — investir dans l\'or depuis la Belgique',
+      emoji:       '🥇',
+      file:        'guide-or-belgique.pdf',
+      url_cdn:     '/downloads/guide-or-belgique.pdf',
+      autoroute:   'B',
+      brevo_tag:   'lead_or',
+      theme:       'invest',
+    },
+  ],
+
 };
 
 /*
