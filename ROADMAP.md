@@ -74,6 +74,30 @@
 
 -----
 
+-----
+
+## 🟠 GROUPE I — Page d’accueil + système source unique (gros chantier)
+
+> Dépend du Groupe B (data.js) — faire B d’abord
+
+- [ ] **I1.** `data.js` — ajouter `WW_DATA.pages` : tableau structuré de toutes les pages avec `{url, emoji, titre, description, theme, level}` · source unique nav + footer + accueil + hubs
+- [ ] **I2.** `ww-bundle.js` — réécrire injection nav et footer pour qu’ils lisent `WW_DATA.pages` dynamiquement · ajouter une page = modifier data.js uniquement
+- [ ] **I3.** Pages hub de thème (`/invest/index.html`, `/fiscal/index.html`, `/budget/index.html`, `/immo/index.html`) — composant JS commun qui liste les pages du thème depuis `WW_DATA.pages` · même rendu partout
+- [ ] **I4.** Onboarding — fusionner popup actuel avec questionnaire 4 questions :
+1. Profil (Salarié / Indépendant / Dirigeant)
+1. Objectif (Épargner / Investir / Impôts / Immo / Retraite)
+1. Niveau (Débutant / J’ai des bases)
+1. Thème (Clair / Sombre)
+   → Résultat : 3 pages recommandées + message “Waffy en bas à droite peut te guider à tout moment”
+   → Stocké dans localStorage · déclenché si `ww_onboarding_done` absent
+- [ ] **I5.** Modal “tu es au bon endroit ?” — si onboarding non fait ET page ≠ index.html → après 8s : “Tu es sur [page]. C’est bien ce que tu cherches ?” → [Oui] [Non → guidez-moi]
+- [ ] **I6.** `index.html` — refonte page d’accueil :
+  - Hero : slogan + 2 boutons [Je sais ↓] [Guidez-moi ↓] · Waffy Guide · pas de compteurs froids
+  - Section A “Je sais” : barre recherche (réutiliser code existant) + sitemap visuelle 6 thèmes · 3 pages/thème + “Voir tout →” · mobile = accordéons
+  - Section B “Guidez-moi” : réutiliser composant onboarding (I4) · même questionnaire, même logique
+  - Section scroll : thèmes condensés pour non-cliqueurs (même data que A, présentation différente)
+  - Hero copy : “Des outils interactifs pour calculer, pas juste lire” — jamais “58 pages”
+
 ## 🟡 GROUPE D — Pages HTML une par une (règle 11+12+15+77+78 sur chacune)
 
 > Pour chaque page : CSS inline → ww-all.css · Waffy tips · graphiques animés · simulateurs inline · titre H1 conforme PAGE_NAMES.md

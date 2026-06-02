@@ -196,3 +196,44 @@ Jamais de texte brut. Jamais d’explication autour.
 - Présenter les fichiers modifiés après chaque modification sans attendre
 - Sur “commit + fichiers” : commande git exacte + `present_files` — rien d’autre
 - Jamais d’explication de ce qui a été fait sauf demande explicite
+
+## Architecture page d’accueil — décisions structurelles
+
+### Principe source unique
+
+`WW_DATA.pages` dans `data.js` = source unique de toutes les pages.
+Nav, footer, accueil, et pages hub lisent tous ce tableau — ajouter une page = modifier `data.js` uniquement.
+
+### Onboarding — 4 questions (fusionné avec popup actuel)
+
+1. “Tu es…” → Salarié · Indépendant · Dirigeant
+1. “Ton objectif ?” → Épargner · Investir · Réduire mes impôts · Acheter un bien · Retraite
+1. “Tu débutes ou tu as des bases ?” → Je débute · J’ai déjà des notions
+1. “Thème ?” → ☀️ Clair · 🌙 Sombre
+   → 4 clics → résultat immédiat → message final : “À tout moment, Waffy en bas à droite peut te guider”
+   → Stocké dans localStorage (ww_profile, ww_level, ww_theme)
+
+### Visiteur arrivant sur une page spécifique (pas l’accueil)
+
+Si onboarding non fait ET page ≠ index.html → modal légère après 8 secondes :
+“Tu es sur [nom page]. C’est bien ce que tu cherches ?” → [Oui, je reste] [Non, guidez-moi →]
+Si “Non” → ouvrir le questionnaire guidage.
+
+### Structure page d’accueil (1 seule page, tout en scroll)
+
+1. Hero — slogan + 2 boutons : [Je sais ce que je veux ↓] [Guidez-moi ↓]
+1. Section A “Je sais” — barre recherche (déjà codée) + sitemap visuelle par thème
+1. Section B “Guidez-moi” — même questionnaire que onboarding (réutiliser le composant)
+1. Section scroll — thèmes condensés pour les non-cliqueurs
+
+### Sitemap visuelle — règle mobile-first
+
+- Desktop : 6 thèmes en grille, 3 pages principales par thème + “Voir tout →”
+- Mobile : accordéon par thème, 3 pages visible, “+” pour dérouler
+- “Voir tout →” pointe vers la page hub du thème (ex: /invest/, /fiscal/, /budget/)
+- Les pages hub de thème existent déjà (index.html dans chaque dossier) — les enrichir avec le même composant JS qui liste les pages du thème depuis WW_DATA.pages
+
+### Hero — pas de compteurs froids
+
+Ne pas afficher “58 pages” ou “27 outils” en chiffres.
+Dire à la place : “Des outils interactifs pour calculer, pas juste lire” — l’idée c’est que c’est actif, pas encyclopédique.
