@@ -83,13 +83,7 @@
 - [x] ~**I1.** `data.js` — `WW_DATA.pages` : 60 pages, 9 thèmes, emoji+titre+description+level~ : tableau structuré de toutes les pages avec `{url, emoji, titre, description, theme, level}` · source unique nav + footer + accueil + hubs
 - [x] ~**I2.** `ww-bundle.js` + `footer.html` — `generateFooter()` lit `WW_DATA.pages`, `setActiveNav()` sur pathname complet, footer conteneur dynamique~
 - [x] ~**I3.** Composant `data-ww-hub="theme"` dans ww-bundle.js · injecté dans invest/fiscal/budget/immo/index.html · grilles statiques supprimées~
-- [ ] **I4.** Onboarding — fusionner popup actuel avec questionnaire 4 questions :
-1. Profil (Salarié / Indépendant / Dirigeant)
-1. Objectif (Épargner / Investir / Impôts / Immo / Retraite)
-1. Niveau (Débutant / J’ai des bases)
-1. Thème (Clair / Sombre)
-   → Résultat : 3 pages recommandées + message “Waffy en bas à droite peut te guider à tout moment”
-   → Stocké dans localStorage · déclenché si `ww_onboarding_done` absent
+- [x] ~**I4.** Onboarding 4 questions (profil, objectif, niveau, thème) — recommandations depuis WW_DATA.pages · tip Waffy · `WW_buildOnboarding` exposé pour réutilisation en I6~
 - [ ] **I5.** Modal “tu es au bon endroit ?” — si onboarding non fait ET page ≠ index.html → après 8s : “Tu es sur [page]. C’est bien ce que tu cherches ?” → [Oui] [Non → guidez-moi]
 - [ ] **I6.** `index.html` — refonte page d’accueil :
   - Hero : slogan + 2 boutons [Je sais ↓] [Guidez-moi ↓] · Waffy Guide · pas de compteurs froids
@@ -283,6 +277,7 @@
 
 ## ✅ Fait
 
+- ~**I4.** Onboarding 4 questions — profil/objectif/niveau/thème · recommandations WW_DATA.pages · tip Waffy · WW_buildOnboarding exposé~
 - ~**I3.** `initHubComponents()` — composant hub dynamique depuis WW_DATA.pages, grilles statiques remplacées dans 4 hubs, CSS injecté, badge niveau pilote/radar~
 - ~**I2.** `generateFooter()` depuis `WW_DATA.pages` · `setActiveNav()` corrigé pathname complet · `footer.html` → conteneur `#ww-footer-nav` dynamique~
 - ~**I1.** `WW_DATA.pages` dans data.js — 60 pages, 9 thèmes (parcours/budget/invest/immo/fiscal/outils/contenu/programme/apropos), emoji+titre+description+level~
