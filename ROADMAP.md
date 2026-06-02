@@ -354,3 +354,36 @@ Affiliations trackées (Trade Republic, DEGIRO, Bolero, Keytrade) · TikTok/YouT
 - [ ] **104.** Stripe — produit “Conformité Crypto” 49€/an récurrent · 5 rapports/mois max · évolutif vers ETF/actions
 - [ ] **105.** Supabase — table `exchange_rates` (taux journaliers EUR/crypto, chargée 1x/an via API CoinGecko) + table `crypto_reports` (résumés JSONB, stockage volontaire) + colonne `has_crypto_addon` dans profiles
 - [ ] **106.** Edge Function `update-exchange-rates` — cron 1er janvier, appel CoinGecko taux moyen journalier année N-1, stockage Supabase `exchange_rates`
+
+-----
+
+## 🔧 Refonte technique — Morceaux
+
+### ✅ Fait
+
+- ~**M1** — Fixes JS critiques : `toggleMob` alias, mode lecture supprimé, Waffy mobile (`event.preventDefault`), preview mode timing (`updateAuthNav` forcé), `back-to-top` → gauche~
+- ~**M1** — `data.js` : `WW_DATA.prix` (tous les prix programmes + `trial_days`) + `WW_DATA.stats` (nb_pages, nb_simulateurs, nb_guides)~
+- ~**M1** — `doctrine.html` : `PRICES` locaux → `WW_DATA.prix`, “sans carte bancaire” supprimé~
+- ~**M1** — Preview mode cookie 7 jours : `?ww_preview=admin/radar/pilote/socle` persiste, `?ww_preview=off` efface, plan `admin` = accès total~
+- ~**M1** — Toggles débutant/avancé par section : bouton toujours visible, mode avancé ajoute bouton “Simplifier”, état local indépendant du global~
+- ~**M2** — `nav.html` + `footer.html` : réécriture complète, tous liens absolus, nouvelles pages, emojis uniques, libellés orientés bénéfice~
+- ~**M2** — `PAGE_NAMES.md` : table de référence officielle emoji + libellé nav + titre H1 pour toutes les pages~
+
+### 🔲 En attente
+
+- [ ] **M3** — `doctrine.html` : ajouter bloc Calculateur Crypto add-on 49€ · vérifier intégration WW_DATA.prix
+- [ ] **M4** — Batch Python : supprimer “La gaufre, elle juge pas” (2 fichiers) · supprimer “Sans carte bancaire” (9 fichiers) · passer liens relatifs → absolus sur toutes les pages
+- [ ] **M5** — Système `data-ww` injection : valeurs fiscales en dur dans 20-49 fichiers → `<span data-ww="clé"></span>` injectés par `ww-bundle.js` · IS 25%, PM 30%, franchise 10K€, Tax Shelter 45%…
+- [ ] **M6** — Pages HTML une par une (liste ROADMAP 11&12) : CSS inline → ww-all.css · Waffy tips · graphiques JS/CSS animés · couleurs débutant/avancé · simulateurs inline avec résultat · noms H1 conformes PAGE_NAMES.md
+- [ ] **M7** — `/outils/index.html` : résultats inline sous chaque outil + lien page associée (pas de results.html)
+- [ ] **M8** — Stripe trial 7j : activer `trial_period_days:7` sur les 5 Price IDs existants · message → “7 jours gratuits, résiliation avant pour ne rien payer”
+- [ ] **M9** — CTA calculateur crypto inséré dans `invest/crypto.html` et `fiscal/crypto.html` à la section fiscalité
+- [ ] **M10** — Vérification globale : CSS uniforme · JS bundle injecté · nav correcte · PAGE_NAMES.md respecté sur toutes les pages
+
+-----
+
+## 🏷️ Noms officiels des pages
+
+> Référence complète dans `/PAGE_NAMES.md`
+> Règle : emoji + libellé nav = titre H1 de la page
+> “Propriétaire” remplace tout terme équivalent sur les pages immo/achat
