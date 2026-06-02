@@ -2590,48 +2590,120 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* ═══════════════════════════════════════════════════════════
    MODE PREVIEW — simuler un compte sans Supabase
-   Usage : ajouter ?ww_preview=radar (ou socle / pilote) dans l'URL
-   Enlever avec ?ww_preview=off
+   ─────────────────────────────────────────────────────────
+   ACTIVATION  : ajouter ?ww_preview=radar (ou socle / pilote)
+   DÉSACTIVATION : ajouter ?ww_preview=off
+   PERSISTANCE : le mode reste actif via cookie "ww_preview"
+                 jusqu'à désactivation explicite — pas besoin
+                 de remettre le paramètre à chaque page.
 ═══════════════════════════════════════════════════════════ */
 (function initPreviewMode() {
-  const param = new URLSearchParams(location.search).get('ww_preview');
-  if (!param) return;
 
-  if (param === 'off') {
-    ['ww_session','ww_plan','ww_level','ww_profile','ww_topic','ww_onboarding_done'].forEach(k => localStorage.removeItem(k));
+  /* ── Helpers cookie ── */
+  function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) +
+      '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+  function getCookie(name) {
+    const match = document.cookie.match('(?:^|; )' + name + '=([^;]*)');
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+  function deleteCookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+  }
+
+  /* ── Lire le paramètre URL (priorité) ou le cookie persistant ── */
+  const param  = new URLSearchParams(location.search).get('ww_preview');
+  const cookie = getCookie('ww_preview');
+  const source = param || cookie; // URL écrase le cookie
+
+  if (!source) return; // ni paramètre, ni cookie → rien à faire
+
+  /* ── Désactivation ── */
+  if (source === 'off') {
+    deleteCookie('ww_preview');
+    ['ww_session','ww_plan','ww_level','ww_profile','ww_topic','ww_onboarding_done']
+      .forEach(k => localStorage.removeItem(k));
     console.info('WW Preview : session effacée');
+    // Retirer le param de l'URL proprement
+    if (param) {
+      const url = new URL(location.href);
+      url.searchParams.delete('ww_preview');
+      history.replaceState(null, '', url.toString() || '/');
+    }
     return;
   }
 
-  const validPlans = ['socle','pilote','radar'];
-  const plan = validPlans.includes(param) ? param : 'socle';
+  const validPlans = ['socle','pilote','radar','admin'];
+  const plan = validPlans.includes(source) ? source : 'socle';
 
-  // Simuler une session
-  localStorage.setItem('ww_session', 'preview_token_' + plan);
-  localStorage.setItem('ww_plan',    plan);
-  localStorage.setItem('ww_level',   'avance');
-  localStorage.setItem('ww_profile', 'particulier');
-  localStorage.setItem('ww_topic',   'invest');
-  localStorage.setItem('ww_onboarding_done', '1');
+  /* ── Persister dans un cookie 7 jours ── */
+  setCookie('ww_preview', plan, 7);
 
-  // Simuler window.WW pour les pages auth
+  /* ── Retirer le paramètre de l'URL (URL propre) sans recharger ── */
+  if (param) {
+    const url = new URL(location.href);
+    url.searchParams.delete('ww_preview');
+    history.replaceState(null, '', url.toString());
+  }
+
+  /* ── Plan effectif : admin → radar avec tous les droits ── */
+  const effectivePlan = plan === 'admin' ? 'radar' : plan;
+
+  /* ── Simuler une session dans localStorage ── */
+  localStorage.setItem('ww_session',        'preview_token_' + plan);
+  localStorage.setItem('ww_plan',           effectivePlan);
+  localStorage.setItem('ww_level',          'avance');
+  localStorage.setItem('ww_profile',        plan === 'admin' ? 'dirigeant' : 'particulier');
+  localStorage.setItem('ww_topic',          'invest');
+  localStorage.setItem('ww_onboarding_done','1');
+  if (plan === 'admin') {
+    localStorage.setItem('ww_role',         'admin');
+    localStorage.setItem('ww_addon_crypto', '1');
+    localStorage.setItem('ww_credits',      '999');
+  }
+
+  /* ── Simuler window.WW pour les pages auth ── */
   window.WW = window.WW || {};
-  window.WW.user    = { id: 'preview-user-id', email: 'preview@wealthwaffle.be' };
-  window.WW.profile = { plan, level: 'avance', prenom: 'Preview', nom: 'Mode' };
+  window.WW.user    = {
+    id: 'preview-user-id',
+    email: 'preview@wealthwaffle.be',
+    user_metadata: { role: plan === 'admin' ? 'admin' : 'user' }
+  };
+  window.WW.profile = {
+    plan:             effectivePlan,
+    level:            'avance',
+    prenom:           plan === 'admin' ? 'Jonathan' : 'Preview',
+    nom:              plan === 'admin' ? 'Admin'    : 'Mode',
+    has_crypto_addon: plan === 'admin',
+    credits_prives:   plan === 'admin' ? 999 : 0,
+    role:             plan === 'admin' ? 'admin' : 'user',
+  };
 
-  // Fix timing : updateAuthNav lit le localStorage qui vient d'être écrit
-  // On le rappelle explicitement après l'injection preview
+  /* ── Forcer la mise à jour de la nav et du niveau ── */
   if (typeof updateAuthNav === 'function') updateAuthNav();
-  // Appliquer le niveau avancé immédiatement
-  if (typeof setLevelNav === 'function') setLevelNav('avance');
+  if (typeof setLevelNav   === 'function') setLevelNav('avance');
 
-  console.info('%c WW Preview actif — plan : ' + plan.toUpperCase(), 'background:#E87CC3;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold;');
+  console.info('%c WW Preview actif — plan : ' + plan.toUpperCase() +
+    ' (cookie 7j — ?ww_preview=off pour quitter)',
+    'background:#E87CC3;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold;');
 
-  // Bandeau de rappel visible
+  /* ── Bandeau persistant ── */
   document.addEventListener('DOMContentLoaded', () => {
     const bar = document.createElement('div');
-    bar.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#1E1D38;border:1px solid rgba(232,124,195,0.40);border-radius:12px;padding:8px 16px;font-family:"DM Sans",sans-serif;font-size:0.74rem;color:#E87CC3;z-index:9999;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.4);';
-    bar.innerHTML = '🧪 Mode preview : <strong>' + plan.toUpperCase() + '</strong> &nbsp;·&nbsp; <a href="?ww_preview=off" style="color:var(--muted);text-decoration:none;">Quitter →</a>';
+    bar.style.cssText = [
+      'position:fixed;bottom:16px;left:50%;transform:translateX(-50%)',
+      'background:#1E1D38;border:1px solid rgba(232,124,195,0.40)',
+      'border-radius:12px;padding:8px 16px',
+      'font-family:"DM Sans",sans-serif;font-size:0.74rem;color:#E87CC3',
+      'z-index:9999;display:flex;align-items:center;gap:10px',
+      'box-shadow:0 4px 20px rgba(0,0,0,0.4);white-space:nowrap'
+    ].join(';');
+    bar.innerHTML =
+      '🧪 Preview <strong>' + plan.toUpperCase() + '</strong>' +
+      ' &nbsp;·&nbsp; cookie actif' +
+      ' &nbsp;·&nbsp; <a href="?ww_preview=off" style="color:var(--muted);text-decoration:none;">Quitter →</a>';
     document.body.appendChild(bar);
   });
 })();
@@ -2642,47 +2714,94 @@ document.addEventListener('DOMContentLoaded', function() {
    En mode débutant, ajoute un bouton "Voir la version avancée"
    sous chaque bloc débutant qui a un bloc avancé correspondant
 ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   TOGGLES DE NIVEAU PAR SECTION
+   ──────────────────────────────────────────────────────
+   Mode DÉBUTANT global → bouton "🚀 Voir la version avancée"
+     sous chaque bloc débutant. Au clic : affiche le bloc
+     avancé, le bouton passe à "🌱 Masquer". Re-clic : cache.
+     Le bouton reste TOUJOURS visible (pas de display:none).
+
+   Mode AVANCÉ global → bouton "🌱 Simplifier cette section"
+     sous chaque bloc avancé. Au clic : cache le bloc avancé,
+     le bouton passe à "🚀 Voir la version avancée". Re-clic : réaffiche.
+═══════════════════════════════════════════════════════ */
 function injectLevelToggles() {
-  // Ne rien faire en mode avancé (les deux blocs sont déjà visibles)
-  if ((localStorage.getItem('ww_level') || 'debutant') === 'avance') return;
+  const globalLevel = localStorage.getItem('ww_level') || 'debutant';
 
   document.querySelectorAll('.level-section').forEach(section => {
     const debBlock = section.querySelector('[data-level="debutant"]');
     const advBlock = section.querySelector('[data-level="avance"]');
     if (!debBlock || !advBlock) return;
-    // Ne pas ajouter le bouton si déjà présent
-    if (section.querySelector('.ww-toggle-avance')) return;
 
-    const btn = document.createElement('button');
-    btn.className = 'ww-toggle-avance';
-    btn.innerHTML = '🚀 Voir la version avancée';
-    btn.setAttribute('aria-expanded', 'false');
+    // Nettoyer les anciens boutons
+    section.querySelectorAll('.ww-toggle-avance, .ww-toggle-deb').forEach(b => b.remove());
 
-    btn.onclick = function() {
-      const expanded = section.classList.toggle('ww-local-avance');
-      btn.innerHTML   = expanded ? '🌱 Masquer la version avancée' : '🚀 Voir la version avancée';
-      btn.setAttribute('aria-expanded', expanded.toString());
-      // Scroll doux vers le bloc avancé
-      if (expanded) setTimeout(() => advBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
-    };
+    if (globalLevel === 'debutant') {
+      // ── Bouton "Voir la version avancée" sous le bloc débutant ──
+      const btn = document.createElement('button');
+      btn.className   = 'ww-toggle-avance';
+      btn.setAttribute('aria-expanded', 'false');
 
-    debBlock.appendChild(btn);
+      function updateBtn(expanded) {
+        btn.innerHTML = expanded
+          ? '<span class="lvl-icon">🌱</span> Masquer la version avancée'
+          : '<span class="lvl-icon">🚀</span> Voir la version avancée';
+        btn.setAttribute('aria-expanded', expanded.toString());
+      }
+      updateBtn(false);
+
+      btn.onclick = function() {
+        const willExpand = !section.classList.contains('ww-local-avance');
+        section.classList.toggle('ww-local-avance', willExpand);
+        updateBtn(willExpand);
+        if (willExpand) {
+          setTimeout(() => advBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+        }
+      };
+
+      // Insérer APRÈS le bloc débutant (pas dedans → évite display:none)
+      debBlock.insertAdjacentElement('afterend', btn);
+
+    } else {
+      // ── Mode avancé : bouton "Simplifier cette section" ──
+      const btn = document.createElement('button');
+      btn.className   = 'ww-toggle-deb';
+      btn.setAttribute('aria-expanded', 'true'); // avancé = expanded par défaut
+
+      function updateBtnAdv(simplified) {
+        btn.innerHTML = simplified
+          ? '<span class="lvl-icon">🚀</span> Voir la version avancée'
+          : '<span class="lvl-icon">🌱</span> Simplifier cette section';
+        btn.setAttribute('aria-expanded', (!simplified).toString());
+      }
+      updateBtnAdv(false);
+
+      btn.onclick = function() {
+        const isSimplified = !section.classList.contains('ww-local-simplified');
+        section.classList.toggle('ww-local-simplified', isSimplified);
+        updateBtnAdv(isSimplified);
+      };
+
+      // Insérer AVANT le bloc avancé
+      advBlock.insertAdjacentElement('beforebegin', btn);
+    }
   });
 }
 
-/* Réinjecter les toggles si le niveau change */
+/* ── Réinjecter quand le niveau global change ── */
 const _origSetLevel = window.setLevelNav;
 window.setLevelNav = function(level) {
   if (_origSetLevel) _origSetLevel(level);
-  // Retirer tous les toggles existants et recréer selon le nouveau niveau
-  document.querySelectorAll('.ww-toggle-avance').forEach(b => b.remove());
-  document.querySelectorAll('.level-section.ww-local-avance').forEach(s => s.classList.remove('ww-local-avance'));
-  if (level === 'debutant') setTimeout(injectLevelToggles, 50);
+  // Reset tous les états locaux
+  document.querySelectorAll('.level-section').forEach(s => {
+    s.classList.remove('ww-local-avance', 'ww-local-simplified');
+  });
+  setTimeout(injectLevelToggles, 80);
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Attendre que le niveau soit appliqué
-  setTimeout(injectLevelToggles, 200);
+  setTimeout(injectLevelToggles, 250);
 });
 
 

@@ -2393,9 +2393,70 @@ body[data-level="avance"] .level-section [data-level="expert"]     { display: no
 }
 .ww-toggle-avance:hover { background: rgba(91,184,212,0.14); }
 
-/* En mode débutant, masquer les blocs avancé sauf si .ww-local-avance est sur le parent */
+/* ── Toggles locaux débutant ↔ avancé ────────────────────────────── */
+
+/* Mode débutant : bloc avancé caché, sauf si .ww-local-avance activé */
 body[data-level="debutant"] .level-section.ww-local-avance [data-level="avance"] { display: block; }
-body[data-level="debutant"] .level-section.ww-local-avance .ww-toggle-avance    { display: none;  }
+
+/* Mode avancé : bloc avancé caché si .ww-local-simplified activé */
+body[data-level="avance"] .level-section.ww-local-simplified [data-level="avance"]  { display: none;  }
+body[data-level="avance"] .level-section.ww-local-simplified [data-level="debutant"]{ display: block; }
+
+/* Bouton "Voir version avancée" — toujours visible (jamais display:none sur le bouton lui-même) */
+.ww-toggle-avance {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(91,184,212,0.30);
+  background: rgba(91,184,212,0.07);
+  color: #5BB8D4;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.ww-toggle-avance:hover {
+  background: rgba(91,184,212,0.15);
+  border-color: rgba(91,184,212,0.50);
+}
+.ww-toggle-avance[aria-expanded="true"] {
+  background: rgba(126,200,160,0.08);
+  border-color: rgba(126,200,160,0.30);
+  color: #7EC8A0;
+}
+
+/* Bouton "Simplifier cette section" (mode avancé → débutant local) */
+.ww-toggle-deb {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(126,200,160,0.25);
+  background: rgba(126,200,160,0.06);
+  color: #7EC8A0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.ww-toggle-deb:hover {
+  background: rgba(126,200,160,0.14);
+  border-color: rgba(126,200,160,0.45);
+}
+.ww-toggle-deb[aria-expanded="false"] {
+  background: rgba(91,184,212,0.07);
+  border-color: rgba(91,184,212,0.28);
+  color: #5BB8D4;
+}
+
+.lvl-icon { font-size: 0.88rem; }
 
 /* Séparateur visuel entre débutant et avancé en mode avancé */
 body[data-level="avance"] .level-section [data-level="avance"] {
