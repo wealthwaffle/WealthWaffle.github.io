@@ -3501,3 +3501,23 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 .core-card-value { font-size: 1.1rem; font-weight: 800; }
 .core-card-sub   { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
 .td-rose { color: var(--rose); }
+
+/* ══ BUDGET / ASSURANCES ══ */
+.source-pill-active-assur { background: rgba(196,114,74,0.12); border-color: rgba(196,114,74,0.30); color: #C4724A; }
+
+/* Grille principes assurance */
+.assur-principes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.assur-oui  { background: rgba(126,200,160,0.08); border: 1px solid rgba(126,200,160,0.20); border-radius: 12px; padding: 12px; }
+.assur-non  { background: rgba(232,124,195,0.07); border: 1px solid rgba(232,124,195,0.18); border-radius: 12px; padding: 12px; }
+.assur-card-label { font-size: 0.62rem; font-weight: 700; margin-bottom: 4px; }
+.assur-oui  .assur-card-label { color: #7EC8A0; }
+.assur-non  .assur-card-label { color: var(--rose); }
+.assur-card-text { font-size: 0.78rem; color: var(--muted); }
+
+/* Tableau budget — couleurs montants */
+.td-green-bold { color: #7EC8A0; font-weight: 700; }
+.td-gold-bold  { color: #E8C23A; font-weight: 700; }
+.td-rose-bold  { color: var(--rose); font-weight: 700; }
+
+/* Note budget */
+.budget-note { font-size: 0.76rem; color: var(--muted); margin-top: 10px; }

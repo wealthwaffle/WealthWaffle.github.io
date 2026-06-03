@@ -133,7 +133,7 @@
 **Priorité 2 — pages nouvellement créées**
 
 - [x] ~`fiscal/declaration.html` — zéro CSS inline, myminfin-steps, td-warn/ok/cyan, list-muted/sm, graphique barres déductions, waffy-declarant, data-ww-cta pilote~
-- [ ] `invest/sectoriels.html`
+- [x] ~`invest/sectoriels.html` — zéro CSS inline, core-sat-grid, graphique TER cumulé animé, waffy-sommelier, td-rose TOB REITs, kpi-grid, data-ww-cta pilote~
 - [ ] `budget/assurances.html`
 - [ ] `fiscal/crypto.html`
 - [ ] `invest/crypto-plateformes.html`
@@ -400,6 +400,7 @@
 
 ## ✅ Fait
 
+- ~`invest/sectoriels.html` — refonte complète Groupe D~
 - ~`fiscal/declaration.html` — refonte complète Groupe D~
 - ~`budget/epargne.html` — refonte complète Groupe D~
 - ~`immo/achat.html` — refonte complète Groupe D~
