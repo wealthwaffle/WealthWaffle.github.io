@@ -3344,3 +3344,97 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 
 /* B3 — padding nav auto (remplace style="padding-top:80px" en dur) */
 .page-padded { padding-top: 80px; }
+
+/* ══════════════════════════════════════════════════════════════
+   CLASSES DOCTRINE — page programme (point 15)
+══════════════════════════════════════════════════════════════ */
+.pg-page { padding-top: 60px; max-width: 100%; padding-left: 0; padding-right: 0; }
+.pg-section-inner { max-width: 600px; margin: 0 auto; padding: 0 20px 20px; }
+.pg-section-inner-wide { max-width: 640px; margin: 0 auto; padding: 0 20px 40px; }
+.pg-story-green { color: var(--green); }
+
+/* Chip proof */
+.pg-chip-wrap { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 40px 20px; max-width: 700px; margin: 0 auto; }
+
+/* Coût inaction */
+.pg-inaction-card { background: rgba(232,124,195,0.07); border: 1px solid rgba(232,124,195,0.20); border-radius: 14px; padding: 16px 18px; }
+.pg-inaction-label { font-size: 0.68rem; font-weight: 700; color: var(--rose); letter-spacing: 0.08em; margin-bottom: 6px; }
+.pg-inaction-title { font-size: 0.92rem; color: var(--text); font-weight: 600; margin-bottom: 4px; }
+.pg-inaction-grid { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+.pg-inaction-col { text-align: center; flex: 1; min-width: 80px; }
+.pg-inaction-value { font-size: 1.2rem; font-weight: 800; }
+.pg-inaction-sub { font-size: 0.66rem; color: var(--muted); }
+
+/* Chemin le plus court */
+.pg-path { display: flex; flex-direction: column; gap: 0; max-width: 480px; }
+.pg-path-step { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; }
+.pg-path-connector { width: 1px; height: 16px; background: var(--faint); margin-left: 14px; }
+.pg-path-num { min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; }
+.pg-path-num-green  { background: rgba(126,200,160,0.15); border: 1px solid rgba(126,200,160,0.30); color: #7EC8A0; }
+.pg-path-num-rose   { background: rgba(232,124,195,0.12); border: 1px solid rgba(232,124,195,0.25); color: var(--rose); }
+.pg-path-num-cyan   { background: rgba(91,184,212,0.12);  border: 1px solid rgba(91,184,212,0.25);  color: #5BB8D4; }
+.pg-path-num-grad   { background: linear-gradient(135deg,rgba(232,124,195,0.20),rgba(91,184,212,0.20)); border: 1px solid rgba(232,124,195,0.30); color: var(--rose); }
+.pg-path-text { font-size: 0.84rem; color: var(--muted); line-height: 1.6; padding-top: 4px; }
+.pg-path-text strong { color: var(--text); }
+
+/* Pourquoi payer — encadré citation */
+.pg-quote-block { background: rgba(255,255,255,0.03); border-left: 3px solid var(--rose); border-radius: 0 12px 12px 0; padding: 16px 18px; margin-bottom: 24px; }
+.pg-quote-text { font-size: 0.84rem; color: var(--muted); line-height: 1.75; margin: 0; }
+
+/* Comparatif tableau doctrine */
+.pg-cmp-wrap { overflow-x: auto; }
+.pg-cmp-table { width: 100%; border-collapse: collapse; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; }
+.pg-cmp-th-left { text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); color: var(--muted); font-weight: 700; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.pg-cmp-th-socle { text-align: center; padding: 10px 8px; border-bottom: 2px solid var(--border); color: #7EC8A0; font-weight: 700; font-size: 0.74rem; }
+.pg-cmp-th-pilote { text-align: center; padding: 10px 8px; border-bottom: 2px solid rgba(232,124,195,0.50); color: var(--rose); font-weight: 700; font-size: 0.74rem; background: rgba(232,124,195,0.04); border-radius: 8px 8px 0 0; }
+.pg-cmp-th-radar { text-align: center; padding: 10px 8px; border-bottom: 2px solid rgba(91,184,212,0.40); color: #5BB8D4; font-weight: 700; font-size: 0.74rem; }
+.pg-cmp-th-sub { font-size: 0.68rem; color: var(--muted); font-weight: 400; display: block; }
+.pg-cmp-td { padding: 10px 12px; color: var(--muted); border-bottom: 1px solid var(--faint); }
+.pg-cmp-td-last { padding: 10px 12px; color: var(--muted); }
+.pg-cmp-check { text-align: center; padding: 10px 8px; border-bottom: 1px solid var(--faint); color: #7EC8A0; }
+.pg-cmp-none  { text-align: center; padding: 10px 8px; border-bottom: 1px solid var(--faint); color: var(--border); }
+.pg-cmp-extra { text-align: center; padding: 10px 8px; border-bottom: 1px solid var(--faint); color: var(--border); }
+.pg-cmp-check-last { text-align: center; padding: 10px 8px; color: #7EC8A0; }
+.pg-cmp-none-last  { text-align: center; padding: 10px 8px; color: var(--border); }
+.pg-cmp-pilote-col { background: rgba(232,124,195,0.03); }
+
+/* Plans doctrine */
+.pg-plan-eyebrow { font-size: 0.60rem; font-weight: 700; letter-spacing: 0.10em; margin-bottom: 4px; }
+.pg-plan-eyebrow-green  { color: #7EC8A0; }
+.pg-plan-eyebrow-rose   { color: var(--rose); }
+.pg-plan-eyebrow-cyan   { color: #5BB8D4; }
+.pg-plan-annual-text    { font-size: 0.70rem; color: var(--green); margin-top: 2px; display: block; }
+.pg-plan-note-text      { text-align: center; font-size: 0.66rem; color: var(--muted); margin-top: 7px; }
+
+/* Waffy bloc entre plans */
+.pg-waffy-hint { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.025); border-radius: 14px; padding: 14px 16px; margin: 4px 0 12px; }
+.pg-waffy-hint-img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+.pg-waffy-hint-text { font-size: 0.76rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+/* Add-on crypto */
+.pg-addon-wrap { border: 1px dashed rgba(246,190,99,0.40); border-radius: 16px; padding: 18px 20px; margin-top: 12px; }
+.pg-addon-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+.pg-addon-eyebrow { font-size: 0.60rem; font-weight: 700; letter-spacing: 0.10em; color: #F6BE63; margin-bottom: 4px; }
+.pg-addon-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.1rem; color: var(--text); margin-bottom: 6px; }
+.pg-addon-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; max-width: 400px; margin: 0 0 12px; }
+.pg-addon-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.pg-addon-feature { font-size: 0.74rem; color: var(--muted); display: flex; gap: 8px; }
+.pg-addon-check { color: #F6BE63; }
+.pg-addon-price-wrap { text-align: right; flex-shrink: 0; }
+.pg-addon-price { font-size: 1.4rem; font-weight: 800; color: #F6BE63; }
+.pg-addon-price-sub { font-size: 0.70rem; color: var(--muted); }
+.pg-addon-cta { display: inline-block; margin-top: 10px; padding: 9px 16px; border-radius: 10px; border: 1px solid rgba(246,190,99,0.35); background: rgba(246,190,99,0.08); color: #F6BE63; font-family: 'DM Sans', sans-serif; font-size: 0.76rem; font-weight: 700; text-decoration: none; }
+
+/* Final CTA doctrine */
+.pg-final-cta-btn { max-width: 340px; margin: 0 auto; display: flex; }
+
+/* ══════════════════════════════════════════════════════════════
+   CLASSES INDEX.HTML — page accueil (point 15)
+══════════════════════════════════════════════════════════════ */
+.ww-search-wrap { position: relative; max-width: 540px; margin: 0 auto 40px; }
+.ww-quiz-results-hidden { display: none; }
+.ww-section-center { text-align: center; }
+.ww-hero-waffy-img { width: 100px; margin: 0 auto 16px; display: block; }
+.ww-section-sub-narrow { max-width: 440px; margin: 0 auto 28px; }
+.ww-cta-note { margin-top: 14px; font-size: 0.74rem; color: var(--muted); }
+.ww-theme-card-dynamic { --theme-color: rgba(91,184,212,0.40); }

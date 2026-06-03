@@ -1,52 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acheter un bien immobilier en Belgique — WealthWaffle</title>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔑 Devenir propriétaire en Belgique — Guide complet 2026 — WealthWaffle</title>
   <meta name="description" content="Guide complet achat immobilier belge : compromis, notaire, frais réels, PEB obligatoire, clauses, checklist. Étape par étape.">
   <meta property="og:title" content="Acheter un bien immobilier en Belgique — WealthWaffle">
-  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <meta property="og:type" content="website">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="IMG_5202.png">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
-  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Immo — Achat" };</script>
-  <style>
-    /* Blur gate */
-    .blur-gate { position:relative; }
-    .blur-gate-content { filter:blur(4px); user-select:none; pointer-events:none; max-height:280px; overflow:hidden; transition:filter 0.3s; }
-    .blur-gate-overlay {
-      position:absolute; bottom:0; left:0; right:0;
-      background:linear-gradient(to bottom, transparent, var(--bg) 60%);
-      display:flex; flex-direction:column; align-items:center;
-      justify-content:flex-end; padding:32px 20px 28px;
-      text-align:center; z-index:2;
-    }
-    .blur-gate-title { font-family:'DM Serif Display',serif; font-style:italic; font-size:1.15rem; margin-bottom:6px; color:var(--text); }
-    .blur-gate-sub { font-size:0.80rem; color:var(--muted); margin-bottom:16px; line-height:1.6; }
-    .btn-unlock {
-      display:inline-flex; align-items:center; gap:8px;
-      padding:12px 24px; border-radius:12px; border:none;
-      font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.88rem;
-      cursor:pointer; transition:opacity 0.18s, transform 0.18s; text-decoration:none;
-    }
-    .btn-unlock:hover { opacity:0.88; transform:translateY(-2px); }
-    .btn-unlock-socle { background:linear-gradient(135deg,#7EC8A0,#5aaa7a); color:#fff; }
-    .btn-unlock-pilote { background:linear-gradient(135deg,#5BB8D4,#3a98b4); color:#fff; }
-    .blur-gate-note { font-size:0.70rem; color:var(--muted2); margin-top:8px; }
-  </style>
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Devenir propriétaire", basePath: "/immo/" };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-</div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<div class="page" style="padding-top:80px;">
+
+<div class="page">
+<div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/immo/">Immo</a><span>/</span><span>Acheter un bien</span></div>
+
 <nav class="toc-sidebar">
   <a href="#etapes">📋 Les étapes</a>
   <a href="#compromis">✍️ Le compromis</a>
@@ -55,54 +30,77 @@
   <a href="#peb">🌱 PEB obligatoire</a>
   <a href="#clauses">⚖️ Clauses clés</a>
   <a href="#checklist">✅ Checklist achat</a>
+  <a href="#fiscalite-pv">📋 Fiscalité plus-value</a>
 </nav>
 
-<div class="reading-time"><span class="reading-time-badge">🌱 Débutant : ~10 min</span><span class="reading-time-badge">🚀 Avancé : ~22 min</span><span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span></div>
-<div class="eyebrow" style="background:rgba(196,114,74,0.10);color:#C4724A;">🏠 Immo Waffle — Achat</div>
-<h1 class="display">Acheter en Belgique<br><span style="color:#C4724A;">étape par étape</span></h1>
-<p class="lead" style="margin-bottom:32px;">Du compromis à l'acte authentique, avec les vrais délais, les vrais frais et les clauses que personne ne te dit.</p>
+<div class="eyebrow eyebrow-immo">🏠 Immo — Achat</div>
+<h1 class="display">Acheter en Belgique<br><span class="txt-immo">étape par étape</span></h1>
+<p class="lead">Du compromis à l'acte authentique, avec les vrais délais, les vrais frais et les clauses que personne ne te dit.</p>
 
+<div class="reading-time">
+  <span class="reading-time-badge">🌱 Débutant : ~10 min</span>
+  <span class="reading-time-badge">🚀 Avancé : ~22 min</span>
+  <span class="reading-meta">· Juin 2026</span>
+</div>
+
+<div class="pill-nav">
+  <a href="/immo/" class="source-pill">🏠 Hub</a>
+  <a href="/immo/achat.html" class="source-pill source-pill-active-immo">🔑 Acheter ←</a>
+  <a href="/immo/financement.html" class="source-pill">🏦 Financement</a>
+  <a href="/immo/locatif.html" class="source-pill">💰 Locatif</a>
+  <a href="/immo/regions.html" class="source-pill">🗺️ Régions</a>
+  <a href="/immo/renovation.html" class="source-pill">🔨 Rénovation</a>
+</div>
+
+<!-- ── ÉTAPES ── -->
 <div class="content-card toc-target reveal" id="etapes">
   <h3>📋 Les étapes d'un achat immobilier belge</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>Acheter un bien prend en moyenne 3 à 5 mois en Belgique. Les grandes étapes : visites → offre → compromis → passage chez le notaire → acte authentique. À chaque étape des délais légaux à respecter.</p>
+      <p>Acheter un bien prend en moyenne 3 à 5 mois en Belgique. Les grandes étapes : visites → offre → compromis → passage chez le notaire → acte authentique. À chaque étape, des délais légaux à respecter.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <div style="display:flex;flex-direction:column;gap:0;">
-        <div style="display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--faint);">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C4724A,#e8985a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;font-size:0.88rem;">1</div>
-          <div><strong style="color:var(--text);">Offre d'achat</strong><br><span style="font-size:0.80rem;color:var(--muted);">Valable 3-7 jours. Si acceptée par le vendeur, contrat contraignant. Ne jamais faire une offre sans avoir vérifié ta capacité d'emprunt.</span></div>
+      <div class="immo-steps">
+        <div class="immo-step">
+          <div class="immo-step-num">1</div>
+          <div class="immo-step-text"><strong>Offre d'achat</strong>Valable 3–7 jours. Si acceptée par le vendeur, contrat contraignant. Ne jamais faire une offre sans avoir vérifié ta capacité d'emprunt.</div>
         </div>
-        <div style="display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--faint);">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C4724A,#e8985a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;font-size:0.88rem;">2</div>
-          <div><strong style="color:var(--text);">Compromis de vente</strong><br><span style="font-size:0.80rem;color:var(--muted);">Signé dans les 4-6 semaines après l'offre. Acompte de 10% versé. Délai légal de réflexion de 3 jours ouvrables si résidence principale.</span></div>
+        <div class="immo-step">
+          <div class="immo-step-num">2</div>
+          <div class="immo-step-text"><strong>Compromis de vente</strong>Signé dans les 4–6 semaines après l'offre. Acompte de 10% versé. Délai légal de réflexion de 3 jours ouvrables si résidence principale.</div>
         </div>
-        <div style="display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--faint);">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C4724A,#e8985a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;font-size:0.88rem;">3</div>
-          <div><strong style="color:var(--text);">Obtention du crédit</strong><br><span style="font-size:0.80rem;color:var(--muted);">La clause suspensive de crédit te protège si la banque refuse. Délai habituel : 4-8 semaines. Prévoir plusieurs offres de banques différentes.</span></div>
+        <div class="immo-step">
+          <div class="immo-step-num">3</div>
+          <div class="immo-step-text"><strong>Obtention du crédit</strong>La clause suspensive de crédit te protège si la banque refuse. Délai habituel : 4–8 semaines. Prévoir plusieurs offres de banques différentes.</div>
         </div>
-        <div style="display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--faint);">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C4724A,#e8985a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;font-size:0.88rem;">4</div>
-          <div><strong style="color:var(--text);">Acte authentique</strong><br><span style="font-size:0.80rem;color:var(--muted);">Chez le notaire, 3-4 mois après le compromis. Tu paies : prix + droits d'enregistrement + frais de notaire + frais d'hypothèque.</span></div>
+        <div class="immo-step">
+          <div class="immo-step-num">4</div>
+          <div class="immo-step-text"><strong>Acte authentique</strong>Chez le notaire, 3–4 mois après le compromis. Tu paies : prix + droits d'enregistrement + frais de notaire + frais d'hypothèque.</div>
         </div>
-        <div style="display:flex;gap:16px;padding:14px 0;">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7EC8A0,#5aaa7a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;font-size:0.88rem;">✓</div>
-          <div><strong style="color:var(--text);">Remise des clés</strong><br><span style="font-size:0.80rem;color:var(--muted);">Le jour de l'acte ou selon accord. Le bien est à toi — et aussi toutes les charges à partir de ce jour.</span></div>
+        <div class="immo-step">
+          <div class="immo-step-num immo-step-num-done">✓</div>
+          <div class="immo-step-text"><strong>Remise des clés</strong>Le jour de l'acte ou selon accord. Le bien est à toi — et aussi toutes les charges à partir de ce jour.</div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Graphique animé — délais (point 77) -->
+  <p class="chart-label">Délais moyens d'un achat en Belgique</p>
+  <div class="chart-container">
+    <canvas id="achat-timeline" height="100"></canvas>
+  </div>
 </div>
 
+<!-- ── COMPROMIS ── -->
 <div class="content-card toc-target reveal" id="compromis">
   <h3>✍️ Le compromis — ce que tu signes vraiment</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>Le compromis est un contrat de vente définitif. Une fois signé par les deux parties, tu es engagé. Si tu te rétractes sans raison valable, tu perds ton acompte de 10%. Le vendeur peut aussi te forcer à acheter ou te réclamer 10% en dédommagement.</p>
+      <p>Le compromis est un contrat de vente définitif. Une fois signé par les deux parties, tu es engagé. Si tu te rétractes sans raison valable, tu perds ton acompte de 10%.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
@@ -116,95 +114,115 @@
         <li>✅ Clause suspensive de crédit (si tu empruntes)</li>
         <li>✅ Droit de préemption éventuel</li>
       </ul>
-      <div class="warn-box" style="margin-top:12px;">⚠️ Le délai de réflexion de 3 jours ouvrables (<em>délai de rétractation</em>) ne s'applique qu'aux compromis signés en dehors des locaux du notaire ou de l'agence. Vérifiez avec votre notaire.</div>
-    </div>
-    <div data-level="avance">
-      <div class="level-badge">🚀 Avancé</div>
-      <p>Points de négociation souvent ignorés : <strong>mobilier inclus</strong> (cuisine équipée, luminaires, stores — à lister en annexe pour éviter les litiges), <strong>état du bien au moment de la remise des clés</strong> (état des lieux contradictoire recommandé), <strong>date de jouissance</strong> vs date de l'acte (tu peux habiter le bien avant l'acte si accord). La vente en viager et la vente sous condition résolutoire sont des montages avancés à vérifier avec un notaire spécialisé.</p>
+      <div class="warn-box">⚠️ Le délai de réflexion de 3 jours ouvrables ne s'applique qu'aux compromis signés en dehors des locaux du notaire ou de l'agence. Vérifier avec votre notaire.</div>
+      <p>Points de négociation souvent ignorés : <strong>mobilier inclus</strong> (cuisine équipée, luminaires, stores — à lister en annexe), <strong>état du bien à la remise des clés</strong> (état des lieux contradictoire recommandé), <strong>date de jouissance</strong> vs date de l'acte.</p>
     </div>
   </div>
 </div>
 
+<!-- ── NOTAIRE ── -->
 <div class="content-card toc-target reveal" id="notaire">
   <h3>🏛️ Chez le notaire — rôle et frais</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>Le notaire est obligatoire pour tout achat immobilier en Belgique. Il représente l'État, pas toi ni le vendeur. Ses honoraires sont réglementés par la loi — ils ne varient pas beaucoup d'un notaire à l'autre. Tu peux choisir ton propre notaire, et le vendeur peut avoir le sien — les frais sont partagés.</p>
+      <p>Le notaire est obligatoire pour tout achat immobilier en Belgique. Il représente l'État, pas toi ni le vendeur. Ses honoraires sont réglementés — ils ne varient pas beaucoup d'un notaire à l'autre.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
       <p>Frais de notaire estimés (hors droits d'enregistrement) pour un bien à <strong>300.000 €</strong> :</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;">
-        <div style="background:var(--s3);border-radius:12px;padding:14px;">
-          <div style="font-size:0.70rem;color:var(--muted);margin-bottom:4px;">Honoraires notaire</div>
-          <div style="font-size:1.2rem;font-weight:700;color:#C4724A;">~3.000 €</div>
-          <div style="font-size:0.68rem;color:var(--muted2);">Barème dégressif légal</div>
+      <div class="immo-kpi-grid">
+        <div class="immo-kpi-card">
+          <div class="immo-kpi-label">Honoraires notaire</div>
+          <div class="immo-kpi-value">~3.000 €</div>
+          <div class="immo-kpi-sub">Barème dégressif légal</div>
         </div>
-        <div style="background:var(--s3);border-radius:12px;padding:14px;">
-          <div style="font-size:0.70rem;color:var(--muted);margin-bottom:4px;">Frais d'hypothèque</div>
-          <div style="font-size:1.2rem;font-weight:700;color:#C4724A;">~1.500 €</div>
-          <div style="font-size:0.68rem;color:var(--muted2);">Si crédit hypothécaire</div>
+        <div class="immo-kpi-card">
+          <div class="immo-kpi-label">Frais d'hypothèque</div>
+          <div class="immo-kpi-value">~1.500 €</div>
+          <div class="immo-kpi-sub">Si crédit hypothécaire</div>
         </div>
-        <div style="background:var(--s3);border-radius:12px;padding:14px;">
-          <div style="font-size:0.70rem;color:var(--muted);margin-bottom:4px;">Frais administratifs</div>
-          <div style="font-size:1.2rem;font-weight:700;color:#C4724A;">~1.000 €</div>
-          <div style="font-size:0.68rem;color:var(--muted2);">Recherches, copies, divers</div>
+        <div class="immo-kpi-card">
+          <div class="immo-kpi-label">Frais administratifs</div>
+          <div class="immo-kpi-value">~1.000 €</div>
+          <div class="immo-kpi-sub">Recherches, copies, divers</div>
         </div>
-        <div style="background:var(--s3);border-radius:12px;padding:14px;">
-          <div style="font-size:0.70rem;color:var(--muted);margin-bottom:4px;">TVA (21%)</div>
-          <div style="font-size:1.2rem;font-weight:700;color:#C4724A;">Incluse</div>
-          <div style="font-size:0.68rem;color:var(--muted2);">Sur les honoraires</div>
+        <div class="immo-kpi-card">
+          <div class="immo-kpi-label">TVA (21%)</div>
+          <div class="immo-kpi-value">Incluse</div>
+          <div class="immo-kpi-sub">Sur les honoraires</div>
         </div>
       </div>
-      <div class="source-block"><span class="source-block-label">Simulateur officiel</span><a href="https://www.notaire.be/achat/frais-dachat/simulateur" target="_blank" rel="noopener" class="source-pill">🔗 notaire.be — Simulateur frais</a></div>
+      <div class="source-block">
+        <span class="source-block-label">Simulateur officiel</span>
+        <a href="https://www.notaire.be/achat/frais-dachat/simulateur" target="_blank" rel="noopener" class="source-pill">🔗 notaire.be — Simulateur frais</a>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- ── FRAIS TOTAUX ── -->
 <div class="content-card toc-target reveal" id="frais">
   <h3>💰 Les vrais frais totaux d'achat</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>En Belgique, les "frais d'achat" représentent en général <strong>entre 7% et 15% du prix</strong> selon la région et le type de bien. C'est ce qu'on appelle les "frais de notaire" — mais en réalité, la majorité va à l'État, pas au notaire.</p>
+      <p>En Belgique, les frais d'achat représentent <strong>entre 7% et 15% du prix</strong> selon la région et le type de bien. La majorité va à l'État, pas au notaire.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <div style="margin-bottom:12px;display:flex;flex-direction:column;gap:4px;">
-        <div class="calc-field"><label>Prix d'achat (€)</label><input type="number" id="fa-prix" value="300000" oninput="calcFrais()"></div>
-        <div class="calc-field">
-          <label>Région</label>
-          <select id="fa-region" onchange="calcFrais()" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.86rem;">
+      <div class="sim-grid">
+        <div>
+          <label class="sim-label">Prix d'achat (€)</label>
+          <input type="number" id="fa-prix" value="300000" class="sim-input" oninput="calcFrais()">
+        </div>
+        <div>
+          <label class="sim-label">Région</label>
+          <select id="fa-region" class="sim-select" onchange="calcFrais()">
             <option value="flandre">Flandre</option>
             <option value="wallonie">Wallonie</option>
             <option value="bruxelles" selected>Bruxelles</option>
           </select>
         </div>
-        <div class="calc-field"><label>Résidence propre et unique ?</label>
-          <select id="fa-rprop" onchange="calcFrais()" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.86rem;">
+        <div>
+          <label class="sim-label">Résidence propre et unique ?</label>
+          <select id="fa-rprop" class="sim-select" onchange="calcFrais()">
             <option value="oui">Oui</option>
             <option value="non">Non (investissement)</option>
           </select>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="frais-result">
-        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:0.68rem;color:var(--muted);margin-bottom:4px;">Droits d'enregistrement</div><div style="font-size:1.3rem;font-weight:700;color:#C4724A;" id="fa-de">—</div></div>
-        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:0.68rem;color:var(--muted);margin-bottom:4px;">Frais de notaire</div><div style="font-size:1.3rem;font-weight:700;color:#C4724A;" id="fa-not">—</div></div>
-        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:0.68rem;color:var(--muted);margin-bottom:4px;">Frais hypothèque</div><div style="font-size:1.3rem;font-weight:700;color:#C4724A;" id="fa-hyp">—</div></div>
-        <div style="background:linear-gradient(135deg,rgba(196,114,74,0.12),rgba(232,194,58,0.08));border:1px solid rgba(196,114,74,0.25);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:0.68rem;color:var(--muted);margin-bottom:4px;">Total frais estimés</div><div style="font-size:1.3rem;font-weight:700;color:#C4724A;" id="fa-total">—</div><div style="font-size:0.66rem;color:var(--muted2);" id="fa-pct">—</div></div>
+      <div class="immo-kpi-grid" id="frais-result">
+        <div class="immo-kpi-card">
+          <div class="immo-kpi-label">Droits d'enregistrement</div>
+          <div class="immo-kpi-value" id="fa-de">—</div>
+        </div>
+        <div class="immo-kpi-card">
+          <div class="immo-kpi-label">Frais de notaire</div>
+          <div class="immo-kpi-value" id="fa-not">—</div>
+        </div>
+        <div class="immo-kpi-card">
+          <div class="immo-kpi-label">Frais hypothèque</div>
+          <div class="immo-kpi-value" id="fa-hyp">—</div>
+        </div>
+        <div class="immo-kpi-card-accent">
+          <div class="immo-kpi-label">Total frais estimés</div>
+          <div class="immo-kpi-value" id="fa-total">—</div>
+          <div class="immo-kpi-sub" id="fa-pct">—</div>
+        </div>
       </div>
-      <div style="font-size:0.70rem;color:var(--muted2);margin-top:8px;">Estimation indicative. Vérifier avec votre notaire. Hors ASRD.</div>
+      <p class="sim-frais-note">Estimation indicative. Vérifier avec votre notaire. Hors ASRD.</p>
     </div>
   </div>
 </div>
 
+<!-- ── PEB ── -->
 <div class="content-card toc-target reveal" id="peb">
   <h3>🌱 PEB — Certificat de Performance Énergétique</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>Depuis 2010, un certificat PEB est <strong>obligatoire</strong> pour toute vente ou location. Il classe le bien de A++ (très économe) à G (très énergivore). Un bien F ou G sera difficile à vendre ou louer sans travaux dans les prochaines années.</p>
+      <p>Depuis 2010, un certificat PEB est <strong>obligatoire</strong> pour toute vente. Il classe le bien de A++ (très économe) à G (très énergivore). Un bien F ou G sera difficile à vendre sans travaux dans les prochaines années.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
@@ -212,21 +230,34 @@
         <thead><tr><th>Label PEB</th><th>Consommation</th><th>Impact achat</th></tr></thead>
         <tbody>
           <tr><td>🟢 A++ à B</td><td>&lt; 100 kWh/m²/an</td><td>Valeur premium. Pas de travaux requis.</td></tr>
-          <tr><td>🟡 C à D</td><td>100-300 kWh/m²/an</td><td>Standard. Quelques améliorations possibles.</td></tr>
-          <tr><td>🟠 E</td><td>300-450 kWh/m²/an</td><td>Travaux à prévoir. Négocier le prix en conséquence.</td></tr>
-          <tr><td>🔴 F à G</td><td>&gt; 450 kWh/m²/an</td><td>Obligation de rénovation en Flandre dès l'achat. Difficulté de revente croissante.</td></tr>
+          <tr><td>🟡 C à D</td><td>100–300 kWh/m²/an</td><td>Standard. Quelques améliorations possibles.</td></tr>
+          <tr><td>🟠 E</td><td>300–450 kWh/m²/an</td><td>Travaux à prévoir. Négocier le prix en conséquence.</td></tr>
+          <tr><td>🔴 F à G</td><td>&gt; 450 kWh/m²/an</td><td>Obligation de rénovation en Flandre dès l'achat.</td></tr>
         </tbody>
       </table></div>
-      <div class="warn-box" style="margin-top:12px;">⚠️ <strong>Flandre :</strong> si tu achètes un bien F ou G, tu as l'obligation légale de le rénover à label D minimum dans les 5 ans. Budget rénovation à intégrer dans le prix d'achat.</div>
-    </div>
-    <div data-level="avance">
-      <div class="level-badge">🚀 Avancé</div>
-      <p>Stratégie d'achat "rénovation énergétique" : acheter un bien E ou F en dessous du marché, rénover via les primes régionales (<a href="https://www.mywallonie.be/prime-energie" target="_blank" rel="noopener" class="src-link">Mywallonie</a>, <a href="https://www.vlaanderen.be/premies-energierenovatie" target="_blank" rel="noopener" class="src-link">Vlaanderen.be</a>, <a href="https://renolution.brussels" target="_blank" rel="noopener" class="src-link">Renolution Bruxelles</a>), puis revendre avec une plus-value ou louer à un meilleur loyer. Les primes couvrent parfois 30-50% des travaux d'isolation ou de pompe à chaleur.</p>
+      <div class="warn-box">⚠️ <strong>Flandre :</strong> si tu achètes un bien F ou G, obligation légale de rénover à label D minimum dans les 5 ans. Budget rénovation à intégrer dans le prix d'achat.</div>
+      <p>Stratégie d'achat "rénovation énergétique" : acheter un bien E ou F en dessous du marché, rénover via les primes régionales, puis revendre avec une plus-value. Les primes couvrent parfois 30–50% des travaux d'isolation ou de pompe à chaleur.</p>
     </div>
   </div>
-  <div class="source-block"><span class="source-block-label">Sources</span><a href="https://www.energiesparen.be/epb" target="_blank" rel="noopener" class="source-pill">🔗 Energiesparen.be — PEB Flandre</a><a href="https://energie.wallonie.be/fr/peb.html" target="_blank" rel="noopener" class="source-pill">🔗 Energie.wallonie.be — PEB</a><a href="https://renolution.brussels" target="_blank" rel="noopener" class="source-pill">🔗 Renolution — Bruxelles</a></div>
+
+  <!-- Waffy proprio — point 78 -->
+  <div class="waffy-tip">
+    <img src="/img/waffy/waffy-proprio.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
+    <div class="waffy-tip-content">
+      <strong>Les erreurs à éviter absolument</strong>
+      Ne jamais faire une offre sans accord de principe de ta banque. Ne jamais signer un compromis sans clause suspensive de crédit. Et toujours vérifier le PEB avant de visiter — pas après. Un bien G en Flandre, c'est 20.000–50.000€ de rénovation à prévoir en plus du prix.
+    </div>
+  </div>
+
+  <div class="source-block">
+    <span class="source-block-label">Sources</span>
+    <a href="https://www.energiesparen.be/epb" target="_blank" rel="noopener" class="source-pill">🔗 Energiesparen.be — PEB Flandre</a>
+    <a href="https://energie.wallonie.be/fr/peb.html" target="_blank" rel="noopener" class="source-pill">🔗 Energie.wallonie.be — PEB</a>
+    <a href="https://renolution.brussels" target="_blank" rel="noopener" class="source-pill">🔗 Renolution — Bruxelles</a>
+  </div>
 </div>
 
+<!-- ── CLAUSES ── -->
 <div class="content-card toc-target reveal" id="clauses">
   <h3>⚖️ Les clauses à ne pas oublier</h3>
   <div class="level-section">
@@ -234,25 +265,27 @@
       <div class="level-badge">🚀 Avancé</div>
       <ul class="checklist">
         <li>✅ <strong>Clause suspensive de crédit</strong> — si la banque refuse, tu récupères ton acompte. Sans elle, tu es engagé même sans financement.</li>
-        <li>✅ <strong>Clause d'état du bien</strong> — le bien sera livré dans l'état visité. Permet de réclamer si dégradations entre compromis et acte.</li>
+        <li>✅ <strong>Clause d'état du bien</strong> — le bien sera livré dans l'état visité.</li>
         <li>✅ <strong>Clause vice caché</strong> — protège partiellement contre les problèmes invisibles au moment de la visite.</li>
-        <li>✅ <strong>Clause de dédit</strong> — si le vendeur se rétracte, il te rembourse le double de l'acompte. À vérifier qu'elle est dans les deux sens.</li>
+        <li>✅ <strong>Clause de dédit</strong> — si le vendeur se rétracte, il te rembourse le double de l'acompte.</li>
         <li>✅ <strong>Liste du mobilier inclus</strong> — cuisine, stores, luminaires. Ce qui n'est pas listé peut être retiré légalement.</li>
       </ul>
+      <div class="warn-box">⚠️ Attention aux <strong>servitudes non déclarées</strong>, aux <strong>permis de bâtir irréguliers</strong> (extension sans permis = régularisation à ta charge), et aux <strong>charges de copropriété impayées</strong>. Demander un extrait de la comptabilité de la copropriété avant de signer.</div>
     </div>
-    <div data-level="avance">
-      <div class="level-badge">🚀 Avancé</div>
-      <p>Attention aux <strong>servitudes non déclarées</strong> (droit de passage d'un voisin, servitude d'égout), aux <strong>permis de bâtir irréguliers</strong> (véranda ou extension sans permis = régularisation à ta charge), et aux <strong>charges de copropriété impayées</strong> (le nouveau propriétaire peut en hériter). Demander un extrait de la comptabilité de la copropriété avant de signer.</p>
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>La clause la plus importante : la <strong>clause suspensive de crédit</strong>. Elle te permet d'annuler la vente et de récupérer ton acompte si ta banque refuse de te prêter. Sans elle, tu perds les 10%.</p>
     </div>
   </div>
 </div>
 
+<!-- ── CHECKLIST ── -->
 <div class="content-card toc-target reveal" id="checklist">
   <h3>✅ Checklist achat complète</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-    <div style="background:var(--s3);border-radius:12px;padding:14px;">
-      <div style="font-size:0.72rem;font-weight:700;color:#C4724A;margin-bottom:8px;">AVANT LE COMPROMIS</div>
-      <ul class="checklist" style="font-size:0.80rem;">
+  <div class="checklist-2col">
+    <div class="checklist-col">
+      <div class="checklist-col-title checklist-col-title-immo">AVANT LE COMPROMIS</div>
+      <ul class="checklist">
         <li>☐ Simulation crédit en banque</li>
         <li>☐ Vérifier le PEB</li>
         <li>☐ Vérifier les permis de bâtir</li>
@@ -262,9 +295,9 @@
         <li>☐ Inspection mazout / citerne</li>
       </ul>
     </div>
-    <div style="background:var(--s3);border-radius:12px;padding:14px;">
-      <div style="font-size:0.72rem;font-weight:700;color:#C4724A;margin-bottom:8px;">AVANT L'ACTE</div>
-      <ul class="checklist" style="font-size:0.80rem;">
+    <div class="checklist-col">
+      <div class="checklist-col-title checklist-col-title-immo">AVANT L'ACTE</div>
+      <ul class="checklist">
         <li>☐ Accord de crédit reçu</li>
         <li>☐ ASRD souscrite</li>
         <li>☐ Assurance habitation active</li>
@@ -277,88 +310,134 @@
   </div>
 </div>
 
-
-<div class="content-card toc-target reveal" id="fiscalite-pv-immo">
-  <h3>📋 Fiscalité sur la plus-value immobilière en Belgique</h3>
+<!-- ── FISCALITÉ PLUS-VALUE ── -->
+<div class="content-card toc-target reveal" id="fiscalite-pv">
+  <h3>📋 Fiscalité sur la plus-value immobilière</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>La taxe sur la plus-value immobilière <strong>n'est pas</strong> la même chose que la taxe PV 10% sur les actifs financiers introduite en janvier 2026. Ce sont deux régimes complètement distincts.</p>
+      <p>La taxe sur la plus-value immobilière <strong>n'est pas</strong> la même chose que la taxe PV 10% sur les actifs financiers (jan. 2026). Ce sont deux régimes complètement distincts.</p>
       <div class="table-wrap"><table>
         <thead><tr><th>Situation</th><th>Taxe</th><th>Condition</th></tr></thead>
         <tbody>
-          <tr><td>Résidence principale</td><td style="color:#7EC8A0;font-weight:700;">Exonéré</td><td>Toujours — même si vente rapide</td></tr>
-          <tr><td>Immo locatif / 2ème bien — vente &lt; 5 ans</td><td style="color:#E87CC3;font-weight:700;">16,5% IPP</td><td>Sur la plus-value nette réalisée</td></tr>
-          <tr><td>Immo locatif / 2ème bien — vente &gt; 5 ans</td><td style="color:#7EC8A0;font-weight:700;">Exonéré</td><td>—</td></tr>
-          <tr><td>Terrain — vente &lt; 8 ans</td><td style="color:#E87CC3;font-weight:700;">33% IPP</td><td>Sur la plus-value nette</td></tr>
-          <tr><td>Terrain — vente &gt; 8 ans</td><td style="color:#7EC8A0;font-weight:700;">Exonéré</td><td>—</td></tr>
+          <tr><td>Résidence principale</td><td class="txt-green">Exonéré</td><td>Toujours — même si vente rapide</td></tr>
+          <tr><td>Immo locatif — vente &lt; 5 ans</td><td class="txt-rose">16,5% IPP</td><td>Sur la plus-value nette réalisée</td></tr>
+          <tr><td>Immo locatif — vente &gt; 5 ans</td><td class="txt-green">Exonéré</td><td>—</td></tr>
+          <tr><td>Terrain — vente &lt; 8 ans</td><td class="txt-rose">33% IPP</td><td>Sur la plus-value nette</td></tr>
+          <tr><td>Terrain — vente &gt; 8 ans</td><td class="txt-green">Exonéré</td><td>—</td></tr>
         </tbody>
       </table></div>
-      <div class="info-box" style="margin-top:12px;">💡 <strong>Le délai de 5 ans se compte</strong> à partir de la date d'acquisition jusqu'à la date de l'acte de vente — pas du compromis. Si tu rénoves avant de revendre, les frais de rénovation réduisent la plus-value imposable.</div>
+      <div class="info-box">💡 <strong>Le délai de 5 ans</strong> se compte à partir de la date d'acquisition jusqu'à la date de l'acte de vente. Les frais de rénovation réduisent la plus-value imposable — conserver toutes les factures.</div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Calcul de la plus-value imposable :</strong> prix de vente − prix d'acquisition − frais d'acquisition (notaire, droits enregistrement forfait 25%) − travaux prouvés par factures. La base imposable peut être significativement réduite si les rénovations sont bien documentées. En pratique : conserver <em>toutes</em> les factures de travaux — elles réduisent directement la plus-value taxable à 16,5%.</p>
-      <p style="margin-top:10px;"><strong>Cas d'exonération méconnus :</strong> le délai de 5 ans est suspendu pendant les périodes où le bien est impropre à l'habitation (ex: rénovation lourde avec permis). Un divorce ou un décès entraîne souvent une exonération de fait. Consulter un notaire pour les situations complexes.</p>
-      <p style="margin-top:10px;"><strong>Terrain à bâtir :</strong> le taux de 33% s'applique sur terrains revendus dans les 8 ans. Si le terrain fait partie d'un bien bâti vendu dans son ensemble, c'est la règle des 5 ans / 16,5% qui s'applique sur l'ensemble — pas le taux terrain.</p>
+      <p><strong>Calcul de la plus-value imposable :</strong> prix de vente − prix d'acquisition − frais d'acquisition (notaire, droits enregistrement forfait 25%) − travaux prouvés par factures. En pratique : conserver <em>toutes</em> les factures de travaux — elles réduisent directement la plus-value taxable à 16,5%.</p>
+      <p><strong>Cas d'exonération méconnus :</strong> le délai de 5 ans est suspendu pendant les périodes où le bien est impropre à l'habitation (rénovation lourde avec permis). Un divorce ou un décès entraîne souvent une exonération de fait.</p>
     </div>
   </div>
-  <div class="source-block"><span class="source-block-label">Source</span>
+  <div class="source-block">
+    <span class="source-block-label">Source</span>
     <a href="https://finances.belgium.be/fr/particuliers/habitation/vente-dun-bien-immobilier/plus-values" target="_blank" rel="noopener" class="source-pill">🔗 SPF Finances — Plus-values immo</a>
   </div>
 </div>
+
+<div data-ww-cta="pilote"></div>
+
 <div class="see-also">
   <div class="see-also-label">Sur le même sujet</div>
   <a href="/immo/" class="see-also-pill">🏠 Hub Immo</a>
   <a href="/immo/financement.html" class="see-also-pill">🏦 Financement hypothécaire</a>
   <a href="/immo/regions.html" class="see-also-pill">📜 Droits par région</a>
   <a href="/immo/locatif.html" class="see-also-pill">📊 Investissement locatif</a>
+  <a href="/immo/renovation.html" class="see-also-pill">🔨 Rénovation</a>
+</div>
+
 </div>
 
 <script>
 function calcFrais() {
-  const prix   = parseFloat(document.getElementById('fa-prix')?.value)||0;
+  const prix   = parseFloat(document.getElementById('fa-prix')?.value) || 0;
   const region = document.getElementById('fa-region')?.value;
   const rprop  = document.getElementById('fa-rprop')?.value;
   const fmt    = n => Math.round(n).toLocaleString('fr-BE') + ' €';
   if (!prix) return;
-
-  // Taux DE selon région et situation
-  const taux = {
-    flandre:   rprop === 'oui' ? 0.03 : 0.12,
-    wallonie:  rprop === 'oui' ? 0.03 : 0.125,
-    bruxelles: 0.125
-  }[region] || 0.125;
-
-  // Abattement Bruxelles
+  const taux = { flandre: rprop==='oui'?0.03:0.12, wallonie: rprop==='oui'?0.03:0.125, bruxelles: 0.125 }[region] || 0.125;
   let de = prix * taux;
-  if (region === 'bruxelles' && prix <= 600000 && rprop === 'oui') {
-    de = Math.max(0, de - 200000 * taux);
-  }
-
-  // Frais notaire (barème dégressif simplifié)
-  const not = prix < 100000 ? prix * 0.042 :
-              prix < 200000 ? 4200 + (prix-100000)*0.025 :
-              prix < 500000 ? 6700 + (prix-200000)*0.018 :
-                              12100 + (prix-500000)*0.012;
-
-  const hyp    = rprop === 'oui' ? prix * 0.005 + 1000 : 0;
+  if (region==='bruxelles' && prix<=600000 && rprop==='oui') de = Math.max(0, de - 200000*taux);
+  const not = prix<100000 ? prix*0.042 : prix<200000 ? 4200+(prix-100000)*0.025 : prix<500000 ? 6700+(prix-200000)*0.018 : 12100+(prix-500000)*0.012;
+  const hyp    = rprop==='oui' ? prix*0.005+1000 : 0;
   const total  = de + not + hyp;
-  const pct    = (total / prix * 100).toFixed(1);
-
   document.getElementById('fa-de').textContent    = fmt(de);
   document.getElementById('fa-not').textContent   = fmt(not);
-  document.getElementById('fa-hyp').textContent   = rprop === 'oui' ? fmt(hyp) : 'N/A';
+  document.getElementById('fa-hyp').textContent   = rprop==='oui' ? fmt(hyp) : 'N/A';
   document.getElementById('fa-total').textContent = fmt(total);
-  document.getElementById('fa-pct').textContent   = pct + '% du prix';
+  document.getElementById('fa-pct').textContent   = (total/prix*100).toFixed(1) + '% du prix';
 }
-document.addEventListener('DOMContentLoaded', calcFrais);
-</script>
-<div id="ww-disclaimer-inline"></div>
 
-<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;"><a href="/immo/" class="source-pill">🏠 Hub</a><a href="/immo/achat.html" class="source-pill" style="background:rgba(196,114,74,0.12);border-color:rgba(196,114,74,0.30);color:#C4724A;">🔑 Acheter ←</a><a href="/immo/financement.html" class="source-pill">🏦 Financement</a><a href="/immo/locatif.html" class="source-pill">💰 Locatif</a><a href="/immo/regions.html" class="source-pill">🗺️ Régions</a><a href="/immo/alternatif.html" class="source-pill">🔗 Immo alternatif</a></div>
-</div><!-- .page -->
+/* ── Timeline achat animée (point 77) ── */
+function drawTimeline() {
+  const canvas = document.getElementById('achat-timeline');
+  if (!canvas) return;
+  const W = canvas.parentElement.offsetWidth, H = 100, dpr = window.devicePixelRatio || 1;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+
+  const STEPS = [
+    { label: 'Offre', weeks: 1, color: '#C4724A' },
+    { label: 'Compromis', weeks: 5, color: '#E87CC3' },
+    { label: 'Crédit', weeks: 6, color: '#5BB8D4' },
+    { label: 'Acte', weeks: 8, color: '#2ECC71' },
+  ];
+  const total = STEPS.reduce((s,x) => s+x.weeks, 0);
+  const P = { t:20, b:30, l:10, r:10 };
+  const cW = W - P.l - P.r;
+
+  let prog = 0;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    let x = P.l;
+    const p = Math.min(prog, 1);
+
+    STEPS.forEach(step => {
+      const w = (step.weeks / total) * cW * p;
+      const bH = 22, bY = P.t;
+
+      ctx.fillStyle = step.color + '30';
+      ctx.fillRect(x, bY, (step.weeks/total)*cW, bH);
+
+      if (w > 0) {
+        ctx.fillStyle = step.color;
+        ctx.fillRect(x, bY, w, bH);
+      }
+
+      // Label
+      if (p > 0.3) {
+        ctx.fillStyle = 'rgba(255,255,255,0.80)';
+        ctx.font = '9px DM Sans';
+        ctx.textAlign = 'center';
+        const midX = x + (step.weeks/total)*cW/2;
+        ctx.fillText(step.label, midX, bY + 14);
+        ctx.fillStyle = 'rgba(255,255,255,0.40)';
+        ctx.fillText(step.weeks + 'sem.', midX, H - 8);
+      }
+
+      x += (step.weeks/total)*cW;
+    });
+
+    prog += 0.03; if (prog < 1) requestAnimationFrame(draw);
+  };
+  const obs = new IntersectionObserver(e => { if(e[0].isIntersecting){draw();obs.disconnect();} }, {threshold:0.3});
+  obs.observe(canvas);
+}
+
+document.addEventListener('DOMContentLoaded', calcFrais);
+window.addEventListener('load', drawTimeline);
+window.addEventListener('resize', drawTimeline);
+</script>
+
 <script src="/assets/data.js"></script>
 <script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
-</body></html>
+</body>
+</html>

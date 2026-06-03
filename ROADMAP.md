@@ -127,7 +127,7 @@
 - [x] ~`invest/etf.html` — sections complètes, graphique DCA animé, simulateur DCA inline, Waffy analyste, data-ww-cta pilote, liens absolus~
 - [x] ~`invest/allocation.html` — section #classes ajoutée, graphique barres 3 profils animé, Waffy graphiste, data-ww-cta pilote, CSS → ww-all.css, simulateur FIRE opérationnel~
 - [x] ~`fiscal/independants.html` — nav orpheline supprimée, zéro CSS inline, kpi-grid, compare-2col PP/SRL, waffy-freelance PLCI, graphique barres PP vs SRL animé, simulateurPLCI, statuts spéciaux compare-2col, data-ww-cta pilote~
-- [ ] `immo/achat.html`
+- [x] ~`immo/achat.html` — style en <head> supprimé, zéro CSS inline, immo-steps/kpi-grid/checklist-2col, timeline canvas animée, waffy-proprio, data-ww-cta pilote~
 - [ ] `budget/epargne.html`
 
 **Priorité 2 — pages nouvellement créées**
@@ -302,6 +302,28 @@
 
 -----
 
+-----
+
+## 🔧 BATCH TECHNIQUE — à faire avant de continuer les pages (Groupe D pré-requis)
+
+### Batch B1 — `ww-bundle.js` : injecter progress-bar + back-to-top automatiquement
+
+- [x] ~~**B1.** `ww-bundle.js` — injecter `<div class="progress-bar"><div class="progress-fill"></div></div>` et `<button class="back-to-top">` automatiquement au chargement si absents du DOM · supprimer ensuite de toutes les pages HTML en batch
+
+### Batch B2 — Python : supprimer progress-bar + back-to-top en dur dans les pages
+
+- [x] ~**B2.** progress-bar supprimée dans 52 fichiers · back-to-top supprimé dans 49 fichiers~
+
+### Batch B3 — ww-all.css : classe `.page-padded` pour remplacer `padding-top:80px`
+
+- [x] ~**B3.** `.page-padded` ajouté dans ww-all.css · `padding-top:80px` supprimé en batch~
+
+### Batch B4 — Ajouter data.js aux 11 pages manquantes
+
+- [x] ~**B4.** data.js déjà présent dans toutes les pages (vérifié) · admin/index.html ignoré (page admin)~
+
+-----
+
 ## 🟡 GROUPE J — Nouvelles pages de contenu (backlog futur)
 
 > Pages à créer quand le contenu de base est stabilisé
@@ -378,6 +400,7 @@
 
 ## ✅ Fait
 
+- ~`immo/achat.html` — refonte complète Groupe D~
 - ~`fiscal/independants.html` — refonte complète Groupe D~
 - ~`invest/etf.html` + `invest/allocation.html` — zéro CSS inline · classes génériques ww-all.css (kpi-grid, sim-input, sim-result, chart-container, steps-list, waffy-tip, profil-grid, compare-2col, eyebrow-*, source-pill-active-*, txt-*, dot-*)~
 - ~`invest/allocation.html` — refonte complète Groupe D~
@@ -536,3 +559,120 @@
 - [x] ~**BATCH-1** : progress-bar + back-to-top → injectés par ww-bundle.js (injectPageChrome) · retirés de 33/55/60 fichiers · padding-top dans ww-all.css .page~
 - [x] ~**BATCH-2** : data.js ajouté dans 10 fichiers manquants~
 - [x] ~**BATCH-3** : tools.js ajouté dans a-propos/faq.html~
+
+-----
+
+## 📋 TRACKER FICHIERS FINAUX
+
+> ✅ = livré en version finale (zéro CSS inline, toutes les règles appliquées)
+> ⏳ = pas encore traité
+> 🔧 = batch technique à passer (B1/B2/B3/B4) mais pas encore page-par-page
+
+**a-propos/**
+
+- ⏳ `a-propos/affiliation.html`
+- ⏳ `a-propos/faq.html`
+- ⏳ `a-propos/index.html`
+- ⏳ `a-propos/sources.html`
+
+**budget/**
+
+- ⏳ `budget/assurances.html`
+- ⏳ `budget/banques.html`
+- ⏳ `budget/epargne.html`
+- ⏳ `budget/index.html`
+- ⏳ `budget/rente.html`
+- ⏳ `budget/retraite.html`
+
+**compte/**
+
+- ⏳ `compte/callback.html`
+- ⏳ `compte/connexion.html`
+- ⏳ `compte/inscription.html`
+- ⏳ `compte/mot-de-passe.html`
+- ⏳ `compte/parrainage.html`
+
+**contenu/**
+
+- ⏳ `contenu/concept-semaine.html`
+- ⏳ `contenu/downloads.html`
+- ⏳ `contenu/newsletter.html`
+- ⏳ `contenu/videos.html`
+
+**dashboard/**
+
+- ⏳ `dashboard/index.html`
+
+**fiscal/**
+
+- ⏳ `fiscal/assurances.html`
+- ⏳ `fiscal/crypto.html`
+- ⏳ `fiscal/declaration.html`
+- ⏳ `fiscal/fiscaliste.html`
+- ⏳ `fiscal/frais.html`
+- ✅ `fiscal/independants.html`
+- ⏳ `fiscal/index.html`
+- ⏳ `fiscal/management.html`
+- ⏳ `fiscal/remuneration.html`
+- ⏳ `fiscal/societes.html`
+- ⏳ `fiscal/succession.html`
+- ⏳ `fiscal/tax-shelter-audiovisuel.html`
+- ⏳ `fiscal/tax-shelter-startup.html`
+- ⏳ `fiscal/tax-shelter.html`
+- ⏳ `fiscal/tva.html`
+
+**immo/**
+
+- ⏳ `immo/achat.html`
+- ⏳ `immo/alternatif.html`
+- ⏳ `immo/financement.html`
+- ⏳ `immo/index.html`
+- ⏳ `immo/locatif.html`
+- ⏳ `immo/regions.html`
+- ⏳ `immo/renovation.html`
+
+**invest/**
+
+- ⏳ `invest/actions.html`
+- ✅ `invest/allocation.html`
+- ⏳ `invest/alternatives.html`
+- ⏳ `invest/comparateurs.html`
+- ⏳ `invest/crypto-plateformes.html`
+- ⏳ `invest/crypto.html`
+- ⏳ `invest/equity.html`
+- ✅ `invest/etf.html`
+- ⏳ `invest/fonds.html`
+- ⏳ `invest/index.html`
+- ⏳ `invest/obligations.html`
+- ⏳ `invest/or.html`
+- ⏳ `invest/panorama.html`
+- ⏳ `invest/sectoriels.html`
+
+**legal/**
+
+- ⏳ `legal/cgu.html`
+- ⏳ `legal/cookies.html`
+- ⏳ `legal/privacy.html`
+
+**outils/**
+
+- ⏳ `outils/fiscal-crypto.html`
+- ⏳ `outils/index.html`
+
+**parcours/**
+
+- ⏳ `parcours/bases.html`
+- ⏳ `parcours/glossaire.html`
+- ⏳ `parcours/index.html`
+- ⏳ `parcours/psychologie.html`
+
+**racine/**
+
+- ⏳ `404.html`
+- ✅ `doctrine.html`
+- ✅ `index.html`
+
+**radar/**
+
+- ⏳ `radar/index.html`
+- ⏳ `radar/watchlist.html`
