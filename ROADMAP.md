@@ -126,7 +126,7 @@
 
 - [x] ~`invest/etf.html` — sections complètes, graphique DCA animé, simulateur DCA inline, Waffy analyste, data-ww-cta pilote, liens absolus~
 - [x] ~`invest/allocation.html` — section #classes ajoutée, graphique barres 3 profils animé, Waffy graphiste, data-ww-cta pilote, CSS → ww-all.css, simulateur FIRE opérationnel~
-- [ ] `fiscal/independants.html`
+- [x] ~`fiscal/independants.html` — nav orpheline supprimée, zéro CSS inline, kpi-grid, compare-2col PP/SRL, waffy-freelance PLCI, graphique barres PP vs SRL animé, simulateurPLCI, statuts spéciaux compare-2col, data-ww-cta pilote~
 - [ ] `immo/achat.html`
 - [ ] `budget/epargne.html`
 
@@ -378,6 +378,7 @@
 
 ## ✅ Fait
 
+- ~`fiscal/independants.html` — refonte complète Groupe D~
 - ~`invest/etf.html` + `invest/allocation.html` — zéro CSS inline · classes génériques ww-all.css (kpi-grid, sim-input, sim-result, chart-container, steps-list, waffy-tip, profil-grid, compare-2col, eyebrow-*, source-pill-active-*, txt-*, dot-*)~
 - ~`invest/allocation.html` — refonte complète Groupe D~
 - ~`invest/etf.html` — refonte complète Groupe D~

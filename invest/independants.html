@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧑‍💻 Je suis indépendant — Guide fiscal Belgique 2026 — WealthWaffle</title>
+  <meta name="description" content="Guide fiscal complet pour indépendants belges : PLCI, cotisations INASTI, TVA, frais déductibles, versements anticipés.">
+  <meta property="og:title" content="Indépendants & Freelances — Guide fiscal Belgique 2026 — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Je suis indépendant", basePath: "/fiscal/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="page">
+<div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/fiscal/">Fiscalité</a><span>/</span><span>Indépendants</span></div>
+
+<nav class="toc-sidebar">
+  <a href="#statuts">🏢 PP vs Société</a>
+  <a href="#cotisations">💰 Cotisations INASTI</a>
+  <a href="#plci">🏛️ PLCI</a>
+  <a href="#simulateur-plci">🧮 Simulateur PLCI</a>
+  <a href="#frais-pro">✂️ Frais déductibles</a>
+  <a href="#voiture">🚗 Frais de voiture</a>
+  <a href="#bureau">🏠 Bureau à domicile</a>
+  <a href="#tva">💼 TVA</a>
+  <a href="#versements">📅 Versements anticipés</a>
+  <a href="#statuts-speciaux">🎓 Statuts spéciaux</a>
+</nav>
+
+<div class="eyebrow eyebrow-fiscal">🧑‍💻 Indépendants & Freelances</div>
+<h1 class="display"><span class="txt-rose">Indépendants &<br>Freelances en Belgique</span></h1>
+<p class="lead">PLCI, cotisations INASTI, TVA, frais déductibles, versements anticipés — tout ce que tu dois maîtriser pour payer le juste montant.</p>
+
+<div class="reading-time">
+  <span class="reading-time-badge">🌱 Débutant : ~9 min</span>
+  <span class="reading-time-badge">🚀 Avancé : ~20 min</span>
+  <span class="reading-meta">· Juin 2026</span>
+</div>
+
+<div class="pill-nav">
+  <a href="/fiscal/" class="source-pill">📋 Hub fiscal</a>
+  <a href="/fiscal/independants.html" class="source-pill source-pill-active-fiscal">🧑‍💻 Indépendants ←</a>
+  <a href="/fiscal/societes.html" class="source-pill">🏢 Sociétés</a>
+  <a href="/fiscal/management.html" class="source-pill">🔑 Management</a>
+  <a href="/fiscal/remuneration.html" class="source-pill">💰 Rémunération</a>
+  <a href="/fiscal/frais.html" class="source-pill">🧾 Frais</a>
+  <a href="/fiscal/tva.html" class="source-pill">🔢 TVA</a>
+  <a href="/fiscal/assurances.html" class="source-pill">🛡️ Assurances</a>
+</div>
+
+<!-- ── KPI rapides ── -->
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Cotisations INASTI</div>
+    <div class="kpi-value txt-rose">~20,5%</div>
+    <div class="kpi-sub">du revenu net professionnel</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">PLCI max 2026</div>
+    <div class="kpi-value txt-green"><span data-ww="plci_max" data-fmt="eur">3.966€</span></div>
+    <div class="kpi-sub">déductible à 100% en frais pro</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Seuil TVA</div>
+    <div class="kpi-value txt-cyan">25.000€</div>
+    <div class="kpi-sub">CA/an avant assujettissement</div>
+  </div>
+</div>
+
+<!-- ── PP VS SOCIÉTÉ ── -->
+<div class="content-card toc-target reveal" id="statuts">
+  <h3>🏢 Choisir son statut — personne physique vs société</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>En Belgique, tu peux exercer en tant qu'indépendant personne physique (PP) ou en société (SRL). Les deux ont des avantages et inconvénients. Le choix dépend principalement de ton chiffre d'affaires et de ta tolérance aux frais administratifs.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>En personne physique :</strong> simple, peu de frais, mais revenus taxés à l'IPP (25–50%) + cotisations INASTI. Idéal si CA &lt; 50.000–60.000 €/an.</p>
+      <p><strong>En société (SRL) :</strong> IS à <span data-ww="is_reduit" data-fmt="pct">20%</span> (tranche réduite) ou 25%. Plus de complexité mais optimisation possible. Pertinent si bénéfices &gt; 60.000–80.000 €/an.</p>
+    </div>
+  </div>
+  <div class="compare-2col">
+    <div class="compare-col">
+      <div class="compare-col-title">🙋 Personne physique</div>
+      <div class="compare-col-item"><span>IPP progressif</span><strong class="txt-rose">25–50%</strong></div>
+      <div class="compare-col-item"><span>INASTI</span><strong>~20,5%</strong></div>
+      <div class="compare-col-item"><span>Comptabilité</span><strong class="txt-green">Simplifiée</strong></div>
+      <div class="compare-col-item"><span>Frais annuels</span><strong class="txt-green">Faibles</strong></div>
+      <div class="compare-col-item"><span>Idéal si CA</span><strong>&lt; 60K€</strong></div>
+    </div>
+    <div class="compare-col">
+      <div class="compare-col-title">🏢 Société (SRL)</div>
+      <div class="compare-col-item"><span>IS réduit</span><strong class="txt-green"><span data-ww="is_reduit" data-fmt="pct">20%</span></strong></div>
+      <div class="compare-col-item"><span>IS normal</span><strong>25%</strong></div>
+      <div class="compare-col-item"><span>Comptabilité</span><strong class="txt-rose">Complète</strong></div>
+      <div class="compare-col-item"><span>Frais annuels</span><strong class="txt-rose">2.000–4.000€</strong></div>
+      <div class="compare-col-item"><span>Idéal si bénéfices</span><strong>&gt; 70K€</strong></div>
+    </div>
+  </div>
+  <div class="source-block">
+    <span class="source-block-label">Sources</span>
+    <a href="https://www.inasti.be" target="_blank" rel="noopener" class="source-pill">🔗 INASTI</a>
+    <a href="https://economie.fgov.be/fr/themes/entreprises/creer-une-entreprise" target="_blank" rel="noopener" class="source-pill">🔗 SPF Économie — Créer une entreprise</a>
+  </div>
+</div>
+
+<!-- ── COTISATIONS INASTI ── -->
+<div class="content-card toc-target reveal" id="cotisations">
+  <h3>💰 Cotisations sociales INASTI</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>En tant qu'indépendant, tu cotises à l'INASTI chaque trimestre. Ces cotisations financent ta pension, ta mutuelle et tes allocations familiales. Elles sont calculées sur ton revenu net imposable.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <ul class="checklist">
+        <li><strong>Taux :</strong> ~20,5% du revenu net professionnel.</li>
+        <li><strong>Cotisations provisoires :</strong> la 1ère année, cotisations minimales (~850 €/trimestre). Régularisées après 3 ans.</li>
+        <li><strong>Déductibles :</strong> les cotisations INASTI sont déductibles en frais professionnels — elles réduisent la base imposable à l'IPP.</li>
+        <li><strong>Pension INASTI :</strong> structurellement plus basse que la pension salariale — d'où l'importance critique de la PLCI.</li>
+      </ul>
+      <div class="info-box">💡 Tu peux demander une diminution des cotisations provisoires si tu anticipes un revenu plus faible — tu évites de payer trop et d'attendre le remboursement 3 ans plus tard.</div>
+    </div>
+  </div>
+
+  <!-- Graphique animé cotisations (point 77) -->
+  <p class="chart-label">Charge fiscale totale estimée selon le statut — 80.000 € de bénéfices</p>
+  <div class="chart-container" id="statut-chart-wrap">
+    <canvas id="statut-chart" height="140"></canvas>
+  </div>
+  <div class="chart-legend">
+    <span><span class="chart-legend-dot dot-rose"></span>IPP / IS</span>
+    <span><span class="chart-legend-dot dot-cyan"></span>INASTI / cotisations</span>
+    <span><span class="chart-legend-dot dot-green"></span>Net disponible</span>
+  </div>
+</div>
+
+<!-- ── PLCI ── -->
+<div class="content-card toc-target reveal" id="plci">
+  <h3>🏛️ PLCI — Pension Libre Complémentaire Indépendant</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>La PLCI, c'est l'épargne pension pour indépendants. Tu verses de l'argent chaque année, tu déduis 100% en frais professionnels, et tu constitues un capital retraite. C'est <strong>l'outil fiscal le plus puissant</strong> pour un indépendant.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>PLCI ordinaire 2026 :</strong> jusqu'à <strong><span data-ww="plci_pct" data-fmt="pct">8,17%</span></strong> du revenu net imposable de l'avant-dernière année, max <strong><span data-ww="plci_max" data-fmt="eur">3.966€</span>/an</strong>. Déductibles à 100% en frais pro. Capital taxé à 10% à 65 ans.</p>
+      <p><strong>PLCI sociale :</strong> mêmes avantages + couverture invalidité/incapacité incluse. Plafond légèrement supérieur. Recommandée si pas d'autre couverture invalidité.</p>
+    </div>
+  </div>
+  <div class="waffy-tip">
+    <img src="/img/waffy/waffy-freelance.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
+    <div class="waffy-tip-content">
+      <strong>La PLCI d'abord, le reste ensuite</strong>
+      Si tu es indépendant et que tu ne cotises pas encore à la PLCI, c'est ton action n°1. Chaque euro versé te coûte 50 cents d'impôt en moins — et constitue ta retraite. C'est mathématiquement irrationnel de ne pas le faire.
+    </div>
+  </div>
+  <div class="source-block">
+    <span class="source-block-label">Sources</span>
+    <a href="https://www.inasti.be/fr/independant/droits-sociaux/pension-et-prepension/pension-complementaire" target="_blank" rel="noopener" class="source-pill">🔗 INASTI — PLCI</a>
+  </div>
+</div>
+
+<!-- ── SIMULATEUR PLCI (point 11) ── -->
+<div class="content-card toc-target reveal" id="simulateur-plci">
+  <h3>🧮 Simulateur PLCI — cotisation optimale</h3>
+  <div id="tool-plci-indep"></div>
+</div>
+
+<!-- ── FRAIS PRO ── -->
+<div class="content-card toc-target reveal" id="frais-pro">
+  <h3>✂️ Frais professionnels déductibles</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>En tant qu'indépendant, tu peux déduire de nombreuses dépenses de ton revenu imposable. Garde toutes tes factures — le fisc peut demander des justificatifs jusqu'à 5 ans en arrière.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <ul class="checklist">
+        <li><strong>Voiture :</strong> déductible à 40–100% selon le taux CO₂. Les VE sont déductibles à 100% jusqu'en 2030.</li>
+        <li><strong>Bureau à domicile :</strong> % de la surface / total × loyer + charges. Généralement 10–20%.</li>
+        <li><strong>Matériel informatique :</strong> PC, téléphone, logiciels — usage professionnel.</li>
+        <li><strong>Formations et livres :</strong> en lien direct avec ton activité.</li>
+        <li><strong>Assurances professionnelles :</strong> RC professionnelle, assurance-dirigeant.</li>
+        <li><strong>Frais de représentation :</strong> restaurants clients — déductibles à 69%.</li>
+        <li><strong>Cotisations INASTI :</strong> 100% déductibles.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── VOITURE ── -->
+<div class="content-card toc-target reveal" id="voiture">
+  <h3>🚗 Frais de voiture — déductibilité selon CO₂</h3>
+  <p class="page-subtitle">La voiture est souvent le poste de frais le plus important pour un indépendant. La déductibilité dépend du type de véhicule.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Type de véhicule</th><th>% déductible</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Véhicule électrique (VE)</strong></td><td class="txt-green">100%</td><td>Jusqu'en 2030, dégressif ensuite</td></tr>
+      <tr><td><strong>Hybride plug-in (PHEV)</strong></td><td>50–90%</td><td>Selon taux CO₂</td></tr>
+      <tr><td><strong>Essence/diesel faible CO₂</strong></td><td>40–75%</td><td>Selon taux CO₂</td></tr>
+      <tr><td><strong>Essence/diesel CO₂ élevé</strong></td><td class="txt-rose">40% max</td><td>Plancher légal</td></tr>
+      <tr><td><strong>Utilitaire léger</strong></td><td class="txt-green">100%</td><td>Si usage professionnel documenté</td></tr>
+    </tbody>
+  </table></div>
+  <div class="info-box">💡 <strong>Méthode forfaitaire :</strong> indemnité kilométrique de 0,4259 €/km (taux 2024) pour les déplacements professionnels. Pratique si tu roules peu avec une voiture coûteuse.</div>
+  <div class="warn-box">⚠️ Tenir un carnet de bord (date, trajet, km, client) pour justifier le ratio pro/perso. Un ratio de 70% pro est généralement accepté sans documentation excessive.</div>
+</div>
+
+<!-- ── BUREAU ── -->
+<div class="content-card toc-target reveal" id="bureau">
+  <h3>🏠 Bureau à domicile — frais déductibles</h3>
+  <p class="page-subtitle">Si tu travailles chez toi, une partie de tes frais de logement est déductible.</p>
+  <div class="info-box">💡 <strong>Calcul :</strong> (m² du bureau ÷ m² totaux du logement) = % déductible. Exemple : 15 m² sur 100 m² → 15% de tes frais de logement sont déductibles.</div>
+  <ul class="checklist">
+    <li>Loyer (si locataire) ou intérêts + amortissement (si propriétaire)</li>
+    <li>Électricité, gaz, eau, chauffage</li>
+    <li>Assurance habitation</li>
+    <li>Frais d'entretien et de réparation</li>
+    <li>Internet et abonnement téléphonique (part pro)</li>
+    <li>Mobilier de bureau (bureau, chaise ergonomique, étagères)</li>
+  </ul>
+  <div class="warn-box">⚠️ Si tu es propriétaire et déduis des frais de bureau, cela peut impacter la déductibilité des intérêts hypothécaires. Consulte un comptable avant d'appliquer cette déduction.</div>
+</div>
+
+<!-- ── TVA ── -->
+<div class="content-card toc-target reveal" id="tva">
+  <h3>💼 TVA pour indépendants</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Si ton CA dépasse <strong>25.000 €/an</strong>, tu dois t'assujettir à la TVA. Ça signifie facturer 21% de TVA à tes clients et la reverser à l'État — mais tu récupères aussi la TVA sur tes achats professionnels.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <ul class="checklist">
+        <li><strong>TVA collectée :</strong> tu factures 21% (ou 6% selon activité) à tes clients.</li>
+        <li><strong>TVA déductible :</strong> tu récupères la TVA payée sur tes achats pro.</li>
+        <li><strong>Déclarations :</strong> trimestrielles (ou mensuelles si CA &gt; 2,5M€) via MyMinfin.</li>
+        <li><strong>Franchise TVA :</strong> si CA &lt; 25.000 €, possibilité de ne pas s'assujettir — plus simple mais pas de récupération TVA achats.</li>
+        <li><strong>TVA voiture :</strong> récupérable à 50% max.</li>
+      </ul>
+      <div class="warn-box">⚠️ Certaines activités sont exemptées de TVA indépendamment du seuil : professions médicales, enseignement, services financiers.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VERSEMENTS ANTICIPÉS ── -->
+<div class="content-card toc-target reveal" id="versements">
+  <h3>📅 Versements anticipés — éviter la majoration</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Si tu ne paies pas d'acomptes trimestriels, le fisc applique une majoration d'impôt de 6,75%. La solution : faire des versements anticipés chaque trimestre.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Versement</th><th>Date limite</th><th>Bonus sur majoration</th></tr></thead>
+        <tbody>
+          <tr><td><strong>VA1</strong></td><td>10 avril 2026</td><td class="txt-green">12% — le plus élevé</td></tr>
+          <tr><td><strong>VA2</strong></td><td>10 juillet 2026</td><td>9%</td></tr>
+          <tr><td><strong>VA3</strong></td><td>10 octobre 2026</td><td>6%</td></tr>
+          <tr><td><strong>VA4</strong></td><td>20 décembre 2026</td><td>3%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="info-box">💡 Stratégie : verser un peu plus au VA1 et VA2 pour maximiser le bonus, ajuster au VA3/VA4 selon l'évolution réelle du revenu.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATUTS SPÉCIAUX ── -->
+<div class="content-card toc-target reveal" id="statuts-speciaux">
+  <h3>🎓 Statuts spéciaux — étudiant-entrepreneur et mini-statut</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Deux statuts allégés existent pour démarrer avec des cotisations réduites.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+    </div>
+  </div>
+  <div class="compare-2col">
+    <div class="compare-col">
+      <div class="compare-col-title">🎓 Étudiant-entrepreneur</div>
+      <div class="compare-col-item"><span>Âge</span><strong>&lt; 25 ans + étudiant</strong></div>
+      <div class="compare-col-item"><span>Cotisations</span><strong class="txt-green">~170€/trimestre</strong></div>
+      <div class="compare-col-item"><span>Plafond revenu</span><strong><span data-ww="etudiant_max_rev" data-fmt="eur">8.900€</span>/an</strong></div>
+      <div class="compare-col-item"><span>Droits parents</span><strong class="txt-green">Conservés</strong></div>
+    </div>
+    <div class="compare-col">
+      <div class="compare-col-title">⚡ Mini-statut</div>
+      <div class="compare-col-item"><span>Public</span><strong>Activité complémentaire</strong></div>
+      <div class="compare-col-item"><span>Cotisations</span><strong class="txt-green">~100€/an</strong></div>
+      <div class="compare-col-item"><span>Seuil 2026</span><strong><span data-ww="mini_statut_seuil" data-fmt="eur">7.670€</span>/an</strong></div>
+      <div class="compare-col-item"><span>Idéal pour</span><strong>Freelances débutants</strong></div>
+    </div>
+  </div>
+  <div class="info-box">💡 Ces deux statuts sont cumulables avec un statut de salarié ou d'étudiant. Ils évitent les cotisations minimales élevées du statut indépendant principal.</div>
+</div>
+
+<!-- ── ASSURANCES ── -->
+<div class="content-card toc-target reveal" id="assurances-pro">
+  <h3>🛡️ Assurances professionnelles déductibles</h3>
+  <ul class="checklist">
+    <li><strong>RC Professionnelle :</strong> obligatoire dans de nombreux secteurs, déductible à 100% en frais pro.</li>
+    <li><strong>Assurance hospitalisation :</strong> si contractée dans le cadre professionnel, déductible.</li>
+    <li><strong>Assurance revenus garantis :</strong> couvre une incapacité de travail. Déductible et particulièrement recommandée — les indépendants n'ont pas de salaire garanti.</li>
+    <li><strong>Assurance incendie bureau :</strong> si tu loues ou possèdes un local professionnel, déductible à 100%.</li>
+  </ul>
+  <p class="page-subtitle">Regrouper toutes les assurances chez un même assureur permet souvent une réduction de 5 à 15%. À négocier explicitement.</p>
+</div>
+
+<div data-ww-cta="pilote"></div>
+
+<div class="source-block">
+  <span class="source-block-label">Sources</span>
+  <a href="https://www.inasti.be" target="_blank" rel="noopener" class="source-pill">🔗 INASTI</a>
+  <a href="https://finances.belgium.be/fr/independants/versements_anticipes" target="_blank" rel="noopener" class="source-pill">🔗 SPF Finances — Versements anticipés</a>
+  <a href="https://www.mypension.be" target="_blank" rel="noopener" class="source-pill">🔗 MyPension</a>
+  <a href="https://www.myminfin.be" target="_blank" rel="noopener" class="source-pill">🔗 MyMinfin</a>
+</div>
+
+<div class="see-also">
+  <div class="see-also-label">Voir aussi</div>
+  <a href="/fiscal/societes.html" class="see-also-pill">🏢 Sociétés</a>
+  <a href="/fiscal/tva.html" class="see-also-pill">🔢 TVA belge</a>
+  <a href="/fiscal/frais.html" class="see-also-pill">🧾 Frais déductibles</a>
+  <a href="/fiscal/remuneration.html" class="see-also-pill">💰 Salaire vs dividende</a>
+  <a href="/fiscal/fiscaliste.html" class="see-also-pill">⚖️ Trouver un fiscaliste</a>
+</div>
+
+</div>
+
+<script>
+/* ── Graphique comparatif PP vs SRL (point 77) ── */
+function drawStatutChart() {
+  const canvas = document.getElementById('statut-chart');
+  if (!canvas) return;
+  const W = canvas.parentElement.offsetWidth, H = 140, dpr = window.devicePixelRatio || 1;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+
+  // Pour 80.000€ de bénéfices
+  const DATA = [
+    { label: 'Personne physique', ipp: 36000, inasti: 12000, net: 32000 },
+    { label: 'Société (SRL)',     ipp: 16000, inasti:  6000, net: 58000 },
+  ];
+  const total = 80000;
+  const COLORS = ['#E87CC3', '#5BB8D4', '#2ECC71'];
+  const P = { t: 10, r: 10, b: 30, l: 10 };
+  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const bW = cW / DATA.length * 0.45, gap = cW / DATA.length;
+
+  let prog = 0;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const p = Math.min(prog, 1);
+    DATA.forEach((d, i) => {
+      const x = P.l + gap * i + (gap - bW) / 2;
+      let yB = P.t + cH;
+      [['ipp', COLORS[0]], ['inasti', COLORS[1]], ['net', COLORS[2]]].forEach(([key, col]) => {
+        const bH = (d[key] / total) * cH * p;
+        ctx.fillStyle = col;
+        ctx.fillRect(x, yB - bH, bW, bH);
+        if (bH > 16 && p > 0.8) {
+          ctx.fillStyle = 'rgba(255,255,255,0.85)';
+          ctx.font = `bold ${Math.min(10, bW / 3.5)}px DM Sans`;
+          ctx.textAlign = 'center';
+          ctx.fillText(Math.round(d[key] / 1000) + 'k€', x + bW / 2, yB - bH / 2 + 4);
+        }
+        yB -= bH;
+      });
+      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      ctx.font = '9px DM Sans'; ctx.textAlign = 'center';
+      ctx.fillText(d.label, x + bW / 2, P.t + cH + 18);
+    });
+    prog += 0.04; if (prog < 1) requestAnimationFrame(draw);
+  };
+  const obs = new IntersectionObserver(e => { if (e[0].isIntersecting) { draw(); obs.disconnect(); } }, { threshold: 0.3 });
+  obs.observe(canvas);
+}
+
+window.addEventListener('load', () => {
+  drawStatutChart();
+  if (typeof WW_Tools?.simulateurPLCI === 'function') WW_Tools.simulateurPLCI('tool-plci-indep');
+});
+window.addEventListener('resize', drawStatutChart);
+</script>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body>
+</html>
