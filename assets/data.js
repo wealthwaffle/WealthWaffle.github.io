@@ -23,6 +23,7 @@ window.WW_DATA = {
     radar_annuel:      199,    // € — Radar annuel (facturé en une fois)
     radar_mensuel_eq:  10.75,  // € — équivalent mensuel si annuel
     crypto_addon:      49,     // € — Add-on Conformité Crypto (annuel)
+    crypto_addon_price_id: 'price_1Te3U0Bn70qxtmXd9FUrlqMZ', // Stripe Price ID live
     trial_days:        7,      // jours — période d'essai gratuite
   },
 

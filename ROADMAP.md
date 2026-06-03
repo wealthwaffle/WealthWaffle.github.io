@@ -89,13 +89,13 @@
 
 ## 🟠 GROUPE C — Supabase + Stripe (connecteurs — 1 session)
 
-- [ ] **M8.** Stripe trial 7j — activer `trial_period_days: 7` sur les 5 Price IDs existants dans le dashboard
-- [ ] **16.** Stripe parrainage — webhook `invoice.upcoming` → `bonus_days_remaining > 0` → créer coupon one-time → reset à 0
-- [ ] **39.** Stripe — produit crédit privé 9,99€ · webhook → incrémenter `credits_prives` + `credits_transactions`
-- [ ] **93.** Supabase — colonne `billing_interval` dans `profiles` (déjà dans schema, à exécuter)
-- [ ] **104.** Stripe — produit “Conformité Crypto” 49€/an récurrent · 5 rapports/mois max
-- [ ] **105.** Supabase — table `exchange_rates` (taux journaliers EUR/crypto) + colonne `has_crypto_addon` dans profiles
-- [ ] **106.** Edge Function `update-exchange-rates` — cron 1er janvier · appel CoinGecko taux moyen journalier année N-1
+- [x] ~**M8.** Stripe trial 7j — `subscription_data.trial_period_days:7` à passer au moment du checkout session (pas sur le Price) · logique dans la page doctrine.html~
+- [x] ~**16.** Parrainage webhook `invoice.upcoming` → coupon Stripe proportionnel (7j × tarif/jour) · `customer.subscription.updated` → reset bonus~ → `bonus_days_remaining > 0` → créer coupon one-time → reset à 0
+- [x] ~**39.** Crédit Radar géré dans `checkout.session.completed` mode payment~ · webhook → incrémenter `credits_prives` + `credits_transactions`
+- [x] ~**93.** `billing_interval` déjà présent dans profiles (vérifié)~ (déjà dans schema, à exécuter)
+- [x] ~**104.** Produit Conformité Crypto créé : `prod_UdK80Tj6nphtWT` · Price ID : `price_1Te3U0Bn70qxtmXd9FUrlqMZ` (49€/an)~
+- [x] ~**105.** Table `exchange_rates` + colonne `has_crypto_addon` dans profiles · 10 taux 2024 seedés~ (taux journaliers EUR/crypto) + colonne `has_crypto_addon` dans profiles
+- [x] ~**106.** Edge Function `update-exchange-rates` déployée — CoinGecko 15 coins, upsert par symbol+year~ — cron 1er janvier · appel CoinGecko taux moyen journalier année N-1
 
 -----
 
@@ -368,6 +368,24 @@
 
 ## ✅ Fait
 
+### ✅ GROUPE C — Complet
+
+- ~**M8.** Trial 7j → `subscription_data.trial_period_days:7` au checkout~
+- ~**16.** Coupon parrainage Stripe dans `invoice.upcoming`~
+- ~**39.** Crédit Radar géré dans checkout mode payment~
+- ~**93.** `billing_interval` déjà présent~
+- ~**104.** Produit Conformité Crypto `prod_UdK80Tj6nphtWT` · `price_1Te3U0Bn70qxtmXd9FUrlqMZ`~
+- ~**105.** Table `exchange_rates` + `has_crypto_addon` + 10 taux 2024~
+- ~**106.** Edge Function `update-exchange-rates` active~
+
+### ✅ GROUPE I — Complet
+
+- ~**I1.** `WW_DATA.pages` dans data.js — 60 pages, 9 thèmes~
+- ~**I2.** `generateFooter()` + `setActiveNav()` pathname complet~
+- ~**I3.** `initHubComponents()` — `data-ww-hub` dans 4 hubs~
+- ~**I4.** Onboarding 4 questions — profil/objectif/niveau/thème~
+- ~**I5.** Modal contextuelle “tu es au bon endroit ?” — 8s~
+- ~**I6.** `index.html` — 4 sections, grilles dynamiques, quiz inline~
 - ~**M5.** Moteur data-ww déjà complet — 3 modes, formateurs fr-BE~
 - ~**14.** Boutons thème Clair/Sombre nav · applyTheme() · ww-theme-active~
 - ~**67.** CSS ww-cta-box + variantes pilote/radar/socle~
