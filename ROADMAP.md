@@ -69,10 +69,10 @@
 - [ ] **M4d-pages-2.** MON JOB : placer les images Waffy dans les pages immo + fiscal + indépendants (Waffy-proprio, Waffy-deducteur, Waffy-freelance) · ~10 pages
 - [ ] **M4d-pages-3.** MON JOB : placer les images Waffy dans les pages sociétés + crypto + radar + outils (Waffy-dirigeant, Waffy-crypto, Waffy-investisseur, Waffy-calculateur) · ~10 pages
 - [ ] **M4d-pages-4.** MON JOB : placer Waffy dans les pages spéciales — 404, onboarding, résultats simulateurs, doctrine, index.html (Waffy-oups, Waffy-guide, Waffy-bienvenue, Waffy-celebration, Waffy-inquiet)
-- [ ] **M5.** Système `data-ww` injection : `<span data-ww="clé"></span>` → injecté par `ww-bundle.js` · couvre IS 25%, PM 30%, franchise 10K€, Tax Shelter 45%, PLCI 8,17%…
-- [ ] **14.** Nav ⚙️ — remplacer icône 🌙 par deux boutons séparés “Clair” / “Sombre” (même style que Débutant/Avancé)
-- [ ] **67.** CSS `.cta-box-premium` dans `ww-all.css` — style unifié pour tous les encadrés premium/pilote/radar
-- [ ] **68.** Système `data-ww-cta` dans `ww-bundle.js` — injection dynamique des textes CTA selon le plan actuel
+- [x] ~**M5.** Système `data-ww` injection — déjà complet (3 modes : data-ww, data-ww-tpl, data-ww-calc + formateurs eur/pct/num/txt)~ : `<span data-ww="clé"></span>` → injecté par `ww-bundle.js` · couvre IS 25%, PM 30%, franchise 10K€, Tax Shelter 45%, PLCI 8,17%…
+- [x] ~**14.** Deux boutons thème Clair/Sombre dans nav desktop + mobile · `applyTheme(t)` + `ww-theme-active` CSS~ (même style que Débutant/Avancé)
+- [x] ~**67.** CSS `.ww-cta-box` + variantes `.cta-box-pilote/radar/socle` dans `ww-all.css`~ — style unifié pour tous les encadrés premium/pilote/radar
+- [x] ~**68.** `initCTASystem()` — `data-ww-cta="pilote|radar|socle"` · masqué si plan suffisant · texte dynamique depuis WW_DATA.prix~ — injection dynamique des textes CTA selon le plan actuel
 - [ ] **88.** Matomo — snippet dans `ww-bundle.js` + anonymisation RGPD par défaut
 - [ ] **89.** User ID Stitching — à l’inscription : `_paq.push(['setUserId', supabaseUserId])` + `matomoVisitorId` → `user_conversion_metrics`
 - [ ] **90.** Capture UTM — lire `utm_source`, `utm_medium`, `utm_campaign` depuis URL → stocker dans `user_conversion_metrics`
@@ -368,6 +368,10 @@
 
 ## ✅ Fait
 
+- ~**M5.** Moteur data-ww déjà complet — 3 modes, formateurs fr-BE~
+- ~**14.** Boutons thème Clair/Sombre nav · applyTheme() · ww-theme-active~
+- ~**67.** CSS ww-cta-box + variantes pilote/radar/socle~
+- ~**68.** initCTASystem() — data-ww-cta, masquage selon plan, texte dynamique~
 - ~**I6.** `index.html` refonte complète — 4 sections, grilles dynamiques WW_DATA.pages, quiz inline, CSS dans la page (à migrer en M6)~
 - ~**I5.** Modal contextuelle 8s — “Tu es au bon endroit ?” avec nom page depuis WW_DATA.pages · guidez-moi → WW_buildOnboarding()~
 - ~**I4.** Onboarding 4 questions — profil/objectif/niveau/thème · recommandations WW_DATA.pages · tip Waffy · WW_buildOnboarding exposé~

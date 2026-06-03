@@ -498,20 +498,32 @@ function updateAuthNav() {
     if (localStorage.getItem('ww_cookies')) banner.style.display = 'none';
   }
 
-  /* ── Theme toggle ── */
+  /* ── Theme — point 14 ──
+     applyTheme(t) applique 'light' ou 'dark'
+     Deux boutons dans la nav : id="btn-theme-light" et id="btn-theme-dark"
+     La nav marque le bouton actif avec la classe ww-active
+  ── */
+  window.applyTheme = function(theme) {
+    const isLight = (theme === 'light');
+    document.body.classList.toggle('light', isLight);
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('ww_theme', theme);
+    // Marquer le bouton actif dans la nav (desktop + mobile)
+    ['btn-theme-light','btn-theme-dark','mob-btn-theme-light','mob-btn-theme-dark'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const isActive = (isLight && id.includes('light')) || (!isLight && id.includes('dark'));
+      el.classList.toggle('ww-theme-active', isActive);
+    });
+  };
+  // Alias pour compatibilité avec l'ancien onclick="toggleTheme()"
   window.toggleTheme = function() {
-    const light = document.body.classList.toggle('light');
-    localStorage.setItem('ww_theme', light ? 'light' : 'dark');
-    const btn = document.getElementById('theme-btn');
-    if (btn) btn.textContent = light ? '☀️' : '🌙';
+    const current = localStorage.getItem('ww_theme') || 'dark';
+    window.applyTheme(current === 'dark' ? 'light' : 'dark');
   };
   function initTheme() {
-    const theme = localStorage.getItem('ww_theme');
-    if (theme === 'light') {
-      document.body.classList.add('light');
-      const btn = document.getElementById('theme-btn');
-      if (btn) btn.textContent = '☀️';
-    }
+    const theme = localStorage.getItem('ww_theme') || 'dark';
+    window.applyTheme(theme);
   }
 
   /* ── Newsletter submit ── */
@@ -2846,6 +2858,101 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+
+/* ═══════════════════════════════════════════════════════════
+   POINT 68 — Système data-ww-cta
+   ─────────────────────────────────────────────────────────
+   Usage dans le HTML :
+   <div data-ww-cta="pilote"></div>   → encadré CTA niveau Pilote
+   <div data-ww-cta="radar"></div>    → encadré CTA niveau Radar
+   <div data-ww-cta="socle"></div>    → encadré CTA inscription gratuite
+
+   Si l'utilisateur a déjà le niveau requis (ou supérieur),
+   l'encadré n'est pas affiché.
+═══════════════════════════════════════════════════════════ */
+(function initCTASystem() {
+  const PLAN_RANK = { socle: 1, pilote: 2, radar: 3, admin: 3 };
+
+  const CTA_CONFIG = {
+    socle: {
+      emoji: '🟢',
+      titre: 'Accès gratuit — Socle WealthWaffle',
+      texte: 'Crée ton compte gratuit pour accéder aux outils et sauvegarder ta progression.',
+      btn_label: 'Créer mon compte gratuitement →',
+      btn_url: '/compte/inscription.html',
+      color: 'rgba(126,200,160,0.15)',
+      border: 'rgba(126,200,160,0.30)',
+    },
+    pilote: {
+      emoji: '✈️',
+      titre: 'Contenu Pilote — accès complet',
+      texte: () => {
+        const p = window.WW_DATA?.prix;
+        return p
+          ? `Ce contenu est réservé au niveau Pilote (${p.pilote_annuel}€/an). Accès complet · ${p.trial_days} jours gratuits.`
+          : 'Ce contenu est réservé au niveau Pilote. Accès complet · 7 jours gratuits.';
+      },
+      btn_label: 'Débloquer — Accès complet · 7 jours gratuits',
+      btn_url: '/doctrine.html#pilote',
+      color: 'rgba(232,124,195,0.10)',
+      border: 'rgba(232,124,195,0.30)',
+    },
+    radar: {
+      emoji: '📡',
+      titre: 'Contenu Radar — analyse avancée',
+      texte: () => {
+        const p = window.WW_DATA?.prix;
+        return p
+          ? `Ce contenu est réservé au niveau Radar (${p.radar_annuel}€/an). Accès complet · ${p.trial_days} jours gratuits.`
+          : 'Ce contenu est réservé au niveau Radar. Accès complet · 7 jours gratuits.';
+      },
+      btn_label: 'Débloquer Radar — Accès complet · 7 jours gratuits',
+      btn_url: '/doctrine.html#radar',
+      color: 'rgba(91,184,212,0.10)',
+      border: 'rgba(91,184,212,0.30)',
+    },
+  };
+
+  function buildCTA(level, config) {
+    const texte = typeof config.texte === 'function' ? config.texte() : config.texte;
+    return `<div class="ww-cta-box" style="--cta-color:${config.color};--cta-border:${config.border};" data-cta-level="${level}">
+      <div class="ww-cta-box-header">
+        <span class="ww-cta-box-emoji">${config.emoji}</span>
+        <span class="ww-cta-box-titre">${config.titre}</span>
+      </div>
+      <p class="ww-cta-box-texte">${texte}</p>
+      <a href="${config.btn_url}" class="ww-cta-box-btn">${config.btn_label}</a>
+    </div>`;
+  }
+
+  function injectCTAs() {
+    const currentPlan  = localStorage.getItem('ww_plan') || 'none';
+    const currentRank  = PLAN_RANK[currentPlan] || 0;
+
+    document.querySelectorAll('[data-ww-cta]').forEach(el => {
+      const level = el.dataset.wwCta;
+      const config = CTA_CONFIG[level];
+      if (!config) return;
+
+      const requiredRank = PLAN_RANK[level] || 1;
+
+      // Si l'utilisateur a déjà le niveau ou supérieur → masquer
+      if (currentRank >= requiredRank) {
+        el.style.display = 'none';
+        return;
+      }
+
+      el.innerHTML = buildCTA(level, config);
+    });
+  }
+
+  // Injecter après le chargement du DOM et des données
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(injectCTAs, 300); // laisser data.js se charger
+  });
+  window.WW_injectCTAs = injectCTAs; // exposé pour refresh si plan change
+})();
 
 /* ═══════════════════════════════════════════════════════════
    I5 — MODAL "TU ES AU BON ENDROIT ?"

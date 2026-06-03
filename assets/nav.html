@@ -173,10 +173,16 @@
             </button>
           </div>
           <div class="ww-dl">Thème</div>
-          <button onclick="toggleTheme()"
-            style="width:100%;padding:7px;border-radius:8px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.76rem;cursor:pointer;">
-            🌙 Basculer clair / sombre
-          </button>
+          <div style="display:flex;gap:6px;">
+            <button id="btn-theme-dark" onclick="applyTheme('dark')"
+              class="ww-theme-btn" style="flex:1;">
+              🌙 Sombre
+            </button>
+            <button id="btn-theme-light" onclick="applyTheme('light')"
+              class="ww-theme-btn" style="flex:1;">
+              ☀️ Clair
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -226,10 +232,16 @@
         🚀 Avancé
       </button>
     </div>
-    <button onclick="toggleTheme()"
-      style="width:100%;padding:7px;border-radius:9px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.76rem;cursor:pointer;">
-      🌙 Basculer thème
-    </button>
+    <div style="display:flex;gap:6px;">
+      <button id="mob-btn-theme-dark" onclick="applyTheme('dark')"
+        class="ww-theme-btn" style="flex:1;">
+        🌙 Sombre
+      </button>
+      <button id="mob-btn-theme-light" onclick="applyTheme('light')"
+        class="ww-theme-btn" style="flex:1;">
+        ☀️ Clair
+      </button>
+    </div>
   </div>
 
   <div id="ww-auth-mobile" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
