@@ -2880,3 +2880,66 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
   color: var(--rose);
   font-weight: 700;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   invest/etf.html — stats grid + DCA steps
+══════════════════════════════════════════════════════════════ */
+.etf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+}
+@media (max-width: 480px) { .etf-stats-grid { grid-template-columns: 1fr; } }
+.etf-stat-card {
+  background: var(--s3);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+.etf-stat-label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.etf-stat-value {
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.etf-stat-sub {
+  font-size: 0.62rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.etf-dca-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.etf-dca-num {
+  min-width: 24px;
+  height: 24px;
+  background: rgba(46,204,113,0.15);
+  border: 1px solid rgba(46,204,113,0.30);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.70rem;
+  font-weight: 700;
+  color: #2ECC71;
+  flex-shrink: 0;
+}
+
+/* waffy-tip avec image ← utilisée sur etf.html et autres pages Groupe D */
+.waffy-tip-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
