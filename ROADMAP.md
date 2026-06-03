@@ -128,7 +128,7 @@
 - [x] ~`invest/allocation.html` — section #classes ajoutée, graphique barres 3 profils animé, Waffy graphiste, data-ww-cta pilote, CSS → ww-all.css, simulateur FIRE opérationnel~
 - [x] ~`fiscal/independants.html` — nav orpheline supprimée, zéro CSS inline, kpi-grid, compare-2col PP/SRL, waffy-freelance PLCI, graphique barres PP vs SRL animé, simulateurPLCI, statuts spéciaux compare-2col, data-ww-cta pilote~
 - [x] ~`immo/achat.html` — style en <head> supprimé, zéro CSS inline, immo-steps/kpi-grid/checklist-2col, timeline canvas animée, waffy-proprio, data-ww-cta pilote~
-- [ ] `budget/epargne.html`
+- [x] ~`budget/epargne.html` — zéro CSS inline, pilier-card 1-4, ep-options-grid, graphique barres 4 piliers animé, waffy-économiste fonds urgence, section comparatif, data-ww-cta pilote~
 
 **Priorité 2 — pages nouvellement créées**
 
@@ -400,6 +400,7 @@
 
 ## ✅ Fait
 
+- ~`budget/epargne.html` — refonte complète Groupe D~
 - ~`immo/achat.html` — refonte complète Groupe D~
 - ~`fiscal/independants.html` — refonte complète Groupe D~
 - ~`invest/etf.html` + `invest/allocation.html` — zéro CSS inline · classes génériques ww-all.css (kpi-grid, sim-input, sim-result, chart-container, steps-list, waffy-tip, profil-grid, compare-2col, eyebrow-*, source-pill-active-*, txt-*, dot-*)~

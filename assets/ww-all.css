@@ -3438,3 +3438,32 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 .ww-section-sub-narrow { max-width: 440px; margin: 0 auto 28px; }
 .ww-cta-note { margin-top: 14px; font-size: 0.74rem; color: var(--muted); }
 .ww-theme-card-dynamic { --theme-color: rgba(91,184,212,0.40); }
+
+/* ══ BUDGET — piliers pension + épargne pension ══ */
+.txt-gold   { color: #E8C23A; }
+.txt-budget { color: #7EC8A0; }
+.source-pill-active-budget { background: rgba(126,200,160,0.12); border-color: rgba(126,200,160,0.30); color: #7EC8A0; }
+
+.piliers-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.pilier-card  { border-radius: 0 10px 10px 0; padding: 12px 14px; }
+.pilier-card-1 { background: rgba(232,194,58,0.07);  border-left: 3px solid #E8C23A; }
+.pilier-card-2 { background: rgba(91,184,212,0.07);  border-left: 3px solid #5BB8D4; }
+.pilier-card-3 { background: rgba(126,200,160,0.07); border-left: 3px solid #7EC8A0; }
+.pilier-card-4 { background: rgba(232,124,195,0.07); border-left: 3px solid var(--rose); }
+.pilier-title  { font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 2px; }
+.pilier-title-1 { color: #E8C23A; }
+.pilier-title-2 { color: #5BB8D4; }
+.pilier-title-3 { color: #7EC8A0; }
+.pilier-title-4 { color: var(--rose); }
+.pilier-sub    { font-size: 0.80rem; color: var(--muted); }
+
+.ep-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.ep-option-card  { border-radius: 12px; padding: 14px; text-align: center; }
+.ep-option-a     { background: rgba(126,200,160,0.07); border: 1px solid rgba(126,200,160,0.20); }
+.ep-option-b     { background: rgba(232,194,58,0.07);  border: 1px solid rgba(232,194,58,0.20);  }
+.ep-option-label { font-size: 0.64rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+.ep-option-label-a { color: #7EC8A0; }
+.ep-option-label-b { color: #E8C23A; }
+.ep-option-value   { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.ep-option-sub     { font-size: 0.70rem; color: var(--muted); margin-top: 4px; }
+.pension-risk-note { margin-top: 8px; font-size: 0.82rem; color: var(--muted); }
