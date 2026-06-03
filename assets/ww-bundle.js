@@ -24,6 +24,33 @@ if (location.protocol === 'file:') {
 }
 
 
+
+/* ── B1 : Injection automatique progress-bar + back-to-top ──
+   Ces éléments ne doivent plus être codés en dur dans les pages HTML.
+   ww-bundle.js les injecte si absents.
+── */
+(function injectSharedUI() {
+  document.addEventListener('DOMContentLoaded', () => {
+    // Progress bar de lecture
+    if (!document.querySelector('.progress-bar')) {
+      const pb = document.createElement('div');
+      pb.className = 'progress-bar';
+      pb.innerHTML = '<div class="progress-fill"></div>';
+      document.body.insertBefore(pb, document.body.firstChild);
+    }
+    // Bouton back-to-top
+    if (!document.querySelector('.back-to-top')) {
+      const btn = document.createElement('button');
+      btn.className = 'back-to-top';
+      btn.id = 'back-top';
+      btn.setAttribute('aria-label', 'Retour en haut');
+      btn.textContent = '↑';
+      btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.body.appendChild(btn);
+    }
+  });
+})();
+
 /* ═══ 1/8 — WW CORE : thème, menu, newsletter, modals, cookies ═══ */
 
 

@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WealthWaffle — La finance belge, ça se déguste</title>
   <meta name="description" content="Budget, fiscalité, investissement — la finance belge expliquée sans jargon. Des outils interactifs pour calculer, pas juste lire.">
   <meta property="og:title" content="WealthWaffle — La finance belge, ça se déguste">
-  <meta property="og:description" content="Budget, fiscalité, ETF — la finance belge expliquée dans l'ordre. Des outils interactifs, pas une encyclopédie.">
   <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <meta property="og:url" content="https://wealthwaffle.be">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_BE">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#E87CC3">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
   <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
@@ -23,37 +20,19 @@
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
-<div class="bg-mesh">
-  <div class="bg-orb orb1"></div>
-  <div class="bg-orb orb2"></div>
-  <div class="bg-orb orb3"></div>
-</div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
 
-<!-- ══════════════════════════════════════════
-     HERO
-══════════════════════════════════════════ -->
+<!-- ── HERO ── -->
 <section class="ww-hero">
   <div class="ww-hero-inner">
-    <img src="/img/waffy-guide.png" alt="Waffy" class="ww-hero-waffy"
-      onerror="this.style.display='none'">
+    <img src="/img/waffy/waffy-guide.png" alt="Waffy" class="ww-hero-waffy" onerror="this.style.display='none'">
     <div class="ww-hero-eyebrow">🧇 Finance personnelle belge</div>
-    <h1 class="ww-hero-title">
-      La finance, ça se<br>
-      <span class="ww-hero-gradient">déguste.</span>
-    </h1>
+    <h1 class="ww-hero-title">La finance, ça se<br><span class="ww-hero-gradient">déguste.</span></h1>
     <p class="ww-hero-sub">Des outils interactifs pour calculer, pas juste lire.<br>Budget · Investissement · Fiscalité · Immobilier.</p>
-
-    <!-- Deux entrées principales -->
     <div class="ww-hero-ctas">
-      <a href="#je-sais" class="ww-cta-primary" onclick="smoothTo('je-sais')">
-        🔍 Je sais ce que je veux
-      </a>
-      <a href="#guidez-moi" class="ww-cta-secondary" onclick="smoothTo('guidez-moi')">
-        🧭 Guidez-moi
-      </a>
+      <a href="#je-sais" class="ww-cta-primary" onclick="smoothTo('je-sais')">🔍 Je sais ce que je veux</a>
+      <a href="#guidez-moi" class="ww-cta-secondary" onclick="smoothTo('guidez-moi')">🧭 Guidez-moi</a>
     </div>
-
-    <!-- Preuves sociales discrètes -->
     <div class="ww-hero-proof">
       <span>📊 Des simulateurs interactifs</span>
       <span class="ww-proof-dot">·</span>
@@ -62,52 +41,32 @@
       <span>💡 Sans jargon</span>
     </div>
   </div>
-
-  <div class="ww-hero-scroll">
-    <span>↓</span>
-  </div>
+  <div class="ww-hero-scroll"><span>↓</span></div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     SECTION A — JE SAIS CE QUE JE VEUX
-══════════════════════════════════════════ -->
+<!-- ── SECTION A — JE SAIS ── -->
 <section id="je-sais" class="ww-section">
   <div class="ww-section-inner">
-
-    <!-- Barre de recherche (déjà dans ww-bundle.js) -->
-    <div class="ww-search-home">
-      <div style="position:relative;max-width:540px;margin:0 auto 40px;">
-        <input id="ww-search-input-home" type="text" placeholder="🔍  Ex: ETF Belgique, PLCI indépendant, déclaration fiscale..."
-          autocomplete="off"
-          oninput="doSearch(this.value,'ww-search-results-home')"
-          onfocus="doSearch(this.value,'ww-search-results-home')"
-          onblur="setTimeout(()=>closeSearch('ww-search-results-home'),200)">
-        <div class="ww-search-results" id="ww-search-results-home"></div>
-      </div>
+    <div class="ww-search-wrap">
+      <input id="ww-search-input-home" type="text" placeholder="🔍  Ex: ETF Belgique, PLCI indépendant, déclaration fiscale..."
+        autocomplete="off"
+        oninput="doSearch(this.value,'ww-search-results-home')"
+        onfocus="doSearch(this.value,'ww-search-results-home')"
+        onblur="setTimeout(()=>closeSearch('ww-search-results-home'),200)">
+      <div class="ww-search-results" id="ww-search-results-home"></div>
     </div>
-
-    <!-- Thèmes — sitemap visuelle -->
     <div class="ww-themes-label">Ou parcourir par thème</div>
-    <div class="ww-themes-grid" id="ww-themes-home">
-      <!-- Généré par JS depuis WW_DATA.pages -->
-    </div>
-
+    <div class="ww-themes-grid" id="ww-themes-home"></div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     SECTION B — GUIDEZ-MOI
-══════════════════════════════════════════ -->
+<!-- ── SECTION B — GUIDEZ-MOI ── -->
 <section id="guidez-moi" class="ww-section ww-section-alt">
   <div class="ww-section-inner">
     <div class="ww-section-eyebrow">🧭 Guidez-moi</div>
     <h2 class="ww-section-title">On te trouve le bon point de départ</h2>
     <p class="ww-section-sub">Réponds à 4 questions — on t'envoie directement aux bonnes pages.</p>
-
-    <!-- Questionnaire inline (réutilise la logique de l'onboarding) -->
     <div id="ww-guide-quiz" class="ww-quiz-inline">
-
-      <!-- Q1 -->
       <div class="ww-quiz-step" id="qs-1">
         <div class="ww-quiz-label">1. Tu es…</div>
         <div class="ww-quiz-btns">
@@ -116,8 +75,6 @@
           <button class="ww-quiz-btn" onclick="quizSelect(1,'dirigeant',this)">🏢 Dirigeant</button>
         </div>
       </div>
-
-      <!-- Q2 -->
       <div class="ww-quiz-step" id="qs-2">
         <div class="ww-quiz-label">2. Ton objectif principal ?</div>
         <div class="ww-quiz-btns ww-quiz-btns-grid">
@@ -128,8 +85,6 @@
           <button class="ww-quiz-btn ww-quiz-btn-full" onclick="quizSelect(2,'retraite',this)">⏳ Préparer ma retraite</button>
         </div>
       </div>
-
-      <!-- Q3 -->
       <div class="ww-quiz-step" id="qs-3">
         <div class="ww-quiz-label">3. Ton niveau ?</div>
         <div class="ww-quiz-btns">
@@ -137,628 +92,132 @@
           <button class="ww-quiz-btn" onclick="quizSelect(3,'avance',this)">🚀 J'ai des bases</button>
         </div>
       </div>
-
-      <!-- Q4 -->
       <div class="ww-quiz-step" id="qs-4">
-        <div class="ww-quiz-label">4. Thème préféré ?</div>
+        <div class="ww-quiz-label">4. Interface préférée ?</div>
         <div class="ww-quiz-btns">
           <button class="ww-quiz-btn" onclick="quizSelect(4,'dark',this)">🌙 Sombre</button>
           <button class="ww-quiz-btn" onclick="quizSelect(4,'light',this)">☀️ Clair</button>
         </div>
       </div>
-
-      <!-- Résultats -->
-      <div id="ww-quiz-results" class="ww-quiz-results" style="display:none;">
+      <div id="ww-quiz-results" class="ww-quiz-results ww-quiz-results-hidden">
         <div class="ww-quiz-results-label">✨ Commence par là</div>
         <div id="ww-quiz-recs" class="ww-quiz-recs-grid"></div>
-        <div class="ww-quiz-waffy">
-          🧇 <span>À tout moment, Waffy en bas à droite peut te guider vers la bonne page.</span>
-        </div>
+        <div class="ww-quiz-waffy">🧇 <span>À tout moment, Waffy en bas à droite peut te guider vers la bonne page.</span></div>
         <button onclick="resetQuiz()" class="ww-quiz-reset">↩ Recommencer</button>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     SECTION C — POUR CEUX QUI SCROLLENT
-     (même data que A, présentation différente)
-══════════════════════════════════════════ -->
+<!-- ── SECTION C — EXPLORER ── -->
 <section id="decouvrir" class="ww-section">
   <div class="ww-section-inner">
     <div class="ww-section-eyebrow">📚 Explorer</div>
     <h2 class="ww-section-title">Tout ce qu'on couvre</h2>
     <p class="ww-section-sub">Finance interactive — des outils concrets, pas une encyclopédie.</p>
-    <div id="ww-explore-grid" class="ww-explore-grid">
-      <!-- Généré par JS -->
-    </div>
+    <div id="ww-explore-grid" class="ww-explore-grid"></div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     SECTION D — CTA FINAL
-══════════════════════════════════════════ -->
+<!-- ── SECTION D — CTA FINAL ── -->
 <section class="ww-section ww-section-cta">
-  <div class="ww-section-inner" style="text-align:center;">
-    <img src="/img/waffy-bienvenue.png" alt="Waffy" style="width:100px;margin:0 auto 16px;display:block;"
-      onerror="this.style.display='none'">
+  <div class="ww-section-inner ww-section-center">
+    <img src="/img/waffy/waffy-bienvenue.png" alt="Waffy" class="ww-hero-waffy-img" onerror="this.style.display='none'">
     <h2 class="ww-section-title">Dans 10 ans, tu te remercieras.</h2>
-    <p class="ww-section-sub" style="max-width:440px;margin:0 auto 28px;">Commence avec le Socle — gratuit, complet, sans engagement.</p>
-    <a href="/compte/inscription.html" class="ww-cta-primary" style="font-size:1rem;padding:15px 32px;">
-      Commencer gratuitement →
-    </a>
-    <div style="margin-top:14px;font-size:0.74rem;color:var(--muted);">
-      7 jours gratuits sur les plans payants · résiliation avant pour ne rien payer
-    </div>
+    <p class="ww-section-sub ww-section-sub-narrow">Commence avec le Socle — gratuit, complet, sans engagement.</p>
+    <a href="/compte/inscription.html" class="ww-cta-primary">Commencer gratuitement →</a>
+    <div class="ww-cta-note">Accès complet · 7 jours gratuits sur les plans payants</div>
   </div>
 </section>
-
-<!-- ══════════════════════════════════════════
-     CSS ACCUEIL — dans ww-all.css idéalement
-     (mis ici en attendant M4/M6)
-══════════════════════════════════════════ -->
-<style>
-/* ── Hero ───────────────────────────────── */
-.ww-hero {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 20px 40px;
-  text-align: center;
-  position: relative;
-}
-.ww-hero-inner { max-width: 640px; margin: 0 auto; }
-.ww-hero-waffy {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  margin: 0 auto 20px;
-  display: block;
-  animation: float 4s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(232,124,195,0.30));
-}
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
-}
-.ww-hero-eyebrow {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--rose);
-  margin-bottom: 16px;
-}
-.ww-hero-title {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-size: clamp(2.4rem, 8vw, 4rem);
-  line-height: 1.1;
-  color: var(--text);
-  margin-bottom: 18px;
-}
-.ww-hero-gradient {
-  background: linear-gradient(90deg, #E87CC3, #5BB8D4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.ww-hero-sub {
-  font-size: clamp(0.90rem, 2.2vw, 1.05rem);
-  color: var(--muted);
-  line-height: 1.75;
-  margin-bottom: 32px;
-}
-.ww-hero-ctas {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 28px;
-}
-.ww-cta-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 24px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #E87CC3, #5BB8D4);
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
-  font-size: 0.90rem;
-  text-decoration: none;
-  transition: opacity 0.18s, transform 0.18s;
-}
-.ww-cta-primary:hover { opacity: 0.90; transform: translateY(-2px); }
-.ww-cta-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 24px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.04);
-  color: var(--muted);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-  font-size: 0.90rem;
-  text-decoration: none;
-  transition: background 0.18s, border-color 0.18s, transform 0.18s;
-}
-.ww-cta-secondary:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.25);
-  color: var(--text);
-  transform: translateY(-2px);
-}
-.ww-hero-proof {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  font-size: 0.72rem;
-  color: var(--muted2);
-}
-.ww-proof-dot { opacity: 0.35; }
-.ww-hero-scroll {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.2rem;
-  opacity: 0.3;
-  animation: bounce 2s ease-in-out infinite;
-}
-@keyframes bounce {
-  0%,100% { transform: translateX(-50%) translateY(0); }
-  50%      { transform: translateX(-50%) translateY(6px); }
-}
-
-/* ── Sections ───────────────────────────── */
-.ww-section {
-  padding: 80px 20px;
-}
-.ww-section-alt {
-  background: rgba(255,255,255,0.015);
-  border-top: 1px solid var(--faint);
-  border-bottom: 1px solid var(--faint);
-}
-.ww-section-cta {
-  padding: 80px 20px 100px;
-  background: linear-gradient(180deg, transparent, rgba(232,124,195,0.04));
-}
-.ww-section-inner { max-width: 860px; margin: 0 auto; }
-.ww-section-eyebrow {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--rose);
-  margin-bottom: 10px;
-}
-.ww-section-title {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  color: var(--text);
-  margin-bottom: 10px;
-  line-height: 1.2;
-}
-.ww-section-sub {
-  font-size: 0.90rem;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 36px;
-  max-width: 520px;
-}
-
-/* ── Recherche accueil ──────────────────── */
-#ww-search-input-home {
-  width: 100%;
-  background: var(--s2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 14px 20px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.92rem;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.18s;
-}
-#ww-search-input-home:focus {
-  border-color: rgba(232,124,195,0.45);
-}
-.ww-themes-label {
-  text-align: center;
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  color: var(--muted2);
-  margin-bottom: 18px;
-}
-
-/* ── Grille thèmes (accueil) ────────────── */
-.ww-themes-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-@media (max-width: 640px) {
-  .ww-themes-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 400px) {
-  .ww-themes-grid { grid-template-columns: 1fr; }
-}
-.ww-theme-card {
-  background: var(--s2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px 16px;
-  text-decoration: none;
-  transition: border-color 0.18s, transform 0.18s, background 0.18s;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.ww-theme-card:hover {
-  border-color: var(--theme-color, rgba(232,124,195,0.40));
-  transform: translateY(-3px);
-  background: var(--s3);
-}
-.ww-theme-emoji { font-size: 1.6rem; }
-.ww-theme-name {
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: var(--text);
-}
-.ww-theme-count {
-  font-size: 0.68rem;
-  color: var(--muted);
-}
-.ww-theme-pages {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 4px;
-}
-.ww-theme-pill {
-  font-size: 0.62rem;
-  padding: 2px 7px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.05);
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-/* ── Quiz inline ────────────────────────── */
-.ww-quiz-inline {
-  max-width: 560px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.ww-quiz-step { }
-.ww-quiz-label {
-  font-size: 0.70rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-.ww-quiz-btns {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.ww-quiz-btns-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.ww-quiz-btn {
-  flex: 1;
-  padding: 11px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--s2);
-  color: var(--muted);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.18s;
-  text-align: center;
-  min-width: 0;
-}
-.ww-quiz-btn:hover {
-  background: var(--s3);
-  color: var(--text);
-  border-color: rgba(255,255,255,0.20);
-}
-.ww-quiz-btn.selected {
-  border-color: rgba(232,124,195,0.50);
-  background: rgba(232,124,195,0.10);
-  color: var(--rose);
-}
-.ww-quiz-btn-full { grid-column: span 2; }
-
-/* ── Quiz résultats ─────────────────────── */
-.ww-quiz-results {
-  margin-top: 8px;
-  animation: fadeIn 0.3s ease both;
-}
-.ww-quiz-results-label {
-  font-size: 0.70rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  color: var(--rose);
-  margin-bottom: 14px;
-}
-.ww-quiz-recs-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.ww-quiz-rec {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--s2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px;
-  text-decoration: none;
-  transition: all 0.18s;
-}
-.ww-quiz-rec:hover {
-  border-color: rgba(232,124,195,0.35);
-  transform: translateX(4px);
-}
-.ww-quiz-rec-emoji { font-size: 1.4rem; flex-shrink: 0; }
-.ww-quiz-rec-title { font-size: 0.86rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.ww-quiz-rec-desc  { font-size: 0.72rem; color: var(--muted); }
-.ww-quiz-waffy {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: rgba(255,255,255,0.025);
-  border-radius: 10px;
-  font-size: 0.70rem;
-  color: var(--muted2);
-  margin-bottom: 12px;
-}
-.ww-quiz-reset {
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 0.76rem;
-  cursor: pointer;
-  padding: 4px 0;
-  font-family: 'DM Sans', sans-serif;
-}
-.ww-quiz-reset:hover { color: var(--text); }
-
-/* ── Grille exploration ─────────────────── */
-.ww-explore-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-@media (max-width: 600px) {
-  .ww-explore-grid { grid-template-columns: 1fr; }
-}
-.ww-explore-card {
-  background: var(--s2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px;
-  text-decoration: none;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  transition: all 0.18s;
-}
-.ww-explore-card:hover {
-  border-color: rgba(232,124,195,0.30);
-  transform: translateY(-2px);
-  background: var(--s3);
-}
-.ww-explore-emoji { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
-.ww-explore-name  { font-size: 0.86rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-.ww-explore-desc  { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
-.ww-explore-count { font-size: 0.62rem; color: var(--muted2); margin-top: 4px; }
-</style>
 
 <script>
-/* ── Scroll doux vers section ─── */
-function smoothTo(id) {
-  const el = document.getElementById(id);
-  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-}
+function smoothTo(id) { document.getElementById(id)?.scrollIntoView({ behavior:'smooth', block:'start' }); }
 
-/* ── Grille thèmes depuis WW_DATA.pages ─── */
 const THEME_META = {
-  parcours:  { label: 'Par où commencer',    emoji: '🧭', color: '#5BB8D4' },
-  budget:    { label: 'Budget & Épargne',    emoji: '🗂️', color: '#7EC8A0' },
-  invest:    { label: 'Investir',            emoji: '📊', color: '#2ECC71' },
-  immo:      { label: 'Immobilier',          emoji: '🏠', color: '#E76F51' },
-  fiscal:    { label: 'Fiscalité',           emoji: '💡', color: '#9B59B6' },
-  outils:    { label: 'Simulateurs',         emoji: '🔧', color: '#E87CC3' },
-  contenu:   { label: 'Vidéos & Guides',     emoji: '🎬', color: '#5BB8D4' },
-  programme: { label: 'Programme',           emoji: '✈️', color: '#E87CC3' },
+  parcours:  { label:'Par où commencer',  emoji:'🧭', color:'#5BB8D4' },
+  budget:    { label:'Budget & Épargne',  emoji:'🗂️', color:'#7EC8A0' },
+  invest:    { label:'Investir',          emoji:'📊', color:'#2ECC71' },
+  immo:      { label:'Immobilier',        emoji:'🏠', color:'#E76F51' },
+  fiscal:    { label:'Fiscalité',         emoji:'💡', color:'#9B59B6' },
+  outils:    { label:'Simulateurs',       emoji:'🔧', color:'#E87CC3' },
+  contenu:   { label:'Vidéos & Guides',   emoji:'🎬', color:'#5BB8D4' },
+  programme: { label:'Programme',         emoji:'✈️', color:'#E87CC3' },
 };
-
-/* Lien hub par thème */
-const THEME_HUBS = {
-  parcours: '/parcours/',
-  budget:   '/budget/',
-  invest:   '/invest/',
-  immo:     '/immo/',
-  fiscal:   '/fiscal/',
-  outils:   '/outils/',
-  contenu:  '/contenu/downloads.html',
-  programme:'/doctrine.html',
-};
+const THEME_HUBS = { parcours:'/parcours/', budget:'/budget/', invest:'/invest/', immo:'/immo/', fiscal:'/fiscal/', outils:'/outils/', contenu:'/contenu/downloads.html', programme:'/doctrine.html' };
 
 function buildThemeGrid() {
   const pages = window.WW_DATA?.pages || [];
   if (!pages.length) return;
 
-  /* ── Section A : grille thèmes ── */
   const grid = document.getElementById('ww-themes-home');
   if (grid) {
     const themes = Object.keys(THEME_META).filter(t => t !== 'contenu' && t !== 'programme');
     grid.innerHTML = themes.map(theme => {
       const meta = THEME_META[theme];
-      const themePages = pages.filter(p => p.theme === theme && p.level === 'all');
-      const preview = themePages.slice(0, 3);
-      const extra = themePages.length - preview.length;
-      return `<a href="${THEME_HUBS[theme] || '#'}" class="ww-theme-card"
-          style="--theme-color:${meta.color}40">
+      const tp = pages.filter(p => p.theme === theme && p.level === 'all');
+      const preview = tp.slice(0,3);
+      const extra = tp.length - preview.length;
+      return `<a href="${THEME_HUBS[theme]||'#'}" class="ww-theme-card">
         <span class="ww-theme-emoji">${meta.emoji}</span>
         <div class="ww-theme-name">${meta.label}</div>
-        <div class="ww-theme-count">${themePages.length} page${themePages.length > 1 ? 's' : ''}</div>
+        <div class="ww-theme-count">${tp.length} page${tp.length>1?'s':''}</div>
         <div class="ww-theme-pages">
-          ${preview.map(p => `<span class="ww-theme-pill">${p.emoji} ${p.titre.split(' ').slice(0,3).join(' ')}</span>`).join('')}
-          ${extra > 0 ? `<span class="ww-theme-pill">+${extra}</span>` : ''}
+          ${preview.map(p=>`<span class="ww-theme-pill">${p.emoji} ${p.titre.split(' ').slice(0,3).join(' ')}</span>`).join('')}
+          ${extra>0?`<span class="ww-theme-pill">+${extra}</span>`:''}
         </div>
       </a>`;
     }).join('');
   }
 
-  /* ── Section C : grille exploration ── */
   const exploreGrid = document.getElementById('ww-explore-grid');
   if (exploreGrid) {
-    const HUB_PAGES = Object.keys(THEME_META).filter(t => THEME_HUBS[t]);
-    exploreGrid.innerHTML = HUB_PAGES.map(theme => {
+    const desc = { parcours:'Les bases, la psychologie, le glossaire.', budget:'Budget, épargne, banques, assurances, retraite.', invest:'ETF, actions, crypto, or — toutes les classes d\'actifs.', immo:'Acheter, louer, rénover, financer — l\'immo belge.', fiscal:'Déclaration, indépendants, sociétés, Tax Shelter.', outils:'Simulateurs interactifs — résultats instantanés.', contenu:'Vidéos courtes, guides PDF, newsletter.', programme:'Socle gratuit, Pilote 99€/an, Radar 199€/an.' };
+    exploreGrid.innerHTML = Object.keys(THEME_META).map(theme => {
       const meta = THEME_META[theme];
       const count = pages.filter(p => p.theme === theme).length;
-      const desc = {
-        parcours:  'Les bases, la psychologie, le glossaire — ton point de départ.',
-        budget:    'Budget, épargne, banques, assurances, retraite.',
-        invest:    'ETF, actions, crypto, or, immo indirect — toutes les classes d\'actifs.',
-        immo:      'Acheter, louer, rénover, financer — l\'immo belge de A à Z.',
-        fiscal:    'Déclaration, indépendants, sociétés, Tax Shelter, succession.',
-        outils:    'Simulateurs interactifs — résultats instantanés sans Excel.',
-        contenu:   'Vidéos courtes, guides PDF, newsletter hebdomadaire.',
-        programme: 'Socle gratuit, Pilote 99€/an, Radar 199€/an.',
-      };
       return `<a href="${THEME_HUBS[theme]}" class="ww-explore-card">
         <span class="ww-explore-emoji">${meta.emoji}</span>
-        <div>
-          <div class="ww-explore-name">${meta.label}</div>
-          <div class="ww-explore-desc">${desc[theme] || ''}</div>
-          <div class="ww-explore-count">${count} page${count > 1 ? 's' : ''}</div>
-        </div>
+        <div><div class="ww-explore-name">${meta.label}</div><div class="ww-explore-desc">${desc[theme]||''}</div><div class="ww-explore-count">${count} page${count>1?'s':''}</div></div>
       </a>`;
     }).join('');
   }
 }
 
-/* ── Quiz inline ─────────────────────────── */
-const quizState = { 1: null, 2: null, 3: null, 4: null };
-const QUIZ_LABELS = {
-  1: { key: 'profile',  store: 'ww_profile' },
-  2: { key: 'objectif', store: 'ww_topic'   },
-  3: { key: 'level',    store: 'ww_level'   },
-  4: { key: 'theme',    store: 'ww_theme'   },
-};
-
+const quizState = {1:null,2:null,3:null,4:null};
 function quizSelect(step, value, btn) {
-  /* Visuellement sélectionner */
-  const parent = btn.closest('.ww-quiz-step') || btn.closest('.ww-quiz-btns') || btn.parentElement;
+  const parent = btn.closest('.ww-quiz-step');
   parent.querySelectorAll('.ww-quiz-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   quizState[step] = value;
-
-  /* Appliquer immédiatement les choix thème/niveau */
-  if (step === 3 && typeof setLevelNav === 'function') {
-    setLevelNav(value);
-    localStorage.setItem(QUIZ_LABELS[3].store, value);
-  }
-  if (step === 4) {
-    localStorage.setItem(QUIZ_LABELS[4].store, value);
-    if (typeof applyTheme === 'function') applyTheme(value);
-    document.documentElement.setAttribute('data-theme', value);
-  }
-
-  /* Afficher résultats quand tout est rempli */
-  const allDone = Object.values(quizState).every(v => v !== null);
-  if (allDone) showQuizResults();
+  if (step===3) { localStorage.setItem('ww_level',value); if(typeof setLevelNav==='function') setLevelNav(value); }
+  if (step===4) { localStorage.setItem('ww_theme',value); document.documentElement.setAttribute('data-theme',value); if(typeof applyTheme==='function') applyTheme(value); }
+  if (Object.values(quizState).every(v=>v!==null)) showQuizResults();
 }
 
 function showQuizResults() {
   const pages = window.WW_DATA?.pages || [];
-  const MAP = {
-    'epargner': ['budget','parcours'],
-    'investir':  ['invest','outils'],
-    'impots':    ['fiscal','outils'],
-    'immo':      ['immo','fiscal'],
-    'retraite':  ['budget','invest'],
-  };
-  const themes = [...(MAP[quizState[2]] || ['parcours','budget'])];
+  const MAP = { epargner:['budget','parcours'], investir:['invest','outils'], impots:['fiscal','outils'], immo:['immo','fiscal'], retraite:['budget','invest'] };
+  const themes = [...(MAP[quizState[2]]||['parcours','budget'])];
   if (['independant','dirigeant'].includes(quizState[1])) themes.unshift('fiscal');
-
-  const seen = new Set();
-  const recs = [];
-  for (const theme of themes) {
-    for (const p of pages) {
-      if (p.theme === theme && p.level === 'all' && !seen.has(p.url)) {
-        recs.push(p);
-        seen.add(p.url);
-        if (recs.length >= 3) break;
-      }
-    }
-    if (recs.length >= 3) break;
-  }
-
-  /* Sauvegarder */
-  if (quizState[1]) localStorage.setItem('ww_profile',  quizState[1]);
-  if (quizState[2]) localStorage.setItem('ww_topic',    quizState[2]);
-  localStorage.setItem('ww_onboarding_done', '1');
-
-  /* Afficher */
-  const recsEl = document.getElementById('ww-quiz-recs');
-  recsEl.innerHTML = recs.map(p => `
-    <a href="${p.url}" class="ww-quiz-rec">
-      <span class="ww-quiz-rec-emoji">${p.emoji}</span>
-      <div>
-        <div class="ww-quiz-rec-title">${p.titre}</div>
-        <div class="ww-quiz-rec-desc">${p.description}</div>
-      </div>
-    </a>`).join('');
-
-  document.getElementById('ww-quiz-results').style.display = 'block';
+  const seen = new Set(), recs = [];
+  for (const theme of themes) for (const p of pages) { if(p.theme===theme&&p.level==='all'&&!seen.has(p.url)){recs.push(p);seen.add(p.url);if(recs.length>=3)break;} if(recs.length>=3)break; }
+  if (quizState[1]) localStorage.setItem('ww_profile',quizState[1]);
+  if (quizState[2]) localStorage.setItem('ww_topic',quizState[2]);
+  localStorage.setItem('ww_onboarding_done','1');
+  document.getElementById('ww-quiz-recs').innerHTML = recs.map(p=>`<a href="${p.url}" class="ww-quiz-rec"><span class="ww-quiz-rec-emoji">${p.emoji}</span><div><div class="ww-quiz-rec-title">${p.titre}</div><div class="ww-quiz-rec-desc">${p.description}</div></div></a>`).join('');
+  const r = document.getElementById('ww-quiz-results');
+  r.classList.remove('ww-quiz-results-hidden');
 }
 
 function resetQuiz() {
-  Object.keys(quizState).forEach(k => quizState[k] = null);
-  document.querySelectorAll('.ww-quiz-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById('ww-quiz-results').style.display = 'none';
+  Object.keys(quizState).forEach(k=>quizState[k]=null);
+  document.querySelectorAll('.ww-quiz-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('ww-quiz-results').classList.add('ww-quiz-results-hidden');
 }
 
-/* ── Init ─────────────────────────────────── */
 window.addEventListener('load', () => {
-  /* Attendre que data.js soit chargé */
-  const tryBuild = () => {
-    if (window.WW_DATA?.pages) {
-      buildThemeGrid();
-    } else {
-      setTimeout(tryBuild, 100);
-    }
-  };
-  tryBuild();
+  const try_ = () => { if(window.WW_DATA?.pages) buildThemeGrid(); else setTimeout(try_,100); };
+  try_();
 });
 </script>
 
