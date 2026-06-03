@@ -41,9 +41,34 @@
 > Faire ensemble — même fichiers, même commit
 
 - [ ] **M4a.** Batch Python : supprimer “La gaufre, elle juge pas” dans tous les fichiers HTML
-- [ ] **M4b.** Batch Python : supprimer “Sans carte bancaire” → remplacer par “7 jours gratuits, résiliation avant pour ne rien payer”
+- [ ] **M4b.** Batch Python : supprimer “Sans carte bancaire” → remplacer par “Accès complet · 7 jours gratuits” (formulation C validée)
 - [ ] **M4c.** Batch Python : passer tous les liens relatifs en absolus sur toutes les pages HTML
-- [ ] **M4d.** Batch Python : migration images → renommer `IMG_5202.png` → `/img/waffy-logo.png` · `IMG_5208.png` → `/img/waffy-avatar.png` · corriger tous les liens dans les 107 fichiers concernés · créer dossier `/img/`
+- [ ] **M4d-prep.** ⚠️ TON JOB (Jonathan) : générer les 33 images via Grok (prompts dans WAFFY_GUIDE.md) → les déposer dans `/img/waffy/` · renommer IMG_5202.png → `/img/waffy-logo.png` et IMG_5208.png → `/img/waffy-avatar.png`
+  
+  Checklist images à générer :
+  - [ ] `waffy-logo.png` (renommer IMG_5202)
+  - [ ] `waffy-avatar.png` (renommer IMG_5208)
+  - [ ] `waffy-professeur.png` · `waffy-accueil.png`
+  - [ ] `waffy-economiste.png` · `waffy-banquier.png`
+  - [ ] `waffy-analyste.png` · `waffy-graphiste.png`
+  - [ ] `waffy-collectionneur.png` · `waffy-sommelier.png`
+  - [ ] `waffy-proprio.png` · `waffy-locatif.png` · `waffy-renovateur.png`
+  - [ ] `waffy-deducteur.png` · `waffy-declarant.png`
+  - [ ] `waffy-freelance.png` · `waffy-tva.png`
+  - [ ] `waffy-dirigeant.png` · `waffy-holding.png`
+  - [ ] `waffy-crypto.png` · `waffy-securite.png`
+  - [ ] `waffy-investisseur.png` · `waffy-radar.png`
+  - [ ] `waffy-zen.png` · `waffy-rente.png`
+  - [ ] `waffy-calculateur.png` · `waffy-resultat.png`
+  - [ ] `waffy-guide.png` · `waffy-pilote.png`
+  - [ ] `waffy-oups.png` · `waffy-bienvenue.png`
+  - [ ] `waffy-inquiet.png` · `waffy-celebration.png`
+  - [ ] `waffy-email.png` · `waffy-debutant.png`
+- [ ] **M4d-liens.** Batch Python : corriger tous les liens `IMG_5202.png` → `/img/waffy-logo.png` et `IMG_5208.png` → `/img/waffy-avatar.png` dans tous les fichiers
+- [ ] **M4d-pages-1.** MON JOB : placer les images Waffy dans les pages parcours + budget + invest (Waffy-professeur, Waffy-economiste, Waffy-analyste) · 1 par page · 7 emplacements validés (voir WAFFY_GUIDE.md) · ~10 pages
+- [ ] **M4d-pages-2.** MON JOB : placer les images Waffy dans les pages immo + fiscal + indépendants (Waffy-proprio, Waffy-deducteur, Waffy-freelance) · ~10 pages
+- [ ] **M4d-pages-3.** MON JOB : placer les images Waffy dans les pages sociétés + crypto + radar + outils (Waffy-dirigeant, Waffy-crypto, Waffy-investisseur, Waffy-calculateur) · ~10 pages
+- [ ] **M4d-pages-4.** MON JOB : placer Waffy dans les pages spéciales — 404, onboarding, résultats simulateurs, doctrine, index.html (Waffy-oups, Waffy-guide, Waffy-bienvenue, Waffy-celebration, Waffy-inquiet)
 - [ ] **M5.** Système `data-ww` injection : `<span data-ww="clé"></span>` → injecté par `ww-bundle.js` · couvre IS 25%, PM 30%, franchise 10K€, Tax Shelter 45%, PLCI 8,17%…
 - [ ] **14.** Nav ⚙️ — remplacer icône 🌙 par deux boutons séparés “Clair” / “Sombre” (même style que Débutant/Avancé)
 - [ ] **67.** CSS `.cta-box-premium` dans `ww-all.css` — style unifié pour tous les encadrés premium/pilote/radar
@@ -343,6 +368,7 @@
 
 ## ✅ Fait
 
+- ~**I6.** `index.html` refonte complète — 4 sections, grilles dynamiques WW_DATA.pages, quiz inline, CSS dans la page (à migrer en M6)~
 - ~**I5.** Modal contextuelle 8s — “Tu es au bon endroit ?” avec nom page depuis WW_DATA.pages · guidez-moi → WW_buildOnboarding()~
 - ~**I4.** Onboarding 4 questions — profil/objectif/niveau/thème · recommandations WW_DATA.pages · tip Waffy · WW_buildOnboarding exposé~
 - ~**I3.** `initHubComponents()` — composant hub dynamique depuis WW_DATA.pages, grilles statiques remplacées dans 4 hubs, CSS injecté, badge niveau pilote/radar~

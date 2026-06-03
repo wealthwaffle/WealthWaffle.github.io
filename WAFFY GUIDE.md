@@ -473,3 +473,53 @@ Pixar-style 3D rendered waffle character named Waffy. Golden-brown Belgian waffl
 **Prompt :**
 
 > Pixar-style 3D rendered waffle character. Golden-brown waffle body, powdered sugar, slate blue eyes, cognac shoes. Sage green (#9DC183) arms and legs. 3/4 left view, right index finger gently raised (not commanding, more like a soft reminder), head slightly tilted toward viewer. Warm friendly expression — benevolent smile, eyebrows slightly raised in an “I’m here for you” gesture. Small floating label “Version simple 🌱” beside him. Transparent background. Pixar 3D warm lighting.
+
+-----
+
+## 🗺️ Tableau de placement validé — 33 images × 33 emplacements
+
+> Validé par Jonathan. 1 image = 1 page = 1 emplacement précis.
+> Règle : jamais 2 Waffy sur la même page (sauf doctrine.html — justifié).
+
+|# |Fichier image             |Page                                  |Emplacement                                                    |Taille      |Moment émotionnel                |
+|--|--------------------------|--------------------------------------|---------------------------------------------------------------|------------|---------------------------------|
+|1 |`waffy-accueil.png`       |`/index.html`                         |Hero — centré au-dessus du titre, flottant                     |90px        |Première impression              |
+|2 |`waffy-professeur.png`    |`/parcours/bases.html`                |À droite du H1                                                 |140px       |Débutant qui arrive              |
+|3 |`waffy-economiste.png`    |`/budget/epargne.html`                |`.waffy-tip` section fonds d’urgence                           |100px       |“Combien mettre de côté ?”       |
+|4 |`waffy-banquier.png`      |`/budget/banques.html`                |`.waffy-tip` section comparatif                                |100px       |Choix difficile                  |
+|5 |`waffy-analyste.png`      |`/invest/etf.html`                    |`.waffy-tip` section “ce que font les gens qui s’y connaissent”|120px       |Crédibilité                      |
+|6 |`waffy-graphiste.png`     |`/invest/allocation.html`             |À côté du simulateur de répartition                            |100px       |Avant le calcul                  |
+|7 |`waffy-collectionneur.png`|`/invest/or.html`                     |À droite du H1                                                 |140px       |Intro page courte                |
+|8 |`waffy-sommelier.png`     |`/invest/alternatives.html`           |`.waffy-tip` section vin/art/forêts                            |100px       |Moment ludique                   |
+|9 |`waffy-proprio.png`       |`/immo/achat.html`                    |`.waffy-tip` section “erreurs à éviter”                        |120px       |Acheteur qui a peur              |
+|10|`waffy-locatif.png`       |`/immo/locatif.html`                  |`.waffy-tip` section rendement locatif                         |100px       |Moment du calcul                 |
+|11|`waffy-renovateur.png`    |`/immo/renovation.html`               |À droite du H1                                                 |130px       |Ton décontracté                  |
+|12|`waffy-deducteur.png`     |`/fiscal/declaration.html`            |`.waffy-tip` section “déductions à ne pas rater”               |100px       |Argent récupérable               |
+|13|`waffy-declarant.png`     |`/fiscal/` (hub)                      |À droite du H1                                                 |130px       |Hub austère à humaniser          |
+|14|`waffy-freelance.png`     |`/fiscal/independants.html`           |À droite du H1                                                 |140px       |Identification immédiate         |
+|15|`waffy-tva.png`           |`/fiscal/tva.html`                    |`.waffy-tip` section “déductible ou pas ?”                     |100px       |Confusion classique              |
+|16|`waffy-dirigeant.png`     |`/fiscal/societes.html`               |`.waffy-tip` section IS vs IPP                                 |120px       |Parle d’égal à égal              |
+|17|`waffy-holding.png`       |`/fiscal/management.html`             |À droite du H1                                                 |130px       |Page très technique              |
+|18|`waffy-crypto.png`        |`/fiscal/crypto.html`                 |`.waffy-tip` section “3 régimes fiscaux”                       |110px       |Moment complexe                  |
+|19|`waffy-securite.png`      |`/invest/crypto-plateformes.html`     |`.waffy-tip` section cold wallet                               |100px       |Sécurité des fonds               |
+|20|`waffy-investisseur.png`  |`/invest/equity.html`                 |`.waffy-tip` CTA Tax Shelter / Radar                           |120px       |Donne envie d’aller voir le Radar|
+|21|`waffy-radar.png`         |`/radar/index.html`                   |À droite du H1                                                 |140px       |Page phare Radar                 |
+|22|`waffy-zen.png`           |`/budget/retraite.html`               |`.waffy-tip` simulateur “quand puis-je arrêter”                |120px       |Moment rêveur                    |
+|23|`waffy-rente.png`         |`/budget/rente.html`                  |`.waffy-tip` section règle des 4%                              |100px       |Moment aspirationnel             |
+|24|`waffy-calculateur.png`   |`/outils/` (hub)                      |Après le titre de section résultats                            |120px       |Invite à calculer                |
+|25|`waffy-resultat.png`      |Résultats simulateurs (tous)          |Inline à gauche du résultat chiffré                            |80px        |Chiffre vient de tomber          |
+|26|`waffy-guide.png`         |`/doctrine.html`                      |Entre les 3 niveaux Socle/Pilote/Radar                         |160px centré|Guide le choix du niveau         |
+|27|`waffy-pilote.png`        |`/doctrine.html`                      |Dans la card niveau Pilote                                     |80px        |Icône du niveau ✈️                |
+|28|`waffy-oups.png`          |`404.html` + modal accès refusé       |Centré pleine page                                             |200px       |Seul élément de la page          |
+|29|`waffy-bienvenue.png`     |`/compte/inscription.html`            |150px centré, post-inscription                                 |150px       |Transition d’accueil             |
+|30|`waffy-inquiet.png`       |Résultat simulateur décevant          |Inline sous résultat si < seuil                                |120px       |“Pas de panique”                 |
+|31|`waffy-celebration.png`   |Résultat simulateur excellent         |Inline sous résultat si > seuil                                |140px       |Célèbre la bonne nouvelle        |
+|32|`waffy-email.png`         |Toast confirmation email / lead magnet|Inline dans le toast                                           |60px        |“C’est en route !”               |
+|33|`waffy-debutant.png`      |Toutes les pages — bloc 🌱             |80px inline droite dans le bloc débutant                       |80px        |“Version accessible”             |
+
+**Notes :**
+
+- `doctrine.html` : seule page avec 2 Waffy (positions différentes et distinctes — justifié)
+- `waffy-resultat` / `waffy-inquiet` / `waffy-celebration` : contextuels — JS détermine lequel afficher selon le résultat
+- `waffy-debutant` : transversal — injecté automatiquement via JS sur toutes les pages en mode 🌱
+- `waffy-email` : transversal — injecté dans les toasts de confirmation
