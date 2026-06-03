@@ -255,3 +255,15 @@ Quand une page du Groupe J est créée :
 1. Créer le fichier HTML
 1. Décommenter la ligne dans `WW_DATA.pages`
 1. La page apparaît automatiquement dans le footer, les hubs et l’accueil
+
+## Mode guidé — règles de conversion (K1a + K1b)
+
+- Parcours 5 étapes depuis WW_DATA.pages selon profil+objectif · tout localStorage au départ
+- Barre de progression sous la nav sur chaque page du parcours
+- Bouton “Étape suivante →” en bas de chaque page du parcours
+- **Conversion douce — timing précis :**
+  - Étape 2/5 : bandeau discret “Sauvegarde ta progression” (pas de modal)
+  - Étape 3/5 : mini-modal si non connecté — pas agressive, “Continuer quand même” disponible
+  - Étape 5/5 : page félicitations + CTA Pilote “Accès complet · 7 jours gratuits”
+- **Règle absolue :** jamais de prix avant la fin du parcours. D’abord la valeur, ensuite l’offre.
+- Le guidé est le client Pilote idéal — il a prouvé sa motivation. Le trial 7j est la conversion naturelle.

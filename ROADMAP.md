@@ -340,7 +340,17 @@
 
 **Guidage interactif**
 
-- [ ] **K1.** Mode guidage global — à l’inscription : choix “Lire librement” vs “Être guidé” · si guidé : questionnaire interactif (type choose-your-own-adventure) qui mène vers les pages selon les réponses
+- [ ] **K1a.** Mode “Rails” — parcours guidé personnalisé :
+  - Après le quiz guidage (I4/I6) → générer un parcours de 5 pages dans l’ordre logique selon profil+objectif depuis WW_DATA.pages
+  - Barre de progression persistante sous la nav : [Étape 1 ✓] → [Étape 2 ✓] → [Étape 3 →] → … · stockée en localStorage
+  - Bouton “Étape suivante →” en bas de chaque page de parcours
+  - Tout en localStorage au départ, bascule Supabase à l’inscription
+- [ ] **K1b.** Conversion douce mode guidé → compte + Pilote :
+  - Après étape 2/5 → nudge léger : “Sauvegarde ta progression — crée ton compte gratuit” (pas de modal, juste un bandeau en bas)
+  - Après étape 3/5 → si pas connecté → mini-modal : “Tu veux continuer ? Ton parcours s’arrête ici sans compte.” → [Créer mon compte gratuit] [Continuer quand même]
+  - Après étape 5/5 (fin du parcours) → page de félicitations + CTA Pilote : “Tu as posé les bases. Passe à Pilote pour aller plus loin — Accès complet · 7 jours gratuits” → bouton vers doctrine.html#pilote
+  - Logique : guidé = client Pilote idéal. Il a prouvé sa motivation en suivant 5 étapes. Le trial 7j à ce moment-là c’est la conversion naturelle.
+  - Le CTA Pilote ne mentionne jamais de prix avant la fin du parcours — d’abord la valeur, ensuite l’offre
 - [ ] **K2.** `/parcours/aide.html` — 🧭 Comment utiliser le site · mode interactif · répondre à des questions → trouver ce qu’on cherche · guide pas à pas
 
 **Portefeuille guidé**
