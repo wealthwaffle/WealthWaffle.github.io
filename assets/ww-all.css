@@ -3467,3 +3467,37 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 .ep-option-value   { font-size: 1.1rem; font-weight: 700; color: var(--text); }
 .ep-option-sub     { font-size: 0.70rem; color: var(--muted); margin-top: 4px; }
 .pension-risk-note { margin-top: 8px; font-size: 0.82rem; color: var(--muted); }
+
+/* ══ FISCAL / DÉCLARATION ══ */
+/* Steps MyMinfin (style différent des steps immo — fond s3 + numéro cyan) */
+.myminfin-steps { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.myminfin-step { background: var(--s3); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: flex-start; }
+.myminfin-step-num { min-width: 26px; height: 26px; background: linear-gradient(135deg,#5BB8D4,#3a98b4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 0.76rem; flex-shrink: 0; }
+.myminfin-step-text { font-size: 0.82rem; color: var(--text2); line-height: 1.6; }
+.myminfin-step-text strong { color: var(--text); }
+
+/* Tableau délais — couleurs statuts */
+.td-warn   { color: #E8C23A; font-weight: 700; }
+.td-ok     { color: #7EC8A0; font-weight: 700; }
+.td-cyan   { color: #5BB8D4; font-weight: 700; }
+
+/* Listes texte muted (erreurs, après) */
+.list-muted { font-size: 0.84rem; color: var(--muted); line-height: 2; padding-left: 20px; }
+.list-muted-sm { font-size: 0.80rem; color: var(--muted); line-height: 2; padding-left: 20px; }
+
+/* Waffy tip sans image (tip textuel uniquement) */
+.waffy-tip-text-only { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,0.025); border-radius: 12px; padding: 12px 14px; margin-top: 14px; }
+.waffy-tip-text-only .waffy-tip-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+/* Graphique déductions — barre avantage fiscal */
+.deductions-chart-wrap { margin-top: 16px; }
+
+/* ══ INVEST / SECTORIELS ══ */
+.core-sat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+.core-card { border-radius: 12px; padding: 14px; text-align: center; }
+.core-card-core { background: rgba(126,200,160,0.08); border: 1px solid rgba(126,200,160,0.20); }
+.core-card-sat  { background: rgba(91,184,212,0.07);  border: 1px solid rgba(91,184,212,0.18);  }
+.core-card-label { font-size: 0.62rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.core-card-value { font-size: 1.1rem; font-weight: 800; }
+.core-card-sub   { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+.td-rose { color: var(--rose); }

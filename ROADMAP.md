@@ -132,7 +132,7 @@
 
 **Priorité 2 — pages nouvellement créées**
 
-- [ ] `fiscal/declaration.html`
+- [x] ~`fiscal/declaration.html` — zéro CSS inline, myminfin-steps, td-warn/ok/cyan, list-muted/sm, graphique barres déductions, waffy-declarant, data-ww-cta pilote~
 - [ ] `invest/sectoriels.html`
 - [ ] `budget/assurances.html`
 - [ ] `fiscal/crypto.html`
@@ -400,6 +400,7 @@
 
 ## ✅ Fait
 
+- ~`fiscal/declaration.html` — refonte complète Groupe D~
 - ~`budget/epargne.html` — refonte complète Groupe D~
 - ~`immo/achat.html` — refonte complète Groupe D~
 - ~`fiscal/independants.html` — refonte complète Groupe D~
