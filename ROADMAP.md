@@ -40,9 +40,9 @@
 
 > Faire ensemble — même fichiers, même commit
 
-- [ ] **M4a.** Batch Python : supprimer “La gaufre, elle juge pas” dans tous les fichiers HTML
-- [ ] **M4b.** Batch Python : supprimer “Sans carte bancaire” → remplacer par “Accès complet · 7 jours gratuits” (formulation C validée)
-- [ ] **M4c.** Batch Python : passer tous les liens relatifs en absolus sur toutes les pages HTML
+- [x] ~**M4a.** “La gaufre, elle juge pas” supprimée — 2 fichiers (404.html, affiliation.html)~
+- [x] ~**M4b.** “Sans carte bancaire” → “Accès complet · 7 jours gratuits” — 7 fichiers~
+- [x] ~**M4c.** Liens relatifs → absolus dans les pages sous-dossiers (mapping 35 patterns)~
 - [ ] **M4d-prep.** ⚠️ TON JOB (Jonathan) : générer les 33 images via Grok (prompts dans WAFFY_GUIDE.md) → les déposer dans `/img/waffy/` · renommer IMG_5202.png → `/img/waffy-logo.png` et IMG_5208.png → `/img/waffy-avatar.png`
   
   Checklist images à générer :
@@ -64,7 +64,7 @@
   - [ ] `waffy-oups.png` · `waffy-bienvenue.png`
   - [ ] `waffy-inquiet.png` · `waffy-celebration.png`
   - [ ] `waffy-email.png` · `waffy-debutant.png`
-- [ ] **M4d-liens.** Batch Python : corriger tous les liens `IMG_5202.png` → `/img/waffy-logo.png` et `IMG_5208.png` → `/img/waffy-avatar.png` dans tous les fichiers
+- [x] ~**M4d-liens.** IMG_5202→/img/waffy-logo.png · IMG_5208→/img/waffy-avatar.png — 103 fichiers~
 - [ ] **M4d-pages-1.** MON JOB : placer les images Waffy dans les pages parcours + budget + invest (Waffy-professeur, Waffy-economiste, Waffy-analyste) · 1 par page · 7 emplacements validés (voir WAFFY_GUIDE.md) · ~10 pages
 - [ ] **M4d-pages-2.** MON JOB : placer les images Waffy dans les pages immo + fiscal + indépendants (Waffy-proprio, Waffy-deducteur, Waffy-freelance) · ~10 pages
 - [ ] **M4d-pages-3.** MON JOB : placer les images Waffy dans les pages sociétés + crypto + radar + outils (Waffy-dirigeant, Waffy-crypto, Waffy-investisseur, Waffy-calculateur) · ~10 pages
@@ -124,7 +124,7 @@
 
 **Priorité 1 — pages phares**
 
-- [ ] `invest/etf.html`
+- [x] ~`invest/etf.html` — sections complètes, graphique DCA animé, simulateur DCA inline, Waffy analyste, data-ww-cta pilote, liens absolus~
 - [ ] `invest/allocation.html`
 - [ ] `fiscal/independants.html`
 - [ ] `immo/achat.html`
@@ -377,6 +377,9 @@
 -----
 
 ## ✅ Fait
+
+- ~`invest/etf.html` — refonte complète Groupe D~
+- ~**M4a** gaufre supprimée · **M4b** sans carte→7j gratuits · **M4c** liens relatifs→absolus · **M4d-liens** IMG_52xx→/img/waffy~
 
 ### ✅ DOCTRINE — Complet
 
