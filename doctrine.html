@@ -5,150 +5,35 @@
   <title>Programme Doctrine — WealthWaffle</title>
   <meta name="description" content="Doctrine, c'est le programme de finance personnelle pensé pour les Belges qui ont un vrai métier. Socle gratuit, Pilote 99€/an, Radar 199€/an.">
   <meta property="og:title" content="Programme Doctrine — WealthWaffle">
-  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
   <script>window.WW_PAGE_META = { name: "Programme Doctrine", basePath: "/" };</script>
-
-  <style>
-    /* ── Programme page — styles spécifiques ── */
-    .pg { --accent: #E87CC3; --accent2: #5BB8D4; --gold: #E8C23A; --green: #7EC8A0; }
-
-    /* Hero immersif */
-    .pg-hero { min-height: 92vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding: 80px 20px 60px; position:relative; overflow:hidden; }
-    .pg-badge { font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); border-radius:20px; padding:5px 14px; display:inline-block; margin-bottom:28px; opacity:0; transform:translateY(20px); }
-    .pg-h1 { font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(2.4rem,8vw,4.2rem); line-height:1.08; color:var(--text); max-width:760px; margin:0 auto 28px; opacity:0; transform:translateY(30px); }
-    .pg-h1 em { color:var(--accent); font-style:italic; }
-    .pg-hero-text { font-size:clamp(0.92rem,2vw,1.05rem); color:var(--muted); line-height:1.85; max-width:520px; margin:0 auto 36px; opacity:0; transform:translateY(20px); }
-    .pg-hero-cta { opacity:0; transform:translateY(20px); display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
-
-    /* Noise overlay */
-    .pg-noise { position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
-
-    /* Story lines */
-    .pg-story { padding:80px 20px; max-width:600px; margin:0 auto; }
-    .pg-story-line { font-size:clamp(1.1rem,3vw,1.5rem); line-height:1.5; color:var(--text); margin-bottom:32px; opacity:0; transform:translateY(24px); font-family:'DM Serif Display',serif; font-style:italic; }
-    .pg-story-line.muted { color:var(--muted); font-family:'DM Sans',sans-serif; font-style:normal; font-size:clamp(0.88rem,2vw,1rem); }
-    .pg-story-line.accent { color:var(--accent); }
-
-    /* Giant word */
-    .pg-giant { text-align:center; padding:40px 20px; overflow:hidden; }
-    .pg-giant-word { font-size:clamp(5rem,20vw,14rem); font-weight:800; font-family:'Inter',sans-serif; letter-spacing:-0.05em; line-height:0.9; color:transparent; -webkit-text-stroke:1px var(--border); opacity:0; transform:scale(0.9); }
-    .pg-giant-word.visible { opacity:1; transform:scale(1); transition:opacity 1.2s ease, transform 1.2s ease; }
-
-    /* Proof chips */
-    .pg-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; padding:40px 20px; max-width:700px; margin:0 auto; }
-    .pg-chip { font-size:0.76rem; font-weight:600; padding:7px 16px; border-radius:20px; border:1px solid var(--border); color:var(--muted); background:var(--s2); white-space:nowrap; }
-
-    /* Why section */
-    .pg-why { max-width:600px; margin:0 auto; padding:60px 20px; }
-    .pg-section-label { font-size:0.60rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:32px; }
-
-    /* Mirror cards — "tu te reconnais ?" */
-    .pg-mirrors { display:flex; flex-direction:column; gap:12px; max-width:640px; margin:0 auto; padding:0 20px 60px; }
-    .pg-mirror { background:var(--s2); border:1px solid var(--border); border-radius:16px; padding:18px 20px; opacity:0; transform:translateX(-20px); }
-    .pg-mirror-num { font-size:0.60rem; font-weight:700; letter-spacing:0.10em; color:var(--muted); margin-bottom:8px; }
-    .pg-mirror-q { font-size:1rem; font-weight:600; color:var(--text); margin-bottom:6px; font-family:'DM Serif Display',serif; font-style:italic; }
-    .pg-mirror-a { font-size:0.80rem; color:var(--muted); line-height:1.6; }
-
-    /* Separator */
-    .pg-sep { height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); margin:60px auto; max-width:400px; }
-
-    /* Value proposition — pourquoi payer */
-    .pg-value { max-width:600px; margin:0 auto; padding:0 20px 60px; }
-    .pg-value-title { font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(1.4rem,4vw,2rem); color:var(--text); margin-bottom:20px; line-height:1.2; }
-    .pg-value-grid { display:flex; flex-direction:column; gap:10px; }
-    .pg-value-row { display:flex; gap:14px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--faint); }
-    .pg-value-row:last-child { border-bottom:none; }
-    .pg-value-icon { font-size:1.1rem; flex-shrink:0; margin-top:2px; }
-    .pg-value-text { font-size:0.84rem; color:var(--muted); line-height:1.65; }
-    .pg-value-text strong { color:var(--text); }
-
-    /* Plans */
-    .pg-plans { padding:0 20px 20px; max-width:640px; margin:0 auto; }
-    .pg-plans-title { font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(1.4rem,4vw,2rem); color:var(--text); margin-bottom:8px; line-height:1.2; }
-    .pg-plans-sub { font-size:0.82rem; color:var(--muted); margin-bottom:28px; line-height:1.6; }
-
-    .pg-toggle { display:flex; gap:6px; margin-bottom:24px; background:var(--s2); border-radius:12px; padding:5px; width:fit-content; }
-    .pg-toggle-btn { padding:7px 16px; border-radius:9px; border:none; background:transparent; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.18s; }
-    .pg-toggle-btn.active { background:var(--bg); color:var(--text); box-shadow:0 1px 4px rgba(0,0,0,0.15); }
-
-    .pg-plan { border-radius:18px; border:1px solid var(--border); background:var(--s2); padding:22px 20px; margin-bottom:12px; position:relative; transition:border-color 0.2s; }
-    .pg-plan:hover { border-color:rgba(232,124,195,0.25); }
-    .pg-plan.featured { border-color:rgba(232,124,195,0.35); background:rgba(232,124,195,0.03); }
-    .pg-plan-badge { position:absolute; top:-11px; left:20px; background:linear-gradient(135deg,#E87CC3,#5BB8D4); color:#fff; font-size:0.60rem; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; padding:3px 12px; border-radius:20px; }
-    .pg-plan-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; }
-    .pg-plan-name { font-family:'DM Serif Display',serif; font-style:italic; font-size:1.2rem; color:var(--text); }
-    .pg-plan-price-wrap { text-align:right; }
-    .pg-plan-price { font-size:1.4rem; font-weight:800; color:var(--text); }
-    .pg-plan-period { font-size:0.70rem; color:var(--muted); display:block; }
-    .pg-plan-annual { font-size:0.70rem; color:var(--green); display:none; margin-top:2px; }
-    .pg-plan-desc { font-size:0.80rem; color:var(--muted); line-height:1.65; margin-bottom:16px; }
-    .pg-plan-features { list-style:none; padding:0; margin:0 0 18px; display:flex; flex-direction:column; gap:7px; }
-    .pg-plan-features li { font-size:0.78rem; color:var(--text2); display:flex; gap:9px; align-items:flex-start; }
-    .pg-plan-features li::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; }
-    .pg-plan-features li.locked { color:var(--muted); }
-    .pg-plan-features li.locked::before { content:'—'; color:var(--border); }
-    .pg-plan-cta-primary { display:flex; align-items:center; justify-content:center; width:100%; padding:13px; border-radius:12px; border:none; background:linear-gradient(135deg,#E87CC3,#5BB8D4); color:#fff; font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.86rem; cursor:pointer; text-decoration:none; transition:opacity 0.18s; box-sizing:border-box; }
-    .pg-plan-cta-primary:hover { opacity:0.88; }
-    .pg-plan-cta-secondary { display:flex; align-items:center; justify-content:center; width:100%; padding:12px; border-radius:12px; border:1px solid var(--border); background:var(--s3); color:var(--text2); font-family:'DM Sans',sans-serif; font-weight:600; font-size:0.84rem; cursor:pointer; text-decoration:none; transition:all 0.18s; box-sizing:border-box; }
-    .pg-plan-cta-secondary:hover { border-color:rgba(232,124,195,0.25); }
-    .pg-plan-note { text-align:center; font-size:0.66rem; color:var(--muted); margin-top:7px; }
-
-    /* FAQ */
-    .pg-faq { max-width:600px; margin:0 auto; padding:0 20px 80px; }
-    .pg-faq-title { font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(1.2rem,3vw,1.6rem); color:var(--text); margin-bottom:20px; }
-    .pg-faq details { border-bottom:1px solid var(--faint); }
-    .pg-faq summary { padding:14px 0; cursor:pointer; font-size:0.84rem; font-weight:600; color:var(--text); list-style:none; display:flex; justify-content:space-between; align-items:center; }
-    .pg-faq summary::-webkit-details-marker { display:none; }
-    .pg-faq summary::after { content:'▾'; font-size:0.70rem; color:var(--muted); transition:transform 0.2s; }
-    .pg-faq details[open] summary::after { transform:rotate(180deg); }
-    .pg-faq-a { font-size:0.80rem; color:var(--muted); line-height:1.75; padding-bottom:14px; }
-
-    /* Final CTA */
-    .pg-final { text-align:center; padding:40px 20px 80px; max-width:520px; margin:0 auto; }
-    .pg-final-title { font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(1.4rem,4vw,2rem); color:var(--text); margin-bottom:10px; line-height:1.2; }
-    .pg-final-sub { font-size:0.82rem; color:var(--muted); margin-bottom:24px; line-height:1.6; }
-    .pg-final-note { font-size:0.68rem; color:var(--muted2); margin-top:10px; }
-
-    /* Disclaimer */
-    .pg-disclaimer { text-align:center; font-size:0.68rem; color:var(--muted2); padding:0 20px 40px; max-width:500px; margin:0 auto; }
-
-    /* Animations */
-    .reveal-up { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
-    .reveal-up.visible { opacity:1; transform:translateY(0); }
-    .reveal-left { opacity:0; transform:translateX(-20px); transition:opacity 0.6s ease, transform 0.6s ease; }
-    .reveal-left.visible { opacity:1; transform:translateX(0); }
-    .delay-1 { transition-delay:0.1s; }
-    .delay-2 { transition-delay:0.2s; }
-    .delay-3 { transition-delay:0.3s; }
-  </style>
 </head>
 <body class="pg">
-<div class="pg-noise" aria-hidden="true"></div>
+
 <div id="ww-ui-placeholder"></div>
 <div class="progress-bar"><div class="progress-fill"></div></div>
 
 <div class="page" style="padding-top:60px;max-width:100%;padding-left:0;padding-right:0;">
 
   <!-- ── HERO ── -->
-  <section class="pg-hero">
-    <div class="pg-badge" id="hero-badge">✈️ Programme Doctrine</div>
+  <section class="pg-hero" id="home">
+    <div class="pg-badge" id="hero-badge">🇧🇪 Programme Doctrine</div>
     <h1 class="pg-h1" id="hero-h1">
       La finance,<br>
       <em>sans en faire un deuxième métier.</em>
     </h1>
     <p class="pg-hero-text" id="hero-text">
-      Un programme pensé par un Belge,<br>
-      pour les Belges qui ont une vraie vie.<br>
+      Un programme pensé par un Belge, pour les Belges qui ont une vraie vie.<br>
       Pas du trading. Pas du rêve.<br>
       Juste une structure qui tourne pendant que tu vis.
     </p>
     <div class="pg-hero-cta" id="hero-cta">
-      <a href="#plans" class="btn-primary" style="padding:13px 24px;font-size:0.86rem;">Voir les niveaux</a>
+      <a href="#plans" class="btn-primary" style="padding:13px 24px;font-size:0.86rem;">Voir les niveaux →</a>
       <a href="#pourquoi" style="padding:13px 24px;font-size:0.84rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-weight:600;">Comprendre d'abord</a>
     </div>
   </section>
@@ -180,7 +65,7 @@
 
   <section class="pg-story" style="padding-top:20px;">
     <p class="pg-story-line reveal-up">
-      Le problème, n'est pas le manque d'information.
+      Le problème n'est pas le manque d'information.
     </p>
     <p class="pg-story-line muted reveal-up">
       C'est trop d'information mal structurée, mal adaptée, et souvent pas adaptée à la Belgique.
@@ -192,86 +77,271 @@
 
   <!-- ── PROOF CHIPS ── -->
   <div class="pg-chips">
-    <span class="pg-chip reveal-up">🇧🇪 Pensé pour la Belgique</span>
+    <span class="pg-chip reveal-up">🇧🇪 Fiscalité belge 2026</span>
     <span class="pg-chip reveal-up delay-1">Pas de trading</span>
     <span class="pg-chip reveal-up delay-2">Pas de promesse irréaliste</span>
     <span class="pg-chip reveal-up delay-1">Pas de sponsor caché</span>
     <span class="pg-chip reveal-up delay-2">Pas d'influenceur derrière</span>
-    <span class="pg-chip reveal-up">Fiscalité belge</span>
+    <span class="pg-chip reveal-up">Des outils interactifs, pas juste du texte</span>
   </div>
 
   <div class="pg-sep"></div>
 
-  <!-- ── MIROIRS — tu te reconnais ? ── -->
+  <!-- ── LE COÛT DE L'INACTION (point 76) ── -->
+  <section class="pg-story" id="inaction">
+    <div class="pg-section-label reveal-up">LE COÛT DE L'INACTION</div>
+    <p class="pg-story-line reveal-up">
+      Chaque mois qui passe sur un compte courant à 0,11%, c'est de l'argent qui part en fumée.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin:24px 0;" class="reveal-up">
+      <div style="background:rgba(232,124,195,0.07);border:1px solid rgba(232,124,195,0.20);border-radius:14px;padding:16px 18px;">
+        <div style="font-size:0.68rem;font-weight:700;color:var(--rose);letter-spacing:0.08em;margin-bottom:6px;">EXEMPLE CONCRET</div>
+        <div style="font-size:0.92rem;color:var(--text);font-weight:600;margin-bottom:4px;">10.000€ qui dorment 10 ans</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;">
+          <div style="text-align:center;flex:1;min-width:80px;">
+            <div style="font-size:1.2rem;font-weight:800;color:var(--muted);">10.113€</div>
+            <div style="font-size:0.66rem;color:var(--muted);">Compte épargne belge 0,11%</div>
+          </div>
+          <div style="text-align:center;flex:1;min-width:80px;">
+            <div style="font-size:1.2rem;font-weight:800;color:#7EC8A0;">17.908€</div>
+            <div style="font-size:0.66rem;color:var(--muted);">ETF monde 6%/an historique</div>
+          </div>
+          <div style="text-align:center;flex:1;min-width:80px;">
+            <div style="font-size:1.2rem;font-weight:800;color:var(--rose);">+7.795€</div>
+            <div style="font-size:0.66rem;color:var(--muted);">Différence sur 10 ans</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="pg-story-line muted reveal-up">
+      Ce n'est pas de la magie. C'est juste la différence entre savoir et ne pas savoir.
+    </p>
+  </section>
+
+  <!-- ── CE QUE FONT LES 10% (point 76) ── -->
+  <section class="pg-story" id="methode">
+    <div class="pg-section-label reveal-up">CE QUE FONT LES 10% QUI S'EN SORTENT</div>
+    <p class="pg-story-line reveal-up">Ils n'ont pas de secret. Ils ont juste commencé.</p>
+    <div style="display:flex;flex-direction:column;gap:8px;margin:16px 0;" class="reveal-up">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--faint);">
+        <span style="font-size:1rem;flex-shrink:0;">✅</span>
+        <div style="font-size:0.84rem;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Ils automatisent.</strong> Un virement mensuel vers un compte d'investissement. Pas de discipline requise.</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--faint);">
+        <span style="font-size:1rem;flex-shrink:0;">✅</span>
+        <div style="font-size:0.84rem;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Ils optimisent une fois par an.</strong> PLCI, épargne pension, Tax Shelter — ils cochent les cases, pas toute l'année.</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--faint);">
+        <span style="font-size:1rem;flex-shrink:0;">✅</span>
+        <div style="font-size:0.84rem;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Ils ignorent le bruit.</strong> Pas de suivi quotidien des marchés. Un ETF monde. Du DCA. C'est tout.</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;">
+        <span style="font-size:1rem;flex-shrink:0;">✅</span>
+        <div style="font-size:0.84rem;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Ils ont une structure.</strong> Pas une stratégie complexe — juste un système simple qu'ils suivent.</div>
+      </div>
+    </div>
+    <p class="pg-story-line reveal-up" style="color:var(--green);">
+      Doctrine, c'est ce système-là. Adapté à la Belgique.
+    </p>
+  </section>
+
+  <!-- ── LE CHEMIN LE PLUS COURT (point 76) ── -->
+  <section class="pg-story" id="chemin">
+    <div class="pg-section-label reveal-up">LE CHEMIN LE PLUS COURT</div>
+    <div class="reveal-up" style="display:flex;flex-direction:column;gap:0;max-width:480px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;">
+        <div style="min-width:28px;height:28px;background:rgba(126,200,160,0.15);border:1px solid rgba(126,200,160,0.30);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#7EC8A0;flex-shrink:0;">1</div>
+        <div style="font-size:0.84rem;color:var(--muted);line-height:1.6;padding-top:4px;"><strong style="color:var(--text);">Tu crées ton compte Socle.</strong> Gratuit. 2 minutes. Tu réserves ta place.</div>
+      </div>
+      <div style="width:1px;height:16px;background:var(--faint);margin-left:14px;"></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;">
+        <div style="min-width:28px;height:28px;background:rgba(232,124,195,0.12);border:1px solid rgba(232,124,195,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:var(--rose);flex-shrink:0;">2</div>
+        <div style="font-size:0.84rem;color:var(--muted);line-height:1.6;padding-top:4px;"><strong style="color:var(--text);">Tu réponds à 3 questions.</strong> Profil, objectif, niveau. Ton parcours personnalisé se construit automatiquement.</div>
+      </div>
+      <div style="width:1px;height:16px;background:var(--faint);margin-left:14px;"></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;">
+        <div style="min-width:28px;height:28px;background:rgba(91,184,212,0.12);border:1px solid rgba(91,184,212,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#5BB8D4;flex-shrink:0;">3</div>
+        <div style="font-size:0.84rem;color:var(--muted);line-height:1.6;padding-top:4px;"><strong style="color:var(--text);">Tu suis le parcours.</strong> Une page à la fois. 10 minutes par session. C'est tout ce qu'il faut.</div>
+      </div>
+      <div style="width:1px;height:16px;background:var(--faint);margin-left:14px;"></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;">
+        <div style="min-width:28px;height:28px;background:linear-gradient(135deg,rgba(232,124,195,0.20),rgba(91,184,212,0.20));border:1px solid rgba(232,124,195,0.30);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:var(--rose);flex-shrink:0;">✓</div>
+        <div style="font-size:0.84rem;color:var(--muted);line-height:1.6;padding-top:4px;"><strong style="color:var(--text);">Dans 10 ans, tu te remercieras.</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pg-sep"></div>
+
+  <!-- ── MIROIRS ── -->
   <div style="max-width:600px;margin:0 auto;padding:0 20px 20px;">
     <div class="pg-section-label reveal-up">TU TE RECONNAIS ?</div>
   </div>
   <div class="pg-mirrors">
     <div class="pg-mirror reveal-left">
       <div class="pg-mirror-num">SOCLE — NIVEAU 01</div>
-      <div class="pg-mirror-q">"Je ne sais même pas par où commencer."</div>
-      <div class="pg-mirror-a">Tu as de l'argent sur un compte courant qui dort. Tu sais que tu devrais faire quelque chose. Mais le moindre article finance te noie dans le jargon.</div>
+      <div class="pg-mirror-q">« Je ne sais même pas par où commencer. »</div>
+      <div class="pg-mirror-a">Tu as de l'argent sur un compte courant qui dort. Tu sais qu'il faudrait faire quelque chose. Mais le moindre article finance te noie dans le jargon.</div>
     </div>
     <div class="pg-mirror reveal-left delay-1">
       <div class="pg-mirror-num">PILOTE — NIVEAU 02</div>
-      <div class="pg-mirror-q">"J'investis déjà, mais c'est dispersé et je n'y comprends pas grand chose."</div>
+      <div class="pg-mirror-q">« J'investis déjà, mais c'est dispersé et je n'y comprends pas grand chose. »</div>
       <div class="pg-mirror-a">Tu as ouvert un compte Trade Republic ou DEGIRO. Tu achètes des ETF parfois. Mais tu n'as pas de stratégie claire et tu te demandes si tu fais ça correctement.</div>
     </div>
     <div class="pg-mirror reveal-left delay-2">
       <div class="pg-mirror-num">RADAR — NIVEAU 03</div>
-      <div class="pg-mirror-q">"Je veux pousser mon investissement plus loin, sans analyser des projets equity pendant des heures sans savoir si je dois croire le pitch."</div>
-      <div class="pg-mirror-a">Tu t'intéresses au crowdfunding, aux startups belges, aux projets Spreds ou Crowdcube. Mais les dossiers font 60 pages et tu n'as pas le temps de tout lire.</div>
+      <div class="pg-mirror-q">« Je veux pousser mon investissement plus loin, sans analyser des projets pendant des heures. »</div>
+      <div class="pg-mirror-a">Tu t'intéresses au crowdfunding, aux startups belges, aux projets Spreds ou Raizers. Mais les dossiers font 60 pages et tu n'as pas le temps de tout lire.</div>
     </div>
   </div>
 
   <div class="pg-sep"></div>
 
-  <!-- ── POURQUOI PAYER ── -->
+  <!-- ── POURQUOI PAYER (points 7b, 7c) ── -->
   <div class="pg-value" id="valeur">
     <div class="pg-section-label reveal-up">POURQUOI PAYER SI LE SITE EST GRATUIT ?</div>
-    <h2 class="pg-value-title reveal-up">Le Socle te donne les bases.<br>Pilote te donne la méthode.<br>Radar tapporte une sélection d'analyses.</h2>
-    <p style="font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:20px;" class="reveal-up">
-      Le contenu gratuit du site est réel et complet. Mais il y a une différence entre lire et avoir un système qui marche pour toi.
-    </p>
+    <h2 class="pg-value-title reveal-up">
+      Le Socle te donne les bases.<br>
+      Pilote te donne les outils pour les appliquer.<br>
+      Radar t'apporte une sélection d'analyses.
+    </h2>
+
+    <!-- Réponse directe 7b -->
+    <div style="background:rgba(255,255,255,0.03);border-left:3px solid var(--rose);border-radius:0 12px 12px 0;padding:16px 18px;margin-bottom:24px;" class="reveal-up">
+      <p style="font-size:0.84rem;color:var(--muted);line-height:1.75;margin:0;">
+        Le contenu du site est réel et complet — tu peux tout lire gratuitement. Mais il y a une différence entre <strong style="color:var(--text);">comprendre comment ça marche</strong> et <strong style="color:var(--text);">avoir un outil qui le calcule pour toi avec tes chiffres</strong>.
+        <br><br>
+        Pilote, c'est le passage de la théorie à la pratique. Radar, c'est l'équivalent d'un analyste indépendant qui dépouille les dossiers equity belges à ta place.
+      </p>
+    </div>
+
     <div class="pg-value-grid">
       <div class="pg-value-row reveal-up">
         <div class="pg-value-icon">🧮</div>
-        <div class="pg-value-text"><strong>30 simulateurs avancés</strong> — crédit hypothécaire, épargne pension, rendement locatif net, optimisation rémunération dirigeant. Pas des calculettes basiques. Des outils calés sur la fiscalité belge 2026.</div>
+        <div class="pg-value-text">
+          <strong>Calculer ton PLCI optimal en 30 secondes</strong> — Pas lire comment ça marche. Calculer combien tu peux déduire cette année, quel broker choisir, quel impact sur ton impôt. Avec tes chiffres. Pas des exemples génériques.
+        </div>
+      </div>
+      <div class="pg-value-row reveal-up">
+        <div class="pg-value-icon">🏠</div>
+        <div class="pg-value-text">
+          <strong>Simuler ton rendement locatif net-net</strong> — Précompte mobilier, charges, fiscalité selon que tu loues en privé ou via société. Le simulateur sort le vrai rendement, pas le chiffre affiché sur l'annonce.
+        </div>
+      </div>
+      <div class="pg-value-row reveal-up">
+        <div class="pg-value-icon">⚡</div>
+        <div class="pg-value-text">
+          <strong>Salaire vs dividendes pour dirigeant</strong> — IS vs IPP, VVPRbis, réserve de liquidation. Le simulateur calcule l'optimum selon ta situation. Pas une règle générale — ta situation à toi.
+        </div>
       </div>
       <div class="pg-value-row reveal-up">
         <div class="pg-value-icon">📊</div>
-        <div class="pg-value-text"><strong>Ton parcours sauvegardé</strong> — tu lis une page, tu la marques comme lue. Tu reprends où tu en étais. Tu vois ta progression. Le site devient un programme, pas une liste d'articles.</div>
-      </div>
-      <div class="pg-value-row reveal-up">
-        <div class="pg-value-icon">🎯</div>
-        <div class="pg-value-text"><strong>Contenu selon ton profil</strong> — long ou court terme / défensif, peudent, offensif / salarié, indépendant ou dirigeant de société. Ce qui est pertinent pour toi ressort. Le reste reste accessible mais ne t'encombre pas.</div>
+        <div class="pg-value-text">
+          <strong>Ton parcours sauvegardé</strong> — Tu lis une page, tu la marques. Tu reprends là où tu t'étais arrêté. Le site devient un programme, pas une liste d'articles.
+        </div>
       </div>
       <div class="pg-value-row reveal-up">
         <div class="pg-value-icon">📡</div>
-        <div class="pg-value-text"><strong>Radar</strong> — des projets equity analysés et scorés de manière indépendante. L'IA fait le travail de dépouillement. Un humain relit et valide. Tu lis le résumé en 5 minutes.</div>
+        <div class="pg-value-text">
+          <strong>Radar — des projets equity analysés</strong> — L'IA dépouille les dossiers selon 14 critères. Un humain relit et valide. Tu lis le résumé en 5 minutes et tu décides.
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="pg-sep"></div>
+
+  <!-- ── TABLEAU COMPARATIF (point 7d) ── -->
+  <section style="max-width:640px;margin:0 auto;padding:0 20px 40px;" id="comparatif">
+    <div class="pg-section-label reveal-up">LES NIVEAUX EN UN COUP D'ŒIL</div>
+    <div class="reveal-up" style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;font-size:0.78rem;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);color:var(--muted);font-weight:700;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;"></th>
+            <th style="text-align:center;padding:10px 8px;border-bottom:2px solid var(--border);color:#7EC8A0;font-weight:700;font-size:0.74rem;">🟢 Socle<br><span style="font-size:0.68rem;color:var(--muted);font-weight:400;">Gratuit</span></th>
+            <th style="text-align:center;padding:10px 8px;border-bottom:2px solid rgba(232,124,195,0.50);color:var(--rose);font-weight:700;font-size:0.74rem;background:rgba(232,124,195,0.04);border-radius:8px 8px 0 0;">✈️ Pilote<br><span style="font-size:0.68rem;color:var(--muted);font-weight:400;" id="cmp-pilote-price">99€/an</span></th>
+            <th style="text-align:center;padding:10px 8px;border-bottom:2px solid rgba(91,184,212,0.40);color:#5BB8D4;font-weight:700;font-size:0.74rem;">📡 Radar<br><span style="font-size:0.68rem;color:var(--muted);font-weight:400;" id="cmp-radar-price">199€/an</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--faint);">Guides & contenu éducatif</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);background:rgba(232,124,195,0.03);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--faint);">Mode débutant / avancé</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);background:rgba(232,124,195,0.03);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--faint);">Simulateurs essentiels (6)</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);background:rgba(232,124,195,0.03);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--faint);">Guides PDF téléchargeables (8)</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);background:rgba(232,124,195,0.03);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--faint);">Simulateurs avancés belges (9)</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:var(--border);">—</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);background:rgba(232,124,195,0.03);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--faint);">Parcours sauvegardé & profil</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:var(--border);">—</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);background:rgba(232,124,195,0.03);color:#7EC8A0;">✓</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--faint);">Calculateur Fiscal Crypto</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:var(--border);">—</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);background:rgba(232,124,195,0.03);color:var(--border);">+49€/an</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:var(--border);">+49€/an</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--faint);">Feed Radar — projets equity analysés</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:var(--border);">—</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);background:rgba(232,124,195,0.03);color:var(--border);">—</td>
+            <td style="text-align:center;padding:10px 8px;border-bottom:1px solid var(--faint);color:#7EC8A0;">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:var(--muted);">Boussole patrimoine & alertes</td>
+            <td style="text-align:center;padding:10px 8px;color:var(--border);">—</td>
+            <td style="text-align:center;padding:10px 8px;background:rgba(232,124,195,0.03);color:var(--border);">—</td>
+            <td style="text-align:center;padding:10px 8px;color:#7EC8A0;">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <div class="pg-sep"></div>
 
   <!-- ── PLANS ── -->
   <section class="pg-plans" id="plans">
-    <div class="pg-section-label reveal-up">LES NIVEAUX</div>
-    <h2 class="pg-plans-title reveal-up">Choisis ce qui correspond à où tu en es.</h2>
-    <p class="pg-plans-sub reveal-up">Pas où tu veux être dans 10 ans. Où tu en es aujourd'hui.</p>
+    <div class="pg-section-label reveal-up">CHOISIR TON NIVEAU</div>
+    <h2 class="pg-plans-title reveal-up">Pas où tu veux être dans 10 ans.<br>Où tu en es aujourd'hui.</h2>
+    <p class="pg-plans-sub reveal-up">Tous les plans incluent un accès complet · 7 jours gratuits sur Pilote et Radar.</p>
 
-    <!-- Toggle -->
     <div class="pg-toggle reveal-up">
-      <button class="pg-toggle-btn active" onclick="setBilling('monthly')">Mensuel</button>
-      <button class="pg-toggle-btn" onclick="setBilling('annual')">Annuel <span style="font-size:0.62rem;color:var(--green);">−2 mois</span></button>
+      <button class="pg-toggle-btn active" onclick="setBilling('annual')">Annuel <span style="font-size:0.62rem;color:var(--green);">−2 mois</span></button>
+      <button class="pg-toggle-btn" onclick="setBilling('monthly')">Mensuel</button>
     </div>
 
     <!-- Socle -->
-    <div class="pg-plan reveal-up">
+    <div class="pg-plan reveal-up" id="socle">
       <div class="pg-plan-header">
         <div>
-          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--green);margin-bottom:4px;">🟢 SOCLE</div>
+          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:#7EC8A0;margin-bottom:4px;">🟢 SOCLE</div>
           <div class="pg-plan-name">Je démarre</div>
         </div>
         <div class="pg-plan-price-wrap">
@@ -284,64 +354,102 @@
         <li>Accès à tous les guides (budget, invest, immo, fiscalité)</li>
         <li>Mode Débutant et Avancé sur chaque page</li>
         <li>6 simulateurs publics + 8 simulateurs Socle</li>
-        <li>Parcours guidé selon ton profil et ton objectif</li>
-        <li>Bandeau et centre de téléchargement — 9 guides PDF/Excel gratuits</li>
-        <li class="locked">Simulateurs avancés Pilote</li>
+        <li>Parcours guidé selon ton profil</li>
+        <li>8 guides PDF/Excel téléchargeables</li>
+        <li class="locked">Simulateurs avancés Pilote (PLCI, IS vs IPP, locatif net...)</li>
         <li class="locked">Radar — projets equity analysés</li>
       </ul>
       <a href="/compte/inscription.html" class="pg-plan-cta-secondary">Créer mon compte gratuit →</a>
     </div>
 
     <!-- Pilote -->
-    <div class="pg-plan featured reveal-up">
+    <div class="pg-plan featured reveal-up" id="pilote">
       <div class="pg-plan-badge">⭐ Le plus choisi</div>
       <div class="pg-plan-header">
         <div>
-          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--accent);margin-bottom:4px;">✈️ PILOTE</div>
+          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--rose);margin-bottom:4px;">✈️ PILOTE</div>
           <div class="pg-plan-name">J'investis</div>
         </div>
         <div class="pg-plan-price-wrap">
-          <div class="pg-plan-price" id="pilote-price">14,99€</div>
-          <span class="pg-plan-period" id="pilote-period">/mois</span>
-          <div class="pg-plan-annual" id="pilote-annual">Facturé 99€/an</div>
+          <div class="pg-plan-price" id="pilote-price">8,25€</div>
+          <span class="pg-plan-period" id="pilote-period">/mois*</span>
+          <div class="pg-plan-annual" id="pilote-annual" style="display:block;">Facturé <span data-ww="prix.pilote_annuel" data-fmt="num"></span>€/an</div>
         </div>
       </div>
       <p class="pg-plan-desc">La méthode complète. Les outils qui font la différence. Un système qui tourne pendant que tu vis ta vie.</p>
       <ul class="pg-plan-features">
         <li>Tout ce qui est dans Socle</li>
-        <li>9 simulateurs avancés — crédit hypothécaire, pension, locatif net-net, rémunération dirigeant, PLCI, IS vs IPP, VVPRbis…</li>
+        <li>9 simulateurs avancés 🇧🇪 — PLCI optimal, IS vs IPP, rendement locatif net-net, rémunération dirigeant, VVPRbis, crédit hypothécaire…</li>
         <li>Parcours sauvegardé — tu reprends là où tu t'es arrêté</li>
-        <li>Profil personnalisé (salarié / indépendant / dirigeant) — le contenu pertinent ressort</li>
-        <li>Boussole patrimoine — visualise l'impact de chaque investissement sur ta diversification</li>
+        <li>Profil personnalisé — salarié, indépendant ou dirigeant</li>
+        <li>Boussole patrimoine — visualise ta diversification</li>
         <li class="locked">Radar — projets equity analysés</li>
       </ul>
-      <a href="/compte/inscription.html?plan=pilote" class="pg-plan-cta-primary" id="pilote-cta">Commencer — 7 jours gratuits →</a>
-      <div class="pg-plan-note">7 jours gratuits · résiliation avant pour ne rien payer · annulable à tout moment</div>
+      <a href="/compte/inscription.html?plan=pilote&billing=annual" class="pg-plan-cta-primary" id="pilote-cta">
+        Commencer — Accès complet · 7 jours gratuits →
+      </a>
+      <div class="pg-plan-note">🇧🇪 Fiscalité belge 2026 · Résiliation à tout moment</div>
     </div>
 
     <!-- Radar -->
-    <div class="pg-plan reveal-up">
+    <div class="pg-plan reveal-up" id="radar">
       <div class="pg-plan-header">
         <div>
-          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--accent2);margin-bottom:4px;">📡 RADAR</div>
+          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:#5BB8D4;margin-bottom:4px;">📡 RADAR</div>
           <div class="pg-plan-name">J'analyse</div>
         </div>
         <div class="pg-plan-price-wrap">
-          <div class="pg-plan-price" id="radar-price">24,99€</div>
-          <span class="pg-plan-period" id="radar-period">/mois</span>
-          <div class="pg-plan-annual" id="radar-annual">Facturé 199€/an</div>
+          <div class="pg-plan-price" id="radar-price">10,75€</div>
+          <span class="pg-plan-period" id="radar-period">/mois*</span>
+          <div class="pg-plan-annual" id="radar-annual" style="display:block;">Facturé <span data-ww="prix.radar_annuel" data-fmt="num"></span>€/an</div>
         </div>
       </div>
-      <p class="pg-plan-desc">Pilote complet + accès au feed de projets equity analysés de manière indépendante. L'IA dépouille les dossiers, un humain valide, tu lis le résumé.</p>
+      <p class="pg-plan-desc">Pilote complet + accès au feed de projets equity belges analysés de manière indépendante. L'IA dépouille les dossiers, un humain valide, tu lis le résumé.</p>
       <ul class="pg-plan-features">
         <li>Tout ce qui est dans Pilote</li>
         <li>Feed Radar — projets Spreds, Raizers, Ecco Nova, Bolero analysés et scorés</li>
-        <li>Fiche récap + analyse complète en 14 critères (Moat, Tax Shelter, Pre-Mortem, simulation sortie)</li>
-        <li>Boussole — simule l'impact du projet sur ta diversification avant d'investir</li>
+        <li>Analyse en 14 critères (Moat, Tax Shelter, Pre-Mortem, simulation sortie)</li>
+        <li>Boussole — simule l'impact sur ta diversification avant d'investir</li>
         <li>Alertes nouveaux projets · Watchlist personnalisée</li>
       </ul>
-      <a href="/compte/inscription.html?plan=radar" class="pg-plan-cta-primary" id="radar-cta">Commencer — 7 jours gratuits →</a>
-      <div class="pg-plan-note">7 jours gratuits · résiliation avant pour ne rien payer · annulable à tout moment</div>
+      <a href="/compte/inscription.html?plan=radar&billing=annual" class="pg-plan-cta-primary" id="radar-cta">
+        Commencer — Accès complet · 7 jours gratuits →
+      </a>
+      <div class="pg-plan-note">🇧🇪 Analyse indépendante · Résiliation à tout moment</div>
+    </div>
+
+    <!-- Waffy Guide entre les plans -->
+    <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.025);border-radius:14px;padding:14px 16px;margin:4px 0 12px;" class="reveal-up">
+      <img src="/img/waffy/waffy-guide.png" alt="Waffy" style="width:64px;height:64px;object-fit:contain;flex-shrink:0;" onerror="this.style.display='none'">
+      <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;margin:0;">
+        <strong style="color:var(--text);">Pas sûr de ce dont tu as besoin ?</strong><br>
+        Commence par le Socle. Tu peux passer à Pilote à tout moment — le 7 jours gratuits s'applique dès que tu bascules.
+      </p>
+    </div>
+
+    <!-- Add-on Conformité Crypto (M3) -->
+    <div style="border:1px dashed rgba(246,190,99,0.40);border-radius:16px;padding:18px 20px;margin-top:12px;" class="reveal-up" id="crypto-addon">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:#F6BE63;margin-bottom:4px;">🪙 ADD-ON — CONFORMITÉ CRYPTO</div>
+          <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);margin-bottom:6px;">Calculateur Fiscal Crypto FIFO Belgique</div>
+          <p style="font-size:0.78rem;color:var(--muted);line-height:1.6;max-width:400px;margin:0 0 12px;">
+            Import de trades CSV, calcul FIFO automatique, step-up 2025, franchise 10.000€, export Excel prêt pour MyMinfin. Compatible avec Binance, Kraken, Coinbase.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;">
+            <li style="font-size:0.74rem;color:var(--muted);display:flex;gap:8px;"><span style="color:#F6BE63;">✓</span> 5 rapports fiscaux par mois</li>
+            <li style="font-size:0.74rem;color:var(--muted);display:flex;gap:8px;"><span style="color:#F6BE63;">✓</span> Taux CoinGecko intégrés (year-end)</li>
+            <li style="font-size:0.74rem;color:var(--muted);display:flex;gap:8px;"><span style="color:#F6BE63;">✓</span> Export Excel format MyMinfin</li>
+          </ul>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-size:1.4rem;font-weight:800;color:#F6BE63;"><span data-ww="prix.crypto_addon" data-fmt="num"></span>€</div>
+          <div style="font-size:0.70rem;color:var(--muted);">/an · s'ajoute à Pilote ou Radar</div>
+          <a href="/outils/fiscal-crypto.html" style="display:inline-block;margin-top:10px;padding:9px 16px;border-radius:10px;border:1px solid rgba(246,190,99,0.35);background:rgba(246,190,99,0.08);color:#F6BE63;font-family:'DM Sans',sans-serif;font-size:0.76rem;font-weight:700;text-decoration:none;">
+            Voir le calculateur →
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -353,22 +461,27 @@
 
     <details class="reveal-up">
       <summary>Le Socle est vraiment gratuit ? Pour toujours ?</summary>
-      <div class="pg-faq-a">Oui. Le contenu éducatif, les guides, le mode débutant/avancé, les simulateurs de base — tout ça reste gratuit avec un compte. Pas de carte bancaire. Pas de trial qui se transforme en abonnement. Le Socle est gratuit parce que c'est le minimum que tu mérites si tu veux apprendre à gérer tes finances.</div>
+      <div class="pg-faq-a">Oui. Le contenu éducatif, les guides, le mode débutant/avancé, les simulateurs de base — tout ça reste gratuit avec un compte. Le Socle est gratuit parce que c'est le minimum que tu mérites si tu veux apprendre à gérer tes finances.</div>
     </details>
 
     <details class="reveal-up">
       <summary>Pourquoi payer Pilote si j'ai déjà accès aux guides ?</summary>
-      <div class="pg-faq-a">Les guides t'expliquent comment ça fonctionne. Pilote te donne les outils pour le faire chez toi, dans ta situation. La différence, c'est entre lire un guide sur la fiscalité des indépendants et avoir un simulateur qui calcule ton PLCI optimal, ton IS vs IPP, ta rémunération idéale — avec tes chiffres à toi. Plus ton parcours sauvegardé, ton profil, et une boussole pour visualiser ton patrimoine.</div>
+      <div class="pg-faq-a">Les guides t'expliquent comment ça fonctionne. Pilote te donne les outils pour le faire <em>avec tes chiffres</em>. La différence, c'est entre lire un guide sur la fiscalité des indépendants et avoir un simulateur qui calcule ton PLCI optimal, ton IS vs IPP, ta rémunération idéale — dans ta situation. Plus ton parcours sauvegardé et ta boussole patrimoine.</div>
+    </details>
+
+    <details class="reveal-up">
+      <summary>Comment fonctionnent les 7 jours gratuits ?</summary>
+      <div class="pg-faq-a">Tu crées ton compte, tu choisis Pilote ou Radar. Tu as 7 jours pour tester l'accès complet. Si ce n'est pas pour toi, tu résiles avant la fin du trial — tu ne paies rien. Si tu continues, tu es débité à J+7 selon la formule choisie.</div>
     </details>
 
     <details class="reveal-up">
       <summary>C'est quoi exactement le Radar ?</summary>
-      <div class="pg-faq-a">Le Radar, c'est un outil d'analyse de projets equity (crowdfunding startups, PME, immobilier fractionné). Chaque projet est analysé selon 14 critères structurés — équipe, marché, Moat, valorisation, Tax Shelter belge, simulation de sortie. L'IA fait le dépouillement, un humain relit et valide avant publication. Tu accèdes à la fiche récap en 2 minutes et tu décides si tu veux creuser.</div>
+      <div class="pg-faq-a">Le Radar, c'est un outil d'analyse de projets equity (crowdfunding startups, PME, immobilier fractionné belge). Chaque projet est analysé selon 14 critères structurés — équipe, marché, Moat, valorisation, Tax Shelter belge, simulation de sortie. L'IA fait le dépouillement, un humain relit et valide avant publication. Tu accèdes à la fiche récap en 2 minutes.</div>
     </details>
 
     <details class="reveal-up">
       <summary>C'est du conseil en investissement ?</summary>
-      <div class="pg-faq-a">Non. Ni les guides, ni les simulateurs, ni le Radar ne constituent un conseil en investissement personnalisé. Le Radar te montre ce que les chiffres disent d'un projet — c'est toi qui décides si tu investis ou pas. Pour les décisions importantes, consulte un professionnel agréé FSMA.</div>
+      <div class="pg-faq-a">Non. Ni les guides, ni les simulateurs, ni le Radar ne constituent un conseil en investissement personnalisé. Le Radar te montre ce que les chiffres disent d'un projet — c'est toi qui décides si tu investis. Pour les décisions importantes, consulte un professionnel agréé FSMA.</div>
     </details>
 
     <details class="reveal-up">
@@ -380,69 +493,181 @@
   <!-- ── FINAL CTA ── -->
   <div class="pg-final">
     <h2 class="pg-final-title reveal-up">
-      Le vrai luxe,<br>c'est de ne plus culpabiliser de ne rien faire.
+      Le vrai luxe,<br>c'est de ne plus culpabiliser<br>de ne rien faire.
     </h2>
     <p class="pg-final-sub reveal-up">Commence par le Socle. C'est gratuit. C'est déjà beaucoup.</p>
-    <a href="/compte/inscription.html" class="pg-plan-cta-primary reveal-up" style="max-width:320px;margin:0 auto;">Créer mon compte gratuit →</a>
-    <div class="pg-final-note reveal-up">Accès immédiat · Socle gratuit pour toujours</div>
+    <a href="/compte/inscription.html" class="pg-plan-cta-primary reveal-up" style="max-width:340px;margin:0 auto;display:flex;">
+      Créer mon compte gratuit →
+    </a>
+    <div class="pg-final-note reveal-up">🇧🇪 Spécifique Belgique · Accès immédiat · Socle gratuit pour toujours</div>
   </div>
 
-  <!-- ── DISCLAIMER ── -->
   <div class="pg-disclaimer">
-    WealthWaffle ne fournit aucun conseil en investissement personnalisé. Le contenu est à titre informatif uniquement. Les simulations sont indicatives.
+    WealthWaffle ne fournit aucun conseil en investissement personnalisé. Le contenu est à titre informatif uniquement. Les simulations sont indicatives. Non agréé FSMA.
   </div>
 
 </div>
 
+<style>
+/* ── Programme page — styles spécifiques ── */
+.pg { --accent: #E87CC3; --accent2: #5BB8D4; --gold: #E8C23A; --green: #7EC8A0; }
+
+.pg-hero { min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 20px 60px;position:relative;overflow:hidden; }
+.pg-badge { font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:5px 14px;display:inline-block;margin-bottom:28px;opacity:0;transform:translateY(20px); }
+.pg-h1 { font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(2.4rem,8vw,4.2rem);line-height:1.08;color:var(--text);max-width:760px;margin:0 auto 28px;opacity:0;transform:translateY(30px); }
+.pg-h1 em { color:var(--accent);font-style:italic; }
+.pg-hero-text { font-size:clamp(0.92rem,2vw,1.05rem);color:var(--muted);line-height:1.85;max-width:520px;margin:0 auto 36px;opacity:0;transform:translateY(20px); }
+.pg-hero-cta { opacity:0;transform:translateY(20px);display:flex;gap:10px;flex-wrap:wrap;justify-content:center; }
+
+.pg-story { padding:80px 20px;max-width:600px;margin:0 auto; }
+.pg-story-line { font-size:clamp(1.1rem,3vw,1.5rem);line-height:1.5;color:var(--text);margin-bottom:32px;opacity:0;transform:translateY(24px);font-family:'DM Serif Display',serif;font-style:italic; }
+.pg-story-line.muted { color:var(--muted);font-family:'DM Sans',sans-serif;font-style:normal;font-size:clamp(0.88rem,2vw,1rem); }
+
+.pg-giant { text-align:center;padding:40px 20px;overflow:hidden; }
+.pg-giant-word { font-size:clamp(5rem,20vw,14rem);font-weight:800;letter-spacing:-0.05em;line-height:0.9;color:transparent;-webkit-text-stroke:1px var(--border);opacity:0;transform:scale(0.9); }
+.pg-giant-word.visible { opacity:1;transform:scale(1);transition:opacity 1.2s ease,transform 1.2s ease; }
+
+.pg-chips { display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:40px 20px;max-width:700px;margin:0 auto; }
+.pg-chip { font-size:0.76rem;font-weight:600;padding:7px 16px;border-radius:20px;border:1px solid var(--border);color:var(--muted);background:var(--s2);white-space:nowrap; }
+
+.pg-why { max-width:600px;margin:0 auto;padding:60px 20px; }
+.pg-section-label { font-size:0.60rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:32px; }
+
+.pg-mirrors { display:flex;flex-direction:column;gap:12px;max-width:640px;margin:0 auto;padding:0 20px 60px; }
+.pg-mirror { background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:18px 20px;opacity:0;transform:translateX(-20px); }
+.pg-mirror-num { font-size:0.60rem;font-weight:700;letter-spacing:0.10em;color:var(--muted);margin-bottom:8px; }
+.pg-mirror-q { font-size:1rem;font-weight:600;color:var(--text);margin-bottom:6px;font-family:'DM Serif Display',serif;font-style:italic; }
+.pg-mirror-a { font-size:0.80rem;color:var(--muted);line-height:1.6; }
+
+.pg-sep { height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:60px auto;max-width:400px; }
+
+.pg-value { max-width:600px;margin:0 auto;padding:0 20px 60px; }
+.pg-value-title { font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1.4rem,4vw,2rem);color:var(--text);margin-bottom:20px;line-height:1.2; }
+.pg-value-grid { display:flex;flex-direction:column;gap:10px; }
+.pg-value-row { display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--faint); }
+.pg-value-row:last-child { border-bottom:none; }
+.pg-value-icon { font-size:1.1rem;flex-shrink:0;margin-top:2px; }
+.pg-value-text { font-size:0.84rem;color:var(--muted);line-height:1.65; }
+.pg-value-text strong { color:var(--text); }
+
+.pg-plans { padding:0 20px 20px;max-width:640px;margin:0 auto; }
+.pg-plans-title { font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1.4rem,4vw,2rem);color:var(--text);margin-bottom:8px;line-height:1.2; }
+.pg-plans-sub { font-size:0.82rem;color:var(--muted);margin-bottom:28px;line-height:1.6; }
+
+.pg-toggle { display:flex;gap:6px;margin-bottom:24px;background:var(--s2);border-radius:12px;padding:5px;width:fit-content; }
+.pg-toggle-btn { padding:7px 16px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.18s; }
+.pg-toggle-btn.active { background:var(--bg);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+
+.pg-plan { border-radius:18px;border:1px solid var(--border);background:var(--s2);padding:22px 20px;margin-bottom:12px;position:relative;transition:border-color 0.2s; }
+.pg-plan:hover { border-color:rgba(232,124,195,0.25); }
+.pg-plan.featured { border-color:rgba(232,124,195,0.35);background:rgba(232,124,195,0.03); }
+.pg-plan-badge { position:absolute;top:-11px;left:20px;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-size:0.60rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;padding:3px 12px;border-radius:20px; }
+.pg-plan-header { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px; }
+.pg-plan-name { font-family:'DM Serif Display',serif;font-style:italic;font-size:1.2rem;color:var(--text); }
+.pg-plan-price-wrap { text-align:right; }
+.pg-plan-price { font-size:1.4rem;font-weight:800;color:var(--text); }
+.pg-plan-period { font-size:0.70rem;color:var(--muted);display:block; }
+.pg-plan-annual { font-size:0.70rem;color:var(--green);margin-top:2px; }
+.pg-plan-desc { font-size:0.80rem;color:var(--muted);line-height:1.65;margin-bottom:16px; }
+.pg-plan-features { list-style:none;padding:0;margin:0 0 18px;display:flex;flex-direction:column;gap:7px; }
+.pg-plan-features li { font-size:0.78rem;color:var(--text2);display:flex;gap:9px;align-items:flex-start; }
+.pg-plan-features li::before { content:'✓';color:var(--green);font-weight:700;flex-shrink:0; }
+.pg-plan-features li.locked { color:var(--muted); }
+.pg-plan-features li.locked::before { content:'—';color:var(--border); }
+.pg-plan-cta-primary { display:flex;align-items:center;justify-content:center;width:100%;padding:13px;border-radius:12px;border:none;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.86rem;cursor:pointer;text-decoration:none;transition:opacity 0.18s;box-sizing:border-box; }
+.pg-plan-cta-primary:hover { opacity:0.88; }
+.pg-plan-cta-secondary { display:flex;align-items:center;justify-content:center;width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--s3);color:var(--text2);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.84rem;cursor:pointer;text-decoration:none;transition:all 0.18s;box-sizing:border-box; }
+.pg-plan-cta-secondary:hover { border-color:rgba(232,124,195,0.25); }
+.pg-plan-note { text-align:center;font-size:0.66rem;color:var(--muted);margin-top:7px; }
+
+.pg-faq { max-width:600px;margin:0 auto;padding:0 20px 80px; }
+.pg-faq-title { font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1.2rem,3vw,1.6rem);color:var(--text);margin-bottom:20px; }
+.pg-faq details { border-bottom:1px solid var(--faint); }
+.pg-faq summary { padding:14px 0;cursor:pointer;font-size:0.84rem;font-weight:600;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center; }
+.pg-faq summary::-webkit-details-marker { display:none; }
+.pg-faq summary::after { content:'▾';font-size:0.70rem;color:var(--muted);transition:transform 0.2s; }
+.pg-faq details[open] summary::after { transform:rotate(180deg); }
+.pg-faq-a { font-size:0.80rem;color:var(--muted);line-height:1.75;padding-bottom:14px; }
+
+.pg-final { text-align:center;padding:40px 20px 80px;max-width:520px;margin:0 auto; }
+.pg-final-title { font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1.4rem,4vw,2rem);color:var(--text);margin-bottom:10px;line-height:1.2; }
+.pg-final-sub { font-size:0.82rem;color:var(--muted);margin-bottom:24px;line-height:1.6; }
+.pg-final-note { font-size:0.68rem;color:var(--muted2);margin-top:10px; }
+.pg-disclaimer { text-align:center;font-size:0.68rem;color:var(--muted2);padding:0 20px 40px;max-width:500px;margin:0 auto; }
+
+.reveal-up { opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease; }
+.reveal-up.visible { opacity:1;transform:translateY(0); }
+.reveal-left { opacity:0;transform:translateX(-20px);transition:opacity 0.6s ease,transform 0.6s ease; }
+.reveal-left.visible { opacity:1;transform:translateX(0); }
+.delay-1 { transition-delay:0.1s; }
+.delay-2 { transition-delay:0.2s; }
+.delay-3 { transition-delay:0.3s; }
+</style>
+
 <script>
-/* ── Toggle mensuel/annuel ── */
-let billing = 'monthly';
-// Prix depuis data.js — WW_DATA.prix est la source unique
-function getPrice(plan, mode) {
-  const d = window.WW_DATA && window.WW_DATA.prix;
-  if (!d) return '—';
-  if (plan === 'pilote') return mode === 'annual'
-    ? d.pilote_mensuel_eq.toFixed(2).replace('.',',') + '€'
-    : d.pilote_mensuel.toFixed(2).replace('.',',') + '€';
-  if (plan === 'radar') return mode === 'annual'
-    ? d.radar_mensuel_eq.toFixed(2).replace('.',',') + '€'
-    : d.radar_mensuel.toFixed(2).replace('.',',') + '€';
-  return '—';
+/* ── Prix depuis WW_DATA (source unique) ── */
+function getPrices() {
+  const d = window.WW_DATA?.prix;
+  if (!d) return null;
+  return {
+    pilote: {
+      monthly: d.pilote_mensuel.toFixed(2).replace('.',',') + '€',
+      annual:  d.pilote_mensuel_eq.toFixed(2).replace('.',',') + '€',
+      annualLabel: 'Facturé ' + d.pilote_annuel + '€/an',
+    },
+    radar: {
+      monthly: d.radar_mensuel.toFixed(2).replace('.',',') + '€',
+      annual:  d.radar_mensuel_eq.toFixed(2).replace('.',',') + '€',
+      annualLabel: 'Facturé ' + d.radar_annuel + '€/an',
+    },
+  };
 }
-function getAnnualLabel(plan) {
-  const d = window.WW_DATA && window.WW_DATA.prix;
-  if (!d) return '';
-  return plan === 'pilote' ? 'Facturé ' + d.pilote_annuel + '€/an' : 'Facturé ' + d.radar_annuel + '€/an';
-}
-// Compatibilité avec setBilling qui utilise PRICES
-const PRICES = {
-  pilote: { get monthly() { return getPrice('pilote','monthly'); }, get annual() { return getPrice('pilote','annual'); }, get annualLabel() { return getAnnualLabel('pilote'); } },
-  radar:  { get monthly() { return getPrice('radar','monthly');  }, get annual() { return getPrice('radar','annual');  }, get annualLabel() { return getAnnualLabel('radar');  } },
-};
+
+let billing = 'annual';
 
 function setBilling(mode) {
   billing = mode;
   document.querySelectorAll('.pg-toggle-btn').forEach((b, i) => {
-    b.classList.toggle('active', (mode === 'monthly' && i === 0) || (mode === 'annual' && i === 1));
+    b.classList.toggle('active', (mode === 'annual' && i === 0) || (mode === 'monthly' && i === 1));
   });
+
+  const P = getPrices();
+  if (!P) return;
+
   ['pilote','radar'].forEach(plan => {
-    const p = PRICES[plan];
-    document.getElementById(plan + '-price').textContent  = mode === 'annual' ? p.annual : p.monthly;
-    document.getElementById(plan + '-period').textContent = mode === 'annual' ? '/mois*' : '/mois';
+    const p = P[plan];
+    const isAnnual = mode === 'annual';
+    const priceEl  = document.getElementById(plan + '-price');
+    const periodEl = document.getElementById(plan + '-period');
     const annualEl = document.getElementById(plan + '-annual');
-    if (annualEl) { annualEl.style.display = mode === 'annual' ? 'block' : 'none'; annualEl.textContent = p.annualLabel; }
-    document.getElementById(plan + '-cta').href = '/compte/inscription.html?plan=' + plan + '&billing=' + mode;
+    const ctaEl    = document.getElementById(plan + '-cta');
+    const cmpEl    = document.getElementById('cmp-' + plan + '-price');
+
+    if (priceEl)  priceEl.textContent  = isAnnual ? p.annual  : p.monthly;
+    if (periodEl) periodEl.textContent = isAnnual ? '/mois*' : '/mois';
+    if (annualEl) { annualEl.style.display = isAnnual ? 'block' : 'none'; }
+    if (ctaEl)    ctaEl.href = '/compte/inscription.html?plan=' + plan + '&billing=' + mode;
+    if (cmpEl)    cmpEl.textContent = isAnnual ? p.annualLabel.replace('Facturé ','') : p.monthly;
+  });
+
+  // Note * sous les prix annuels
+  document.querySelectorAll('.pg-plan-note').forEach(el => {
+    if (mode === 'annual' && !el.textContent.includes('*')) {
+      // Déjà OK
+    }
   });
 }
 
-/* ── Reveal au scroll ── */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+/* ── IntersectionObserver ── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
 }, { threshold: 0.12 });
 
-document.querySelectorAll('.reveal-up, .reveal-left').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal-up, .reveal-left').forEach(el => io.observe(el));
 
-/* ── Hero animations au load ── */
+/* ── Hero animations ── */
 window.addEventListener('load', () => {
   const seq = [
     { id: 'hero-badge', delay: 100 },
@@ -456,12 +681,17 @@ window.addEventListener('load', () => {
       if (el) { el.style.transition = 'opacity 0.7s ease, transform 0.7s ease'; el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }
     }, delay);
   });
-
-  /* Giant word */
   setTimeout(() => {
     const el = document.getElementById('giant-bruit');
     if (el) el.classList.add('visible');
   }, 200);
+
+  // Init prix après chargement de data.js
+  const tryInit = () => {
+    if (window.WW_DATA?.prix) setBilling('annual');
+    else setTimeout(tryInit, 100);
+  };
+  tryInit();
 });
 </script>
 

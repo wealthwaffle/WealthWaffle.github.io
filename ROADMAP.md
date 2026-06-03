@@ -189,11 +189,11 @@
 
 **Doctrine**
 
-- [ ] **M3.** `doctrine.html` — ajouter bloc add-on Conformité Crypto 49€/an · vérifier WW_DATA.prix partout
-- [ ] **7b.** Réponse “pourquoi payer si gratuit” — section dédiée avec exemples concrets
-- [ ] **7c.** CTA concrets — “Calculer mon PLCI optimal” plutôt que “Commencer”
-- [ ] **7d.** Tableau comparatif visuel Socle → Pilote → Radar clair
-- [ ] **7e.** Mention Belgique dans les CTA
+- [x] ~**M3.** `doctrine.html` — bloc add-on Conformité Crypto 49€/an · WW_DATA.prix via data.js · “sans carte bancaire” supprimé~
+- [x] ~**7b.** Section “Pourquoi payer” réécrite avec exemples concrets (PLCI, locatif net, salaire vs dividendes)~
+- [x] ~**7c.** CTA concrets dans la value prop + bouton “Accès complet · 7 jours gratuits” sur Pilote et Radar~
+- [x] ~**7d.** Tableau comparatif Socle/Pilote/Radar ajouté avec add-on Crypto~
+- [x] ~**7e.** 🇧🇪 mentionné dans chips hero, notes plans, proof chips~
 
 **Waffy — intégration sur le site**
 
@@ -296,7 +296,7 @@
 - [ ] **69.** Intégrer `data-ww-cta` dans les 18 pages existantes (après point 68)
 - [ ] **70.** Vérifier que chaque CTA ne mentionne pas une fonctionnalité absente du plan actuel
 - [ ] **75.** `/a-propos/index.html` — retravailler en “Qui est derrière ce site ?” · story · valeurs · approche
-- [ ] **76.** `doctrine.html` — ajouter 3 sections : “Le coût de l’inaction” · “Ce que font les 10% qui s’en sortent” · “Le chemin le plus court”
+- [x] ~**76.** 3 sections ajoutées : coût inaction (chiffres 10K€), les 10% (4 comportements), chemin le plus court (4 étapes)~
 
 -----
 
@@ -377,6 +377,10 @@
 -----
 
 ## ✅ Fait
+
+### ✅ DOCTRINE — Complet
+
+- ~**M3** add-on Crypto · **7b** pourquoi payer · **7c** CTAs concrets · **7d** tableau comparatif · **7e** 🇧🇪 mentions · **76** 3 nouvelles sections~
 
 ### ✅ GROUPE C — Complet
 
