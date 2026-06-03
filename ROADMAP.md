@@ -125,7 +125,7 @@
 **Priorité 1 — pages phares**
 
 - [x] ~`invest/etf.html` — sections complètes, graphique DCA animé, simulateur DCA inline, Waffy analyste, data-ww-cta pilote, liens absolus~
-- [ ] `invest/allocation.html`
+- [x] ~`invest/allocation.html` — section #classes ajoutée, graphique barres 3 profils animé, Waffy graphiste, data-ww-cta pilote, CSS → ww-all.css, simulateur FIRE opérationnel~
 - [ ] `fiscal/independants.html`
 - [ ] `immo/achat.html`
 - [ ] `budget/epargne.html`
@@ -378,6 +378,7 @@
 
 ## ✅ Fait
 
+- ~`invest/allocation.html` — refonte complète Groupe D~
 - ~`invest/etf.html` — refonte complète Groupe D~
 - ~**M4a** gaufre supprimée · **M4b** sans carte→7j gratuits · **M4c** liens relatifs→absolus · **M4d-liens** IMG_52xx→/img/waffy~
 
