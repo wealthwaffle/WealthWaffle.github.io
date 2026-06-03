@@ -2988,3 +2988,356 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
   font-size: 0.68rem;
   color: var(--muted2);
 }
+
+/* ══════════════════════════════════════════════════════════════
+   CLASSES GÉNÉRIQUES — utilisées sur toutes les pages (point 15)
+   Remplacent tout CSS inline — jamais de style="" dans le HTML
+══════════════════════════════════════════════════════════════ */
+
+/* ── Eyebrow thématique ── */
+.eyebrow-invest  { background: rgba(91,184,212,0.10);  color: #5BB8D4; }
+.eyebrow-fiscal  { background: rgba(108,52,131,0.12);  color: #9B59B6; }
+.eyebrow-budget  { background: rgba(126,200,160,0.10); color: #7EC8A0; }
+.eyebrow-immo    { background: rgba(231,111,81,0.10);  color: #E76F51; }
+.eyebrow-crypto  { background: rgba(246,190,99,0.10);  color: #F6BE63; }
+.eyebrow-radar   { background: rgba(91,184,212,0.10);  color: #5BB8D4; }
+.eyebrow-parcours{ background: rgba(91,184,212,0.08);  color: #5BB8D4; }
+
+/* ── Source pills actif (page courante) ── */
+.source-pill-active-invest { background: rgba(91,184,212,0.12); border-color: rgba(91,184,212,0.30); color: #5BB8D4; }
+.source-pill-active-fiscal { background: rgba(108,52,131,0.12); border-color: rgba(108,52,131,0.30); color: #9B59B6; }
+.source-pill-active-budget { background: rgba(126,200,160,0.12);border-color: rgba(126,200,160,0.30);color: #7EC8A0; }
+.source-pill-active-immo   { background: rgba(231,111,81,0.12); border-color: rgba(231,111,81,0.30); color: #E76F51; }
+.source-pill-active-crypto { background: rgba(246,190,99,0.12); border-color: rgba(246,190,99,0.30); color: #F6BE63; }
+
+/* ── Lien coloré en ligne ── */
+.link-invest { color: #5BB8D4; }
+.link-fiscal { color: #9B59B6; }
+.link-budget { color: #7EC8A0; }
+.link-immo   { color: #E76F51; }
+.link-rose   { color: var(--rose); }
+.link-green  { color: #2ECC71; }
+
+/* ── Texte coloré emphase ── */
+.txt-rose   { color: var(--rose); }
+.txt-cyan   { color: #5BB8D4; }
+.txt-green  { color: #2ECC71; }
+.txt-muted  { color: var(--muted); }
+.txt-muted2 { color: var(--muted2); }
+.txt-warn   { color: var(--rose); font-weight: 700; }
+.txt-bold   { font-weight: 700; }
+
+/* ── Lecture / meta ── */
+.reading-meta {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+.pill-nav {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+/* ── Simulateur — conteneur grille inputs ── */
+.sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+@media (max-width: 400px) { .sim-grid { grid-template-columns: 1fr; } }
+
+/* ── Label simulateur ── */
+.sim-label {
+  font-size: 0.70rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 4px;
+}
+/* ── Input simulateur ── */
+.sim-input {
+  width: 100%;
+  background: var(--s3);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 9px 12px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.18s;
+}
+.sim-input:focus { border-color: rgba(232,124,195,0.40); }
+
+/* ── Résultat simulateur ── */
+.sim-result {
+  background: linear-gradient(135deg, rgba(46,204,113,0.08), rgba(91,184,212,0.06));
+  border: 1px solid rgba(46,204,113,0.25);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.sim-result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+@media (max-width: 400px) { .sim-result-grid { grid-template-columns: 1fr 1fr; } }
+.sim-result-label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.sim-result-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+.sim-result-sub {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 0.74rem;
+  color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+.sim-result-note {
+  margin-top: 10px;
+  font-size: 0.68rem;
+  color: var(--muted2);
+}
+
+/* ── Graphique canvas conteneur ── */
+.chart-container {
+  position: relative;
+  background: var(--s3);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.chart-container canvas {
+  width: 100%;
+  display: block;
+}
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 0.70rem;
+  color: var(--muted);
+}
+.chart-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.chart-legend-line {
+  display: inline-block;
+  width: 10px;
+  height: 3px;
+  border-radius: 2px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.chart-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.chart-results {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.74rem;
+  color: var(--muted);
+  text-align: center;
+}
+.chart-result-value {
+  font-size: 1.1rem;
+  font-weight: 800;
+  display: block;
+}
+.chart-legend-overlay {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 0.65rem;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Pas unique — DCA steps (reutilisées invest/) ── */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+.step-badge {
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.70rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.step-badge-green  { background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.30); color: #2ECC71; }
+.step-badge-cyan   { background: rgba(91,184,212,0.15); border: 1px solid rgba(91,184,212,0.30); color: #5BB8D4; }
+.step-badge-rose   { background: rgba(232,124,195,0.15);border: 1px solid rgba(232,124,195,0.30);color: var(--rose); }
+.step-badge-purple { background: rgba(108,52,131,0.15); border: 1px solid rgba(108,52,131,0.30); color: #9B59B6; }
+.step-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── Waffy tip ── */
+.waffy-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255,255,255,0.025);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-top: 14px;
+}
+.waffy-tip-content {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.waffy-tip-content strong {
+  color: var(--text);
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* ── Carte profil 3 colonnes (allocation, immo, fiscal…) ── */
+.profil-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+@media (max-width: 560px) { .profil-grid { grid-template-columns: 1fr; } }
+.profil-card {
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--s2);
+  padding: 14px;
+}
+.profil-card-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.profil-card-sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── Comparatif 2 colonnes (IS vs IPP, salarié vs indép…) ── */
+.compare-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+@media (max-width: 480px) { .compare-2col { grid-template-columns: 1fr; } }
+.compare-col {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+.compare-col-title {
+  font-size: 0.80rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.compare-col-item {
+  font-size: 0.76rem;
+  color: var(--muted);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--faint);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.compare-col-item:last-child { border-bottom: none; }
+.compare-col-item strong { color: var(--text); }
+
+/* ── Highlight chiffre clé ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+}
+@media (max-width: 480px) { .kpi-grid { grid-template-columns: 1fr 1fr; } }
+.kpi-card {
+  background: var(--s3);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+.kpi-label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.kpi-value {
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.kpi-sub {
+  font-size: 0.62rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── Breadcrumb ── */
+.page-subtitle {
+  font-size: 0.80rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* ── Légende graphique — couleurs fixes (point 15) ── */
+.dot-green  { background: #2ECC71; }
+.dot-cyan   { background: #5BB8D4; }
+.dot-rose   { background: #E87CC3; }
+.dot-gold   { background: #F6BE63; }
+.dot-purple { background: #9B59B6; }
+.dot-orange { background: #E76F51; }
+.dot-muted  { background: var(--muted); }

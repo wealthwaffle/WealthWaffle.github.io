@@ -378,6 +378,7 @@
 
 ## ✅ Fait
 
+- ~`invest/etf.html` + `invest/allocation.html` — zéro CSS inline · classes génériques ww-all.css (kpi-grid, sim-input, sim-result, chart-container, steps-list, waffy-tip, profil-grid, compare-2col, eyebrow-*, source-pill-active-*, txt-*, dot-*)~
 - ~`invest/allocation.html` — refonte complète Groupe D~
 - ~`invest/etf.html` — refonte complète Groupe D~
 - ~**M4a** gaufre supprimée · **M4b** sans carte→7j gratuits · **M4c** liens relatifs→absolus · **M4d-liens** IMG_52xx→/img/waffy~

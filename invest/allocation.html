@@ -19,7 +19,7 @@
 <div class="progress-bar"><div class="progress-fill"></div></div>
 <button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<div class="page" style="padding-top:80px;">
+<div class="page">
 <div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/invest/">Investir</a><span>/</span><span>Allocation</span></div>
 
@@ -32,20 +32,20 @@
   <a href="#fire-sim">🔥 Simulateur FIRE</a>
 </nav>
 
-<div class="eyebrow" style="background:rgba(91,184,212,0.10);color:#5BB8D4;">⚖️ Allocation</div>
-<h1 class="display">Allocation de<br><span style="color:#5BB8D4;">portefeuille</span></h1>
-<p class="lead" style="margin-bottom:16px;">La décision la plus importante n'est pas "quel ETF" — c'est "quelle répartition". L'allocation explique 90% de la performance à long terme.</p>
+<div class="eyebrow eyebrow-invest">⚖️ Allocation</div>
+<h1 class="display">Allocation de<br><span class="txt-cyan">portefeuille</span></h1>
+<p class="lead">La décision la plus importante n'est pas "quel ETF" — c'est "quelle répartition". L'allocation explique 90% de la performance à long terme.</p>
 
 <div class="reading-time">
   <span class="reading-time-badge">🌱 Débutant : ~7 min</span>
   <span class="reading-time-badge">🚀 Avancé : ~18 min</span>
-  <span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span>
+  <span class="reading-meta">· Juin 2026</span>
 </div>
 
-<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;">
+<div class="pill-nav">
   <a href="/invest/" class="source-pill">📈 Hub</a>
   <a href="/invest/etf.html" class="source-pill">📊 ETF</a>
-  <a href="/invest/allocation.html" class="source-pill" style="background:rgba(91,184,212,0.12);border-color:rgba(91,184,212,0.30);color:#5BB8D4;">⚖️ Allocation ←</a>
+  <a href="/invest/allocation.html" class="source-pill source-pill-active-invest">⚖️ Allocation ←</a>
   <a href="/invest/actions.html" class="source-pill">📈 Actions</a>
   <a href="/invest/obligations.html" class="source-pill">💸 Obligations</a>
   <a href="/budget/rente.html" class="source-pill">🔥 Vivre de son capital</a>
@@ -57,12 +57,12 @@
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>L'allocation, c'est la répartition de ton épargne entre les grandes classes d'actifs : actions, obligations, immobilier, cash. Cette répartition détermine à la fois le rendement potentiel ET le risque. Un portefeuille 100% actions peut gagner 30% en un an — ou perdre 40%. Un portefeuille 60/40 est moins volatile mais aussi moins rentable sur le long terme.</p>
-      <div class="info-box" style="margin-top:12px;">💡 <strong>Règle des 90% :</strong> l'allocation explique 90% de la performance à long terme. Le choix du bon ETF n'explique que 10%. Pourtant la plupart des gens font l'inverse.</div>
+      <p>L'allocation, c'est la répartition de ton épargne entre les grandes classes d'actifs : actions, obligations, immobilier, cash. Cette répartition détermine à la fois le rendement potentiel ET le risque. Un portefeuille 100% actions peut gagner 30% en un an — ou perdre 40%.</p>
+      <div class="info-box">💡 <strong>Règle des 90% :</strong> l'allocation explique 90% de la performance à long terme. Le choix du bon ETF n'explique que 10%. Pourtant la plupart des gens font l'inverse.</div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Brinson, Hood & Beebower (1986, répliqué en 1991 et 2000) :</strong> 91,5% de la variance des rendements s'explique par la politique d'allocation — pas par la sélection de titres ni par le market timing. Ibbotson & Kaplan (2000) confirment que ~100% du niveau de rendement absolu est expliqué par l'allocation. L'énergie dépensée à choisir "le bon ETF" est donc 20× moins impactante que de choisir la bonne répartition.</p>
+      <p><strong>Brinson, Hood & Beebower (1986) :</strong> 91,5% de la variance des rendements s'explique par la politique d'allocation — pas par la sélection de titres ni par le market timing. Ibbotson & Kaplan (2000) confirment que ~100% du niveau de rendement absolu est expliqué par l'allocation.</p>
     </div>
   </div>
 </div>
@@ -77,55 +77,18 @@
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p>La corrélation entre classes d'actifs est le cœur de la théorie moderne de portefeuille (Markowitz). Un portefeuille efficient maximise le rendement pour un niveau de risque donné en combinant des actifs à faible corrélation. Depuis 2020, la corrélation actions/obligations a augmenté (taux directeurs élevés) — ce qui remet en question le classique 60/40.</p>
+      <p>La corrélation entre classes d'actifs est le cœur de la théorie moderne de portefeuille (Markowitz). Depuis 2020, la corrélation actions/obligations a augmenté — ce qui remet en question le classique 60/40.</p>
     </div>
   </div>
-
-  <div class="table-wrap" style="margin-top:12px;"><table>
-    <thead><tr><th>Classe</th><th>Rendement historique</th><th>Risque</th><th>Rôle dans le portefeuille</th><th>Exemple belge</th></tr></thead>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Classe</th><th>Rendement historique</th><th>Risque</th><th>Rôle</th><th>Exemple belge</th></tr></thead>
     <tbody>
-      <tr>
-        <td><strong>🌍 Actions</strong></td>
-        <td style="color:#7EC8A0;">7–10%/an</td>
-        <td>Élevé — peut perdre -50% sur 1 an</td>
-        <td>Moteur de croissance long terme</td>
-        <td>VWCE, IWDA, CSPX</td>
-      </tr>
-      <tr>
-        <td><strong>💸 Obligations</strong></td>
-        <td>2–5%/an</td>
-        <td>Modéré — sensible aux taux</td>
-        <td>Stabilisateur, revenus réguliers</td>
-        <td>AGGH, bons d'État belges</td>
-      </tr>
-      <tr>
-        <td><strong>🏠 Immobilier</strong></td>
-        <td>4–7%/an (locatif net)</td>
-        <td>Modéré — illiquidité</td>
-        <td>Revenus + inflation hedge</td>
-        <td>Bien locatif, REIT via ETF IWDP</td>
-      </tr>
-      <tr>
-        <td><strong>💶 Cash/Épargne</strong></td>
-        <td style="color:var(--rose);">0,11–3%/an</td>
-        <td>Faible — risque inflation</td>
-        <td>Fonds d'urgence + liquidité</td>
-        <td>Compte épargne, bon d'État court</td>
-      </tr>
-      <tr>
-        <td><strong>🥇 Or</strong></td>
-        <td>2–4%/an réel</td>
-        <td>Modéré — volatile à court terme</td>
-        <td>Valeur refuge, décorrélé</td>
-        <td>ETC or (Wisdomtree WGLD)</td>
-      </tr>
-      <tr>
-        <td><strong>₿ Crypto</strong></td>
-        <td>Très variable</td>
-        <td>Très élevé — -80% possible</td>
-        <td>Spéculatif — max 5% du portef.</td>
-        <td>BTC, ETH via exchanges régulés</td>
-      </tr>
+      <tr><td><strong>🌍 Actions</strong></td><td class="txt-green">7–10%/an</td><td>Élevé — peut perdre -50%</td><td>Moteur de croissance</td><td>VWCE, IWDA</td></tr>
+      <tr><td><strong>💸 Obligations</strong></td><td>2–5%/an</td><td>Modéré — sensible aux taux</td><td>Stabilisateur</td><td>AGGH, bons d'État belges</td></tr>
+      <tr><td><strong>🏠 Immobilier</strong></td><td>4–7%/an net</td><td>Modéré — illiquidité</td><td>Revenus + inflation hedge</td><td>Locatif, REIT via IWDP</td></tr>
+      <tr><td><strong>💶 Cash</strong></td><td class="txt-rose">0,11–3%/an</td><td>Faible — risque inflation</td><td>Fonds d'urgence</td><td>Compte épargne, bon d'État</td></tr>
+      <tr><td><strong>🥇 Or</strong></td><td>2–4%/an réel</td><td>Modéré</td><td>Valeur refuge, décorrélé</td><td>ETC or WGLD</td></tr>
+      <tr><td><strong>₿ Crypto</strong></td><td>Très variable</td><td class="txt-rose">Très élevé — -80% possible</td><td>Spéculatif — max 5%</td><td>BTC, ETH exchanges régulés</td></tr>
     </tbody>
   </table></div>
 </div>
@@ -140,57 +103,43 @@
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Life-cycle investing :</strong> l'allocation optimale évolue avec l'âge. La règle "110 − âge = % actions" est une simplification. Ayres & Nalebuff (Lifecycle Investing) suggèrent d'être plus agressif jeune car le capital humain futur est une "obligation implicite". En pratique : 90–100% actions pendant les 20 premières années, dégressif vers 60–70% à 10 ans de la retraite, 40–50% en phase de décumulation.</p>
+      <p><strong>Life-cycle investing :</strong> 90–100% actions pendant les 20 premières années, dégressif vers 60–70% à 10 ans de la retraite, 40–50% en décumulation. Ayres & Nalebuff recommandent même un levier raisonnable jeune car le capital humain futur est une "obligation implicite".</p>
     </div>
   </div>
-
-  <div class="alloc-profils-grid">
-    <div class="alloc-profil-card alloc-defensif">
-      <div class="alloc-profil-badge">🛡️ Défensif</div>
-      <div class="alloc-profil-horizon">Horizon &lt; 5 ans ou aversion risque élevée</div>
-      <div class="alloc-profil-repartition">30% actions · 40% oblig. · 30% cash</div>
-      <div class="alloc-profil-perf">Rendement attendu : 3–5%/an</div>
-      <div class="alloc-profil-perte">Perte max estimée : −15%</div>
+  <div class="profil-grid">
+    <div class="profil-card alloc-defensif">
+      <div class="profil-card-title alloc-profil-badge">🛡️ Défensif</div>
+      <div class="profil-card-sub">Horizon &lt; 5 ans · 30% actions · 40% oblig. · 30% cash · Rendement : 3–5%/an · Perte max : −15%</div>
     </div>
-    <div class="alloc-profil-card alloc-equilibre">
-      <div class="alloc-profil-badge">⚖️ Équilibré</div>
-      <div class="alloc-profil-horizon">Horizon 7–15 ans</div>
-      <div class="alloc-profil-repartition">60% actions · 30% oblig. · 10% cash</div>
-      <div class="alloc-profil-perf">Rendement attendu : 5–7%/an</div>
-      <div class="alloc-profil-perte">Perte max estimée : −30%</div>
+    <div class="profil-card alloc-equilibre">
+      <div class="profil-card-title alloc-profil-badge">⚖️ Équilibré</div>
+      <div class="profil-card-sub">Horizon 7–15 ans · 60% actions · 30% oblig. · 10% cash · Rendement : 5–7%/an · Perte max : −30%</div>
     </div>
-    <div class="alloc-profil-card alloc-croissance">
-      <div class="alloc-profil-badge">🚀 Croissance</div>
-      <div class="alloc-profil-horizon">Horizon 15+ ans</div>
-      <div class="alloc-profil-repartition">90% actions · 5% oblig. · 5% cash</div>
-      <div class="alloc-profil-perf">Rendement attendu : 7–9%/an</div>
-      <div class="alloc-profil-perte">Perte max estimée : −50%</div>
+    <div class="profil-card alloc-croissance">
+      <div class="profil-card-title alloc-profil-badge">🚀 Croissance</div>
+      <div class="profil-card-sub">Horizon 15+ ans · 90% actions · 5% oblig. · 5% cash · Rendement : 7–9%/an · Perte max : −50%</div>
     </div>
   </div>
 </div>
 
-<!-- ── GRAPHIQUE COMPARATIF — point 77 ── -->
+<!-- ── GRAPHIQUE ── -->
 <div class="content-card toc-target reveal" id="graphique">
   <h3>📊 Comparatif visuel — 3 profils</h3>
-  <p style="font-size:0.80rem;color:var(--muted);margin-bottom:14px;">Répartition par classe d'actif selon le profil.</p>
-
-  <div style="position:relative;height:200px;background:var(--s3);border-radius:12px;overflow:hidden;padding:16px 12px 28px;">
-    <canvas id="alloc-chart" style="width:100%;height:100%;"></canvas>
+  <p class="page-subtitle">Répartition par classe d'actif selon le profil.</p>
+  <div class="chart-container" id="alloc-chart-wrap">
+    <canvas id="alloc-chart" height="200"></canvas>
   </div>
-
-  <!-- Légende -->
-  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-size:0.70rem;color:var(--muted);">
-    <span><span style="display:inline-block;width:10px;height:10px;background:#2ECC71;border-radius:2px;margin-right:4px;"></span>Actions</span>
-    <span><span style="display:inline-block;width:10px;height:10px;background:#5BB8D4;border-radius:2px;margin-right:4px;"></span>Obligations</span>
-    <span><span style="display:inline-block;width:10px;height:10px;background:#E87CC3;border-radius:2px;margin-right:4px;"></span>Cash</span>
-    <span><span style="display:inline-block;width:10px;height:10px;background:#F6BE63;border-radius:2px;margin-right:4px;"></span>Or/Immo</span>
+  <div class="chart-legend">
+    <span><span class="chart-legend-dot" style="background:#2ECC71;"></span>Actions</span>
+    <span><span class="chart-legend-dot" style="background:#5BB8D4;"></span>Obligations</span>
+    <span><span class="chart-legend-dot" style="background:#E87CC3;"></span>Cash</span>
+    <span><span class="chart-legend-dot" style="background:#F6BE63;"></span>Or/Immo</span>
   </div>
-
-  <!-- Waffy graphiste — point 78 -->
-  <div class="waffy-tip" style="margin-top:14px;">
+  <div class="waffy-tip">
     <img src="/img/waffy/waffy-graphiste.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
     <div class="waffy-tip-content">
-      <strong>Comment lire ce graphique</strong> — Plus la barre verte (actions) est haute, plus le potentiel de gain est élevé — et plus tu dois accepter de voir ton portefeuille baisser temporairement. Si une baisse de -30% te ferait vendre en panique, choisit le profil défensif ou équilibré.
+      <strong>Comment lire ce graphique</strong>
+      Plus la barre verte (actions) est haute, plus le potentiel de gain est élevé — et plus tu dois accepter de voir ton portefeuille baisser temporairement. Si une baisse de -30% te ferait vendre en panique, choisis le profil défensif ou équilibré.
     </div>
   </div>
 </div>
@@ -201,134 +150,95 @@
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>Après une année de forte hausse des actions, ton allocation peut dériver de 60/40 à 75/25. Le rebalancement consiste à vendre un peu d'actions (ce qui a monté) et acheter des obligations pour revenir à 60/40. Cela force mécaniquement à "vendre haut, acheter bas". À faire une fois par an — ou quand une classe dépasse ±5% de la cible.</p>
+      <p>Après une année de forte hausse des actions, ton allocation peut dériver de 60/40 à 75/25. Le rebalancement consiste à vendre un peu d'actions et racheter des obligations pour revenir à 60/40. À faire une fois par an — ou quand une classe dépasse ±5% de la cible.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Depuis jan. 2026, chaque vente génère une taxe PV 10%.</strong> Le rebalancement par vente a donc un coût fiscal. Alternatives : (1) rebalancement par achat uniquement — diriger les nouvelles contributions vers la classe sous-représentée. (2) Utiliser les dividendes pour rééquilibrer. (3) Tolérance bande plus large (±10%) pour réduire la fréquence. Sur un portefeuille DCA pur en phase d'accumulation, le rebalancement par achat seul suffit généralement pendant 20 ans.</p>
+      <p><strong>Depuis jan. 2026, chaque vente génère une taxe PV 10%.</strong> Alternatives : (1) rebalancement par achat uniquement — diriger les nouvelles contributions vers la classe sous-représentée. (2) Utiliser les dividendes. (3) Tolérance bande plus large (±10%) pour réduire la fréquence.</p>
     </div>
   </div>
 </div>
 
-<!-- ── SIMULATEUR FIRE — point 11 ── -->
+<!-- ── SIMULATEUR FIRE ── -->
 <div class="content-card toc-target reveal" id="fire-sim">
   <h3>🔥 Simulateur FIRE & objectif financier</h3>
   <div id="tool-fire-alloc"></div>
 </div>
 
-<!-- CTA Pilote -->
 <div data-ww-cta="pilote"></div>
 
 <div class="source-block">
   <span class="source-block-label">Sources</span>
-  <a href="https://www.cfapubs.org/doi/abs/10.2469/faj.v51.n1.1869" target="_blank" rel="noopener" class="source-pill">🔗 Brinson, Hood & Beebower (1986/1991)</a>
-  <a href="https://www.journaloffinance.com" target="_blank" rel="noopener" class="source-pill">🔗 Ibbotson & Kaplan (2000)</a>
-  <a href="https://www.vanguard.com/pdf/ISGPOD.pdf" target="_blank" rel="noopener" class="source-pill">🔗 Vanguard — Principles of Investing</a>
+  <a href="https://www.cfapubs.org/doi/abs/10.2469/faj.v51.n1.1869" target="_blank" rel="noopener" class="source-pill">🔗 Brinson, Hood & Beebower</a>
+  <a href="https://www.vanguard.com/pdf/ISGPOD.pdf" target="_blank" rel="noopener" class="source-pill">🔗 Vanguard Principles</a>
 </div>
 
 <div class="see-also">
   <div class="see-also-label">Voir aussi</div>
   <a href="/invest/etf.html" class="see-also-pill">📊 ETF — guide complet</a>
-  <a href="/invest/actions.html" class="see-also-pill">📈 Investir en actions</a>
+  <a href="/invest/actions.html" class="see-also-pill">📈 Actions</a>
   <a href="/invest/obligations.html" class="see-also-pill">💸 Obligations</a>
   <a href="/parcours/psychologie.html" class="see-also-pill">🧠 Psychologie investisseur</a>
   <a href="/budget/rente.html" class="see-also-pill">🔥 Vivre de son capital</a>
 </div>
 
-</div><!-- end .page -->
+</div>
 
 <script>
-/* ── Graphique barres empilées — 3 profils (point 77) ── */
 function drawAllocChart() {
   const canvas = document.getElementById('alloc-chart');
   if (!canvas) return;
-  const container = canvas.parentElement;
-  const W = container.offsetWidth;
-  const H = container.offsetHeight;
+  const W = canvas.parentElement.offsetWidth;
+  const H = 200;
   const dpr = window.devicePixelRatio || 1;
-  canvas.width  = W * dpr;
-  canvas.height = H * dpr;
-  canvas.style.width  = W + 'px';
-  canvas.style.height = H + 'px';
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
-
   const PROFILS = [
-    { label: '🛡️ Défensif',   actions: 30, oblig: 40, cash: 30, or: 0  },
-    { label: '⚖️ Équilibré',   actions: 60, oblig: 30, cash: 10, or: 0  },
-    { label: '🚀 Croissance',  actions: 85, oblig: 5,  cash: 5,  or: 5  },
+    { label: '🛡️ Défensif',  actions: 30, oblig: 40, cash: 30, or: 0 },
+    { label: '⚖️ Équilibré', actions: 60, oblig: 30, cash: 10, or: 0 },
+    { label: '🚀 Croissance',actions: 85, oblig: 5,  cash: 5,  or: 5 },
   ];
-
-  const COLORS = {
-    actions: '#2ECC71',
-    oblig:   '#5BB8D4',
-    cash:    '#E87CC3',
-    or:      '#F6BE63',
-  };
-  const KEYS = ['actions', 'oblig', 'cash', 'or'];
-
-  const PAD = { top: 10, right: 10, bottom: 30, left: 10 };
-  const chartW = W - PAD.left - PAD.right;
-  const chartH = H - PAD.top - PAD.bottom;
-  const barW = chartW / PROFILS.length * 0.55;
-  const gap  = chartW / PROFILS.length;
-
-  // Animation
-  let progress = 0;
-  const animate = () => {
+  const COLORS = { actions:'#2ECC71', oblig:'#5BB8D4', cash:'#E87CC3', or:'#F6BE63' };
+  const KEYS = ['actions','oblig','cash','or'];
+  const P = { t:10, r:10, b:30, l:10 };
+  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const bW = cW / PROFILS.length * 0.55, gap = cW / PROFILS.length;
+  let prog = 0;
+  const draw = () => {
     ctx.clearRect(0, 0, W, H);
-    const p = Math.min(progress, 1);
-
-    PROFILS.forEach((profil, i) => {
-      const x = PAD.left + gap * i + (gap - barW) / 2;
-      let yBottom = PAD.top + chartH;
-
-      KEYS.forEach(key => {
-        const pct = profil[key];
-        if (!pct) return;
-        const barH = (pct / 100) * chartH * p;
-
-        ctx.fillStyle = COLORS[key];
-        ctx.beginPath();
-        ctx.roundRect
-          ? ctx.roundRect(x, yBottom - barH, barW, barH, key === 'actions' ? [0,0,4,4] : 0)
-          : ctx.rect(x, yBottom - barH, barW, barH);
-        ctx.fill();
-
-        // Label % si barre assez haute
-        if (barH > 18 && p > 0.8) {
+    const p = Math.min(prog, 1);
+    PROFILS.forEach((prof, i) => {
+      const x = P.l + gap * i + (gap - bW) / 2;
+      let yB = P.t + cH;
+      KEYS.forEach(k => {
+        if (!prof[k]) return;
+        const bH = (prof[k] / 100) * cH * p;
+        ctx.fillStyle = COLORS[k];
+        ctx.fillRect(x, yB - bH, bW, bH);
+        if (bH > 18 && p > 0.8) {
           ctx.fillStyle = 'rgba(255,255,255,0.85)';
-          ctx.font = `bold ${Math.min(10, barW/3)}px DM Sans`;
+          ctx.font = `bold ${Math.min(10, bW/3)}px DM Sans`;
           ctx.textAlign = 'center';
-          ctx.fillText(pct + '%', x + barW / 2, yBottom - barH / 2 + 4);
+          ctx.fillText(prof[k] + '%', x + bW / 2, yB - bH / 2 + 4);
         }
-
-        yBottom -= barH;
+        yB -= bH;
       });
-
-      // Label profil
-      ctx.fillStyle = 'rgba(255,255,255,0.55)';
-      ctx.font = '9px DM Sans';
-      ctx.textAlign = 'center';
-      ctx.fillText(profil.label, x + barW / 2, PAD.top + chartH + 18);
+      ctx.fillStyle = 'rgba(255,255,255,0.50)';
+      ctx.font = '9px DM Sans'; ctx.textAlign = 'center';
+      ctx.fillText(prof.label, x + bW / 2, P.t + cH + 18);
     });
-
-    progress += 0.04;
-    if (progress < 1) requestAnimationFrame(animate);
+    prog += 0.04;
+    if (prog < 1) requestAnimationFrame(draw);
   };
-
-  const obs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) { animate(); obs.disconnect(); }
-  }, { threshold: 0.3 });
+  const obs = new IntersectionObserver(e => { if (e[0].isIntersecting) { draw(); obs.disconnect(); } }, { threshold: 0.3 });
   obs.observe(canvas);
 }
 
-/* ── Init ── */
 window.addEventListener('load', () => {
   drawAllocChart();
-  if (typeof WW_Tools?.simulateurFIRE === 'function') {
-    WW_Tools.simulateurFIRE('tool-fire-alloc');
-  }
+  if (typeof WW_Tools?.simulateurFIRE === 'function') WW_Tools.simulateurFIRE('tool-fire-alloc');
 });
 window.addEventListener('resize', drawAllocChart);
 </script>
