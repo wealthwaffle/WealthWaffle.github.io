@@ -498,6 +498,32 @@ function updateAuthNav() {
     if (localStorage.getItem('ww_cookies')) banner.style.display = 'none';
   }
 
+
+  /* ── Injection automatique progress-bar + back-to-top ── */
+  function injectPageChrome() {
+    // Progress bar (si pas déjà présente)
+    if (!document.querySelector('.progress-bar')) {
+      const pb = document.createElement('div');
+      pb.className = 'progress-bar';
+      pb.innerHTML = '<div class="progress-fill"></div>';
+      document.body.insertBefore(pb, document.body.firstChild);
+    }
+    // Back-to-top button (si pas déjà présent)
+    if (!document.getElementById('back-top')) {
+      const btn = document.createElement('button');
+      btn.className = 'back-to-top';
+      btn.id = 'back-top';
+      btn.textContent = '↑';
+      btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.body.appendChild(btn);
+    }
+    // Padding-top sur .page (nav height compensation)
+    const page = document.querySelector('.page');
+    if (page && !page.style.paddingTop) {
+      page.style.paddingTop = '';  // géré par ww-all.css via .page
+    }
+  }
+
   /* ── Theme — point 14 ──
      applyTheme(t) applique 'light' ou 'dark'
      Deux boutons dans la nav : id="btn-theme-light" et id="btn-theme-dark"
@@ -572,6 +598,7 @@ function updateAuthNav() {
     ]);
 
     // Init after load
+    injectPageChrome();
     setActiveNav();
     generateFooter();
     initHubComponents();

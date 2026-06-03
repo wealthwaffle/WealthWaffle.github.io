@@ -445,3 +445,94 @@
 - ~**M1.** Toggles débutant/avancé par section refaits~
 - ~**M2.** `nav.html` + `footer.html` : réécriture complète, liens absolus, emojis uniques, libellés bénéfice~
 - ~**M2.** `PAGE_NAMES.md` : table officielle emoji + libellé + H1~
+
+-----
+
+## 📋 SUIVI LIVRAISON — Fichiers sortis en version finale
+
+> Un fichier est “livré” uniquement quand il a été présenté via present_files APRÈS toutes les actions roadmap appliquées.
+> Zéro CSS inline · Zéro éléments en dur · Classes ww-all.css uniquement
+
+### ✅ Livrés (version finale confirmée)
+
+- `invest/etf.html` — zéro style= · classes ww-all.css · toutes sections · simulateur DCA · graphique canvas · waffy-analyste
+- `invest/allocation.html` — zéro style= · classes ww-all.css · graphique 3 profils · waffy-graphiste · simulateur FIRE
+- `fiscal/independants.html` — zéro style= · classes ww-all.css · compare-2col · waffy-freelance · graphique PP vs SRL · simulateur PLCI
+- `doctrine.html` — M3+7b+7c+7d+7e+76 appliqués · waffy-guide · prix via WW_DATA
+- `index.html` — I6 refonte complète · quiz inline · grilles dynamiques WW_DATA.pages
+- `assets/ww-all.css` — classes génériques (kpi-grid, sim-*, chart-*, steps-*, waffy-tip, profil-grid, compare-2col, dot-*, eyebrow-*, source-pill-active-*, txt-*)
+- `assets/ww-bundle.js` — I2+I3+I4+I5 · generateFooter · initHubComponents · onboarding · modal contextuelle · applyTheme · initCTASystem · generateFooter
+- `assets/nav.html` — 2 boutons thème Clair/Sombre
+- `assets/footer.html` — conteneur dynamique #ww-footer-nav
+- `assets/data.js` — WW_DATA.pages 60 pages · prix · prix fondateurs · crypto_addon_price_id
+- `ROADMAP.md` — à jour
+- `WAFFY_GUIDE.md` — tableau placement 33 images validé
+- `DATABASE.sql` — schéma complet 16 tables
+- `STRIPE_REFERENCE.md` — référence complète
+
+### ⏳ Pages traitées mais PAS encore livrées en version finale
+
+> Ces fichiers ont eu des modifications batch (M4a/b/c/d) mais n’ont PAS encore reçu le traitement complet Groupe D (zéro CSS inline, Waffy, graphiques, simulateurs)
+
+- `budget/epargne.html` — batch M4 fait · Groupe D PAS fait
+- `budget/banques.html` — batch M4 fait · Groupe D PAS fait
+- `budget/retraite.html` — batch M4 fait · Groupe D PAS fait
+- `budget/rente.html` — batch M4 fait · Groupe D PAS fait
+- `budget/assurances.html` — batch M4 fait · Groupe D PAS fait
+- `budget/index.html` — data-ww-hub injecté · Groupe D PAS fait
+- `fiscal/declaration.html` — batch M4 fait · Groupe D PAS fait
+- `fiscal/societes.html` — batch M4 fait · Groupe D PAS fait
+- `fiscal/frais.html` — batch M4 fait · Groupe D PAS fait
+- `fiscal/tva.html` — batch M4 fait · Groupe D PAS fait
+- `fiscal/succession.html` — batch M4 fait · Groupe D PAS fait
+- `fiscal/management.html` — batch M4 fait · Groupe D PAS fait
+- `fiscal/remuneration.html` — batch M4 fait · Groupe D PAS fait
+- `fiscal/crypto.html` — batch M4 fait · Groupe D PAS fait
+- `fiscal/index.html` — data-ww-hub injecté · Groupe D PAS fait
+- `immo/achat.html` — batch M4 fait · Groupe D PAS fait (prochain)
+- `immo/locatif.html` — batch M4 fait · Groupe D PAS fait
+- `immo/renovation.html` — batch M4 fait · Groupe D PAS fait
+- `immo/financement.html` — batch M4 fait · Groupe D PAS fait
+- `immo/regions.html` — batch M4 fait · Groupe D PAS fait
+- `immo/alternatif.html` — batch M4 fait · Groupe D PAS fait
+- `immo/index.html` — data-ww-hub injecté · Groupe D PAS fait
+- `invest/actions.html` — batch M4 fait · Groupe D PAS fait
+- `invest/obligations.html` — batch M4 fait · Groupe D PAS fait
+- `invest/fonds.html` — batch M4 fait · Groupe D PAS fait
+- `invest/crypto.html` — batch M4 fait · prix en dur · Groupe D PAS fait
+- `invest/equity.html` — batch M4 fait · Groupe D PAS fait
+- `invest/or.html` — batch M4 fait · Groupe D PAS fait
+- `invest/alternatives.html` — batch M4 fait · Groupe D PAS fait
+- `invest/panorama.html` — batch M4 fait · Groupe D PAS fait
+- `invest/comparateurs.html` — batch M4 fait · prix en dur · Groupe D PAS fait
+- `invest/index.html` — data-ww-hub injecté · Groupe D PAS fait
+- `parcours/bases.html` — batch M4 fait · Groupe D PAS fait
+- `parcours/glossaire.html` — batch M4 fait · Groupe D PAS fait
+- `parcours/psychologie.html` — batch M4 fait · Groupe D PAS fait
+- `outils/index.html` — batch M4 fait · prix en dur · Groupe D PAS fait (M7)
+- `radar/index.html` — batch M4 fait · data.js manquant · Groupe D PAS fait
+- `radar/watchlist.html` — batch M4 fait · Groupe D PAS fait
+- `contenu/downloads.html` — batch M4 fait · Groupe D PAS fait
+- `contenu/newsletter.html` — batch M4 fait · Groupe D PAS fait
+- `contenu/videos.html` — batch M4 fait · Groupe D PAS fait
+- `contenu/concept-semaine.html` — batch M4 fait · Groupe D PAS fait
+- `a-propos/affiliation.html` — batch M4 fait · Groupe D PAS fait
+- `a-propos/faq.html` — batch M4 fait · tools.js manquant · Groupe D PAS fait
+- `a-propos/index.html` — batch M4 fait · Groupe D PAS fait
+- `a-propos/sources.html` — batch M4 fait · Groupe D PAS fait
+- `compte/inscription.html` — batch M4 fait · Groupe D PAS fait
+- `compte/connexion.html` — batch M4 fait · Groupe D PAS fait
+- `compte/callback.html` — batch M4 fait · Groupe D PAS fait
+- `compte/parrainage.html` — batch M4 fait · Groupe D PAS fait
+- `compte/mot-de-passe.html` — batch M4 fait · Groupe D PAS fait
+- `dashboard/index.html` — batch M4 fait · prix en dur · data.js manquant · Groupe D PAS fait
+- `404.html` — batch M4 fait · Groupe D PAS fait
+- `legal/cgu.html` — batch M4 fait · Groupe D PAS fait
+- `legal/privacy.html` — batch M4 fait · Groupe D PAS fait
+- `legal/cookies.html` — batch M4 fait · Groupe D PAS fait
+
+### 🔧 À corriger en batch AVANT Groupe D (à faire maintenant)
+
+- [x] ~**BATCH-1** : progress-bar + back-to-top → injectés par ww-bundle.js (injectPageChrome) · retirés de 33/55/60 fichiers · padding-top dans ww-all.css .page~
+- [x] ~**BATCH-2** : data.js ajouté dans 10 fichiers manquants~
+- [x] ~**BATCH-3** : tools.js ajouté dans a-propos/faq.html~
