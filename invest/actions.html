@@ -2,151 +2,205 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Investir en actions en Belgique — Guide 2026 — WealthWaffle</title>
+  <title>📈 Investir en actions en Belgique — Guide 2026 — WealthWaffle</title>
   <meta name="description" content="Stock picking vs ETF passif, analyse fondamentale, dividendes belges, TOB, taxe PV 10%. Euronext Brussels.">
   <meta property="og:title" content="Investir en actions en Belgique — Guide 2026 — WealthWaffle">
-  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
   <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Actions individuelles", basePath: "/invest/" };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<div class="progress-bar"><div class="progress-fill"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<div class="page" style="padding-top:80px;"><div id="ww-disclaimer-inline"></div>
+
+<div class="page">
+<div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/invest/">Investir</a><span>/</span><span>Actions individuelles</span></div>
+
 <nav class="toc-sidebar">
   <a href="#etf-vs-picking">📊 Core + actions satellite</a>
   <a href="#secteurs-porteurs">🚀 Secteurs porteurs</a>
   <a href="#analyse">🔍 Analyse fondamentale</a>
   <a href="#dividendes">💰 Dividendes belges</a>
-  <a href="#euronext">🇧🇪 Euronext Brussels</a>
   <a href="#fiscalite-actions">📋 Fiscalité</a>
 </nav>
-<div class="eyebrow" style="background:rgba(91,184,212,0.10);color:#5BB8D4;">📉 Actions</div>
-<h1 class="display">Investir en actions<br><span style="color:#5BB8D4;">individuelles</span></h1>
-<p class="lead" style="margin-bottom:16px;">Stock picking vs ETF passif, analyse fondamentale, dividendes belges, Euronext Brussels. Les vrais chiffres avant de choisir.</p>
-<div class="reading-time"><span class="reading-time-badge">🌱 Débutant : ~8 min</span><span class="reading-time-badge">🚀 Avancé : ~18 min</span><span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span></div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;"><a href="/invest/" class="source-pill">📈 Hub</a><a href="/invest/panorama.html" class="source-pill">🗺️ Panorama</a><a href="/invest/etf.html" class="source-pill">📊 ETF</a><a href="/invest/allocation.html" class="source-pill">🎯 Allocation</a><a href="/invest/actions.html" class="source-pill" style="background:rgba(91,184,212,0.12);border-color:rgba(91,184,212,0.30);color:#5BB8D4;">📉 Actions ←</a><a href="/invest/obligations.html" class="source-pill">💸 Obligations</a><a href="/invest/fonds.html" class="source-pill">🏦 Fonds</a><a href="/invest/equity.html" class="source-pill">🚀 Equity</a><a href="/invest/alternatives.html" class="source-pill">🌐 Alternatifs</a><a href="/invest/crypto.html" class="source-pill">₿ Crypto</a></div>
+
+<div class="eyebrow eyebrow-invest">📉 Actions</div>
+<h1 class="display">Investir en actions<br><span class="txt-cyan">individuelles</span></h1>
+<p class="lead">Stock picking vs ETF passif, analyse fondamentale, dividendes belges, Euronext Brussels. Les vrais chiffres avant de choisir.</p>
+
+<div class="reading-time">
+  <span class="reading-time-badge">🌱 Débutant : ~8 min</span>
+  <span class="reading-time-badge">🚀 Avancé : ~18 min</span>
+  <span class="reading-meta">· Juin 2026</span>
+</div>
+
+<div class="pill-nav">
+  <a href="/invest/" class="source-pill">📈 Hub</a>
+  <a href="/invest/etf.html" class="source-pill">📊 ETF</a>
+  <a href="/invest/allocation.html" class="source-pill">🎯 Allocation</a>
+  <a href="/invest/actions.html" class="source-pill source-pill-active-invest">📉 Actions ←</a>
+  <a href="/invest/obligations.html" class="source-pill">💸 Obligations</a>
+  <a href="/invest/fonds.html" class="source-pill">🏦 Fonds</a>
+  <a href="/invest/crypto.html" class="source-pill">₿ Crypto</a>
+</div>
+
+<!-- ── CORE + SATELLITE ── -->
 <div class="content-card toc-target reveal" id="etf-vs-picking">
   <h3>📊 ETF core + actions en complément — le bon cadre</h3>
   <div class="level-section">
-    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
-    <p>Les actions individuelles ne remplacent pas les ETF — elles les <strong>complètent</strong>, pour ceux qui le souhaitent et savent ce qu'ils font. La base reste toujours un ETF monde diversifié. Les actions individuelles viennent en satellite, sur des secteurs ou entreprises qu'on comprend vraiment.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;">
-      <div style="background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.25);border-radius:14px;padding:16px;">
-        <div style="font-size:0.72rem;font-weight:700;color:#7EC8A0;margin-bottom:8px;">🌍 Core — ETF monde (70-90%)</div>
-        <ul style="font-size:0.78rem;color:var(--muted);line-height:1.9;padding-left:14px;margin:0;">
-          <li>VWCE ou équivalent</li>
-          <li>3.700+ entreprises, 45 pays</li>
-          <li>Frais 0,22%/an</li>
-          <li>Aucune décision à prendre</li>
-          <li>Capitalisant — pas de PM annuel</li>
-        </ul>
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Les actions individuelles ne remplacent pas les ETF — elles les <strong>complètent</strong>. La base reste toujours un ETF monde diversifié. Les actions viennent en satellite, sur des secteurs ou entreprises qu'on comprend vraiment.</p>
+      <div class="core-sat-grid">
+        <div class="core-card core-card-core">
+          <div class="core-card-label">🌍 CORE — ETF monde (70–90%)</div>
+          <ul class="list-muted-sm">
+            <li>VWCE ou équivalent</li>
+            <li>3.700+ entreprises, 45 pays</li>
+            <li>Frais 0,22%/an</li>
+            <li>Aucune décision à prendre</li>
+            <li>Capitalisant — pas de PM annuel</li>
+          </ul>
+        </div>
+        <div class="core-card core-card-sat">
+          <div class="core-card-label">🎯 SATELLITE — Actions (10–30%)</div>
+          <ul class="list-muted-sm">
+            <li>Secteurs porteurs identifiés</li>
+            <li>Entreprises dans ton domaine</li>
+            <li>Conviction forte et documentée</li>
+            <li>Horizon &gt;3 ans minimum</li>
+            <li>Jamais sans avoir lu les comptes</li>
+          </ul>
+        </div>
       </div>
-      <div style="background:rgba(232,194,58,0.08);border:1px solid rgba(232,194,58,0.25);border-radius:14px;padding:16px;">
-        <div style="font-size:0.72rem;font-weight:700;color:#E8C23A;margin-bottom:8px;">🎯 Satellite — Actions (10-30%)</div>
-        <ul style="font-size:0.78rem;color:var(--muted);line-height:1.9;padding-left:14px;margin:0;">
-          <li>Secteurs porteurs identifiés</li>
-          <li>Entreprises dans ton domaine</li>
-          <li>Conviction forte et documentée</li>
-          <li>Horizon &gt; 3 ans minimum</li>
-          <li>Jamais sans avoir lu les comptes</li>
-        </ul>
+      <div class="info-box">💡 <strong>La règle des 89% :</strong> 89% des fonds actifs professionnels font moins bien que leur indice sur 15 ans (SPIVA Europe 2024). La question n'est pas "ETF ou actions" — c'est "quelle proportion de chaque".</div>
+
+      <!-- Graphique picking vs ETF (point 77) -->
+      <p class="chart-label">Performance cumulée — ETF vs stock picking médian · 15 ans simulés</p>
+      <div class="chart-container">
+        <canvas id="picking-chart" height="120"></canvas>
       </div>
-    </div>
-    <div class="info-box">💡 <strong>La règle des 89% :</strong> 89% des fonds actifs professionnels font moins bien que leur indice sur 15 ans (SPIVA Europe 2024). Ce n'est pas une raison de ne jamais acheter une action — c'est une raison de ne jamais <em>remplacer</em> ton ETF par du stock picking. La question n'est pas "ETF ou actions" — c'est "quelle proportion de chaque".</div>
-    </div>
-    <div data-level="avance"><div class="level-badge">🚀 Avancé</div>
-    <p><strong>Les secteurs porteurs comme argument de surpondération :</strong> si tu as une conviction forte sur un secteur — IA, transition énergétique, santé, défense — tu peux surpondérer via des actions individuelles ou des ETF sectoriels. L'avantage par rapport à un ETF sectoriel : tu peux concentrer sur les 2-3 leaders que tu as analysés, sans payer les 40 sociétés moyennes qui diluent la performance. Mais concentration = risque spécifique accru.</p>
-    <p style="margin-top:10px;"><strong>Le cadre Core-Satellite en pratique :</strong></p>
-    <div style="display:flex;flex-direction:column;gap:6px;margin:10px 0;">
-      <div style="padding:10px 14px;background:var(--s3);border-radius:10px;font-size:0.80rem;color:var(--muted);">
-        <strong style="color:var(--text);">Profil débutant-intermédiaire :</strong> 90% ETF monde + 10% actions individuelles max (3-5 entreprises qu'on suit vraiment)
-      </div>
-      <div style="padding:10px 14px;background:var(--s3);border-radius:10px;font-size:0.80rem;color:var(--muted);">
-        <strong style="color:var(--text);">Profil intermédiaire-avancé :</strong> 70-80% ETF monde + 10-15% ETF sectoriels + 10-15% actions individuelles sur secteur de prédilection
-      </div>
-      <div style="padding:10px 14px;background:var(--s3);border-radius:10px;font-size:0.80rem;color:var(--muted);">
-        <strong style="color:var(--text);">Profil avancé (temps + expertise) :</strong> 60-70% ETF monde + 30-40% actions individuelles diversifiées sur 10-15 titres analysés
+      <div class="chart-legend">
+        <span><span class="chart-legend-line dot-green"></span>ETF monde 7%/an</span>
+        <span><span class="chart-legend-line dot-gold"></span>Stock picking médian 5%/an</span>
+        <span><span class="chart-legend-line dot-rose"></span>Stock picking mauvais 2%/an</span>
       </div>
     </div>
-    <p><strong>Quand le stock picking sur un secteur a du sens :</strong> (1) tu travailles dans ce secteur — tu vois les trends avant qu'ils soient dans les prix, (2) tu comprends les forces concurrentielles mieux que le marché moyen, (3) le secteur est moins couvert analytiquement (small caps, marchés émergents, niches industrielles), (4) tu peux tenir au moins 3 ans sans avoir besoin de ces fonds.</p>
-    <p style="margin-top:10px;"><strong>Ce qui ne justifie jamais le stock picking :</strong> "cette action a beaucoup monté récemment" (biais de récence), "tout le monde en parle" (comportement grégaire), "je connais quelqu'un qui travaille là-bas" (information privée = potentiellement délits d'initiés), "le graphique ressemble à un pattern haussier" (trading technique sans fondamentaux).</p>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>Le cadre Core-Satellite en pratique :</strong></p>
+      <div class="strategie-list">
+        <div class="strategie-card">
+          <div class="strategie-card-title">🌱 Débutant-intermédiaire</div>
+          <div class="strategie-card-text">90% ETF monde + 10% actions individuelles max (3–5 entreprises qu'on suit vraiment)</div>
+        </div>
+        <div class="strategie-card">
+          <div class="strategie-card-title">📈 Intermédiaire-avancé</div>
+          <div class="strategie-card-text">70–80% ETF monde + 10–15% ETF sectoriels + 10–15% actions individuelles sur secteur de prédilection</div>
+        </div>
+        <div class="strategie-card">
+          <div class="strategie-card-title">🚀 Avancé (temps + expertise)</div>
+          <div class="strategie-card-text">60–70% ETF monde + 30–40% actions individuelles diversifiées sur 10–15 titres analysés</div>
+        </div>
+      </div>
+      <p class="page-subtitle"><strong>Ce qui ne justifie jamais le stock picking :</strong> "cette action a beaucoup monté récemment" (biais de récence) · "tout le monde en parle" (comportement grégaire) · "je connais quelqu'un qui travaille là-bas" (délit d'initié potentiel) · "le graphique ressemble à un pattern haussier" (technique sans fondamentaux).</p>
+    </div>
+  </div>
+
+  <!-- Waffy picking — point 78 -->
+  <div class="waffy-tip">
+    <img src="/img/waffy/waffy-analyste.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
+    <div class="waffy-tip-content">
+      <strong>La vérité sur le stock picking</strong>
+      Si tu veux quand même choisir des actions — commence par comprendre pourquoi tu serais meilleur qu'un analyste institutionnel qui passe 60h/semaine sur ce titre. Si tu ne peux pas répondre clairement à cette question, reste sur l'ETF. Ce n'est pas un manque d'ambition — c'est de la lucidité.
     </div>
   </div>
 </div>
 
+<!-- ── SECTEURS PORTEURS ── -->
 <div class="content-card toc-target reveal" id="secteurs-porteurs">
   <h3>🚀 Secteurs porteurs — où concentrer son attention</h3>
   <div class="level-section">
-    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
-    <p>Si tu veux aller au-delà de l'ETF monde sur un secteur spécifique, voici ceux qui concentrent le plus de convictions structurelles à long terme — sans hype à court terme.</p>
-    <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0;">
-      <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:12px;align-items:flex-start;">
-        <span style="font-size:1.1rem;flex-shrink:0;">🤖</span>
-        <div><strong style="color:var(--text);font-size:0.84rem;">Intelligence artificielle & Semiconducteurs</strong><div style="font-size:0.76rem;color:var(--muted);margin-top:3px;line-height:1.65;">Nvidia, ASML, TSMC, Broadcom. Mégatendance structurelle — mais valorisations déjà très élevées. Risque de compression des multiples si la croissance déçoit.</div></div>
-      </div>
-      <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:12px;align-items:flex-start;">
-        <span style="font-size:1.1rem;flex-shrink:0;">⚡</span>
-        <div><strong style="color:var(--text);font-size:0.84rem;">Transition énergétique & Infrastructure</strong><div style="font-size:0.76rem;color:var(--muted);margin-top:3px;line-height:1.65;">Schneider Electric, Vestas, Nextracker, Eaton. Bénéficiaires des dépenses d'infrastructure électrique mondiale. Plus défensif que la "clean energy pure play".</div></div>
-      </div>
-      <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:12px;align-items:flex-start;">
-        <span style="font-size:1.1rem;flex-shrink:0;">🏥</span>
-        <div><strong style="color:var(--text);font-size:0.84rem;">Santé & Biotech</strong><div style="font-size:0.76rem;color:var(--muted);margin-top:3px;line-height:1.65;">Novo Nordisk (GLP-1), Eli Lilly, Danaher, Intuitive Surgical. Vieillissement + innovation médicale. Secteur défensif en récession. Risques réglementaires et de pipeline clinique.</div></div>
-      </div>
-      <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:12px;align-items:flex-start;">
-        <span style="font-size:1.1rem;flex-shrink:0;">🔒</span>
-        <div><strong style="color:var(--text);font-size:0.84rem;">Cybersécurité</strong><div style="font-size:0.76rem;color:var(--muted);margin-top:3px;line-height:1.65;">Crowdstrike, Palo Alto, SentinelOne, Fortinet. Marché en croissance structurelle — chaque cyberattaque augmente les budgets. Valorisations premium.</div></div>
-      </div>
-      <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:12px;align-items:flex-start;">
-        <span style="font-size:1.1rem;flex-shrink:0;">🛡️</span>
-        <div><strong style="color:var(--text);font-size:0.84rem;">Défense & Aérospatial</strong><div style="font-size:0.76rem;color:var(--muted);margin-top:3px;line-height:1.65;">Rheinmetall, Leonardo, Thales, BAE Systems. Réarmement européen structurel post-2022. Carnets de commandes pluriannuels. Moins corrélé aux cycles économiques.</div></div>
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Si tu veux aller au-delà de l'ETF monde sur un secteur spécifique, voici ceux qui concentrent le plus de convictions structurelles à long terme — sans hype à court terme.</p>
+      <div class="strategie-list">
+        <div class="strategie-card">
+          <div class="strategie-card-title">🤖 Intelligence artificielle & Semiconducteurs</div>
+          <div class="strategie-card-text">Nvidia, ASML, TSMC, Broadcom. Mégatendance structurelle — mais valorisations déjà très élevées. Risque de compression des multiples si la croissance déçoit.</div>
+        </div>
+        <div class="strategie-card">
+          <div class="strategie-card-title">⚡ Transition énergétique & Infrastructure</div>
+          <div class="strategie-card-text">Schneider Electric, Vestas, Nextracker, Eaton. Bénéficiaires des dépenses d'infrastructure électrique mondiale. Plus défensif que la "clean energy pure play".</div>
+        </div>
+        <div class="strategie-card">
+          <div class="strategie-card-title">🏥 Santé & Biotech</div>
+          <div class="strategie-card-text">Novo Nordisk (GLP-1), Eli Lilly, Danaher, Intuitive Surgical. Vieillissement + innovation médicale. Secteur défensif en récession. Risques réglementaires et de pipeline clinique.</div>
+        </div>
+        <div class="strategie-card">
+          <div class="strategie-card-title">🔒 Cybersécurité</div>
+          <div class="strategie-card-text">Crowdstrike, Palo Alto, SentinelOne, Fortinet. Marché en croissance structurelle — chaque cyberattaque augmente les budgets. Valorisations premium.</div>
+        </div>
+        <div class="strategie-card">
+          <div class="strategie-card-title">🛡️ Défense & Aérospatial</div>
+          <div class="strategie-card-text">Rheinmetall, Leonardo, Thales, BAE Systems. Réarmement européen structurel post-2022. Carnets de commandes pluriannuels. Moins corrélé aux cycles économiques.</div>
+        </div>
       </div>
     </div>
-    </div>
-    <div data-level="avance"><div class="level-badge">🚀 Avancé</div>
-    <p><strong>L'analyse avant d'acheter — le minimum syndical :</strong> avant d'acheter une action individuelle dans un secteur porteur, vérifier au minimum : (1) la position concurrentielle (moat — avantage durable), (2) la croissance du revenu sur 3-5 ans et sa qualité (récurrente ou cyclique), (3) le bilan (dette nette / EBITDA &lt;3x pour la plupart des secteurs), (4) la valorisation relative au secteur (P/E forward vs historique et peers), (5) la qualité du management (track record d'allocation du capital).</p>
-    <p style="margin-top:10px;"><strong>Le piège de la "belle histoire" :</strong> les secteurs porteurs attirent les narratives convaincantes. L'IA est réelle — mais Nvidia à 35x le chiffre d'affaires intègre déjà des années de croissance parfaite. Un secteur peut avoir raison sur 10 ans et faire perdre de l'argent sur 3 ans si la valorisation d'entrée est trop élevée. L'analyse fondamentale reste nécessaire même sur les meilleurs secteurs.</p>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>L'analyse avant d'acheter — le minimum syndical :</strong> (1) position concurrentielle (moat), (2) croissance du revenu sur 3–5 ans et sa qualité, (3) bilan (dette nette / EBITDA &lt;3x), (4) valorisation relative au secteur (P/E forward vs historique et peers), (5) qualité du management (track record d'allocation du capital).</p>
+      <p class="page-subtitle"><strong>Le piège de la "belle histoire" :</strong> les secteurs porteurs attirent les narratives convaincantes. L'IA est réelle — mais Nvidia à 35× le chiffre d'affaires intègre déjà des années de croissance parfaite. Un secteur peut avoir raison sur 10 ans et faire perdre de l'argent sur 3 ans si la valorisation d'entrée est trop élevée.</p>
     </div>
   </div>
 </div>
+
+<!-- ── ANALYSE FONDAMENTALE ── -->
 <div class="content-card toc-target reveal" id="analyse">
   <h3>🔍 Analyse fondamentale — les ratios essentiels</h3>
   <div class="level-section">
-    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Ratio</th><th>Ce qu'il mesure</th><th>Lecture simplifiée</th></tr></thead>
-      <tbody>
-        <tr><td>P/E (Price/Earnings)</td><td>Prix payé pour 1€ de bénéfice</td><td>P/E 15 = ok · P/E 40+ = cher</td></tr>
-        <tr><td>P/B (Price/Book)</td><td>Prix vs valeur comptable</td><td>P/B &lt;1 = potentiellement sous-évalué</td></tr>
-        <tr><td>Dividend Yield</td><td>Dividende / Prix × 100</td><td>3-5% = convenable pour une action stable</td></tr>
-        <tr><td>Dette nette/EBITDA</td><td>Endettement relatif aux bénéfices</td><td>&lt;2 = sain · &gt;4 = risqué</td></tr>
-        <tr><td>ROE (Return on Equity)</td><td>Rentabilité des capitaux propres</td><td>&gt;15% = excellent management</td></tr>
-      </tbody>
-    </table></div>
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Ratio</th><th>Ce qu'il mesure</th><th>Lecture simplifiée</th></tr></thead>
+        <tbody>
+          <tr><td>P/E (Price/Earnings)</td><td>Prix payé pour 1€ de bénéfice</td><td>P/E 15 = ok · P/E 40+ = cher</td></tr>
+          <tr><td>P/B (Price/Book)</td><td>Prix vs valeur comptable</td><td>P/B &lt;1 = potentiellement sous-évalué</td></tr>
+          <tr><td>Dividend Yield</td><td>Dividende / Prix × 100</td><td>3–5% = convenable pour une action stable</td></tr>
+          <tr><td>Dette nette/EBITDA</td><td>Endettement relatif aux bénéfices</td><td>&lt;2 = sain · &gt;4 = risqué</td></tr>
+          <tr><td>ROE (Return on Equity)</td><td>Rentabilité des capitaux propres</td><td>&gt;15% = excellent management</td></tr>
+        </tbody>
+      </table></div>
     </div>
-    <div data-level="avance"><div class="level-badge">🚀 Avancé</div>
-    <p><strong>Limites des ratios :</strong> le P/E GAAP peut être trompeur si l'entreprise comptabilise des amortissements non-cash importants. Préférer le P/FCF (price/free cash flow) pour les entreprises à fort investissement. L'EV/EBITDA (Enterprise Value / EBITDA) neutralise la structure du capital et est plus comparatif entre entreprises endettées différemment. Pour les entreprises en croissance : PEG ratio (P/E / croissance des bénéfices) — un PEG &lt;1 signale une croissance sous-valorisée.</p>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>Limites des ratios :</strong> le P/E GAAP peut être trompeur si l'entreprise comptabilise des amortissements non-cash importants. Préférer le P/FCF (price/free cash flow) pour les entreprises à fort investissement. L'EV/EBITDA neutralise la structure du capital. Pour les entreprises en croissance : PEG ratio (P/E / croissance des bénéfices) — un PEG &lt;1 signale une croissance sous-valorisée.</p>
     </div>
   </div>
 </div>
+
+<!-- ── DIVIDENDES ── -->
 <div class="content-card toc-target reveal" id="dividendes">
   <h3>💰 Dividendes belges — fiscalité et stratégie</h3>
   <div class="level-section">
-    <div data-level="debutant"><div class="level-badge">🌱 Débutant</div>
-    <p>Les dividendes belges sont soumis au <strong>précompte mobilier de 30%</strong>. Un dividende brut de 100 € → tu reçois 70 € net. Il existe une exonération de PM sur les <strong>premiers <span data-ww="div_exon" data-fmt="eur"></span> de dividendes</strong> par an si tu en fais la demande dans ta déclaration fiscale (rubrique 1444).</p>
-    <div class="info-box">💡 L'exonération de <span data-ww="div_exon" data-fmt="eur"></span> de dividendes bruts s'obtient via la déclaration fiscale — elle n'est pas automatique. Conserver les attestations 281.67 fournies par ton broker.</div>
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Les dividendes belges sont soumis au <strong>précompte mobilier de 30%</strong>. Un dividende brut de 100 € → tu reçois 70 € net. Il existe une exonération de PM sur les <strong>premiers <span data-ww="div_exon" data-fmt="eur"></span> de dividendes</strong> par an si tu en fais la demande dans ta déclaration fiscale (rubrique 1444).</p>
+      <div class="info-box">💡 L'exonération de <span data-ww="div_exon" data-fmt="eur"></span> de dividendes bruts s'obtient via la déclaration fiscale — elle n'est pas automatique. Conserver les attestations 281.67 fournies par ton broker.</div>
     </div>
-    <div data-level="avance"><div class="level-badge">🚀 Avancé</div>
-    <p><strong>Dividende belge vs ETF capitalisant :</strong> un dividende belge de 100 € génère immédiatement 30 € de PM. Un ETF capitalisant réinvestit les dividendes sans PM immédiat — la fiscalité est reportée à la vente (taxe PV 10% depuis jan. 2026). Sur 30 ans avec DCA, l'ETF capitalisant conserve l'avantage du report de l'impôt (intérêts composés sur l'impôt différé). La stratégie dividende pure en actions individuelles est fiscalement moins efficace sur le long terme sauf si l'exonération de <span data-ww="div_exon" data-fmt="eur"></span> est entièrement utilisée.</p>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p><strong>Dividende belge vs ETF capitalisant :</strong> un dividende de 100 € génère immédiatement 30 € de PM. Un ETF capitalisant réinvestit les dividendes sans PM immédiat — la fiscalité est reportée à la vente (taxe PV 10% depuis jan. 2026). Sur 30 ans avec DCA, l'ETF capitalisant conserve l'avantage du report de l'impôt. La stratégie dividende pure est fiscalement moins efficace sur le long terme sauf si l'exonération de <span data-ww="div_exon" data-fmt="eur"></span> est entièrement utilisée.</p>
     </div>
   </div>
 </div>
+
+<!-- ── FISCALITÉ ── -->
 <div class="content-card toc-target reveal" id="fiscalite-actions">
   <h3>📋 Fiscalité actions en Belgique</h3>
   <div class="table-wrap"><table>
@@ -154,19 +208,82 @@
     <tbody>
       <tr><td>TOB</td><td>0,35%</td><td>À chaque achat et vente</td></tr>
       <tr><td>PM sur dividendes</td><td>30% (exo <span data-ww="div_exon" data-fmt="eur"></span>)</td><td>À chaque versement de dividende</td></tr>
-      <tr><td>Taxe plus-value ⚠️</td><td style="color:#E87CC3;font-weight:700;">10% depuis jan. 2026</td><td>À la vente si plus-value</td></tr>
+      <tr><td><strong class="txt-warn">Taxe plus-value ⚠️</strong></td><td class="txt-rose txt-bold">10% depuis jan. 2026</td><td>À la vente si plus-value</td></tr>
     </tbody>
   </table></div>
   <div class="warn-box">⚠️ <strong>Taxe plus-value 10% depuis janvier 2026</strong> — applicable sur tous les actifs financiers. Première déclaration : exercice 2027.</div>
 </div>
-<div class="see-also"><div class="see-also-label">Voir aussi</div>
+
+<div data-ww-cta="pilote"></div>
+
+<div class="see-also">
+  <div class="see-also-label">Voir aussi</div>
   <a href="/invest/etf.html" class="see-also-pill">📊 ETF (plus simple)</a>
+  <a href="/invest/sectoriels.html" class="see-also-pill">🔬 ETF sectoriels</a>
   <a href="/invest/equity.html" class="see-also-pill">🚀 Equity & Crowdfunding</a>
   <a href="/invest/fonds.html" class="see-also-pill">🏦 Fonds actifs</a>
 </div>
+
 </div>
+
+<script>
+/* ── Graphique picking vs ETF (point 77) ── */
+function drawPickingChart() {
+  const canvas = document.getElementById('picking-chart');
+  if (!canvas) return;
+  const W = canvas.parentElement.offsetWidth, H = 120, dpr = window.devicePixelRatio || 1;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+
+  const years = 15, capital = 10000;
+  const SERIES = [
+    { label: 'ETF 7%',    rate: 0.07, color: '#2ECC71' },
+    { label: 'Picking 5%',rate: 0.05, color: '#E8C23A' },
+    { label: 'Picking 2%',rate: 0.02, color: '#E87CC3' },
+  ];
+  const data = SERIES.map(s => {
+    const vals = [];
+    for (let y = 0; y <= years; y++) vals.push(capital * Math.pow(1 + s.rate, y));
+    return { ...s, vals };
+  });
+
+  const maxV = Math.max(...data[0].vals);
+  const P = { t: 12, r: 60, b: 20, l: 50 };
+  const cW = W-P.l-P.r, cH = H-P.t-P.b;
+  const x = i => P.l + (i/years)*cW;
+  const y = v => P.t + cH - (v/maxV)*cH;
+
+  let prog = 0;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    [0.25,0.5,0.75,1].forEach(p => {
+      ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(P.l,P.t+cH*(1-p));ctx.lineTo(P.l+cW,P.t+cH*(1-p));ctx.stroke();
+      ctx.fillStyle='rgba(255,255,255,0.28)';ctx.font='8px DM Sans';ctx.textAlign='right';
+      ctx.fillText(Math.round(maxV*p/1000)+'k€',P.l-3,P.t+cH*(1-p)+3);
+    });
+    const n = Math.min(years+1, Math.ceil((years+1)*Math.min(prog,1)));
+    data.forEach(s => {
+      ctx.beginPath();ctx.strokeStyle=s.color;ctx.lineWidth=2;ctx.lineJoin='round';
+      for(let i=0;i<n;i++) i===0?ctx.moveTo(x(i),y(s.vals[i])):ctx.lineTo(x(i),y(s.vals[i]));
+      ctx.stroke();
+      if (prog>0.95) {
+        ctx.fillStyle=s.color;ctx.font='8px DM Sans';ctx.textAlign='left';
+        ctx.fillText(Math.round(s.vals[years]/1000)+'k€',x(years)+3,y(s.vals[years])+3);
+      }
+    });
+    prog += 0.04; if (prog<1) requestAnimationFrame(draw);
+  };
+  const obs = new IntersectionObserver(e=>{if(e[0].isIntersecting){draw();obs.disconnect();}},{threshold:0.3});
+  obs.observe(canvas);
+}
+window.addEventListener('load', drawPickingChart);
+window.addEventListener('resize', drawPickingChart);
+</script>
 
 <script src="/assets/data.js"></script>
 <script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
-</body></html>
+</body>
+</html>

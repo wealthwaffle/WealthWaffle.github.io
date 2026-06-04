@@ -2,9 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Optimiser ses Assurances en Belgique 2026 — WealthWaffle</title>
+  <title>🛡️ Optimiser ses Assurances en Belgique 2026 — WealthWaffle</title>
   <meta name="description" content="Guide complet pour optimiser ses assurances en Belgique : hospitalisation, RC famille, vie, habitation, voiture. Quoi garder, quoi supprimer, combien ça devrait coûter.">
+  <meta property="og:title" content="Optimiser ses Assurances en Belgique 2026 — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
@@ -13,19 +16,10 @@
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<div class="page" style="padding-top:80px;">
+<div class="page">
 <div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/budget/">Budget</a><span>/</span><span>Assurances</span></div>
-
-<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;">
-  <a href="/budget/" class="source-pill">💶 Hub Budget</a>
-  <a href="/budget/epargne.html" class="source-pill">💰 Épargne</a>
-  <a href="/budget/assurances.html" class="source-pill" style="background:rgba(196,114,74,0.12);border-color:rgba(196,114,74,0.30);color:#C4724A;">🛡️ Assurances ←</a>
-  <a href="/fiscal/assurances.html" class="source-pill">📋 Assurances fiscales</a>
-  <a href="/budget/banques.html" class="source-pill">🏦 Banques</a>
-</div>
 
 <nav class="toc-sidebar">
   <a href="#principes">🧠 Principes</a>
@@ -36,15 +30,23 @@
   <a href="#budget">💶 Budget type</a>
 </nav>
 
+<div class="eyebrow eyebrow-immo">🛡️ Assurances</div>
+<h1 class="display">Tes assurances —<br><span class="txt-immo">quoi garder, quoi virer</span></h1>
+<p class="lead">Les Belges paient souvent trop pour leurs assurances — ou paient les mauvaises. Ce guide t'aide à identifier ce qui est obligatoire, ce qui est utile, et ce que tu peux supprimer sans risque.</p>
+
 <div class="reading-time">
   <span class="reading-time-badge">🌱 Débutant : ~6 min</span>
   <span class="reading-time-badge">🚀 Avancé : ~13 min</span>
-  <span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span>
+  <span class="reading-meta">· Juin 2026</span>
 </div>
 
-<div class="eyebrow" style="background:rgba(196,114,74,0.10);color:#C4724A;">🛡️ Assurances</div>
-<h1 class="display">Tes assurances —<br><span style="color:#C4724A;">quoi garder, quoi virer</span></h1>
-<p class="lead" style="margin-bottom:32px;">Les Belges paient souvent trop pour leurs assurances — ou paient les mauvaises. Ce guide t'aide à identifier ce qui est obligatoire, ce qui est utile, et ce que tu peux supprimer sans risque.</p>
+<div class="pill-nav">
+  <a href="/budget/" class="source-pill">💶 Hub Budget</a>
+  <a href="/budget/epargne.html" class="source-pill">💰 Épargne</a>
+  <a href="/budget/assurances.html" class="source-pill source-pill-active-assur">🛡️ Assurances ←</a>
+  <a href="/fiscal/assurances.html" class="source-pill">📋 Assurances fiscales</a>
+  <a href="/budget/banques.html" class="source-pill">🏦 Banques</a>
+</div>
 
 <!-- ── PRINCIPES ── -->
 <div class="content-card toc-target reveal" id="principes">
@@ -53,21 +55,21 @@
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
       <p>Une assurance ne sert qu'à couvrir un risque financier que tu ne pourrais pas absorber seul. Si tu peux payer la réparation sans te ruiner, tu n'as pas besoin d'assurance. Si ça peut te mettre à zéro, c'est là que l'assurance a du sens.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;">
-        <div style="background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.20);border-radius:12px;padding:12px;">
-          <div style="font-size:0.62rem;font-weight:700;color:#7EC8A0;margin-bottom:4px;">✅ À ASSURER</div>
-          <div style="font-size:0.78rem;color:var(--muted);">Risques catastrophiques — hospitalisation longue, incendie, responsabilité civile grave, décès prématuré si dépendants</div>
+      <div class="assur-principes-grid">
+        <div class="assur-oui">
+          <div class="assur-card-label">✅ À ASSURER</div>
+          <div class="assur-card-text">Risques catastrophiques — hospitalisation longue, incendie, responsabilité civile grave, décès prématuré si dépendants</div>
         </div>
-        <div style="background:rgba(232,124,195,0.07);border:1px solid rgba(232,124,195,0.18);border-radius:12px;padding:12px;">
-          <div style="font-size:0.62rem;font-weight:700;color:#E87CC3;margin-bottom:4px;">❌ PAS LA PEINE</div>
-          <div style="font-size:0.78rem;color:var(--muted);">Petits risques absorbables — écran cassé, bagages perdus, petite panne. Le coût de l'assurance dépasse souvent le sinistre moyen.</div>
+        <div class="assur-non">
+          <div class="assur-card-label">❌ PAS LA PEINE</div>
+          <div class="assur-card-text">Petits risques absorbables — écran cassé, bagages perdus, petite panne. Le coût de l'assurance dépasse souvent le sinistre moyen.</div>
         </div>
       </div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>La franchise comme outil d'optimisation :</strong> augmenter la franchise réduit significativement la prime annuelle. Si tu as un fonds d'urgence solide (3-6 mois de dépenses), opte pour des franchises plus élevées — c'est économiquement rationnel sur le long terme.</p>
-      <p><strong>Double couverture :</strong> vérifie que tu ne paies pas deux fois la même chose. Ta carte de crédit ou ton assurance bancaire couvre souvent les voyages, les achats et parfois le loyer pendant une hospitalisation — avant de souscrire une assurance voyage ou une protection juridique, vérifie ce que tu as déjà.</p>
+      <p><strong>La franchise comme outil d'optimisation :</strong> augmenter la franchise réduit significativement la prime annuelle. Si tu as un fonds d'urgence solide (3–6 mois de dépenses), opte pour des franchises plus élevées — c'est économiquement rationnel sur le long terme.</p>
+      <p><strong>Double couverture :</strong> ta carte de crédit ou ton assurance bancaire couvre souvent les voyages, les achats et parfois le loyer pendant une hospitalisation — avant de souscrire une assurance voyage, vérifie ce que tu as déjà.</p>
     </div>
   </div>
 </div>
@@ -75,31 +77,13 @@
 <!-- ── OBLIGATOIRES ── -->
 <div class="content-card toc-target reveal" id="obligatoires">
   <h3>✅ Assurances obligatoires en Belgique</h3>
-  <div class="level-section">
-    <div data-level="debutant">
-      <div class="level-badge">🌱 Débutant</div>
-    </div>
-  </div>
-
-  <div class="table-wrap" style="margin-top:10px;">
+  <div class="table-wrap">
     <table>
       <thead><tr><th>Assurance</th><th>Obligatoire pour</th><th>Coût indicatif/an</th></tr></thead>
       <tbody>
-        <tr>
-          <td><strong>RC Auto</strong></td>
-          <td>Tout véhicule motorisé en circulation</td>
-          <td>200 – 600€ selon profil</td>
-        </tr>
-        <tr>
-          <td><strong>Assurance incendie</strong></td>
-          <td>Propriétaires (pour les prêts hypothécaires) · Locataires (imposée par de nombreux propriétaires)</td>
-          <td>150 – 400€/an</td>
-        </tr>
-        <tr>
-          <td><strong>Assurance solde restant dû</strong></td>
-          <td>Exigée par les banques pour les crédits hypothécaires</td>
-          <td>Variable selon capital et âge</td>
-        </tr>
+        <tr><td><strong>RC Auto</strong></td><td>Tout véhicule motorisé en circulation</td><td>200 – 600€ selon profil</td></tr>
+        <tr><td><strong>Assurance incendie</strong></td><td>Propriétaires (crédit hypothécaire) · Locataires (imposée par de nombreux propriétaires)</td><td>150 – 400€/an</td></tr>
+        <tr><td><strong>Assurance solde restant dû</strong></td><td>Exigée par les banques pour les crédits hypothécaires</td><td>Variable selon capital et âge</td></tr>
       </tbody>
     </table>
   </div>
@@ -117,35 +101,14 @@
       <div class="level-badge">🚀 Avancé</div>
     </div>
   </div>
-
-  <div class="table-wrap" style="margin-top:10px;">
+  <div class="table-wrap">
     <table>
       <thead><tr><th>Assurance</th><th>Pourquoi c'est essentiel</th><th>Coût indicatif/an</th><th>Astuce</th></tr></thead>
       <tbody>
-        <tr>
-          <td><strong>Hospitalisation</strong></td>
-          <td>Une semaine en soins intensifs peut coûter 10.000-50.000€. La mutuelle couvre rarement tout.</td>
-          <td>200 – 600€/an</td>
-          <td>Souscris via l'employeur si possible — tarifs de groupe 30-50% moins chers</td>
-        </tr>
-        <tr>
-          <td><strong>RC Familiale</strong></td>
-          <td>Si toi ou tes enfants causez un dommage grave à quelqu'un, tu peux être poursuivi pour des centaines de milliers d'euros</td>
-          <td>50 – 150€/an</td>
-          <td>L'une des assurances les moins chères et les plus utiles. À avoir absolument.</td>
-        </tr>
-        <tr>
-          <td><strong>Incapacité de travail</strong></td>
-          <td>La mutuelle verse max 60% du salaire plafonné après 1 mois d'arrêt. Pour un indépendant : revenu zéro dès le premier jour.</td>
-          <td>300 – 800€/an</td>
-          <td>Crucial pour les indépendants. Salariés : vérifier ce que le contrat d'employeur couvre déjà.</td>
-        </tr>
-        <tr>
-          <td><strong>Vie (si dépendants financiers)</strong></td>
-          <td>Si tu as un conjoint ou enfants qui dépendent de tes revenus, une assurance vie terme couvre leur avenir en cas de décès prématuré.</td>
-          <td>200 – 600€/an</td>
-          <td>Assurance vie terme pur (temporaire, sans épargne) — la plus simple et la moins chère.</td>
-        </tr>
+        <tr><td><strong>Hospitalisation</strong></td><td>Une semaine en soins intensifs peut coûter 10.000–50.000€. La mutuelle couvre rarement tout.</td><td>200 – 600€/an</td><td>Via l'employeur si possible — tarifs groupe 30–50% moins chers</td></tr>
+        <tr><td><strong>RC Familiale</strong></td><td>Si toi ou tes enfants causez un dommage grave, tu peux être poursuivi pour des centaines de milliers d'euros</td><td>50 – 150€/an</td><td>L'une des moins chères et des plus utiles. À avoir absolument.</td></tr>
+        <tr><td><strong>Incapacité de travail</strong></td><td>La mutuelle verse max 60% du salaire plafonné après 1 mois. Pour un indépendant : revenu zéro dès le premier jour.</td><td>300 – 800€/an</td><td>Crucial pour les indépendants. Salariés : vérifier le contrat d'employeur.</td></tr>
+        <tr><td><strong>Vie (si dépendants)</strong></td><td>Si conjoint ou enfants dépendent de tes revenus — assurance vie terme couvre leur avenir en cas de décès prématuré.</td><td>200 – 600€/an</td><td>Assurance vie terme pur — la plus simple et la moins chère.</td></tr>
       </tbody>
     </table>
   </div>
@@ -160,16 +123,14 @@
       <p>Ces assurances peuvent valoir la peine selon ton cas — mais ne sont pas universellement utiles.</p>
     </div>
   </div>
-
-  <div class="table-wrap" style="margin-top:10px;">
+  <div class="table-wrap">
     <table>
       <thead><tr><th>Assurance</th><th>Utile si…</th><th>Coût indicatif/an</th></tr></thead>
       <tbody>
         <tr><td><strong>Omnium voiture</strong></td><td>Voiture récente (&lt;5 ans) de valeur élevée</td><td>400 – 1.500€</td></tr>
-        <tr><td><strong>Protection juridique</strong></td><td>Travailleur indépendant, locataire ou propriétaire avec risques de litiges fréquents</td><td>100 – 300€</td></tr>
+        <tr><td><strong>Protection juridique</strong></td><td>Indépendant, locataire ou propriétaire avec risques de litiges fréquents</td><td>100 – 300€</td></tr>
         <tr><td><strong>Assurance voyage</strong></td><td>Voyages fréquents hors EU, activités à risque, sans couverture carte bancaire</td><td>50 – 200€</td></tr>
-        <tr><td><strong>Dommages ménagers étendus</strong></td><td>Si l'incendie de base ne couvre pas le contenu ou les dégâts des eaux</td><td>Inclus ou +50-150€</td></tr>
-        <tr><td><strong>Pension complémentaire (EIP, PLCI)</strong></td><td>Dirigeant de société ou indépendant — mais c'est une épargne fiscale, pas une assurance pure</td><td>Variable</td></tr>
+        <tr><td><strong>Dommages ménagers étendus</strong></td><td>Si l'incendie de base ne couvre pas le contenu ou les dégâts des eaux</td><td>Inclus ou +50–150€</td></tr>
       </tbody>
     </table>
   </div>
@@ -181,11 +142,11 @@
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <ul style="font-size:0.84rem;color:var(--muted);line-height:2;padding-left:20px;">
-        <li><strong>Assurance GSM / électronique</strong> → coût annuel souvent > valeur rachat de l'appareil. Mets plutôt l'argent en fonds d'urgence.</li>
+      <ul class="list-muted">
+        <li><strong>Assurance GSM / électronique</strong> → coût annuel souvent &gt; valeur rachat de l'appareil. Mets l'argent en fonds d'urgence.</li>
         <li><strong>Assurance bagages séparée</strong> → souvent incluse dans ta carte de crédit premium ou ton assurance voyage.</li>
         <li><strong>Extension de garantie électroménager</strong> → la garantie légale belge est déjà de 2 ans. L'extension coûte cher pour une probabilité de panne faible.</li>
-        <li><strong>Assurance décès accidentel isolée</strong> → couvre un risque très spécifique pour un prix parfois élevé. Une assurance vie terme classique est bien plus utile.</li>
+        <li><strong>Assurance décès accidentel isolée</strong> → couvre un risque très spécifique. Une assurance vie terme classique est bien plus utile.</li>
         <li><strong>Mini-omnium sur voiture ancienne (&gt;8 ans)</strong> → la valeur de la voiture ne justifie plus la prime. Passe en RC seule.</li>
       </ul>
     </div>
@@ -195,10 +156,12 @@
     </div>
   </div>
 
-  <div class="waffy-tip" style="margin-top:14px;">
-    <div class="waffy-tip-icon">🧇</div>
+  <!-- Waffy banquier — point 78 -->
+  <div class="waffy-tip">
+    <img src="/img/waffy/waffy-banquier.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
     <div class="waffy-tip-content">
-      <strong>Conseil de Waffy</strong> — Fais un audit annuel de tes primes. Rassemble tous tes contrats en décembre, calcule le total payé sur l'année, et demande-toi pour chacun : "Est-ce que j'ai utilisé cette assurance ? Est-ce que je pourrais absorber le pire scénario sans elle ?" Tu seras souvent surpris par ce que tu peux supprimer.
+      <strong>L'audit annuel de décembre</strong>
+      Rassemble tous tes contrats en décembre, calcule le total payé sur l'année, et demande-toi pour chacun : "Est-ce que j'ai utilisé cette assurance ? Est-ce que je pourrais absorber le pire scénario sans elle ?" Tu seras souvent surpris par ce que tu peux supprimer.
     </div>
   </div>
 </div>
@@ -209,35 +172,36 @@
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Profil</th><th>Assurances recommandées</th><th>Budget annuel</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>Jeune locataire salarié, sans voiture</td>
-            <td>Hospitalisation · RC Famille · Incendie locataire</td>
-            <td style="color:#7EC8A0;font-weight:700;">400 – 700€/an</td>
-          </tr>
-          <tr>
-            <td>Couple propriétaire avec enfants</td>
-            <td>Hospitalisation famille · RC Famille · Incendie · Vie terme · RC Auto · Incapacité de travail</td>
-            <td style="color:#E8C23A;font-weight:700;">1.500 – 3.000€/an</td>
-          </tr>
-          <tr>
-            <td>Indépendant sans dépendants</td>
-            <td>Hospitalisation · RC Famille · Incapacité de travail · Protection juridique · RC Auto</td>
-            <td style="color:#E8C23A;font-weight:700;">1.200 – 2.500€/an</td>
-          </tr>
-          <tr>
-            <td>Dirigeant de société avec famille</td>
-            <td>Tout ce qui précède + EIP/PLCI + Assurance groupe · Vie terme</td>
-            <td style="color:#E87CC3;font-weight:700;">3.000 – 6.000€/an</td>
-          </tr>
-        </tbody>
-      </table></div>
-      <p style="font-size:0.76rem;color:var(--muted);margin-top:10px;">Si tu paies significativement plus que ces fourchettes, c'est le signe que tu as des doublons ou des assurances inutiles. Si tu paies moins, vérifie que tu n'as pas de lacune importante.</p>
+
+      <!-- Graphique animé budgets (point 77) -->
+      <p class="chart-label">Budget annuel assurances estimé par profil (€/an)</p>
+      <div class="chart-container">
+        <canvas id="assur-chart" height="140"></canvas>
+      </div>
+      <div class="chart-legend">
+        <span><span class="chart-legend-dot dot-green"></span>Jeune locataire</span>
+        <span><span class="chart-legend-dot dot-gold"></span>Couple propriétaire</span>
+        <span><span class="chart-legend-dot dot-gold"></span>Indépendant</span>
+        <span><span class="chart-legend-dot dot-rose"></span>Dirigeant société</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Profil</th><th>Assurances recommandées</th><th>Budget annuel</th></tr></thead>
+          <tbody>
+            <tr><td>Jeune locataire salarié, sans voiture</td><td>Hospitalisation · RC Famille · Incendie locataire</td><td class="td-green-bold">400 – 700€/an</td></tr>
+            <tr><td>Couple propriétaire avec enfants</td><td>Hospitalisation famille · RC Famille · Incendie · Vie terme · RC Auto · Incapacité de travail</td><td class="td-gold-bold">1.500 – 3.000€/an</td></tr>
+            <tr><td>Indépendant sans dépendants</td><td>Hospitalisation · RC Famille · Incapacité de travail · Protection juridique · RC Auto</td><td class="td-gold-bold">1.200 – 2.500€/an</td></tr>
+            <tr><td>Dirigeant de société avec famille</td><td>Tout ce qui précède + EIP/PLCI + Assurance groupe · Vie terme</td><td class="td-rose-bold">3.000 – 6.000€/an</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="budget-note">Si tu paies significativement plus que ces fourchettes, c'est le signe que tu as des doublons ou des assurances inutiles. Si tu paies moins, vérifie que tu n'as pas de lacune importante.</p>
     </div>
   </div>
 </div>
+
+<div data-ww-cta="pilote"></div>
 
 <div class="source-block">
   <span class="source-block-label">Sources</span>
@@ -250,11 +214,80 @@
   <div class="see-also-label">Voir aussi</div>
   <a href="/budget/epargne.html" class="see-also-pill">💰 Fonds d'urgence</a>
   <a href="/fiscal/assurances.html" class="see-also-pill">📋 Assurances fiscales (EIP, PLCI)</a>
-  <a href="/fiscal/independants.html" class="see-also-pill">👤 Indépendants</a>
+  <a href="/fiscal/independants.html" class="see-also-pill">🧑‍💻 Indépendants</a>
   <a href="/budget/" class="see-also-pill">💶 Hub Budget</a>
 </div>
 
 </div>
+
+<script>
+/* ── Graphique budgets assurances (point 77) ── */
+function drawAssurChart() {
+  const canvas = document.getElementById('assur-chart');
+  if (!canvas) return;
+  const W = canvas.parentElement.offsetWidth, H = 140, dpr = window.devicePixelRatio || 1;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+
+  // Budget moyen de chaque profil
+  const DATA = [
+    { label: 'Jeune\nlocataire', min: 400,  max: 700,  color: '#2ECC71' },
+    { label: 'Couple\npropriétaire', min: 1500, max: 3000, color: '#E8C23A' },
+    { label: 'Indépendant', min: 1200, max: 2500, color: '#E8C23A' },
+    { label: 'Dirigeant\nsociété', min: 3000, max: 6000, color: '#E87CC3' },
+  ];
+
+  const maxV = 6000;
+  const P = { t: 10, r: 10, b: 36, l: 45 };
+  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const bW = cW / DATA.length * 0.55, gap = cW / DATA.length;
+
+  let prog = 0;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const p = Math.min(prog, 1);
+
+    [1000,2000,3000,4000,5000,6000].forEach(v => {
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(P.l, P.t+cH*(1-v/maxV)); ctx.lineTo(P.l+cW, P.t+cH*(1-v/maxV)); ctx.stroke();
+      if (v % 2000 === 0) {
+        ctx.fillStyle = 'rgba(255,255,255,0.28)'; ctx.font = '8px DM Sans'; ctx.textAlign = 'right';
+        ctx.fillText((v/1000)+'k€', P.l-3, P.t+cH*(1-v/maxV)+3);
+      }
+    });
+
+    DATA.forEach((d, i) => {
+      const x = P.l + gap*i + (gap-bW)/2;
+      // Barre min (plus foncée)
+      const bHmin = (d.min/maxV)*cH*p;
+      ctx.fillStyle = d.color + '40';
+      ctx.fillRect(x, P.t+cH-bHmin, bW, bHmin);
+      // Barre max (pleine)
+      const bHmax = (d.max/maxV)*cH*p;
+      ctx.fillStyle = d.color + '90';
+      ctx.fillRect(x, P.t+cH-bHmax, bW, bHmax-bHmin);
+
+      if (p > 0.8) {
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        ctx.font = `bold 8px DM Sans`; ctx.textAlign = 'center';
+        ctx.fillText(d.max/1000+'k€', x+bW/2, P.t+cH-bHmax-3);
+        // Labels multi-ligne
+        ctx.fillStyle = 'rgba(255,255,255,0.45)';
+        ctx.font = '7.5px DM Sans';
+        const lines = d.label.split('\n');
+        lines.forEach((l, li) => ctx.fillText(l, x+bW/2, P.t+cH+13+li*11));
+      }
+    });
+    prog += 0.04; if (prog < 1) requestAnimationFrame(draw);
+  };
+  const obs = new IntersectionObserver(e => { if(e[0].isIntersecting){draw();obs.disconnect();} }, {threshold:0.3});
+  obs.observe(canvas);
+}
+window.addEventListener('load', drawAssurChart);
+window.addEventListener('resize', drawAssurChart);
+</script>
+
 <script src="/assets/data.js"></script>
 <script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>

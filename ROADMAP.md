@@ -134,25 +134,25 @@
 
 - [x] ~`fiscal/declaration.html` — zéro CSS inline, myminfin-steps, td-warn/ok/cyan, list-muted/sm, graphique barres déductions, waffy-declarant, data-ww-cta pilote~
 - [x] ~`invest/sectoriels.html` — zéro CSS inline, core-sat-grid, graphique TER cumulé animé, waffy-sommelier, td-rose TOB REITs, kpi-grid, data-ww-cta pilote~
-- [ ] `budget/assurances.html`
-- [ ] `fiscal/crypto.html`
-- [ ] `invest/crypto-plateformes.html`
-- [ ] `outils/fiscal-crypto.html`
+- [x] ~`budget/assurances.html` — zéro CSS inline, assur-principes-grid, waffy-banquier, graphique barres budget animé, td-green/gold/rose-bold, budget-note, data-ww-cta pilote~
+- [x] ~`fiscal/crypto.html` — zéro CSS inline, regime-grid/card, exemple-box, myminfin-step-gold, cta-addon-crypto, waffy-crypto, graphique barres 10% vs 33%, data-ww-cta pilote~
+- [x] ~`invest/crypto-plateformes.html` — zéro CSS inline, wallet-checklist, td-mica-ok/warn/no, graphique barres frais exchanges, waffy-securite cold wallet, cta-addon-crypto, data-ww-cta pilote~
+- [x] ~`outils/fiscal-crypto.html` — zéro CSS inline, crypto-gate/drop-grid/result-grid/actions, waffy-crypto dans gate, JS dynamisé avec sim-input/sim-label/sim-grid, results-hidden, data-ww-cta pilote~
 
 **Priorité 3 — reste des pages contenu**
 
-- [ ] `budget/index.html`
-- [ ] `budget/retraite.html`
-- [ ] `budget/banques.html`
-- [ ] `budget/rente.html`
-- [ ] `invest/index.html`
-- [ ] `invest/actions.html`
-- [ ] `invest/obligations.html`
-- [ ] `invest/fonds.html`
-- [ ] `invest/equity.html`
-- [ ] `invest/crypto.html`
-- [ ] `invest/or.html`
-- [ ] `invest/alternatives.html`
+- [x] ~`budget/index.html` — zéro CSS inline, waterfall-step 1-4, brut-net-box, td-dette-*, graphique barres 50/30/20 animé, waffy-conseil urgence, scripts regroupés en bas, data-ww-cta pilote~
+- [x] ~`budget/retraite.html` — zéro CSS inline, kpi-card colorés, scenario-card/gold/rose/cyan, graphique ligne ratio actifs/retraités, waffy-conseil timing, data-ww-cta pilote~
+- [x] ~`budget/banques.html` — zéro CSS inline, frais-list/item, strategie-list/card, link-card comparateurs, graphique courtage cumulé animé, waffy-economiste, td-sub/free, data-ww-cta pilote~
+- [x] ~`budget/rente.html` — zéro CSS inline, kpi-grid, compare-2col stratégies, steps-list 3 seaux, graphique décumulation 3 scénarios, waffy-conseil règle 4%, exemple-box-green contexte belge, data-ww-cta pilote~
+- [x] ~`invest/index.html` — zéro CSS inline, waterfall-step-4 prérequis, td txt-rose txt-bold, graphique taxe PV DCA vs rotation, waffy-analyste, data-ww-cta pilote~
+- [x] ~`invest/actions.html` — zéro CSS inline, core-sat-grid, strategie-list secteurs, graphique ETF vs picking, waffy-analyste, td txt-rose txt-bold, data-ww-cta pilote~
+- [x] ~`invest/obligations.html` — zéro CSS inline, scenario-list 4 types, section OLO ajoutée, kpi-grid OLO, td-rose/gold/ok/warn tableau corporate, graphique lignes rendement net, waffy-conseil bons état, data-ww-cta pilote~
+- [x] ~`invest/fonds.html` — zéro CSS inline, kpi-grid SPIVA (53/73/89%), graphique zone ETF vs fonds actif 20 ans avec écart, waffy-banquier rétrocessions, DOMContentLoaded → load, data-ww-cta pilote~
+- [x] ~`invest/equity.html` — zéro CSS inline, ts-grid/card, equity-atouts/risques, step-list crowdfunding, eltif-box, graphique coût net Tax Shelter 4 barres, waffy-analyste portfolio, tax-badge codes IPP, ww-nav/footer-placeholder supprimés, lien relatif corrigé, data-ww-cta pilote~
+- [x] ~`invest/crypto.html` — zéro CSS inline, <style> head → ww-all.css, crypto-detail blocs, cat-badge variantes, compare-2col stockage, kpi-grid positions, pyramide risque animée, waffy-securite stockage, cta-addon-crypto, data-ww-cta pilote~
+- [x] ~`invest/or.html` — zéro CSS inline, scenario-list 3 raisons, step-list/step-num-gold/step-item-warn, kpi-grid, graphique or vs ETF simulé, waffy-conseil bon achat, strategie-list allocation, data-ww-cta pilote, tools.js ajouté~
+- [x] ~`invest/alternatives.html` — zéro CSS inline, nav TOC dans page corrigé, hub-card ETF sectoriels+Equity, coop-card rose/cyan/gold régions, token-list tokénisation, kpi-grid crowdlending, graphique scatter rendement/liquidité, waffy-conseil crowdlending, section-h4, data-ww-cta pilote~
 - [ ] `invest/comparateurs.html`
 - [ ] `immo/index.html`
 - [ ] `immo/financement.html`
@@ -400,6 +400,23 @@
 
 ## ✅ Fait
 
+- ~`invest/alternatives.html` — refonte complète Groupe D~
+- ~`invest/or.html` — refonte complète Groupe D~
+- ~`invest/crypto.html` — refonte complète Groupe D (204 styles→0)~
+- ~`invest/equity.html` — refonte complète Groupe D~
+- ~`invest/fonds.html` — refonte complète Groupe D~
+- ~`invest/obligations.html` — refonte complète Groupe D~
+- ~`invest/actions.html` — refonte complète Groupe D~
+- ~`invest/index.html` — refonte complète Groupe D~
+- ~`budget/rente.html` — refonte complète Groupe D~
+- ~`budget/retraite.html` — refonte complète Groupe D~
+- ~`budget/index.html` — refonte complète Groupe D~
+- ~`outils/fiscal-crypto.html` — refonte complète~
+- ~`invest/crypto-plateformes.html` — refonte complète Groupe D~
+- ~`fiscal/crypto.html` — refonte complète Groupe D~
+- ~`budget/banques.html` — vérification + tools.js ajouté~
+- ~`budget/banques.html` — refonte complète Groupe D~
+- ~`budget/assurances.html` — refonte complète Groupe D~
 - ~`invest/sectoriels.html` — refonte complète Groupe D~
 - ~`fiscal/declaration.html` — refonte complète Groupe D~
 - ~`budget/epargne.html` — refonte complète Groupe D~

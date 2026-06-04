@@ -2,9 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fiscalité Crypto Belgique 2026 — FIFO, Step-up, Déclaration — WealthWaffle</title>
+  <title>🪙 Fiscalité Crypto Belgique 2026 — FIFO, Step-up, Déclaration — WealthWaffle</title>
   <meta name="description" content="Tout sur la fiscalité crypto belge 2026 : taxe 10% gestion normale, 33% spéculatif, FIFO, step-up 31/12/2025, franchise 10.000€, PCC, DAC8. Guide complet + calculateur.">
+  <meta property="og:title" content="Fiscalité Crypto Belgique 2026 — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
@@ -13,19 +16,10 @@
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<div class="page" style="padding-top:80px;">
+<div class="page">
 <div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/fiscal/">Fiscalité</a><span>/</span><span>Fiscalité Crypto 2026</span></div>
-
-<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;">
-  <a href="/fiscal/" class="source-pill">📋 Hub Fiscal</a>
-  <a href="/fiscal/crypto.html" class="source-pill" style="background:rgba(232,194,58,0.12);border-color:rgba(232,194,58,0.30);color:#E8C23A;">🪙 Fiscalité Crypto ←</a>
-  <a href="/invest/crypto.html" class="source-pill">🪙 Guide Crypto</a>
-  <a href="/invest/crypto-plateformes.html" class="source-pill">🏦 Plateformes</a>
-  <a href="/outils/fiscal-crypto.html" class="source-pill">🧮 Calculateur</a>
-</div>
 
 <nav class="toc-sidebar">
   <a href="#regimes">📊 3 régimes</a>
@@ -37,15 +31,42 @@
   <a href="#outils">🧮 Calculateur</a>
 </nav>
 
+<div class="eyebrow eyebrow-crypto">📋 Fiscalité Crypto 2026</div>
+<h1 class="display">Déclarer sa crypto<br><span class="txt-crypto">en Belgique — le guide 2026</span></h1>
+<p class="lead">Depuis janvier 2026, la Belgique taxe les plus-values crypto à 10% pour la gestion normale. Ce guide explique les 3 régimes, la méthode FIFO, le step-up au 31/12/2025 et comment déclarer sans se tromper.</p>
+
 <div class="reading-time">
   <span class="reading-time-badge">🌱 Débutant : ~8 min</span>
   <span class="reading-time-badge">🚀 Avancé : ~18 min</span>
-  <span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span>
+  <span class="reading-meta">· Juin 2026</span>
 </div>
 
-<div class="eyebrow" style="background:rgba(232,194,58,0.10);color:#E8C23A;">📋 Fiscalité Crypto 2026</div>
-<h1 class="display">Déclarer sa crypto<br><span style="color:#E8C23A;">en Belgique — le guide 2026</span></h1>
-<p class="lead" style="margin-bottom:32px;">Depuis janvier 2026, la Belgique taxe les plus-values crypto à 10% pour la gestion normale. Ce guide explique les 3 régimes, la méthode FIFO, le step-up au 31/12/2025 et comment déclarer sans se tromper.</p>
+<div class="pill-nav">
+  <a href="/fiscal/" class="source-pill">📋 Hub Fiscal</a>
+  <a href="/fiscal/crypto.html" class="source-pill source-pill-active-crypto">🪙 Fiscalité Crypto ←</a>
+  <a href="/invest/crypto.html" class="source-pill">🪙 Guide Crypto</a>
+  <a href="/invest/crypto-plateformes.html" class="source-pill">🏦 Plateformes</a>
+  <a href="/outils/fiscal-crypto.html" class="source-pill">🧮 Calculateur</a>
+</div>
+
+<!-- ── KPI ── -->
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Gestion normale (NOUVEAU)</div>
+    <div class="kpi-value txt-green">10%</div>
+    <div class="kpi-sub">Investisseur particulier</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Spéculatif / trading actif</div>
+    <div class="kpi-value txt-rose">33%</div>
+    <div class="kpi-sub">Inchangé</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Franchise annuelle</div>
+    <div class="kpi-value txt-crypto">10.000€</div>
+    <div class="kpi-sub">Crypto + ETF + actions</div>
+  </div>
+</div>
 
 <!-- ── 3 RÉGIMES ── -->
 <div class="content-card toc-target reveal" id="regimes">
@@ -54,28 +75,28 @@
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
       <p>En Belgique, la fiscalité de tes plus-values crypto dépend de <strong>comment</strong> tu investis, pas de combien tu gagnes :</p>
-      <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0;">
-        <div style="background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.20);border-radius:12px;padding:14px;">
-          <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.10em;color:#7EC8A0;margin-bottom:4px;">🌱 GESTION NORMALE (NOUVEAU 2026)</div>
-          <div style="font-size:1.2rem;font-weight:800;color:#7EC8A0;">10%</div>
-          <div style="font-size:0.80rem;color:var(--muted);margin-top:4px;">Tu investis régulièrement, tu gardes longtemps, tu ne trades pas activement. Le profil de la majorité des investisseurs particuliers belges.</div>
+      <div class="regime-grid">
+        <div class="regime-card regime-card-normal">
+          <div class="regime-label regime-label-normal">🌱 GESTION NORMALE (NOUVEAU 2026)</div>
+          <div class="regime-taux txt-green">10%</div>
+          <div class="regime-desc">Tu investis régulièrement, tu gardes longtemps, tu ne trades pas activement. Le profil de la majorité des investisseurs particuliers belges.</div>
         </div>
-        <div style="background:rgba(232,124,195,0.07);border:1px solid rgba(232,124,195,0.18);border-radius:12px;padding:14px;">
-          <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.10em;color:#E87CC3;margin-bottom:4px;">⚡ SPÉCULATIF</div>
-          <div style="font-size:1.2rem;font-weight:800;color:#E87CC3;">33%</div>
-          <div style="font-size:0.80rem;color:var(--muted);margin-top:4px;">Trading actif, positions courtes, levier financier, revenus répétitifs de la crypto. Inchangé depuis toujours.</div>
+        <div class="regime-card regime-card-spec">
+          <div class="regime-label regime-label-spec">⚡ SPÉCULATIF</div>
+          <div class="regime-taux txt-rose">33%</div>
+          <div class="regime-desc">Trading actif, positions courtes, levier financier, revenus répétitifs de la crypto. Inchangé depuis toujours.</div>
         </div>
-        <div style="background:rgba(196,114,74,0.07);border:1px solid rgba(196,114,74,0.18);border-radius:12px;padding:14px;">
-          <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.10em;color:#C4724A;margin-bottom:4px;">💼 ACTIVITÉ PROFESSIONNELLE</div>
-          <div style="font-size:1.2rem;font-weight:800;color:#C4724A;">Barème progressif jusqu'à 50%</div>
-          <div style="font-size:0.80rem;color:var(--muted);margin-top:4px;">La crypto est ton activité principale et principale source de revenus. Très rare pour un particulier.</div>
+        <div class="regime-card regime-card-pro">
+          <div class="regime-label regime-label-pro">💼 ACTIVITÉ PROFESSIONNELLE</div>
+          <div class="regime-taux txt-immo">Barème progressif jusqu'à 50%</div>
+          <div class="regime-desc">La crypto est ton activité principale et principale source de revenus. Très rare pour un particulier.</div>
         </div>
       </div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
       <p><strong>Comment le fisc détermine ton régime :</strong> il n'y a pas de règle automatique. L'administration évalue plusieurs critères :</p>
-      <ul style="font-size:0.80rem;color:var(--muted);line-height:1.9;padding-left:20px;">
+      <ul class="list-muted">
         <li>Fréquence et volume des transactions</li>
         <li>Utilisation de levier ou de produits dérivés</li>
         <li>Durée de détention moyenne</li>
@@ -87,6 +108,17 @@
       <div class="warn-box">⚠️ <strong>DAC8 :</strong> depuis 2026, tous les exchanges européens transmettent automatiquement tes données au SPF Finances. Il n'est plus possible de "ne pas déclarer" sans risque sérieux de redressement fiscal.</div>
     </div>
   </div>
+
+  <!-- Graphique animé — comparatif 10% vs 33% (point 77) -->
+  <p class="chart-label">Impact des régimes fiscaux — plus-value de 20.000€</p>
+  <div class="chart-container">
+    <canvas id="regime-chart" height="120"></canvas>
+  </div>
+  <div class="chart-legend">
+    <span><span class="chart-legend-dot dot-green"></span>Gestion normale 10%</span>
+    <span><span class="chart-legend-dot dot-rose"></span>Spéculatif 33%</span>
+    <span><span class="chart-legend-dot dot-cyan"></span>Net conservé</span>
+  </div>
 </div>
 
 <!-- ── FIFO ── -->
@@ -96,22 +128,21 @@
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
       <p><strong>FIFO = First In, First Out.</strong> Les cryptos achetées en premier sont considérées comme vendues en premier. C'est la méthode standard en Belgique pour calculer tes plus-values.</p>
-      <div style="background:var(--s3);border-radius:12px;padding:14px;margin:12px 0;font-size:0.82rem;color:var(--muted);">
+      <div class="exemple-box">
         <strong>Exemple simple :</strong><br>
         → 1er janvier : tu achètes 1 BTC à 30.000€<br>
         → 1er février : tu achètes 1 BTC à 40.000€<br>
-        → 1er mars : tu vends 1 BTC à 50.000€<br>
-        <br>
+        → 1er mars : tu vends 1 BTC à 50.000€<br><br>
         <strong>FIFO :</strong> tu vends le BTC du 1er janvier (30.000€)<br>
-        → Plus-value imposable : 50.000 - 30.000 = <strong style="color:#7EC8A0;">20.000€</strong>
+        → Plus-value imposable : 50.000 - 30.000 = <strong class="txt-green">20.000€</strong>
       </div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
       <p>Le calcul FIFO devient complexe avec des centaines de transactions sur plusieurs plateformes. Points critiques :</p>
-      <ul style="font-size:0.80rem;color:var(--muted);line-height:1.9;padding-left:20px;">
-        <li><strong>Frais :</strong> les frais d'achat s'ajoutent au coût de revient, les frais de vente se soustraient du produit — ce qui réduit la plus-value imposable</li>
-        <li><strong>Paires non-EUR :</strong> les transactions en BTC, USDT ou autres nécessitent une conversion via le taux EUR du jour — notre calculateur gère ça automatiquement</li>
+      <ul class="list-muted">
+        <li><strong>Frais :</strong> les frais d'achat s'ajoutent au coût de revient — ce qui réduit la plus-value imposable</li>
+        <li><strong>Paires non-EUR :</strong> les transactions en BTC, USDT nécessitent une conversion via le taux EUR du jour</li>
         <li><strong>Transferts inter-wallets :</strong> un transfert entre tes propres wallets n'est PAS une vente — ne pas l'inclure dans le calcul FIFO</li>
         <li><strong>Conservation des preuves :</strong> garde tes CSV d'export pendant au moins 7 ans (délai de prescription fiscal belge)</li>
       </ul>
@@ -125,8 +156,8 @@
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>Bonne nouvelle : tu ne paies pas d'impôt sur les gains que tu avais accumulés AVANT 2026. La loi prévoit un "step-up" : pour tous les actifs détenus au 31/12/2025, le prix d'achat est remplacé par leur <strong>valeur de marché au 31 décembre 2025</strong>.</p>
-      <div style="background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.20);border-radius:12px;padding:14px;margin:12px 0;font-size:0.82rem;color:var(--muted);">
+      <p>Bonne nouvelle : tu ne paies pas d'impôt sur les gains accumulés AVANT 2026. La loi prévoit un "step-up" : pour tous les actifs détenus au 31/12/2025, le prix d'achat est remplacé par leur <strong>valeur de marché au 31 décembre 2025</strong>.</p>
+      <div class="exemple-box-green">
         <strong>Exemple :</strong> tu as acheté 1 ETH à 500€ en 2021. Au 31/12/2025 il valait 2.500€. Tu le vends en 2026 à 3.000€.<br>
         → Sans step-up : PV imposable = 3.000 - 500 = 2.500€<br>
         → <strong>Avec step-up : PV imposable = 3.000 - 2.500 = 500€ seulement ✅</strong>
@@ -135,13 +166,13 @@
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
       <p><strong>Comment déterminer la valeur step-up :</strong></p>
-      <ul style="font-size:0.80rem;color:var(--muted);line-height:1.9;padding-left:20px;">
+      <ul class="list-muted">
         <li>Utiliser les prix de clôture au 31/12/2025 (source : CoinGecko, CoinMarketCap, Bloomberg)</li>
         <li>Pour les tokens peu liquides : prix moyen de la journée sur les exchanges principaux</li>
         <li>Notre calculateur charge automatiquement les valeurs via CoinGecko pour les actifs courants</li>
         <li>Conserver la preuve de la valeur retenue (capture d'écran CoinGecko avec la date)</li>
       </ul>
-      <p><strong>Mécanisme opt-in/opt-out :</strong> depuis le 1er juin 2026, les exchanges européens appliquent une retenue à la source par défaut (opt-in). Si tu veux déclarer toi-même (nécessaire pour appliquer le step-up correctement), tu dois activer l'opt-out explicitement sur chaque plateforme.</p>
+      <p><strong>Mécanisme opt-in/opt-out :</strong> depuis le 1er juin 2026, les exchanges européens appliquent une retenue à la source par défaut. Pour déclarer toi-même et appliquer le step-up correctement, active l'opt-out explicitement sur chaque plateforme.</p>
     </div>
   </div>
 </div>
@@ -153,11 +184,11 @@
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
       <p>Les premiers 10.000€ de plus-values annuelles sur actifs financiers (crypto + ETF + actions) sont <strong>exonérés d'impôt</strong>. Cette franchise est commune à tous tes actifs financiers.</p>
-      <p>Si ta plus-value totale 2026 (crypto + ETF + actions) est inférieure à 10.000€ → tu ne paies rien. Notre calculateur intègre tes autres plus-values pour optimiser l'utilisation de cette franchise.</p>
+      <p>Si ta plus-value totale 2026 (crypto + ETF + actions) est inférieure à 10.000€ → tu ne paies rien.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Stratégie d'optimisation :</strong> si tu as des plus-values ETF/actions et des plus-values crypto, il est parfois plus intéressant d'imputer la franchise sur les plus-values les plus faciles à prouver (ETF avec relevé bancaire) et de déclarer les crypto en second — ou l'inverse selon ta situation. Le calculateur te montre les deux scénarios.</p>
+      <p><strong>Stratégie d'optimisation :</strong> si tu as des plus-values ETF/actions et des plus-values crypto, il est parfois plus intéressant d'imputer la franchise sur les plus-values les plus faciles à prouver (ETF avec relevé bancaire) et de déclarer les crypto en second. Le calculateur te montre les deux scénarios.</p>
       <p><strong>Les moins-values :</strong> une moins-value sur un actif peut être compensée avec les plus-values d'un autre actif de la même catégorie sur la même année fiscale. Les moins-values des années antérieures ne sont pas reportables.</p>
     </div>
   </div>
@@ -172,29 +203,29 @@
       <div class="table-wrap"><table>
         <thead><tr><th>Type de revenu</th><th>Fiscalité</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>Plus-value vente (LT, gestion normale)</td><td style="color:#7EC8A0;font-weight:700;">10%</td><td>Après franchise 10K€</td></tr>
-          <tr><td>Plus-value vente (spéculatif)</td><td style="color:#E87CC3;font-weight:700;">33%</td><td>Trading actif, levier</td></tr>
-          <tr><td>Staking / Lending</td><td style="color:#E87CC3;">33% revenus divers</td><td>Imposé à la réception</td></tr>
-          <tr><td>Airdrops</td><td style="color:#E8C23A;">Zone grise</td><td>Position prudente : 33% revenus divers</td></tr>
-          <tr><td>Learning Rewards (Coinbase)</td><td style="color:#E8C23A;">Zone grise</td><td>Voir encadré ci-dessous</td></tr>
-          <tr><td>Transfert inter-wallets</td><td style="color:#7EC8A0;">Non imposable</td><td>Pas une vente</td></tr>
-          <tr><td>Conversion crypto/crypto</td><td style="color:#E87CC3;">Imposable</td><td>Traité comme vente + achat simultané</td></tr>
+          <tr><td>Plus-value vente (LT, gestion normale)</td><td class="txt-green txt-bold">10%</td><td>Après franchise 10K€</td></tr>
+          <tr><td>Plus-value vente (spéculatif)</td><td class="txt-rose txt-bold">33%</td><td>Trading actif, levier</td></tr>
+          <tr><td>Staking / Lending</td><td class="txt-rose">33% revenus divers</td><td>Imposé à la réception</td></tr>
+          <tr><td>Airdrops</td><td class="txt-warn">Zone grise</td><td>Position prudente : 33% revenus divers</td></tr>
+          <tr><td>Learning Rewards (Coinbase)</td><td class="txt-warn">Zone grise</td><td>Voir encadré ci-dessous</td></tr>
+          <tr><td>Transfert inter-wallets</td><td class="txt-green">Non imposable</td><td>Pas une vente</td></tr>
+          <tr><td>Conversion crypto/crypto</td><td class="txt-rose">Imposable</td><td>Traité comme vente + achat simultané</td></tr>
         </tbody>
       </table></div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
       <p><strong>Conversion crypto/crypto :</strong> échanger BTC contre ETH est une vente de BTC (plus-value imposable si gain) + un achat d'ETH. Le prix de l'ETH reçu devient le coût de revient pour le calcul FIFO futur.</p>
-      <p><strong>DeFi :</strong> les revenus de liquidité mining, yield farming et liquidity pools sont dans une zone grise importante. La position la plus prudente est de les traiter comme des revenus divers imposables à 33% à la réception. La plus-value à la revente des tokens reçus est ensuite calculée séparément.</p>
+      <p><strong>DeFi :</strong> les revenus de liquidité mining, yield farming et liquidity pools sont dans une zone grise importante. La position la plus prudente est de les traiter comme des revenus divers imposables à 33% à la réception.</p>
     </div>
   </div>
 
-  <!-- Encadré Waffy Learning Rewards -->
-  <div class="waffy-tip" style="margin-top:14px;">
-    <div class="waffy-tip-icon">🧇</div>
+  <!-- Waffy crypto — point 78 -->
+  <div class="waffy-tip">
+    <img src="/img/waffy/waffy-crypto.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
     <div class="waffy-tip-content">
-      <strong>Le coin de Waffy — Learning Rewards</strong><br>
-      Les Learning Rewards de Coinbase (quelques euros en crypto après avoir regardé une vidéo) sont dans une zone grise. Le SPF Finances n'a pas de position officielle. Position prudente : déclarer la valeur reçue en EUR comme revenu divers (33%). Cette valeur devient ensuite ton coût de revient pour le calcul FIFO. Pour de petits montants (&lt;50€), le risque pratique est faible. En cas de contrôle, montre que tu as fait un effort de déclaration de bonne foi.
+      <strong>Le coin de Waffy — Learning Rewards</strong>
+      Les Learning Rewards de Coinbase (quelques euros en crypto après avoir regardé une vidéo) sont dans une zone grise. Position prudente : déclarer la valeur reçue en EUR comme revenu divers (33%). Cette valeur devient ensuite ton coût de revient pour le calcul FIFO. Pour de petits montants (&lt;50€), le risque pratique est faible. En cas de contrôle, montre que tu as fait un effort de déclaration de bonne foi.
     </div>
   </div>
 </div>
@@ -206,14 +237,14 @@
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
       <p>La déclaration se fait en deux étapes distinctes :</p>
-      <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0;">
-        <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;">
-          <div style="min-width:24px;height:24px;background:linear-gradient(135deg,#E8C23A,#c9a420);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#1E1D38;font-size:0.72rem;">1</div>
-          <div style="font-size:0.82rem;color:var(--text2);line-height:1.6;"><strong>Déclaration PCC (BNB) :</strong> déclarer l'existence de tout compte sur un exchange étranger. Une seule fois par compte ouvert. Formulaire sur nbb.be. Amende : jusqu'à 1.250€/compte/an si oublié.</div>
+      <div class="myminfin-steps">
+        <div class="myminfin-step myminfin-step-gold">
+          <div class="myminfin-step-num">1</div>
+          <div class="myminfin-step-text"><strong>Déclaration PCC (BNB) :</strong> déclarer l'existence de tout compte sur un exchange étranger. Une seule fois par compte ouvert. Formulaire sur nbb.be. Amende : jusqu'à 1.250€/compte/an si oublié.</div>
         </div>
-        <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;">
-          <div style="min-width:24px;height:24px;background:linear-gradient(135deg,#E8C23A,#c9a420);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#1E1D38;font-size:0.72rem;">2</div>
-          <div style="font-size:0.82rem;color:var(--text2);line-height:1.6;"><strong>Déclaration IPP (Tax-on-web) :</strong> indiquer le montant global de ta plus-value imposable dans la section "Revenus divers". Le fisc ne demande pas le détail ligne par ligne — mais garde ton rapport FIFO en cas de contrôle.</div>
+        <div class="myminfin-step myminfin-step-gold">
+          <div class="myminfin-step-num">2</div>
+          <div class="myminfin-step-text"><strong>Déclaration IPP (Tax-on-web) :</strong> indiquer le montant global de ta plus-value imposable dans la section "Revenus divers". Le fisc ne demande pas le détail ligne par ligne — mais garde ton rapport FIFO en cas de contrôle.</div>
         </div>
       </div>
     </div>
@@ -221,24 +252,26 @@
       <div class="level-badge">🚀 Avancé</div>
       <p><strong>Code de déclaration MyMinfin :</strong> rubriques "Revenus divers" → "Plus-values sur actifs numériques". Le montant à reporter est la plus-value nette après franchise.</p>
       <p><strong>Justificatifs à conserver :</strong> le rapport Excel généré par notre calculateur constitue une preuve de bonne foi. Conserve aussi les CSV originaux exportés depuis chaque exchange. Délai de conservation : 7 ans.</p>
-      <p><strong>Opt-out retenue à la source :</strong> si ton exchange applique la retenue à la source (depuis juin 2026), active l'opt-out dans les paramètres de l'exchange pour déclarer toi-même et bénéficier du step-up + franchise correctement.</p>
+      <p><strong>Opt-out retenue à la source :</strong> si ton exchange applique la retenue à la source (depuis juin 2026), active l'opt-out dans les paramètres pour déclarer toi-même et bénéficier du step-up + franchise correctement.</p>
     </div>
   </div>
 </div>
 
 <!-- ── CTA CALCULATEUR ── -->
-<div class="content-card toc-target reveal" id="outils" style="background:rgba(232,194,58,0.04);border-color:rgba(232,194,58,0.25);">
-  <h3>🧮 Tu ne comprends rien à tout ça ?</h3>
-  <p style="font-size:0.84rem;color:var(--muted);line-height:1.7;margin-bottom:8px;">Normal. La fiscalité crypto belge 2026 est une usine à gaz. C'est exactement pour ça qu'on a créé le calculateur.</p>
-  <ul style="font-size:0.82rem;color:var(--muted);line-height:1.9;margin-bottom:16px;padding-left:20px;">
+<div class="content-card toc-target reveal cta-addon-crypto" id="outils">
+  <div class="cta-addon-crypto-title">🧮 Tu ne comprends rien à tout ça ?</div>
+  <div class="cta-addon-crypto-desc">Normal. La fiscalité crypto belge 2026 est une usine à gaz. C'est exactement pour ça qu'on a créé le calculateur.</div>
+  <ul class="list-muted">
     <li>Tu importes tes CSV (Binance, Kraken, Coinbase)</li>
     <li>Il applique le FIFO, le step-up et la franchise automatiquement</li>
     <li>Il génère un rapport Excel prêt à servir en cas de contrôle</li>
     <li>Il te donne le montant exact à reporter dans MyMinfin</li>
   </ul>
-  <a href="/outils/fiscal-crypto.html" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:12px;background:linear-gradient(135deg,#E8C23A,#c9a420);color:#1E1D38;font-weight:700;font-size:0.88rem;text-decoration:none;">🧮 Calculer mes plus-values →</a>
-  <div style="font-size:0.70rem;color:var(--muted);margin-top:8px;">Add-on Conformité Crypto · 49€/an · Calcul 100% local · Inclus dans Pilote+</div>
+  <a href="/outils/fiscal-crypto.html" class="cta-addon-crypto-btn">🧮 Calculer mes plus-values →</a>
+  <div class="cta-addon-crypto-note">Add-on Conformité Crypto · 49€/an · Calcul 100% local · Inclus dans Pilote+</div>
 </div>
+
+<div data-ww-cta="pilote"></div>
 
 <div class="source-block">
   <span class="source-block-label">Sources</span>
@@ -252,12 +285,84 @@
   <a href="/invest/crypto.html" class="see-also-pill">🪙 Guide Crypto</a>
   <a href="/invest/crypto-plateformes.html" class="see-also-pill">🏦 Plateformes & Wallets</a>
   <a href="/outils/fiscal-crypto.html" class="see-also-pill">🧮 Calculateur FIFO</a>
-  <a href="/fiscal/independants.html" class="see-also-pill">👤 Indépendants</a>
+  <a href="/fiscal/independants.html" class="see-also-pill">🧑‍💻 Indépendants</a>
   <a href="/fiscal/" class="see-also-pill">📋 Hub Fiscalité</a>
 </div>
 
 </div>
+
+<script>
+/* ── Graphique comparatif régimes (point 77) ── */
+function drawRegimeChart() {
+  const canvas = document.getElementById('regime-chart');
+  if (!canvas) return;
+  const W = canvas.parentElement.offsetWidth, H = 120, dpr = window.devicePixelRatio || 1;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+
+  // Pour une plus-value de 20.000€
+  const PV = 20000;
+  const DATA = [
+    { label: 'Gestion normale', impot: PV*0.10, net: PV*0.90, color: '#2ECC71' },
+    { label: 'Spéculatif',      impot: PV*0.33, net: PV*0.67, color: '#E87CC3' },
+  ];
+
+  const maxV = PV;
+  const P = { t: 10, r: 10, b: 30, l: 50 };
+  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const bW = cW / DATA.length * 0.5, gap = cW / DATA.length;
+
+  let prog = 0;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const p = Math.min(prog, 1);
+
+    DATA.forEach((d, i) => {
+      const x = P.l + gap*i + (gap-bW)/2;
+      let yB = P.t + cH;
+
+      // Net (cyan)
+      const netH = (d.net/maxV)*cH*p;
+      ctx.fillStyle = '#5BB8D4';
+      ctx.fillRect(x, yB-netH, bW, netH);
+      yB -= netH;
+
+      // Impôt (couleur régime)
+      const impotH = (d.impot/maxV)*cH*p;
+      ctx.fillStyle = d.color;
+      ctx.fillRect(x, yB-impotH, bW, impotH);
+
+      if (p > 0.8) {
+        ctx.fillStyle = 'rgba(255,255,255,0.90)';
+        ctx.font = 'bold 9px DM Sans'; ctx.textAlign = 'center';
+        ctx.fillText(Math.round(d.impot).toLocaleString('fr-BE')+'€ d\'impôt', x+bW/2, P.t+cH-netH-impotH/2+4);
+        ctx.fillText(Math.round(d.net).toLocaleString('fr-BE')+'€ net', x+bW/2, P.t+cH-netH/2+4);
+        ctx.fillStyle = 'rgba(255,255,255,0.50)';
+        ctx.font = '9px DM Sans';
+        ctx.fillText(d.label, x+bW/2, P.t+cH+16);
+      }
+    });
+
+    // Axe
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 1;
+    [5000,10000,15000,20000].forEach(v => {
+      ctx.beginPath(); ctx.moveTo(P.l, P.t+cH*(1-v/maxV)); ctx.lineTo(P.l+cW, P.t+cH*(1-v/maxV)); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.28)'; ctx.font = '8px DM Sans'; ctx.textAlign = 'right';
+      ctx.fillText((v/1000)+'k€', P.l-3, P.t+cH*(1-v/maxV)+3);
+    });
+
+    prog += 0.04; if (prog < 1) requestAnimationFrame(draw);
+  };
+  const obs = new IntersectionObserver(e => { if(e[0].isIntersecting){draw();obs.disconnect();} }, {threshold:0.3});
+  obs.observe(canvas);
+}
+window.addEventListener('load', drawRegimeChart);
+window.addEventListener('resize', drawRegimeChart);
+</script>
+
 <script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
 </body>
 </html>

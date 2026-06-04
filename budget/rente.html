@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vivre de son capital — Décumulation et FIRE en Belgique — WealthWaffle</title>
+  <title>🔥 Vivre de son capital — Décumulation et FIRE en Belgique — WealthWaffle</title>
   <meta name="description" content="Règle des 4%, simulateur FIRE, stratégies de retrait, fiscalité belge en décumulation. Comment ne pas survivre à son argent.">
   <meta property="og:title" content="Vivre de son capital — Décumulation et FIRE en Belgique — WealthWaffle">
-  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
   <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Vivre de son capital", basePath: "/budget/" };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<div class="progress-bar"><div class="progress-fill"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<div class="page" style="padding-top:80px;">
+
+<div class="page">
 <div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/budget/">Budget</a><span>/</span><span>Vivre de son capital</span></div>
+
 <nav class="toc-sidebar">
   <a href="#defi">💡 Le défi de la décumulation</a>
   <a href="#regle4">📐 La règle des 4%</a>
@@ -30,93 +30,163 @@
   <a href="#strategies">🎯 Stratégies de retrait</a>
   <a href="#belgique">🇧🇪 Contexte belge</a>
 </nav>
-<div class="eyebrow" style="background:rgba(232,124,195,0.10);color:var(--rose);">🔥 Vivre de son capital</div>
-<h1 class="display">Décumulation —<br><span style="color:var(--rose);">vivre de son capital</span></h1>
-<p class="lead" style="margin-bottom:16px;">La règle des 4%, le simulateur FIRE, les stratégies de retrait, et le contexte belge (pension légale + capital privé). Comment ne pas survivre à son argent.</p>
+
+<div class="eyebrow eyebrow-budget">🔥 Vivre de son capital</div>
+<h1 class="display">Décumulation —<br><span class="txt-rose">vivre de son capital</span></h1>
+<p class="lead">La règle des 4%, le simulateur FIRE, les stratégies de retrait, et le contexte belge. Comment ne pas survivre à son argent.</p>
+
 <div class="reading-time">
-    <span class="reading-time-badge">🌱 Débutant : ~8 min</span>
-    <span class="reading-time-badge">🚀 Avancé : ~20 min</span>
-    <span style="font-size:0.74rem;color:var(--muted);">· Mis à jour juin 2026</span>
-  </div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px;"><a href="/budget/" class="source-pill">💶 Budget</a><a href="/budget/epargne.html" class="source-pill">💰 Épargne long terme</a><a href="/budget/retraite.html" class="source-pill">🏛️ Retraite</a><a href="/budget/rente.html" class="source-pill" style="background:rgba(126,200,160,0.12);border-color:rgba(126,200,160,0.30);color:#7EC8A0;">🔥 Vivre de son capital ←</a></div>
+  <span class="reading-time-badge">🌱 Débutant : ~8 min</span>
+  <span class="reading-time-badge">🚀 Avancé : ~20 min</span>
+  <span class="reading-meta">· Mis à jour juin 2026</span>
+</div>
+
+<div class="pill-nav">
+  <a href="/budget/" class="source-pill">💶 Budget</a>
+  <a href="/budget/epargne.html" class="source-pill">💰 Épargne long terme</a>
+  <a href="/budget/retraite.html" class="source-pill">🏛️ Retraite</a>
+  <a href="/budget/rente.html" class="source-pill source-pill-active-budget">🔥 Vivre de son capital ←</a>
+</div>
+
+<!-- ── KPI ── -->
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Taux de retrait sûr (Trinity)</div>
+    <div class="kpi-value txt-green">4%</div>
+    <div class="kpi-sub">sur 30 ans · 95% de succès historique</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Taux belge post-taxe PV</div>
+    <div class="kpi-value txt-gold">3,2–3,5%</div>
+    <div class="kpi-sub">après taxe PV 10% depuis 2026</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Capital FIRE pour 2.000€/mois</div>
+    <div class="kpi-value txt-cyan">600.000€</div>
+    <div class="kpi-sub">règle des 4% · hors pension légale</div>
+  </div>
+</div>
+
+<!-- ── DÉFI ── -->
 <div class="content-card toc-target reveal" id="defi">
   <h3>💡 Le défi de la décumulation</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>L'accumulation (construire un capital) est intuitive. La décumulation (vivre de ce capital sans l'épuiser) est beaucoup plus complexe. Le risque principal : survivre à son argent. Un Belge qui part à 65 ans a une espérance de vie de 20-22 ans en moyenne. Son capital doit tenir au moins aussi longtemps — et idéalement plus.</p>
+      <p>L'accumulation (construire un capital) est intuitive. La décumulation (vivre de ce capital sans l'épuiser) est beaucoup plus complexe. Le risque principal : survivre à son argent. Un Belge qui part à 65 ans a une espérance de vie de 20–22 ans. Son capital doit tenir au moins aussi longtemps — et idéalement plus.</p>
+
+      <!-- Graphique simulateur décumulation (point 77) -->
+      <p class="chart-label">Simulation décumulation — 500.000€ · retrait 4% · 7%/an</p>
+      <div class="chart-container">
+        <canvas id="decumul-chart" height="130"></canvas>
+      </div>
+      <div class="chart-legend">
+        <span><span class="chart-legend-line dot-green"></span>Capital restant (bon scénario)</span>
+        <span><span class="chart-legend-line dot-gold"></span>Capital restant (scénario moyen)</span>
+        <span><span class="chart-legend-line dot-rose"></span>Capital restant (mauvais départ)</span>
+      </div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Sequence of returns risk :</strong> l'ordre dans lequel les rendements se produisent importe énormément en phase de décaissement. Un krach en début de retraite (années 1-5) est bien plus dévastateur qu'un krach en fin de retraite, car on vend des parts au creux pour financer ses dépenses — sans possibilité de les racheter. Solution : conserver 1-2 ans de dépenses en liquidités pour ne jamais vendre en période de baisse.</p>
+      <p><strong>Sequence of returns risk :</strong> l'ordre dans lequel les rendements se produisent importe énormément en décaissement. Un krach en début de retraite (années 1–5) est bien plus dévastateur qu'un krach en fin de retraite, car on vend des parts au creux pour financer ses dépenses — sans possibilité de les racheter. Solution : conserver 1–2 ans de dépenses en liquidités pour ne jamais vendre en période de baisse.</p>
     </div>
   </div>
 </div>
 
+<!-- ── RÈGLE DES 4% ── -->
 <div class="content-card toc-target reveal" id="regle4">
   <h3>📐 La règle des 4% — le point de départ</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>L'étude Trinity (1998) a analysé tous les portefeuilles historiques américains depuis 1926. Résultat : un portefeuille composé de 50-75% d'actions qui retire 4% de sa valeur initiale chaque année résiste dans 95% des cas sur 30 ans. C'est devenu la "règle des 4%".</p>
+      <p>L'étude Trinity (1998) a analysé tous les portefeuilles historiques américains depuis 1926. Résultat : un portefeuille composé de 50–75% d'actions qui retire 4% de sa valeur initiale chaque année résiste dans 95% des cas sur 30 ans.</p>
       <p>En pratique : si tu as 500.000 € de capital, tu peux retirer 20.000 €/an (1.667 €/mois) en toute sécurité statistique.</p>
-      <div class="info-box">💡 La règle des 4% est un point de départ, pas une vérité absolue. Elle a été calculée avec des données américaines. Pour la Belgique, avec une pension légale en plus du capital privé, elle peut être ajustée.</div>
+      <div class="info-box">💡 La règle des 4% est un point de départ, pas une vérité absolue. Elle a été calculée avec des données américaines. Pour la Belgique, avec une pension légale en plus du capital privé, elle peut être ajustée à la baisse.</div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Limites de la règle des 4% :</strong> (1) basée sur données US 1926-1998 — période exceptionnelle en bourse. (2) Ne prend pas en compte la fiscalité (taxe PV 10% depuis jan. 2026). (3) Suppose un portefeuille US 50/50 actions/obligations. Pour un investisseur belge : le taux sûr de retrait après taxe est plutôt 3,2-3,5% selon les simulations récentes. (4) La règle des 4% suppose de ne pas toucher au capital nominal — en réalité l'inflation réduit le pouvoir d'achat. Un retrait indexé à l'inflation nécessite plutôt 3-3,5% de taux de retrait initial.</p>
+      <p><strong>Limites de la règle des 4% :</strong> (1) basée sur données US 1926–1998 — période exceptionnelle. (2) Ne prend pas en compte la fiscalité (taxe PV 10% depuis jan. 2026). (3) Suppose un portefeuille US 50/50. Pour un investisseur belge : le taux sûr de retrait après taxe est plutôt <strong>3,2–3,5%</strong> selon les simulations récentes. (4) Un retrait indexé à l'inflation nécessite un taux initial encore plus faible.</p>
+    </div>
+  </div>
+
+  <!-- Waffy rente — point 78 -->
+  <div class="waffy-tip">
+    <img src="/img/waffy/waffy-conseil.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
+    <div class="waffy-tip-content">
+      <strong>Le vrai calcul FIRE belge</strong>
+      La règle des 4% américaine devient ~3,5% en Belgique une fois la taxe PV 10% intégrée. Sur 500.000€ de capital, ça fait 17.500€/an au lieu de 20.000€ — soit 1.458€/mois. Mais si ta pension légale couvre 1.200€/mois, ton capital ne doit financer que 258€/mois de plus. Calcule le delta — pas le total brut.
     </div>
   </div>
 </div>
 
+<!-- ── SIMULATEUR FIRE ── -->
 <div class="content-card toc-target reveal" id="simulateur">
   <h3>🧮 Simulateur FIRE & retrait mensuel</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
       <div id="tool-fire"></div>
-      <script>document.addEventListener('DOMContentLoaded',()=>WW_Tools?.simulateurFIRE?.('tool-fire'));</script>
     </div>
   </div>
 </div>
 
+<!-- ── STRATÉGIES ── -->
 <div class="content-card toc-target reveal" id="strategies">
   <h3>🎯 Stratégies de retrait</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
       <p>Deux grandes approches :</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;">
-        <div style="background:var(--s3);border-radius:10px;padding:12px;">
-          <strong style="color:var(--text);font-size:0.86rem;">Retrait fixe</strong>
-          <p style="font-size:0.78rem;color:var(--muted);margin-top:4px;">Retirer le même montant chaque mois, indexé à l'inflation. Simple, prévisible. Risque de tout épuiser si les marchés performent mal sur le début.</p>
+      <div class="compare-2col">
+        <div class="compare-col">
+          <div class="compare-col-title">📅 Retrait fixe</div>
+          <div class="compare-col-item"><span>Principe</span><strong>Même montant chaque mois, indexé inflation</strong></div>
+          <div class="compare-col-item"><span>Avantage</span><strong>Simple, prévisible, budgétisable</strong></div>
+          <div class="compare-col-item"><span>Risque</span><strong class="txt-rose">Épuisement si marchés mauvais en début</strong></div>
         </div>
-        <div style="background:var(--s3);border-radius:10px;padding:12px;">
-          <strong style="color:var(--text);font-size:0.86rem;">Retrait variable (Guardrails)</strong>
-          <p style="font-size:0.78rem;color:var(--muted);margin-top:4px;">Adapter les retraits selon la performance du portefeuille. Plus en bonne année, moins en mauvaise. Plus flexible, moins de risque d'épuisement.</p>
+        <div class="compare-col">
+          <div class="compare-col-title">📊 Retrait variable (Guardrails)</div>
+          <div class="compare-col-item"><span>Principe</span><strong>Adapter les retraits à la performance</strong></div>
+          <div class="compare-col-item"><span>Avantage</span><strong>Moins de risque d'épuisement</strong></div>
+          <div class="compare-col-item"><span>Risque</span><strong class="txt-rose">Moins prévisible, demande discipline</strong></div>
         </div>
       </div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Stratégie des 3 seaux (Bucket Strategy) :</strong> diviser le portefeuille en 3 compartiments. Seau 1 : liquidités 1-2 ans de dépenses — ne jamais vendre en krach. Seau 2 : obligations/branche 21 pour les 3-7 ans — se reconstitue depuis les dividendes et coupons. Seau 3 : actions long terme — touché seulement après 7+ ans. En cas de krach, on consomme le seau 1 et on attend que le seau 3 récupère. Popularisée par Christine Benz (Morningstar).</p>
-      <p style="margin-top:10px;"><strong>Fiscalité belge en décumulation :</strong> depuis janvier 2026, chaque vente d'ETF génère une taxe PV de 10% sur la plus-value. Sur un retrait mensuel de 1.500 € depuis un portefeuille avec 50% de plus-value, l'impact fiscal réel est ~1-1,5%/an de rendement en moins. À intégrer dans le taux de retrait durable.</p>
+      <p><strong>Stratégie des 3 seaux (Bucket Strategy) :</strong> diviser le portefeuille en 3 compartiments.</p>
+      <div class="steps-list">
+        <div class="step-row"><span class="step-badge step-badge-cyan">1</span><span><strong>Seau 1</strong> — Liquidités 1–2 ans de dépenses. Ne jamais vendre en krach.</span></div>
+        <div class="step-row"><span class="step-badge step-badge-green">2</span><span><strong>Seau 2</strong> — Obligations/branche 21 pour les 3–7 ans. Se reconstitue depuis les dividendes.</span></div>
+        <div class="step-row"><span class="step-badge step-badge-rose">3</span><span><strong>Seau 3</strong> — Actions long terme. Touché seulement après 7+ ans. Temps de récupérer les krachs.</span></div>
+      </div>
+      <p class="page-subtitle"><strong>Fiscalité belge en décumulation :</strong> depuis janvier 2026, chaque vente d'ETF génère une taxe PV de 10% sur la plus-value. Sur un retrait mensuel depuis un portefeuille avec 50% de plus-value, l'impact fiscal réel est ~1–1,5%/an de rendement en moins. À intégrer dans le taux de retrait durable.</p>
     </div>
   </div>
 </div>
 
+<!-- ── BELGIQUE ── -->
 <div class="content-card toc-target reveal" id="belgique">
   <h3>🇧🇪 Contexte belge — pension + capital privé</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>En Belgique, tu ne pars pas de zéro en retraite — tu as une pension légale. Cette pension réduit le capital privé nécessaire. Exemple : si tu as besoin de 3.000 €/mois et que ta pension légale est de 1.500 €, ton capital privé doit couvrir seulement 1.500 €/mois — soit un capital FIRE de 1.500 × 12 / 4% = <strong>450.000 €</strong> au lieu de 900.000 €.</p>
+      <p>En Belgique, tu ne pars pas de zéro en retraite — tu as une pension légale. Cette pension réduit le capital privé nécessaire.</p>
+      <div class="exemple-box-green">
+        <strong>Exemple :</strong> besoin de 3.000 €/mois · pension légale 1.500 €/mois<br>
+        → Capital à financer via FIRE : 1.500 €/mois<br>
+        → Capital FIRE nécessaire : 1.500 × 12 / 4% = <strong class="txt-green">450.000 € seulement</strong><br>
+        → Au lieu de 3.000 × 12 / 4% = 900.000 € sans pension légale
+      </div>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p><strong>Coordination FIRE et pension légale belge :</strong> si tu vises le FIRE à 50 ans mais que ta pension légale ne démarre qu'à 67, ton capital doit couvrir 100% des besoins pendant 17 ans, puis seulement le delta pendant les années suivantes. Cette transition justifie une allocation plus agressive avant 67 ans (besoin de croissance) et plus défensive après (la pension légale amortit une partie du risque). Modélisation avec des outils comme Portfolio Visualizer ou une feuille Excel de projection.</p>
+      <p><strong>Coordination FIRE et pension légale belge :</strong> si tu vises le FIRE à 50 ans mais que ta pension légale ne démarre qu'à 67, ton capital doit couvrir 100% des besoins pendant 17 ans, puis seulement le delta après. Cette transition justifie une allocation plus agressive avant 67 ans (besoin de croissance) et plus défensive après (la pension légale amortit une partie du risque).</p>
     </div>
   </div>
 </div>
+
+<div data-ww-cta="pilote"></div>
 
 <div class="see-also">
   <div class="see-also-label">Voir aussi</div>
@@ -125,10 +195,85 @@
   <a href="/invest/allocation.html" class="see-also-pill">🎯 Allocation</a>
   <a href="/parcours/psychologie.html" class="see-also-pill">🧠 Psychologie</a>
 </div>
+
 </div>
 
+<script>
+/* ── Graphique décumulation (point 77) ── */
+function drawDecumulChart() {
+  const canvas = document.getElementById('decumul-chart');
+  if (!canvas) return;
+  const W = canvas.parentElement.offsetWidth, H = 130, dpr = window.devicePixelRatio || 1;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+
+  const capital = 500000, retrait = 20000, years = 35;
+
+  // 3 scénarios : rendements annuels différents
+  const scenarios = [
+    { taux: 0.08, color: '#2ECC71', label: 'Bon' },
+    { taux: 0.06, color: '#E8C23A', label: 'Moyen' },
+    { taux: 0.03, color: '#E87CC3', label: 'Difficile' },
+  ];
+
+  const data = scenarios.map(s => {
+    const vals = [capital];
+    for (let y = 1; y <= years; y++) {
+      const prev = vals[vals.length - 1];
+      vals.push(Math.max(0, prev * (1 + s.taux) - retrait));
+    }
+    return { ...s, vals };
+  });
+
+  const maxV = capital;
+  const P = { t: 10, r: 10, b: 20, l: 50 };
+  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const x = i => P.l + (i / years) * cW;
+  const y = v => P.t + cH - (Math.min(v, maxV) / maxV) * cH;
+
+  let prog = 0;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const p = Math.min(prog, 1);
+
+    [0.25, 0.5, 0.75, 1].forEach(pct => {
+      ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(P.l, P.t+cH*(1-pct)); ctx.lineTo(P.l+cW, P.t+cH*(1-pct)); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.28)'; ctx.font = '8px DM Sans'; ctx.textAlign = 'right';
+      ctx.fillText(Math.round(maxV*pct/1000)+'k€', P.l-3, P.t+cH*(1-pct)+3);
+    });
+
+    const n = Math.min(years+1, Math.ceil((years+1)*p));
+    data.forEach(s => {
+      ctx.beginPath(); ctx.strokeStyle = s.color; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+      for (let i = 0; i < n; i++) {
+        i === 0 ? ctx.moveTo(x(i), y(s.vals[i])) : ctx.lineTo(x(i), y(s.vals[i]));
+      }
+      ctx.stroke();
+    });
+
+    // Labels années
+    [0, 10, 20, 30].forEach(yr => {
+      ctx.fillStyle = 'rgba(255,255,255,0.28)'; ctx.font = '8px DM Sans'; ctx.textAlign = 'center';
+      ctx.fillText('an '+yr, x(yr), P.t+cH+14);
+    });
+
+    prog += 0.04; if (prog < 1) requestAnimationFrame(draw);
+  };
+  const obs = new IntersectionObserver(e => { if(e[0].isIntersecting){draw();obs.disconnect();} }, {threshold:0.3});
+  obs.observe(canvas);
+}
+
+window.addEventListener('load', () => {
+  drawDecumulChart();
+  if (typeof WW_Tools?.simulateurFIRE === 'function') WW_Tools.simulateurFIRE('tool-fire');
+});
+window.addEventListener('resize', drawDecumulChart);
+</script>
 
 <script src="/assets/data.js"></script>
 <script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
-</body></html>
+</body>
+</html>

@@ -2,9 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plateformes Crypto Belgique 2026 — Exchanges, Wallets, Cold Storage — WealthWaffle</title>
+  <title>🏦 Plateformes Crypto Belgique 2026 — Exchanges, Wallets — WealthWaffle</title>
   <meta name="description" content="Comparatif des exchanges crypto accessibles en Belgique (Binance, Bitvavo, Kraken, Coinbase...), cold wallets (Ledger, Trezor) et hot wallets. Guide complet 2026.">
+  <meta property="og:title" content="Plateformes Crypto Belgique 2026 — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
@@ -13,18 +16,10 @@
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<div class="page" style="padding-top:80px;">
+<div class="page">
 <div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/invest/">Investir</a><span>/</span><a href="/invest/crypto.html">Crypto</a><span>/</span><span>Plateformes</span></div>
-
-<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;">
-  <a href="/invest/crypto.html" class="source-pill">🪙 Guide Crypto</a>
-  <a href="/invest/crypto-plateformes.html" class="source-pill" style="background:rgba(232,194,58,0.12);border-color:rgba(232,194,58,0.30);color:#E8C23A;">🏦 Plateformes ←</a>
-  <a href="/fiscal/crypto.html" class="source-pill">📋 Fiscalité Crypto</a>
-  <a href="/outils/fiscal-crypto.html" class="source-pill">🧮 Calculateur FIFO</a>
-</div>
 
 <nav class="toc-sidebar">
   <a href="#exchanges">🔶 Exchanges</a>
@@ -34,15 +29,22 @@
   <a href="#mica">🇪🇺 MiCA & Belgique</a>
 </nav>
 
+<div class="eyebrow eyebrow-crypto">🏦 Plateformes & Sécurité</div>
+<h1 class="display">Exchanges, Wallets<br><span class="txt-crypto">le guide belge 2026</span></h1>
+<p class="lead">Quelle plateforme pour acheter ? Où sécuriser ses cryptos ? Quels wallets utiliser ? Tout ce qu'il faut savoir pour le marché belge.</p>
+
 <div class="reading-time">
   <span class="reading-time-badge">🌱 Débutant : ~6 min</span>
   <span class="reading-time-badge">🚀 Avancé : ~12 min</span>
-  <span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span>
+  <span class="reading-meta">· Juin 2026</span>
 </div>
 
-<div class="eyebrow" style="background:rgba(232,194,58,0.10);color:#E8C23A;">🏦 Plateformes & Sécurité</div>
-<h1 class="display">Exchanges, Wallets<br><span style="color:#E8C23A;">le guide belge 2026</span></h1>
-<p class="lead" style="margin-bottom:32px;">Quelle plateforme pour acheter ? Où sécuriser ses cryptos ? Quels wallets utiliser ? Tout ce qu'il faut savoir pour le marché belge.</p>
+<div class="pill-nav">
+  <a href="/invest/crypto.html" class="source-pill">🪙 Guide Crypto</a>
+  <a href="/invest/crypto-plateformes.html" class="source-pill source-pill-active-crypto">🏦 Plateformes ←</a>
+  <a href="/fiscal/crypto.html" class="source-pill">📋 Fiscalité Crypto</a>
+  <a href="/outils/fiscal-crypto.html" class="source-pill">🧮 Calculateur FIFO</a>
+</div>
 
 <!-- ── EXCHANGES ── -->
 <div class="content-card toc-target reveal" id="exchanges">
@@ -58,90 +60,38 @@
     </div>
   </div>
 
-  <div class="table-wrap" style="margin-top:14px;">
+  <!-- Graphique frais exchanges (point 77) -->
+  <p class="chart-label">Frais de transaction estimés par exchange (% par ordre)</p>
+  <div class="chart-container">
+    <canvas id="exchange-chart" height="130"></canvas>
+  </div>
+  <div class="chart-legend">
+    <span><span class="chart-legend-dot dot-green"></span>Maker</span>
+    <span><span class="chart-legend-dot dot-cyan"></span>Taker</span>
+  </div>
+
+  <div class="table-wrap">
     <table>
       <thead>
-        <tr>
-          <th>Plateforme</th>
-          <th>Points forts</th>
-          <th>Profil idéal</th>
-          <th>MiCA / FSMA</th>
-        </tr>
+        <tr><th>Plateforme</th><th>Points forts</th><th>Profil idéal</th><th>MiCA / FSMA</th></tr>
       </thead>
       <tbody>
-        <tr>
-          <td><strong>Bitvavo</strong></td>
-          <td>Frais parmi les plus bas (0,25%), interface simple, conformité MiCA, rapport fiscal intégré</td>
-          <td>Débutant → Intermédiaire</td>
-          <td style="color:#7EC8A0;font-weight:700;">✅ MiCA</td>
-        </tr>
-        <tr>
-          <td><strong>Kraken</strong></td>
-          <td>Sécurité robuste, audits réguliers, large sélection, rapport fiscal CSV clean</td>
-          <td>Investisseur sérieux</td>
-          <td style="color:#7EC8A0;">✅ MiCA</td>
-        </tr>
-        <tr>
-          <td><strong>Coinbase</strong></td>
-          <td>Interface intuitive, très réglementé, bon pour les débutants, Learning Rewards</td>
-          <td>Débutant</td>
-          <td style="color:#7EC8A0;">✅ MiCA</td>
-        </tr>
-        <tr>
-          <td><strong>Binance</strong></td>
-          <td>Liquidité massive, outils avancés, DCA automatique, large choix de tokens</td>
-          <td>Trader actif · Intermédiaire</td>
-          <td style="color:#E8C23A;">⚠️ En cours</td>
-        </tr>
-        <tr>
-          <td><strong>Bitstack</strong></td>
-          <td>DCA Bitcoin ultra-simple, arrondi automatique, interface épurée</td>
-          <td>HODL long terme (BTC only)</td>
-          <td style="color:#7EC8A0;">✅ MiCA</td>
-        </tr>
-        <tr>
-          <td><strong>Bitpanda</strong></td>
-          <td>Crypto + actions + métaux + plans d'épargne. Tout en un, autrichien</td>
-          <td>Diversification · Épargne</td>
-          <td style="color:#7EC8A0;">✅ MiCA</td>
-        </tr>
-        <tr>
-          <td><strong>Trade Republic</strong></td>
-          <td>Plans d'investissement automatiques gratuits, aussi actions/ETF</td>
-          <td>Épargne passive multi-actifs</td>
-          <td style="color:#7EC8A0;">✅ MiCA</td>
-        </tr>
-        <tr>
-          <td><strong>Crypto.com</strong></td>
-          <td>Carte Visa crypto, cashback, écosystème complet</td>
-          <td>Usage quotidien · Lifestyle</td>
-          <td style="color:#7EC8A0;">✅ MiCA</td>
-        </tr>
-        <tr>
-          <td><strong>Revolut</strong></td>
-          <td>Pratique si déjà client, mais frais élevés et pas un vrai exchange</td>
-          <td>Petit montant · Découverte</td>
-          <td style="color:#E8C23A;">⚠️ Compte bancaire EU</td>
-        </tr>
-        <tr>
-          <td><strong>Bybit / OKX</strong></td>
-          <td>Volume élevé, produits dérivés, outils avancés</td>
-          <td>Expert · Trader</td>
-          <td style="color:#E87CC3;">⛔ Hors MiCA</td>
-        </tr>
-        <tr>
-          <td><strong>eToro</strong></td>
-          <td>Social trading, copier des traders — mais frais élevés et CFD (pas ownership réel)</td>
-          <td>Découverte avec caution</td>
-          <td style="color:#E8C23A;">⚠️ CFD ≠ ownership</td>
-        </tr>
+        <tr><td><strong>Bitvavo</strong></td><td>Frais parmi les plus bas (0,25%), interface simple, rapport fiscal intégré</td><td>Débutant → Intermédiaire</td><td class="td-mica-ok">✅ MiCA</td></tr>
+        <tr><td><strong>Kraken</strong></td><td>Sécurité robuste, audits réguliers, rapport fiscal CSV clean</td><td>Investisseur sérieux</td><td class="td-mica-ok">✅ MiCA</td></tr>
+        <tr><td><strong>Coinbase</strong></td><td>Interface intuitive, très réglementé, Learning Rewards</td><td>Débutant</td><td class="td-mica-ok">✅ MiCA</td></tr>
+        <tr><td><strong>Binance</strong></td><td>Liquidité massive, outils avancés, DCA automatique</td><td>Trader actif · Intermédiaire</td><td class="td-mica-warn">⚠️ En cours</td></tr>
+        <tr><td><strong>Bitstack</strong></td><td>DCA Bitcoin ultra-simple, arrondi automatique</td><td>HODL long terme (BTC only)</td><td class="td-mica-ok">✅ MiCA</td></tr>
+        <tr><td><strong>Bitpanda</strong></td><td>Crypto + actions + métaux + plans d'épargne</td><td>Diversification · Épargne</td><td class="td-mica-ok">✅ MiCA</td></tr>
+        <tr><td><strong>Trade Republic</strong></td><td>Plans d'investissement automatiques gratuits, aussi actions/ETF</td><td>Épargne passive multi-actifs</td><td class="td-mica-ok">✅ MiCA</td></tr>
+        <tr><td><strong>Crypto.com</strong></td><td>Carte Visa crypto, cashback, écosystème complet</td><td>Usage quotidien · Lifestyle</td><td class="td-mica-ok">✅ MiCA</td></tr>
+        <tr><td><strong>Revolut</strong></td><td>Pratique si déjà client — mais frais élevés, pas un vrai exchange</td><td>Petit montant · Découverte</td><td class="td-mica-warn">⚠️ Compte bancaire EU</td></tr>
+        <tr><td><strong>Bybit / OKX</strong></td><td>Volume élevé, produits dérivés, outils avancés</td><td>Expert · Trader</td><td class="td-mica-no">⛔ Hors MiCA</td></tr>
+        <tr><td><strong>eToro</strong></td><td>Social trading — mais frais élevés et CFD (pas ownership réel)</td><td>Découverte avec caution</td><td class="td-mica-warn">⚠️ CFD ≠ ownership</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="warn-box" style="margin-top:14px;">
-    💡 <strong>Recommandation WealthWaffle pour débuter en Belgique :</strong> Bitvavo ou Kraken. Frais raisonnables, conformité MiCA, export CSV compatible avec notre calculateur fiscal.
-  </div>
+  <div class="info-box">💡 <strong>Recommandation WealthWaffle pour débuter en Belgique :</strong> Bitvavo ou Kraken. Frais raisonnables, conformité MiCA, export CSV compatible avec notre calculateur fiscal.</div>
 </div>
 
 <!-- ── COLD WALLETS ── -->
@@ -156,11 +106,20 @@
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
       <p>Le cold wallet ne stocke pas les cryptos — il stocke les clés privées. Les cryptos sont sur la blockchain. Si tu perds l'appareil, tu peux récupérer l'accès via ta seed phrase sur n'importe quel wallet compatible.</p>
-      <p><strong>⛔ N'achetez jamais d'occasion.</strong> Achetez uniquement sur les sites officiels : <strong>ledger.com</strong>, <strong>trezor.io</strong>, <strong>shiftcrypto.ch</strong>.</p>
+      <div class="warn-box">⛔ N'achetez jamais d'occasion. Achetez uniquement sur les sites officiels : <strong>ledger.com</strong>, <strong>trezor.io</strong>, <strong>shiftcrypto.ch</strong>.</div>
     </div>
   </div>
 
-  <div class="table-wrap" style="margin-top:14px;">
+  <!-- Waffy sécurité — point 78 -->
+  <div class="waffy-tip">
+    <img src="/img/waffy/waffy-securite.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
+    <div class="waffy-tip-content">
+      <strong>La règle d'or du cold wallet</strong>
+      Ta seed phrase est ta crypto. Pas l'appareil — la seed. Si quelqu'un obtient tes 24 mots, il obtient tout. Écris-les à la main, sur papier ou plaque métallique. Jamais dans le cloud, jamais en photo, jamais par message. Si tu la perds, tu perds tout. Si quelqu'un la vole, tu perds tout.
+    </div>
+  </div>
+
+  <div class="table-wrap">
     <table>
       <thead><tr><th>Modèle</th><th>Points forts</th><th>Idéal pour</th><th>Prix indicatif</th></tr></thead>
       <tbody>
@@ -180,21 +139,20 @@
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>Un hot wallet est une application sur ton téléphone ou navigateur. Connecté à internet, il est moins sécurisé qu'un cold wallet mais plus pratique pour les transactions fréquentes. À n'utiliser que pour de petits montants.</p>
+      <p>Un hot wallet est une application sur ton téléphone ou navigateur. Moins sécurisé qu'un cold wallet — à n'utiliser que pour de petits montants.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
       <p><strong>Custodial vs Non-Custodial :</strong> sur les exchanges, tu n'es pas propriétaire de tes clés privées ("not your keys, not your coins"). Les wallets non-custodial (MetaMask, Trust) te donnent le contrôle total — mais aussi la responsabilité de la sauvegarde.</p>
     </div>
   </div>
-
-  <div class="table-wrap" style="margin-top:14px;">
+  <div class="table-wrap">
     <table>
       <thead><tr><th>Wallet</th><th>Points forts</th><th>Idéal pour</th></tr></thead>
       <tbody>
         <tr><td><strong>MetaMask</strong></td><td>Référence Web3, DeFi, NFT, toutes EVM chains</td><td>DeFi · NFT · Avancé</td></tr>
         <tr><td><strong>Trust Wallet</strong></td><td>Multi-chain, simple, mobile first</td><td>Débutant · Mobile</td></tr>
-        <tr><td><strong>Rabby Wallet</strong></td><td>Interface sécurité avancée, multi-chain, simulation de tx</td><td>Avancé · Multi-chain</td></tr>
+        <tr><td><strong>Rabby Wallet</strong></td><td>Interface sécurité avancée, simulation de tx</td><td>Avancé · Multi-chain</td></tr>
         <tr><td><strong>Exodus</strong></td><td>Design soigné, multi-actifs, staking intégré</td><td>Usage quotidien · Non-technique</td></tr>
         <tr><td><strong>BlueWallet</strong></td><td>Focus Bitcoin, Lightning Network, self-custody</td><td>Puristes Bitcoin</td></tr>
         <tr><td><strong>Proton Wallet</strong></td><td>Confidentialité, intégration Proton</td><td>Écosystème Proton · Privacy</td></tr>
@@ -206,38 +164,16 @@
 <!-- ── CHECKLIST SÉCURITÉ ── -->
 <div class="content-card toc-target reveal" id="checklist">
   <h3>✅ Checklist mise en service wallet</h3>
-  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;">À suivre lors de la configuration de ton cold wallet. Imprimer et garder à portée de main.</p>
-
-  <div style="display:flex;flex-direction:column;gap:8px;">
-    <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;">
-      <div style="width:20px;height:20px;background:rgba(126,200,160,0.20);border:1px solid rgba(126,200,160,0.30);border-radius:4px;flex-shrink:0;margin-top:2px;"></div>
-      <span style="font-size:0.82rem;color:var(--text2);">Je suis seul·e dans une pièce calme, sans observation possible.</span>
-    </div>
-    <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;">
-      <div style="width:20px;height:20px;background:rgba(126,200,160,0.20);border:1px solid rgba(126,200,160,0.30);border-radius:4px;flex-shrink:0;margin-top:2px;"></div>
-      <span style="font-size:0.82rem;color:var(--text2);">J'ai acheté mon appareil exclusivement sur le site officiel du constructeur.</span>
-    </div>
-    <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;">
-      <div style="width:20px;height:20px;background:rgba(126,200,160,0.20);border:1px solid rgba(126,200,160,0.30);border-radius:4px;flex-shrink:0;margin-top:2px;"></div>
-      <span style="font-size:0.82rem;color:var(--text2);">J'ai noté mes 12 ou 24 mots manuellement sur papier ou plaque métallique — jamais en photo, jamais dans le cloud.</span>
-    </div>
-    <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;">
-      <div style="width:20px;height:20px;background:rgba(126,200,160,0.20);border:1px solid rgba(126,200,160,0.30);border-radius:4px;flex-shrink:0;margin-top:2px;"></div>
-      <span style="font-size:0.82rem;color:var(--text2);">J'ai vérifié deux fois l'orthographe de chaque mot dans l'ordre exact.</span>
-    </div>
-    <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;">
-      <div style="width:20px;height:20px;background:rgba(126,200,160,0.20);border:1px solid rgba(126,200,160,0.30);border-radius:4px;flex-shrink:0;margin-top:2px;"></div>
-      <span style="font-size:0.82rem;color:var(--text2);">J'ai effectué un test de transfert (quelques euros) avant de déplacer la totalité de mes fonds.</span>
-    </div>
-    <div style="background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;">
-      <div style="width:20px;height:20px;background:rgba(126,200,160,0.20);border:1px solid rgba(126,200,160,0.30);border-radius:4px;flex-shrink:0;margin-top:2px;"></div>
-      <span style="font-size:0.82rem;color:var(--text2);">Je cache mon support physique dans un endroit sécurisé (coffre, lieu protégé contre le feu et l'eau).</span>
-    </div>
+  <p class="page-subtitle">À suivre lors de la configuration de ton cold wallet.</p>
+  <div class="wallet-checklist">
+    <div class="wallet-checklist-item"><div class="wallet-check-box"></div><span>Je suis seul·e dans une pièce calme, sans observation possible.</span></div>
+    <div class="wallet-checklist-item"><div class="wallet-check-box"></div><span>J'ai acheté mon appareil exclusivement sur le site officiel du constructeur.</span></div>
+    <div class="wallet-checklist-item"><div class="wallet-check-box"></div><span>J'ai noté mes 12 ou 24 mots manuellement sur papier ou plaque métallique — jamais en photo, jamais dans le cloud.</span></div>
+    <div class="wallet-checklist-item"><div class="wallet-check-box"></div><span>J'ai vérifié deux fois l'orthographe de chaque mot dans l'ordre exact.</span></div>
+    <div class="wallet-checklist-item"><div class="wallet-check-box"></div><span>J'ai effectué un test de transfert (quelques euros) avant de déplacer la totalité de mes fonds.</span></div>
+    <div class="wallet-checklist-item"><div class="wallet-check-box"></div><span>Je cache mon support physique dans un endroit sécurisé (coffre, lieu protégé contre le feu et l'eau).</span></div>
   </div>
-
-  <div class="warn-box" style="margin-top:14px;">
-    🚨 <strong>Rappel crucial :</strong> le support officiel ne te demandera <em>jamais</em> ta phrase de récupération. Toute personne ou site qui la demande = tentative de piratage. Ne réponds pas, ferme et signale.
-  </div>
+  <div class="warn-box">🚨 <strong>Rappel crucial :</strong> le support officiel ne te demandera <em>jamais</em> ta phrase de récupération. Toute personne ou site qui la demande = tentative de piratage.</div>
 </div>
 
 <!-- ── MiCA ── -->
@@ -246,27 +182,29 @@
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
-      <p>MiCA (Markets in Crypto-Assets) est la réglementation européenne qui encadre les exchanges crypto depuis 2024-2025. En pratique pour toi : préfère les plateformes enregistrées MiCA — elles sont tenues à des obligations de transparence et de protection des clients.</p>
+      <p>MiCA (Markets in Crypto-Assets) est la réglementation européenne qui encadre les exchanges crypto depuis 2024–2025. Préfère les plateformes enregistrées MiCA — elles sont tenues à des obligations de transparence et de protection des clients.</p>
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p>Deux obligations belges indépendantes de MiCA à ne pas confondre :</p>
-      <ul style="font-size:0.80rem;color:var(--muted);line-height:1.9;padding-left:20px;">
-        <li><strong>Déclaration PCC (BNB) :</strong> tout compte sur un exchange étranger (hors Belgique) doit être déclaré au Point de Contact Central de la Banque Nationale. Formulaire en ligne, une fois par compte ouvert. Amende jusqu'à 1.250 €/compte/an si oublié.</li>
-        <li><strong>DAC8 :</strong> depuis 2026, tous les exchanges européens transmettent automatiquement tes données de transactions au SPF Finances. Il n'est plus possible de "ne pas déclarer" sans risque de redressement.</li>
-        <li><strong>FSMA :</strong> en Belgique, la FSMA supervise les prestataires de services crypto enregistrés localement. La liste est disponible sur fsma.be.</li>
+      <p>Deux obligations belges indépendantes de MiCA :</p>
+      <ul class="list-muted">
+        <li><strong>Déclaration PCC (BNB) :</strong> tout compte sur un exchange étranger doit être déclaré au Point de Contact Central de la BNB. Une fois par compte ouvert. Amende jusqu'à 1.250€/compte/an si oublié.</li>
+        <li><strong>DAC8 :</strong> depuis 2026, tous les exchanges européens transmettent automatiquement tes données au SPF Finances.</li>
+        <li><strong>FSMA :</strong> la FSMA supervise les prestataires de services crypto enregistrés localement. Liste disponible sur fsma.be.</li>
       </ul>
     </div>
   </div>
 </div>
 
-<!-- CTA Fiscalité crypto -->
-<aside style="background:rgba(232,194,58,0.05);border:1px solid rgba(232,194,58,0.20);border-radius:16px;padding:20px;margin:24px 0;">
-  <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E8C23A;margin-bottom:8px;">🧮 Add-on Conformité Crypto</div>
-  <p style="font-size:0.84rem;color:var(--muted);line-height:1.7;margin-bottom:14px;">Tu utilises Binance, Kraken, Coinbase ou Bitvavo ? Notre calculateur importe tes CSV, applique le FIFO belge 2026 avec step-up au 31/12/2025 et génère ton rapport Excel prêt pour MyMinfin.</p>
-  <a href="/outils/fiscal-crypto.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:12px;background:linear-gradient(135deg,#E8C23A,#c9a420);color:#1E1D38;font-weight:700;font-size:0.84rem;text-decoration:none;">Calculer mes plus-values →</a>
-  <span style="font-size:0.70rem;color:var(--muted);margin-left:10px;">49€/an · Calcul 100% local</span>
-</aside>
+<!-- CTA addon crypto -->
+<div class="cta-addon-crypto">
+  <div class="eyebrow eyebrow-crypto">🧮 Add-on Conformité Crypto</div>
+  <p class="cta-addon-crypto-desc">Tu utilises Binance, Kraken, Coinbase ou Bitvavo ? Notre calculateur importe tes CSV, applique le FIFO belge 2026 avec step-up au 31/12/2025 et génère ton rapport Excel prêt pour MyMinfin.</p>
+  <a href="/outils/fiscal-crypto.html" class="cta-addon-crypto-btn">Calculer mes plus-values →</a>
+  <div class="cta-addon-crypto-note">49€/an · Calcul 100% local</div>
+</div>
+
+<div data-ww-cta="pilote"></div>
 
 <div class="source-block">
   <span class="source-block-label">Sources</span>
@@ -285,7 +223,74 @@
 </div>
 
 </div>
+
+<script>
+/* ── Graphique frais exchanges (point 77) ── */
+function drawExchangeChart() {
+  const canvas = document.getElementById('exchange-chart');
+  if (!canvas) return;
+  const W = canvas.parentElement.offsetWidth, H = 130, dpr = window.devicePixelRatio || 1;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+
+  const DATA = [
+    { label: 'Bitvavo',       maker: 0.03, taker: 0.25 },
+    { label: 'Kraken',        maker: 0.16, taker: 0.26 },
+    { label: 'Coinbase',      maker: 0.40, taker: 0.60 },
+    { label: 'Binance',       maker: 0.10, taker: 0.10 },
+    { label: 'Bitpanda',      maker: 0.10, taker: 0.15 },
+    { label: 'Revolut',       maker: 1.49, taker: 1.99 },
+  ];
+
+  const maxV = 2.0;
+  const P = { t: 10, r: 10, b: 32, l: 40 };
+  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const bW = cW / DATA.length * 0.35, gap = cW / DATA.length;
+
+  let prog = 0;
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const p = Math.min(prog, 1);
+
+    [0.5, 1.0, 1.5, 2.0].forEach(v => {
+      ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(P.l, P.t+cH*(1-v/maxV)); ctx.lineTo(P.l+cW, P.t+cH*(1-v/maxV)); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.28)'; ctx.font = '8px DM Sans'; ctx.textAlign = 'right';
+      ctx.fillText(v+'%', P.l-3, P.t+cH*(1-v/maxV)+3);
+    });
+
+    DATA.forEach((d, i) => {
+      const x = P.l + gap*i + (gap-bW*2-4)/2;
+
+      // Maker
+      const mH = (d.maker/maxV)*cH*p;
+      ctx.fillStyle = '#2ECC71' + '90';
+      ctx.fillRect(x, P.t+cH-mH, bW, mH);
+
+      // Taker
+      const tH = (d.taker/maxV)*cH*p;
+      ctx.fillStyle = '#5BB8D4' + '90';
+      ctx.fillRect(x+bW+2, P.t+cH-tH, bW, tH);
+
+      if (p > 0.8) {
+        ctx.fillStyle = 'rgba(255,255,255,0.45)';
+        ctx.font = '7.5px DM Sans'; ctx.textAlign = 'center';
+        ctx.fillText(d.label, x+bW+1, P.t+cH+14);
+      }
+    });
+
+    prog += 0.04; if (prog < 1) requestAnimationFrame(draw);
+  };
+  const obs = new IntersectionObserver(e => { if(e[0].isIntersecting){draw();obs.disconnect();} }, {threshold:0.3});
+  obs.observe(canvas);
+}
+window.addEventListener('load', drawExchangeChart);
+window.addEventListener('resize', drawExchangeChart);
+</script>
+
 <script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
 </body>
 </html>

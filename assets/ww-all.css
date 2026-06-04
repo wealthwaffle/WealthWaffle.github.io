@@ -3521,3 +3521,325 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 
 /* Note budget */
 .budget-note { font-size: 0.76rem; color: var(--muted); margin-top: 10px; }
+
+/* ══ BUDGET / BANQUES ══ */
+/* Liste frais bancaires */
+.frais-list { display: flex; flex-direction: column; gap: 6px; margin: 14px 0; }
+.frais-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--s3); border-radius: 10px; font-size: 0.82rem; }
+.frais-item-accent { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(232,124,195,0.07); border: 1px solid rgba(232,124,195,0.15); border-radius: 10px; font-size: 0.82rem; }
+.frais-item-label { color: var(--text2); }
+.frais-item-value { color: var(--muted); font-size: 0.76rem; }
+.frais-item-value-rose { color: var(--rose); font-size: 0.76rem; }
+
+/* Tableau banques — spans secondaires dans les cellules */
+.td-sub { font-size: 0.70rem; color: var(--muted); display: block; }
+.td-free { color: #7EC8A0; font-weight: 600; }
+
+/* Cartes stratégie bancaire */
+.strategie-list { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+.strategie-card { background: var(--s3); border-radius: 12px; padding: 14px; }
+.strategie-card-title { font-size: 0.84rem; font-weight: 700; margin-bottom: 6px; }
+.strategie-card-text { font-size: 0.80rem; color: var(--muted); line-height: 1.7; }
+.strategie-card-salarié  { }
+.strategie-title-salarié  { color: #7EC8A0; }
+.strategie-title-voyageur { color: #5BB8D4; }
+.strategie-title-indep    { color: #c9b8ff; }
+.strategie-title-dirigeant { color: #C4724A; }
+
+/* Liens comparateurs (cartes cliquables) */
+.comparateur-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.link-card { display: flex; align-items: center; gap: 12px; background: var(--s3); border-radius: 10px; padding: 12px 14px; text-decoration: none; transition: opacity 0.18s; }
+.link-card:hover { opacity: 0.80; }
+.link-card-emoji { font-size: 1.1rem; flex-shrink: 0; }
+.link-card-title { font-size: 0.84rem; font-weight: 700; color: var(--text); }
+.link-card-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+/* Note tableau */
+.table-note { font-size: 0.72rem; color: var(--muted2); margin-top: 8px; }
+
+/* ══ FISCAL / CRYPTO — classes manquantes ══ */
+.regime-grid { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.regime-card { border-radius: 12px; padding: 14px; }
+.regime-card-normal { background: rgba(126,200,160,0.08); border: 1px solid rgba(126,200,160,0.20); }
+.regime-card-spec   { background: rgba(232,124,195,0.07); border: 1px solid rgba(232,124,195,0.18); }
+.regime-card-pro    { background: rgba(196,114,74,0.07);  border: 1px solid rgba(196,114,74,0.18);  }
+.regime-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.10em; margin-bottom: 4px; }
+.regime-label-normal { color: #7EC8A0; }
+.regime-label-spec   { color: var(--rose); }
+.regime-label-pro    { color: #C4724A; }
+.regime-taux  { font-size: 1.2rem; font-weight: 800; line-height: 1.1; }
+.regime-desc  { font-size: 0.80rem; color: var(--muted); margin-top: 4px; }
+
+.exemple-box { background: var(--s3); border-radius: 12px; padding: 14px; margin: 12px 0; font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
+.exemple-box-green { background: rgba(126,200,160,0.08); border: 1px solid rgba(126,200,160,0.20); border-radius: 12px; padding: 14px; margin: 12px 0; font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
+
+.myminfin-step-gold .myminfin-step-num { background: linear-gradient(135deg,#E8C23A,#c9a420); color: #1E1D38; }
+
+.cta-addon-crypto { background: rgba(232,194,58,0.04); border: 1px solid rgba(232,194,58,0.25); border-radius: 16px; padding: 20px; }
+.cta-addon-crypto-title { font-size: 1.0rem; font-weight: 700; margin-bottom: 6px; }
+.cta-addon-crypto-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.7; margin-bottom: 8px; }
+.cta-addon-crypto-btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 12px; background: linear-gradient(135deg,#E8C23A,#c9a420); color: #1E1D38; font-weight: 700; font-size: 0.88rem; text-decoration: none; }
+.cta-addon-crypto-note { font-size: 0.70rem; color: var(--muted); margin-top: 8px; }
+
+.txt-crypto { color: #E8C23A; }
+.txt-immo   { color: #C4724A; }
+/* ══ INVEST / CRYPTO-PLATEFORMES ══ */
+/* Checklist wallet sécurité */
+.wallet-checklist { display: flex; flex-direction: column; gap: 8px; }
+.wallet-checklist-item { background: var(--s3); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: flex-start; font-size: 0.82rem; color: var(--text2); }
+.wallet-check-box { width: 20px; height: 20px; background: rgba(126,200,160,0.20); border: 1px solid rgba(126,200,160,0.30); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+/* Tableau exchanges — statuts MiCA */
+.td-mica-ok   { color: #7EC8A0; font-weight: 700; }
+.td-mica-warn { color: #E8C23A; }
+.td-mica-no   { color: var(--rose); }
+
+/* ══ OUTILS / FISCAL-CRYPTO ══ */
+/* Gate d'accès add-on */
+.crypto-gate { text-align: center; padding: 32px; }
+.crypto-gate-icon { font-size: 2rem; margin-bottom: 12px; }
+.crypto-gate-title { font-family: 'DM Serif Display', serif; font-style: italic; margin-bottom: 10px; }
+.crypto-gate-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.7; max-width: 400px; margin: 0 auto 20px; }
+.crypto-gate-note { font-size: 0.68rem; color: var(--muted2); margin-top: 8px; }
+
+/* Grille zones de dépôt CSV */
+.crypto-drop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+@media (max-width: 480px) { .crypto-drop-grid { grid-template-columns: 1fr; } }
+
+/* Résumé import */
+.crypto-import-summary { display: none; background: rgba(126,200,160,0.08); border: 1px solid rgba(126,200,160,0.20); border-radius: 12px; padding: 12px; font-size: 0.82rem; color: var(--muted); }
+
+/* Step-up hint */
+.crypto-stepup-hint { font-size: 0.78rem; color: var(--muted); }
+.crypto-stepup-note { font-size: 0.68rem; color: var(--muted); margin-left: 8px; }
+.crypto-stepup-btn { font-size: 0.76rem; padding: 7px 14px; border-radius: 9px; border: 1px solid rgba(91,184,212,0.30); background: rgba(91,184,212,0.07); color: #5BB8D4; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+
+/* Franchise note */
+.crypto-franchise-note { font-size: 0.70rem; color: var(--muted); margin-top: 8px; }
+
+/* Validation block */
+.crypto-check-block { background: rgba(232,194,58,0.07); border: 1px solid rgba(232,194,58,0.20); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
+.crypto-check-label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-size: 0.80rem; color: var(--muted); line-height: 1.6; }
+.crypto-privacy-block { background: rgba(91,184,212,0.06); border: 1px solid rgba(91,184,212,0.18); border-radius: 10px; padding: 12px; margin-bottom: 16px; font-size: 0.76rem; color: var(--muted); line-height: 1.65; }
+
+/* Bouton calcul principal */
+.crypto-calc-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg,#E8C23A,#c9a420); color: #1E1D38; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.92rem; cursor: pointer; }
+
+/* Résultats */
+.crypto-result-header { color: #7EC8A0; }
+.crypto-result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.crypto-result-card { background: var(--s3); border-radius: 12px; padding: 14px; text-align: center; }
+.crypto-result-card-green { background: rgba(126,200,160,0.10); border: 1px solid rgba(126,200,160,0.25); border-radius: 12px; padding: 14px; text-align: center; }
+.crypto-result-label { font-size: 0.60rem; font-weight: 700; letter-spacing: 0.10em; color: var(--muted); margin-bottom: 4px; }
+.crypto-result-value { font-size: 1.4rem; font-weight: 800; }
+.crypto-warnings { display: none; background: rgba(232,124,195,0.07); border: 1px solid rgba(232,124,195,0.20); border-radius: 10px; padding: 12px; font-size: 0.76rem; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+.crypto-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.crypto-dl-btn { flex: 1; padding: 12px; border-radius: 11px; border: none; background: linear-gradient(135deg,#7EC8A0,#5ab37a); color: #fff; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.86rem; cursor: pointer; }
+.crypto-save-btn { padding: 12px 16px; border-radius: 11px; border: 1px solid var(--border); background: var(--s3); color: var(--text2); font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.84rem; cursor: pointer; }
+.crypto-result-note { font-size: 0.66rem; color: var(--muted2); margin-top: 8px; text-align: center; }
+
+/* Section revenus zone grise */
+.crypto-income-card { background: rgba(232,194,58,0.05); border-color: rgba(232,194,58,0.20); }
+.crypto-income-title { color: #E8C23A; }
+.crypto-income-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 12px; }
+.crypto-income-line { font-size: 0.78rem; color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--faint); }
+
+/* Disclaimer légal */
+.crypto-disclaimer { background: var(--s2); border-top: 1px solid var(--faint); margin-top: 32px; padding: 20px; border-radius: 12px; font-size: 0.68rem; color: var(--muted2); line-height: 1.8; }
+
+/* Calc step card with gold accent */
+.content-card-gold { background: rgba(232,194,58,0.05); border-color: rgba(232,194,58,0.25); }
+
+.stepup-hint-mb { margin-bottom: 12px; }
+.crypto-gate-hidden { display: none; }
+/* ══ BUDGET / INDEX ══ */
+/* Waterfall financier — étapes ordonnées */
+.waterfall-list { display: flex; flex-direction: column; gap: 6px; margin: 14px 0; }
+.waterfall-step { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border-radius: 0 10px 10px 0; font-size: 0.84rem; }
+.waterfall-step-1 { background: rgba(126,200,160,0.07); border-left: 3px solid #7EC8A0; }
+.waterfall-step-2 { background: rgba(91,184,212,0.07);  border-left: 3px solid #5BB8D4; }
+.waterfall-step-3 { background: rgba(201,184,255,0.07); border-left: 3px solid #c9b8ff; }
+.waterfall-step-4 { background: rgba(232,124,195,0.07); border-left: 3px solid var(--rose); }
+.waterfall-num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: #fff; }
+.waterfall-num-1 { background: #7EC8A0; }
+.waterfall-num-2 { background: #5BB8D4; }
+.waterfall-num-3 { background: #c9b8ff; color: #1E1D38; }
+.waterfall-num-4 { background: var(--rose); }
+.waterfall-text { font-size: 0.84rem; color: var(--text2); }
+.waterfall-text strong { color: var(--text); }
+
+/* Tableau brut/net */
+.brut-net-box { background: var(--s3); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.brut-net-label { font-size: 0.70rem; color: var(--muted); font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+.brut-net-rows { display: flex; flex-direction: column; gap: 5px; font-size: 0.82rem; }
+.brut-net-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--faint); color: var(--text2); }
+.brut-net-row:last-child { border-bottom: none; font-weight: 700; color: var(--text); }
+.brut-net-val { font-weight: 700; color: var(--text); }
+.brut-net-val-minus { color: var(--rose); }
+.brut-net-val-final { font-weight: 700; color: #7EC8A0; font-size: 1rem; }
+
+/* Tableau dettes */
+.td-dette-urgent { color: var(--rose); font-weight: 700; }
+.td-dette-warn   { color: #E8C23A; font-weight: 700; }
+.td-dette-ok     { color: #7EC8A0; font-weight: 700; }
+
+/* Ol numérotée budget automatisé */
+.budget-ol { font-size: 0.84rem; color: var(--text2); line-height: 2; padding-left: 18px; margin: 10px 0; }
+
+.btn-secondary { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 10px; background: var(--s3); border: 1px solid var(--border); color: var(--text2); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: opacity 0.18s; }
+.btn-secondary:hover { opacity: 0.80; }
+
+/* ══ BUDGET / RETRAITE ══ */
+.eyebrow-retraite { background: rgba(201,184,255,0.10); color: #c9b8ff; }
+.source-pill-active-retraite { background: rgba(201,184,255,0.12); border-color: rgba(201,184,255,0.30); color: #c9b8ff; }
+.txt-retraite { color: #c9b8ff; }
+
+/* KPI colorés (variantes couleur pour .kpi-card) */
+.kpi-card-green { background: rgba(126,200,160,0.07); border: 1px solid rgba(126,200,160,0.20); }
+.kpi-card-gold  { background: rgba(232,194,58,0.07);  border: 1px solid rgba(232,194,58,0.20);  }
+.kpi-card-rose  { background: rgba(232,124,195,0.07); border: 1px solid rgba(232,124,195,0.18); }
+.kpi-card-cyan  { background: rgba(91,184,212,0.07);  border: 1px solid rgba(91,184,212,0.18);  }
+
+/* Scénarios politiques (réutilisable partout) */
+.scenario-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.scenario-card { padding: 12px 14px; border-radius: 0 10px 10px 0; font-size: 0.80rem; color: var(--muted); line-height: 1.7; }
+.scenario-gold  { background: rgba(232,194,58,0.07);  border-left: 3px solid #E8C23A; }
+.scenario-rose  { background: rgba(232,124,195,0.07); border-left: 3px solid var(--rose); }
+.scenario-cyan  { background: rgba(91,184,212,0.07);  border-left: 3px solid #5BB8D4; }
+.scenario-green { background: rgba(126,200,160,0.07); border-left: 3px solid #7EC8A0; }
+.scenario-title { display: block; font-weight: 700; margin-bottom: 4px; }
+.scenario-title-gold  { color: #E8C23A; }
+.scenario-title-rose  { color: var(--rose); }
+.scenario-title-cyan  { color: #5BB8D4; }
+.scenario-title-green { color: #7EC8A0; }
+
+/* KPI timing (texte coloré + valeur) */
+.kpi-timing-value { font-size: 1.1rem; font-weight: 700; margin-top: 4px; }
+.kpi-timing-sub   { font-size: 0.78rem; color: var(--muted); }
+
+/* ══ INVEST / EQUITY — classes manquantes ══ */
+.btn-sm { font-size: 0.82rem; padding: 9px 16px; }
+
+.equity-atouts  { background: rgba(126,200,160,0.08); border: 1px solid rgba(126,200,160,0.20); border-radius: 14px; padding: 14px; }
+.equity-risques { background: rgba(232,124,195,0.08); border: 1px solid rgba(232,124,195,0.20); border-radius: 14px; padding: 14px; }
+.equity-col-title { font-weight: 700; margin-bottom: 8px; }
+.equity-atouts .equity-col-title { color: #7EC8A0; }
+.equity-risques .equity-col-title { color: var(--rose); }
+
+.ts-card { background: var(--s3); border-radius: 16px; padding: 18px; text-align: center; }
+.ts-card-micro   { border: 1px solid rgba(201,184,255,0.20); }
+.ts-card-pme     { border: 1px solid rgba(232,124,195,0.20); }
+.ts-card-scaleup { border: 1px solid rgba(91,184,212,0.20); }
+.ts-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 6px; }
+.ts-label-micro   { color: #c9b8ff; }
+.ts-label-pme     { color: var(--rose); }
+.ts-label-scaleup { color: #5BB8D4; }
+.ts-taux { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 2.2rem; }
+.ts-taux-micro   { color: #c9b8ff; }
+.ts-taux-pme     { color: var(--rose); }
+.ts-taux-scaleup { color: #5BB8D4; }
+.ts-sub  { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+.ts-sub2 { font-size: 0.72rem; color: var(--muted2); }
+
+.eltif-box { background: var(--s3); border: 1px solid rgba(201,184,255,0.15); border-radius: 14px; padding: 18px; margin: 14px 0; font-size: 0.86rem; color: var(--text2); line-height: 1.7; }
+
+.txt-purple { color: #c9b8ff; }
+.dot-purple-light { background: #c9b8ff; }
+
+/* ══ INVEST / CRYPTO ══ */
+/* Eyebrow BTC orange */
+.eyebrow-btc { background: rgba(247,147,26,0.10); color: #F7931A; }
+.source-pill-active-btc { background: rgba(247,147,26,0.12); border-color: rgba(247,147,26,0.30); color: #F7931A; }
+.txt-btc { color: #F7931A; }
+
+/* Blocs details crypto — style accordéon */
+.crypto-detail { background: var(--s3); border-radius: 12px; overflow: hidden; }
+.crypto-detail summary { padding: 14px 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+.crypto-detail summary::-webkit-details-marker { display: none; }
+.crypto-detail-header { display: flex; align-items: center; gap: 10px; }
+.crypto-detail-icon { font-size: 1.1rem; flex-shrink: 0; }
+.crypto-detail-title { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.crypto-detail-sub { font-size: 0.70rem; color: var(--muted); }
+.crypto-detail-right { display: flex; align-items: center; gap: 8px; }
+.crypto-detail-body { padding: 0 16px 16px; font-size: 0.80rem; color: var(--muted); line-height: 1.75; }
+.crypto-detail-body p + p { margin-top: 8px; }
+.crypto-detail[open] .crypto-chevron { transform: rotate(180deg); }
+.crypto-chevron { transition: transform 0.2s; display: inline-block; color: var(--muted); }
+
+/* Badge catégorie crypto */
+.cat-badge { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 20px; flex-shrink: 0; }
+.cat-badge-btc    { background: rgba(247,147,26,0.12); color: #F7931A;  border: 1px solid rgba(247,147,26,0.25); }
+.cat-badge-eth    { background: rgba(98,126,234,0.12);  color: #627EEA; border: 1px solid rgba(98,126,234,0.25); }
+.cat-badge-sol    { background: rgba(153,69,255,0.12);  color: #9945FF; border: 1px solid rgba(153,69,255,0.25); }
+.cat-badge-sui    { background: rgba(75,195,255,0.12);  color: #4BC3FF; border: 1px solid rgba(75,195,255,0.25); }
+.cat-badge-link   { background: rgba(55,91,210,0.12);   color: #375BD2; border: 1px solid rgba(55,91,210,0.25); }
+.cat-badge-hype   { background: rgba(0,214,192,0.12);   color: #00D6C0; border: 1px solid rgba(0,214,192,0.25); }
+.cat-badge-tao    { background: rgba(232,124,195,0.12); color: #E87CC3; border: 1px solid rgba(232,124,195,0.25); }
+.cat-badge-gpu    { background: rgba(255,100,50,0.12);  color: #FF6432; border: 1px solid rgba(255,100,50,0.25); }
+.cat-badge-xrp    { background: rgba(52,106,169,0.12);  color: #346AA9; border: 1px solid rgba(52,106,169,0.25); }
+.cat-badge-bnb    { background: rgba(243,186,47,0.12);  color: #F3BA2F; border: 1px solid rgba(243,186,47,0.25); }
+.cat-badge-trx    { background: rgba(255,60,60,0.12);   color: #FF3C3C; border: 1px solid rgba(255,60,60,0.25); }
+
+/* KPI profils crypto */
+.kpi-card-btc { background: rgba(247,147,26,0.08); border: 1px solid rgba(247,147,26,0.20); }
+
+/* Hot/Cold wallet grid */
+.hot-cold-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.hot-card  { background: var(--s3); border-radius: 10px; padding: 12px; }
+.cold-card { background: rgba(126,200,160,0.07); border: 1px solid rgba(126,200,160,0.20); border-radius: 10px; padding: 12px; }
+.hot-card-title  { font-weight: 700; font-size: 0.84rem; color: var(--text); margin-bottom: 4px; }
+.cold-card-title { font-weight: 700; font-size: 0.84rem; color: #7EC8A0; margin-bottom: 4px; }
+.hot-cold-text { font-size: 0.76rem; color: var(--muted); line-height: 1.65; }
+
+/* ══ INVEST / CRYPTO — classes manquantes ══ */
+.cat-badge-render { background: rgba(255,100,50,0.12); color: #FF6432; border: 1px solid rgba(255,100,50,0.25); }
+.kpi-card-orange  { background: rgba(247,147,26,0.08); border: 1px solid rgba(247,147,26,0.20); }
+.source-pill-active-btc { background: rgba(247,147,26,0.12); border-color: rgba(247,147,26,0.30); color: #F7931A; }
+.eyebrow-crypto-btc { background: rgba(247,147,26,0.10); color: #F7931A; }
+.txt-btc { color: #F7931A; }
+
+/* ══ INVEST / CRYPTO — classes complémentaires ══ */
+.crypto-detail-list  { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+.crypto-detail-name  { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.dot-eth { background: #627EEA; }
+
+/* ══ INVEST / OR ══ */
+.eyebrow-or { background: rgba(232,194,58,0.10); color: #E8C23A; }
+.source-pill-active-or { background: rgba(232,194,58,0.12); border-color: rgba(232,194,58,0.30); color: #E8C23A; }
+
+/* Steps numérotés variante or */
+.step-num-gold { min-width: 26px; height: 26px; border-radius: 50%; background: rgba(232,194,58,0.15); border: 1px solid rgba(232,194,58,0.30); color: #E8C23A; font-weight: 700; font-size: 0.72rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-item-warn { display: flex; gap: 12px; align-items: flex-start; font-size: 0.82rem; color: var(--text2); line-height: 1.6; background: rgba(232,124,195,0.07); border-radius: 9px; padding: 9px 12px; }
+.step-label { font-size: 0.84rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+
+/* ══ INVEST / ALTERNATIVES ══ */
+/* Carte hub compact (renvoi vers autre page) */
+.hub-card { background: var(--s3); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.hub-card-icon { font-size: 1.2rem; flex-shrink: 0; }
+.hub-card-body { flex: 1; min-width: 0; }
+.hub-card-title { font-size: 0.86rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.hub-card-desc  { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+/* Carte coopérative régionale */
+.coop-card { border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+.coop-card-rose  { background: rgba(232,124,195,0.06); border: 1px solid rgba(232,124,195,0.20); }
+.coop-card-cyan  { background: rgba(91,184,212,0.06);  border: 1px solid rgba(91,184,212,0.20);  }
+.coop-card-gold  { background: rgba(232,194,58,0.06);  border: 1px solid rgba(232,194,58,0.20);  }
+.coop-card-title { font-size: 0.84rem; font-weight: 700; margin-bottom: 8px; }
+.coop-card-title-rose  { color: var(--rose); }
+.coop-card-title-cyan  { color: #5BB8D4; }
+.coop-card-title-gold  { color: #E8C23A; }
+.coop-card-text { font-size: 0.78rem; color: var(--muted); line-height: 1.65; margin-bottom: 8px; }
+.coop-card-sub  { font-size: 0.76rem; color: var(--muted); line-height: 1.65; }
+
+/* Fédérale common box */
+.coop-federal-box { background: var(--s3); border-radius: 10px; padding: 12px 14px; font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+
+/* Carte tokenisation */
+.token-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+.token-card { background: var(--s3); border-radius: 12px; padding: 14px; }
+.token-card-title { font-size: 0.86rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.token-card-text  { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+/* h4 interne sections */
+.section-h4 { font-size: 0.92rem; font-weight: 700; color: var(--text); margin: 16px 0 10px; }
