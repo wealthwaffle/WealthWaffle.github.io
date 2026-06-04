@@ -3843,3 +3843,101 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 
 /* h4 interne sections */
 .section-h4 { font-size: 0.92rem; font-weight: 700; color: var(--text); margin: 16px 0 10px; }
+
+/* Lignes déductions fiscales */
+.deduction-list { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+.deduction-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: var(--s3); border-radius: 9px; font-size: 0.82rem; }
+.deduction-label { color: var(--text2); }
+.deduction-value { font-weight: 700; color: #7EC8A0; white-space: nowrap; }
+
+.step-num-cyan { min-width:26px;height:26px;border-radius:50%;background:rgba(91,184,212,0.15);border:1px solid rgba(91,184,212,0.30);color:#5BB8D4;font-weight:700;font-size:0.72rem;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+
+.kpi-card-rose-soft { background: var(--s3); border: 1px solid rgba(232,124,195,0.15); }
+.kpi-card-gold-soft { background: var(--s3); border: 1px solid rgba(232,194,58,0.15); }
+.kpi-card-green-soft { background: rgba(126,200,160,0.08); border: 1px solid rgba(126,200,160,0.20); }
+
+.flux-grid { display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;margin:14px 0; }
+.flux-card { background:var(--s3);border-radius:12px;padding:14px;text-align:center; }
+.flux-card-ok { background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.20); }
+.flux-label { font-size:0.70rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;font-weight:700; }
+.flux-label-ok { color:#7EC8A0; }
+.flux-arrow { font-size:1.4rem;color:var(--muted);text-align:center; }
+
+/* ══ FISCAL / RÉMUNÉRATION ══ */
+.remun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.remun-result-card { border-radius: 12px; padding: 14px; }
+.remun-result-card-gold  { background: rgba(232,194,58,0.07);  border: 1px solid rgba(232,194,58,0.15); }
+.remun-result-card-green { background: rgba(126,200,160,0.07); border: 1px solid rgba(126,200,160,0.15); }
+.remun-result-label { font-size: 0.70rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+.remun-result-label-gold  { color: #E8C23A; }
+.remun-result-label-green { color: #7EC8A0; }
+.remun-result-text { font-size: 0.78rem; color: var(--muted); line-height: 1.8; }
+.remun-note { font-size: 0.70rem; color: var(--muted2); margin-top: 8px; }
+.eyebrow-green { background: rgba(126,200,160,0.10); color: #7EC8A0; }
+.source-pill-active-green { background: rgba(126,200,160,0.12); border-color: rgba(126,200,160,0.30); color: #7EC8A0; }
+.txt-text2 { color: var(--text2); }
+
+/* ══ NL-BAR features ══ */
+.nl-features { display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:16px; }
+.nl-feature { font-size:0.73rem;color:var(--muted);display:flex;align-items:center;gap:5px; }
+.nl-feature-check { color:var(--cyan); }
+
+/* ══ BLUR GATE — paywall visuel ══ */
+.blur-gate { position: relative; margin: 24px 0; }
+.blur-gate-overlay { position:absolute;inset:0;display:flex;align-items:center;justify-content:center; }
+.blur-gate-box { background:var(--s2);border:1px solid rgba(91,184,212,0.25);border-radius:16px;padding:24px 28px;text-align:center;max-width:380px;box-shadow:0 8px 40px rgba(0,0,0,0.5); }
+.blur-gate-icon { font-size:1.4rem;margin-bottom:8px; }
+.blur-gate-title { font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);margin-bottom:6px; }
+.blur-gate-sub { font-size:0.78rem;color:var(--muted);line-height:1.65;margin-bottom:16px; }
+.blur-gate-note { font-size:0.68rem;color:var(--muted2);margin-top:8px; }
+.btn-unlock { display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:11px;font-weight:700;font-size:0.86rem;text-decoration:none; }
+.btn-unlock-pilote { background:linear-gradient(135deg,#5BB8D4,#3a98b4);color:#fff; }
+.btn-unlock-socle  { background:linear-gradient(135deg,#c9b8ff,#9B59B6);color:#fff; }
+
+/* Usufruit grid */
+.usufruit-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0; }
+.usufruit-col-title { font-size:0.72rem;font-weight:700;color:var(--muted);margin-bottom:6px; }
+
+/* ══ HUB CARD — variantes couleur ══ */
+.hub-card-green { background: rgba(126,200,160,0.06); border: 1px solid rgba(126,200,160,0.25); border-radius: 16px; padding: 22px; text-decoration: none; display: block; transition: background 0.18s; }
+.hub-card-green:hover { background: rgba(126,200,160,0.12); }
+.hub-card-gold  { background: rgba(232,194,58,0.06);  border: 1px solid rgba(232,194,58,0.25);  border-radius: 16px; padding: 22px; text-decoration: none; display: block; transition: background 0.18s; }
+.hub-card-gold:hover { background: rgba(232,194,58,0.12); }
+.hub-card-eyebrow { font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px; }
+.hub-card-eyebrow-green { color: #7EC8A0; }
+.hub-card-eyebrow-gold  { color: #E8C23A; }
+.hub-card-heading { font-family:'DM Serif Display',serif;font-style:italic;font-size:1.2rem;color:var(--text);margin-bottom:6px; }
+.hub-card-desc { font-size:0.82rem;color:var(--muted);line-height:1.65;margin:0; }
+.hub-card-cta { font-size:0.80rem;font-weight:600;margin-top:10px; }
+.hub-card-cta-green { color: #7EC8A0; }
+.hub-card-cta-gold  { color: #E8C23A; }
+.hub-card-stack { display:grid;grid-template-columns:1fr;gap:14px;max-width:600px; }
+
+/* ══ CTA RADAR ══ */
+.cta-radar { background: rgba(91,184,212,0.04); border: 1px solid rgba(91,184,212,0.20); border-radius: 16px; padding: 20px; }
+.cta-radar-title { font-size: 1.0rem; font-weight: 700; margin-bottom: 8px; }
+.cta-radar-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.7; margin-bottom: 8px; }
+.cta-radar-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 12px 22px; border-radius: 12px; background: linear-gradient(135deg,#5BB8D4,#3a98b4); color: #fff; font-weight: 700; font-size: 0.86rem; text-decoration: none; }
+.cta-radar-note { font-size: 0.68rem; color: var(--muted2); margin-top: 8px; }
+
+/* Grille calcul Tax Shelter */
+.ts-calcul-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.ts-calcul-card { border-radius: 12px; padding: 14px; text-align: center; }
+.ts-calcul-card-neutral { background: var(--s3); }
+.ts-calcul-card-green   { background: rgba(126,200,160,0.08); border: 1px solid rgba(126,200,160,0.20); }
+.ts-calcul-card-rose    { background: rgba(232,124,195,0.07); border: 1px solid rgba(232,124,195,0.18); }
+.ts-calcul-card-gold    { background: var(--s3); }
+.ts-calcul-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.10em; color: var(--muted); margin-bottom: 6px; }
+.ts-calcul-value { font-size: 1.6rem; font-weight: 800; }
+.ts-calcul-sub   { font-size: 0.68rem; color: var(--muted); }
+
+/* Info-box lien audiovisuel */
+.info-box-cyan { background: rgba(91,184,212,0.07); border: 1px solid rgba(91,184,212,0.20); border-radius: 12px; padding: 12px 16px; font-size: 0.84rem; color: var(--muted); margin-bottom: 24px; }
+
+.source-pill-active-gold { background: rgba(232,194,58,0.12); border-color: rgba(232,194,58,0.30); color: #E8C23A; }
+
+/* CTA Pilote variante rose */
+.cta-pilote { background: rgba(232,124,195,0.04); border: 1px solid rgba(232,124,195,0.18); border-radius: 16px; padding: 20px; margin: 24px 0; }
+.cta-pilote-eyebrow { font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--rose);margin-bottom:8px; }
+.cta-pilote-desc { font-size:0.84rem;color:var(--muted);line-height:1.7;margin-bottom:14px; }
+.cta-pilote-btn { display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:12px;background:linear-gradient(135deg,#E87CC3,#c45fa0);color:#fff;font-weight:700;font-size:0.84rem;text-decoration:none; }
