@@ -2,63 +2,51 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Concept de la semaine — Finance belge 2026 — WealthWaffle</title>
-  <meta name="description" content="52 concepts financiers belges pour 2026, calés sur le calendrier fiscal. Un concept par semaine pour apprendre la finance belge.">
+  <title>💡 Concept de la semaine — Finance belge 2026 — WealthWaffle</title>
+  <meta name="description" content="52 concepts financiers belges pour 2026, calés sur le calendrier fiscal. Un concept par semaine.">
   <meta property="og:title" content="Concept de la semaine — WealthWaffle">
-  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
   <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Concept de la semaine", basePath: "/contenu/" };</script>
-  <style>
-    .concept-week-badge { display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;margin-bottom:12px; }
-    .concept-categorie { font-size:0.75rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--rose);margin-bottom:10px; }
-    .concept-titre { font-family:"DM Serif Display",serif;font-style:italic;font-size:clamp(1.6rem,5vw,2.2rem);color:var(--text);line-height:1.2;margin-bottom:24px;max-width:560px;margin-left:auto;margin-right:auto; }
-    .concept-history-item { display:flex;flex-direction:column;gap:4px;background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;text-decoration:none;transition:background 0.18s; }
-    .concept-history-item:hover { background:var(--s3); }
-    .concept-history-meta { display:flex;gap:8px;align-items:center; }
-    .concept-history-week { font-size:0.68rem;color:var(--muted2);font-weight:700;letter-spacing:0.06em; }
-    .concept-history-cat { font-size:0.65rem;padding:2px 8px;border-radius:20px;background:rgba(232,124,195,0.10);color:var(--rose);font-weight:700; }
-    .concept-history-titre { font-size:0.84rem;font-weight:600;color:var(--text2);line-height:1.4; }
-  </style>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<div class="progress-bar"><div class="progress-fill"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<div class="page" style="padding-top:80px;">
+<div class="page">
+<div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/contenu/">Contenu</a><span>/</span><span>Concept de la semaine</span></div>
 
-<div class="eyebrow" style="background:rgba(232,124,195,0.10);color:var(--rose);">💡 Concept de la semaine</div>
-<h1 class="display" style="font-size:1.6rem;margin-bottom:6px;">52 concepts financiers<br><span style="color:var(--rose);">calés sur ton calendrier fiscal</span></h1>
-<p style="font-size:0.80rem;color:var(--muted);margin-bottom:28px;">Un concept belge par semaine — choisi selon la saison fiscale et les priorités du moment.</p>
+<div class="eyebrow eyebrow-invest">💡 Concept de la semaine</div>
+<h1 class="display">52 concepts financiers<br><span class="txt-rose">calés sur ton calendrier fiscal</span></h1>
+<p class="lead">Un concept belge par semaine — choisi selon la saison fiscale et les priorités du moment.</p>
 
 <!-- Concept courant -->
-<div class="content-card reveal" id="current-concept" style="text-align:center;border:1px solid rgba(232,124,195,0.25);background:linear-gradient(135deg,rgba(232,124,195,0.05),rgba(91,184,212,0.04));position:relative;overflow:hidden;margin-bottom:12px;">
-  <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--cyan));"></div>
-  <div style="color:var(--muted);font-size:0.82rem;padding:20px;">Chargement…</div>
+<div class="content-card reveal concept-current-card" id="current-concept">
+  <div class="concept-current-bar"></div>
+  <p class="page-subtitle">Chargement…</p>
 </div>
 
-<!-- Barre de progression annuelle -->
-<div style="margin-bottom:40px;">
-  <div style="display:flex;justify-content:space-between;font-size:0.70rem;color:var(--muted);margin-bottom:5px;">
+<!-- Barre de progression -->
+<div class="concept-progress">
+  <div class="concept-progress-top">
     <span id="progress-text">Semaine … / 52</span>
     <span id="progress-pct"></span>
   </div>
-  <div style="background:var(--s3);border-radius:20px;height:6px;overflow:hidden;">
-    <div id="progress-bar-fill" style="height:100%;background:linear-gradient(90deg,var(--rose),var(--cyan));border-radius:20px;width:0%;transition:width 0.6s;"></div>
+  <div class="concept-progress-track">
+    <div id="progress-bar-fill" class="concept-progress-fill"></div>
   </div>
 </div>
 
 <!-- Historique -->
-<div style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px;">
-  Concepts précédents <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--faint),transparent);"></span>
+<div class="concept-history-label">
+  Concepts précédents <span class="concept-history-rule"></span>
 </div>
-<div id="concept-history" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:48px;"></div>
+<div id="concept-history" class="concept-history-grid"></div>
 
 <div class="see-also">
   <div class="see-also-label">Voir aussi</div>
@@ -70,121 +58,110 @@
 </div>
 
 <script>
-/* ── Table des 52 concepts — URLs mises à jour vers la nouvelle arborescence ── */
 const CONCEPTS = [
-  {s:1,  titre:"Plafonds fiscaux 2026 — tout ce qui change",          url:"/fiscal/",                              cat:"Fiscalité"},
-  {s:2,  titre:"Épargne pension — bien choisir son montant",          url:"/budget/epargne.html#piliers",          cat:"Fiscalité"},
-  {s:3,  titre:"Fonds d'urgence — le socle de tout",                  url:"/budget/",                              cat:"Budget"},
-  {s:4,  titre:"Comprendre sa fiche de paie belge",                   url:"/fiscal/independants.html",             cat:"Fiscalité"},
-  {s:5,  titre:"ETF MSCI World — IWDA ou VWCE ?",                     url:"/invest/etf.html",                      cat:"Investir"},
-  {s:6,  titre:"La règle 50/30/20 expliquée",                         url:"/budget/",                              cat:"Budget"},
-  {s:7,  titre:"Branche 21 vs Branche 23 — quelle différence ?",     url:"/fiscal/assurances.html",               cat:"Épargne"},
-  {s:8,  titre:"Intérêts composés — la puissance du temps",           url:"/parcours/bases.html",                  cat:"Investir"},
-  {s:9,  titre:"Déclaration fiscale belge — les dates clés",          url:"/fiscal/",                              cat:"Fiscalité"},
-  {s:10, titre:"Les déductions fiscales souvent oubliées",            url:"/fiscal/",                              cat:"Fiscalité"},
-  {s:11, titre:"MyMinfin — guide complet",                            url:"/fiscal/",                              cat:"Fiscalité"},
-  {s:12, titre:"DCA — investir sans stress chaque mois",              url:"/invest/etf.html",                      cat:"Investir"},
-  {s:13, titre:"Codes IPP — le cheat sheet complet",                  url:"/fiscal/",                              cat:"Fiscalité"},
-  {s:14, titre:"Revenus mobiliers — dividendes et intérêts",          url:"/fiscal/",                              cat:"Fiscalité"},
-  {s:15, titre:"Épargne long terme (ELT) — bonus fiscal oublié",      url:"/budget/epargne.html",                  cat:"Épargne"},
-  {s:16, titre:"Comptes étrangers — déclarer à la BNB",               url:"/invest/crypto.html#fiscalite-crypto",  cat:"Fiscalité"},
-  {s:17, titre:"Que faire du remboursement d'impôts ?",               url:"/fiscal/",                              cat:"Fiscalité"},
-  {s:18, titre:"Taxe Reynders — ce qu'elle coûte vraiment",           url:"/invest/obligations.html",              cat:"Investir"},
-  {s:19, titre:"TOB — comment la déclarer avec DEGIRO",               url:"/invest/etf.html#fiscalite-etf",        cat:"Investir"},
-  {s:20, titre:"Droits d'auteur IT — régime rétabli",                 url:"/fiscal/independants.html",             cat:"Fiscalité"},
-  {s:21, titre:"Taxe sur les plus-values 2026 — impact réel",         url:"/invest/panorama.html",                 cat:"Fiscalité"},
-  {s:22, titre:"Acheter ou louer — le vrai calcul belge",             url:"/immo/#acheter-ou-louer",               cat:"Immobilier"},
-  {s:23, titre:"Droits d'enregistrement 2026 par région",             url:"/immo/regions.html",                    cat:"Immobilier"},
-  {s:24, titre:"Rendement locatif net — la formule honnête",          url:"/immo/locatif.html",                    cat:"Immobilier"},
-  {s:25, titre:"SIR belges — immo en bourse",                         url:"/immo/alternatif.html#sir",             cat:"Immobilier"},
-  {s:26, titre:"Obligations et bons d'État belges",                   url:"/invest/obligations.html",              cat:"Investir"},
-  {s:27, titre:"ETF obligataires — taxe Reynders expliquée",          url:"/invest/obligations.html#etf-oblig",   cat:"Investir"},
-  {s:28, titre:"Crowdlending belge — plateformes agréées",            url:"/invest/alternatives.html#crowdlending",cat:"Alternatives"},
-  {s:29, titre:"Prêts régionaux aux PME — Coup de Pouce, Proxi, Winwin", url:"/invest/equity.html",              cat:"Alternatives"},
-  {s:30, titre:"Tax Shelter — les 3 niveaux expliqués",               url:"/fiscal/tax-shelter.html",             cat:"Investir"},
-  {s:31, titre:"ELTIF 2.0 — le private equity accessible",            url:"/invest/equity.html",                  cat:"Investir"},
-  {s:32, titre:"Stock picking — analyser une action belge",           url:"/invest/actions.html",                  cat:"Investir"},
-  {s:33, titre:"Comprendre l'inflation — ennemi de l'épargne",        url:"/parcours/bases.html",                  cat:"Bases"},
-  {s:34, titre:"PLCI — le super outil de l'indépendant",              url:"/fiscal/independants.html",             cat:"Indépendants"},
-  {s:35, titre:"IS vs IPP — société ou personne physique ?",          url:"/fiscal/societes.html",                 cat:"Sociétés"},
-  {s:36, titre:"VVPRbis — dividendes à 15% PM",                      url:"/fiscal/societes.html",                 cat:"Sociétés"},
-  {s:37, titre:"Réserve de liquidation — stratégie complète",         url:"/fiscal/societes.html",                 cat:"Sociétés"},
-  {s:38, titre:"Assurance-groupe — consulter sigedis.be",             url:"/fiscal/assurances.html",               cat:"Épargne"},
-  {s:39, titre:"Les 4 piliers pension belges",                        url:"/budget/retraite.html",                 cat:"Budget"},
-  {s:40, titre:"Simulateur retraite — tes 4 piliers chiffrés",        url:"/outils/",                              cat:"Outils"},
-  {s:41, titre:"Épargne pension — dernier moment pour optimiser",     url:"/budget/epargne.html",                  cat:"Fiscalité"},
-  {s:42, titre:"13ème mois — que faire avec cet argent ?",            url:"/budget/",                              cat:"Budget"},
-  {s:43, titre:"Succession — planifier avant la fin d'année",         url:"/fiscal/succession.html",               cat:"Succession"},
-  {s:44, titre:"Donation de son vivant — règle des 3 ans",            url:"/fiscal/succession.html",               cat:"Succession"},
-  {s:45, titre:"Checklist crypto 31 décembre",                        url:"/invest/crypto.html#fiscalite-crypto",  cat:"Crypto"},
-  {s:46, titre:"Fiscalité crypto 2026 — contribution 10%",            url:"/invest/crypto.html#fiscalite-crypto",  cat:"Crypto"},
-  {s:47, titre:"Guide Koinly — rapport fiscal belge",                 url:"/invest/crypto.html",                   cat:"Crypto"},
-  {s:48, titre:"NFT en Belgique — zone grise fiscale",                url:"/invest/crypto.html",                   cat:"Crypto"},
-  {s:49, titre:"Règle des 4% — vivre de son capital",                 url:"/budget/rente.html",                    cat:"Retraite"},
-  {s:50, titre:"Stratégie de décumulation belge",                     url:"/budget/rente.html",                    cat:"Retraite"},
-  {s:51, titre:"Panorama de tous les investissements belges",         url:"/invest/panorama.html",                 cat:"Investir"},
-  {s:52, titre:"Le Parcours du Belge Ordinaire",                      url:"/parcours/",                            cat:"Parcours"},
+  {s:1,  titre:"Plafonds fiscaux 2026 — tout ce qui change",         url:"/fiscal/",cat:"Fiscalité"},
+  {s:2,  titre:"Épargne pension — bien choisir son montant",         url:"/budget/epargne.html#piliers",cat:"Fiscalité"},
+  {s:3,  titre:"Fonds d'urgence — le socle de tout",                 url:"/budget/",cat:"Budget"},
+  {s:4,  titre:"Comprendre sa fiche de paie belge",                  url:"/fiscal/independants.html",cat:"Fiscalité"},
+  {s:5,  titre:"ETF MSCI World — IWDA ou VWCE ?",                    url:"/invest/etf.html",cat:"Investir"},
+  {s:6,  titre:"La règle 50/30/20 expliquée",                        url:"/budget/",cat:"Budget"},
+  {s:7,  titre:"Branche 21 vs Branche 23 — quelle différence ?",    url:"/fiscal/assurances.html",cat:"Épargne"},
+  {s:8,  titre:"Intérêts composés — la puissance du temps",          url:"/parcours/bases.html",cat:"Investir"},
+  {s:9,  titre:"Déclaration fiscale belge — les dates clés",         url:"/fiscal/",cat:"Fiscalité"},
+  {s:10, titre:"Les déductions fiscales souvent oubliées",           url:"/fiscal/",cat:"Fiscalité"},
+  {s:11, titre:"MyMinfin — guide complet",                           url:"/fiscal/",cat:"Fiscalité"},
+  {s:12, titre:"DCA — investir sans stress chaque mois",             url:"/invest/etf.html",cat:"Investir"},
+  {s:13, titre:"Codes IPP — le cheat sheet complet",                 url:"/fiscal/",cat:"Fiscalité"},
+  {s:14, titre:"Revenus mobiliers — dividendes et intérêts",         url:"/fiscal/",cat:"Fiscalité"},
+  {s:15, titre:"Épargne long terme (ELT) — bonus fiscal oublié",     url:"/budget/epargne.html",cat:"Épargne"},
+  {s:16, titre:"Comptes étrangers — déclarer à la BNB",              url:"/invest/crypto.html#fiscalite-crypto",cat:"Fiscalité"},
+  {s:17, titre:"Que faire du remboursement d'impôts ?",              url:"/fiscal/",cat:"Fiscalité"},
+  {s:18, titre:"Taxe Reynders — ce qu'elle coûte vraiment",          url:"/invest/obligations.html",cat:"Investir"},
+  {s:19, titre:"TOB — comment la déclarer avec DEGIRO",              url:"/invest/etf.html#fiscalite-etf",cat:"Investir"},
+  {s:20, titre:"Droits d'auteur IT — régime rétabli",                url:"/fiscal/independants.html",cat:"Fiscalité"},
+  {s:21, titre:"Taxe sur les plus-values 2026 — impact réel",        url:"/invest/",cat:"Fiscalité"},
+  {s:22, titre:"Acheter ou louer — le vrai calcul belge",            url:"/immo/#acheter-ou-louer",cat:"Immobilier"},
+  {s:23, titre:"Droits d'enregistrement 2026 par région",            url:"/immo/regions.html",cat:"Immobilier"},
+  {s:24, titre:"Rendement locatif net — la formule honnête",         url:"/immo/locatif.html",cat:"Immobilier"},
+  {s:25, titre:"SIR belges — immo en bourse",                        url:"/immo/alternatif.html#sir",cat:"Immobilier"},
+  {s:26, titre:"Obligations et bons d'État belges",                  url:"/invest/obligations.html",cat:"Investir"},
+  {s:27, titre:"ETF obligataires — taxe Reynders expliquée",         url:"/invest/obligations.html#etf-oblig",cat:"Investir"},
+  {s:28, titre:"Crowdlending belge — plateformes agréées",           url:"/invest/alternatives.html#crowdlending",cat:"Alternatives"},
+  {s:29, titre:"Prêts régionaux aux PME — Coup de Pouce, Proxi, Winwin",url:"/invest/equity.html",cat:"Alternatives"},
+  {s:30, titre:"Tax Shelter — les 3 niveaux expliqués",              url:"/fiscal/tax-shelter.html",cat:"Investir"},
+  {s:31, titre:"ELTIF 2.0 — le private equity accessible",           url:"/invest/equity.html",cat:"Investir"},
+  {s:32, titre:"Stock picking — analyser une action belge",          url:"/invest/actions.html",cat:"Investir"},
+  {s:33, titre:"Comprendre l'inflation — ennemi de l'épargne",       url:"/parcours/bases.html",cat:"Bases"},
+  {s:34, titre:"PLCI — le super outil de l'indépendant",             url:"/fiscal/independants.html",cat:"Indépendants"},
+  {s:35, titre:"IS vs IPP — société ou personne physique ?",         url:"/fiscal/societes.html",cat:"Sociétés"},
+  {s:36, titre:"VVPRbis — dividendes à 15% PM",                     url:"/fiscal/societes.html",cat:"Sociétés"},
+  {s:37, titre:"Réserve de liquidation — stratégie complète",        url:"/fiscal/societes.html",cat:"Sociétés"},
+  {s:38, titre:"Assurance-groupe — consulter sigedis.be",            url:"/fiscal/assurances.html",cat:"Épargne"},
+  {s:39, titre:"Les 4 piliers pension belges",                       url:"/budget/retraite.html",cat:"Budget"},
+  {s:40, titre:"Simulateur retraite — tes 4 piliers chiffrés",       url:"/outils/",cat:"Outils"},
+  {s:41, titre:"Épargne pension — dernier moment pour optimiser",    url:"/budget/epargne.html",cat:"Fiscalité"},
+  {s:42, titre:"13ème mois — que faire avec cet argent ?",           url:"/budget/",cat:"Budget"},
+  {s:43, titre:"Succession — planifier avant la fin d'année",        url:"/fiscal/succession.html",cat:"Succession"},
+  {s:44, titre:"Donation de son vivant — règle des 3 ans",           url:"/fiscal/succession.html",cat:"Succession"},
+  {s:45, titre:"Checklist crypto 31 décembre",                       url:"/invest/crypto.html#fiscalite-crypto",cat:"Crypto"},
+  {s:46, titre:"Fiscalité crypto 2026 — contribution 10%",           url:"/invest/crypto.html#fiscalite-crypto",cat:"Crypto"},
+  {s:47, titre:"Guide Koinly — rapport fiscal belge",                url:"/invest/crypto.html",cat:"Crypto"},
+  {s:48, titre:"NFT en Belgique — zone grise fiscale",               url:"/invest/crypto.html",cat:"Crypto"},
+  {s:49, titre:"Règle des 4% — vivre de son capital",                url:"/budget/rente.html",cat:"Retraite"},
+  {s:50, titre:"Stratégie de décumulation belge",                    url:"/budget/rente.html",cat:"Retraite"},
+  {s:51, titre:"Panorama de tous les investissements belges",        url:"/invest/",cat:"Investir"},
+  {s:52, titre:"Le Parcours du Belge Ordinaire",                     url:"/parcours/",cat:"Parcours"},
 ];
-
-/* Couleur par catégorie */
 const CAT_COLORS = {
-  'Fiscalité':   '#c9b8ff', 'Budget': '#7EC8A0', 'Investir': '#5BB8D4',
-  'Épargne':     '#E8C23A', 'Immobilier': '#C4724A', 'Alternatives': '#F7931A',
-  'Crypto':      '#F7931A', 'Sociétés': '#E87CC3', 'Indépendants': '#E87CC3',
-  'Succession':  '#7EC8A0', 'Retraite': '#5BB8D4', 'Bases': '#7EC8A0',
-  'Outils':      '#5BB8D4', 'Parcours': '#E87CC3',
+  'Fiscalité':'#c9b8ff','Budget':'#7EC8A0','Investir':'#5BB8D4','Épargne':'#E8C23A',
+  'Immobilier':'#C4724A','Alternatives':'#F7931A','Crypto':'#F7931A','Sociétés':'#E87CC3',
+  'Indépendants':'#E87CC3','Succession':'#7EC8A0','Retraite':'#5BB8D4','Bases':'#7EC8A0',
+  'Outils':'#5BB8D4','Parcours':'#E87CC3',
 };
-
-function getWeek() {
-  var now   = new Date();
-  var start = new Date(now.getFullYear(), 0, 1);
-  return Math.min(Math.ceil((now - start) / (1000 * 60 * 60 * 24 * 7)), 52);
+function getWeek(){
+  var n=new Date(),s=new Date(n.getFullYear(),0,1);
+  return Math.min(Math.ceil((n-s)/(864e5*7)),52);
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  var week = getWeek();
-  var c    = CONCEPTS.find(function(x){ return x.s === week; }) || CONCEPTS[0];
-  var col  = CAT_COLORS[c.cat] || 'var(--rose)';
-
-  /* ── Concept courant ── */
-  var el = document.getElementById('current-concept');
-  if (el) el.innerHTML = [
-    '<div class="concept-week-badge">Semaine ' + week + ' / 52</div>',
-    '<div class="concept-categorie" style="color:' + col + ';">' + c.cat + '</div>',
-    '<h2 class="concept-titre">' + c.titre + '</h2>',
-    '<a href="' + c.url + '" class="btn-primary" style="display:inline-flex;align-items:center;gap:6px;margin:0 auto;">Découvrir ce concept →</a>',
+window.addEventListener('load',function(){
+  var week=getWeek(),c=CONCEPTS.find(x=>x.s===week)||CONCEPTS[0];
+  var col=CAT_COLORS[c.cat]||'var(--rose)';
+  var el=document.getElementById('current-concept');
+  if(el) el.innerHTML=[
+    '<div class="concept-current-bar"></div>',
+    '<div class="concept-week-badge">Semaine '+week+' / 52</div>',
+    '<div class="concept-categorie" style="color:'+col+'">'+c.cat+'</div>',
+    '<h2 class="concept-titre">'+c.titre+'</h2>',
+    '<a href="'+c.url+'" class="btn-primary" style="display:inline-flex;align-items:center;gap:6px;margin:0 auto;">Découvrir ce concept →</a>',
   ].join('');
-
-  /* ── Barre de progression ── */
-  var pct = Math.round((week / 52) * 100);
-  document.getElementById('progress-text').textContent = 'Semaine ' + week + ' / 52';
-  document.getElementById('progress-pct').textContent  = pct + '% de l\'année';
-  document.getElementById('progress-bar-fill').style.width = pct + '%';
-
-  /* ── Historique ── */
-  var past      = CONCEPTS.filter(function(x){ return x.s < week; }).reverse();
-  var container = document.getElementById('concept-history');
-  if (!container) return;
-
-  if (!past.length) {
-    container.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;grid-column:1/-1;padding:20px 0;text-align:center;">Aucun concept précédent — on démarre !</p>';
+  var pct=Math.round((week/52)*100);
+  var pt=document.getElementById('progress-text');
+  var pp=document.getElementById('progress-pct');
+  var pb=document.getElementById('progress-bar-fill');
+  if(pt) pt.textContent='Semaine '+week+' / 52';
+  if(pp) pp.textContent=pct+"% de l'année";
+  if(pb) pb.style.width=pct+'%';
+  var past=CONCEPTS.filter(x=>x.s<week).reverse();
+  var container=document.getElementById('concept-history');
+  if(!container) return;
+  if(!past.length){
+    container.innerHTML='<p class="page-subtitle" style="grid-column:1/-1;padding:20px 0;text-align:center;">Aucun concept précédent — on démarre !</p>';
     return;
   }
-
-  container.innerHTML = past.map(function(p) {
-    var c2 = CAT_COLORS[p.cat] || 'var(--rose)';
-    return '<a href="' + p.url + '" class="concept-history-item">'
-      + '<div class="concept-history-meta">'
-      + '<span class="concept-history-week">Semaine ' + p.s + '</span>'
-      + '<span class="concept-history-cat" style="background:' + c2 + '18;color:' + c2 + ';">' + p.cat + '</span>'
-      + '</div>'
-      + '<div class="concept-history-titre">' + p.titre + '</div>'
-      + '</a>';
+  container.innerHTML=past.map(p=>{
+    var c2=CAT_COLORS[p.cat]||'var(--rose)';
+    return '<a href="'+p.url+'" class="concept-history-item">'
+      +'<div class="concept-history-meta">'
+      +'<span class="concept-history-week">Semaine '+p.s+'</span>'
+      +'<span class="concept-history-cat" style="background:'+c2+'18;color:'+c2+'">'+p.cat+'</span>'
+      +'</div>'
+      +'<div class="concept-history-titre">'+p.titre+'</div>'
+      +'</a>';
   }).join('');
 });
 </script>
 
 <script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
 </body>
 </html>

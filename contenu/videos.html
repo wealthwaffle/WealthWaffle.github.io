@@ -5,9 +5,9 @@
   <title>Vidéos finance belge — WealthWaffle — WealthWaffle</title>
   <meta name="description" content="Toutes les vidéos WealthWaffle sur la finance personnelle belge. Budget, ETF, immo, fiscalité, crypto.">
   <meta property="og:title" content="Vidéos finance belge — WealthWaffle — WealthWaffle">
-  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
@@ -16,23 +16,18 @@
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<div class="progress-bar"><div class="progress-fill"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<div id="ww-ui-placeholder"></div>
-<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<div class="progress-bar"><div class="progress-fill"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<div class="page" style="padding-top:80px;">
+
+<div class="page">
 <div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/contenu/">Contenu</a><span>/</span><span>Vidéos</span></div>
-<div id="ww-nav-placeholder"></div>
+
 </div>
-<div class="page" style="padding-top:80px;max-width:960px;">
+<div class="page">
   
 
-  <div class="eyebrow" style="background:rgba(232,124,195,0.10);color:var(--rose);">&#127910; Vidéos</div>
-  <h1 class="display">La finance belge<br><span style="color:var(--rose);">en moins de 2 minutes</span></h1>
-  <p class="lead" style="margin-bottom:24px;">Chaque semaine une nouvelle vidéo. Budget, ETF, fiscalité, immobilier — sans jargon.</p>
+  <div class="eyebrow eyebrow-invest">🎬 Vidéos</div>
+  <h1 class="display">La finance belge<br><span class="txt-rose">en moins de 2 minutes</span></h1>
+  <p class="lead">Chaque semaine une nouvelle vidéo. Budget, ETF, fiscalité, immobilier — sans jargon.</p>
 
   <!-- Plateformes -->
   <div class="platform-row">
@@ -54,12 +49,12 @@
   </div>
 
   <!-- Statut API -->
-  <div id="yt-status" style="display:none;font-size:.80rem;color:var(--muted);margin-bottom:12px;"></div>
+  <div id="yt-status" class="yt-status-msg hidden"></div>
 
   <!-- Compteur vidéos -->
-  <div style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+  <div class="yt-count-label">
     <span id="yt-count">Dernières vidéos</span>
-    <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--faint),transparent);"></span>
+    <span class="yt-count-rule"></span>
   </div>
 
   <!-- Grille vidéos -->
@@ -74,13 +69,13 @@
   </div>
 
   <!-- Newsletter -->
-  <div class="nl-bar" style="margin-top:48px;">
-    <h3>Nouvelle vid&#233;o chaque semaine &#8212; <em style="background:linear-gradient(90deg,#E87CC3,#5BB8D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal;">re&#231;ois-les dans ta bo&#238;te</em></h3>
+  <div class="nl-bar">
+    <h3>Nouvelle vid&#233;o chaque semaine &#8212; <em class="gradient-text">reçois-les dans ta boîte</em></h3>
     <p>Newsletter gratuite + guide PDF "10 erreurs financi&#232;res que font 90% des Belges".</p>
     <div class="nl-form" id="nl-videos">
       <input class="form-input" type="email" id="nle-videos" placeholder="ton@email.be" autocomplete="email"
-        onkeydown="if(event.key==='Enter')submitNL('nle-videos','nl-videos','nlok-videos')">
-      <button class="btn-primary" onclick="submitNL('nle-videos','nl-videos','nlok-videos')">S'abonner &#8594;</button>
+        id="nle-videos-inp">
+      <button class="btn-primary" id="nl-videos-btn">S'abonner &#8594;</button>
     </div>
     <div class="nl-success" id="nlok-videos">&#10003; &#192; tr&#232;s vite dans ta bo&#238;te mail !</div>
   </div>
@@ -318,7 +313,7 @@
 
   // Charger au DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadYouTubeVideos);
+    window.addEventListener('load', loadYouTubeVideos);
   } else {
     loadYouTubeVideos();
   }
@@ -326,5 +321,19 @@
 </script>
 </div>
 <script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
+
+window.addEventListener('load', () => {
+  const btn = document.getElementById('nl-videos-btn');
+  const inp = document.getElementById('nle-videos-inp') || document.getElementById('nle-videos');
+  if (btn && typeof submitNL === 'function') {
+    btn.addEventListener('click', () => submitNL('nle-videos','nl-videos','nlok-videos'));
+  }
+  if (inp) {
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && typeof submitNL === 'function') submitNL('nle-videos','nl-videos','nlok-videos');
+    });
+  }
+});
 </body></html>

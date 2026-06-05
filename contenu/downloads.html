@@ -2,146 +2,122 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Outils & Guides gratuits — WealthWaffle</title>
+  <title>📥 Guides & Outils gratuits — WealthWaffle</title>
   <meta name="description" content="Tous les guides PDF, checklists et simulateurs Excel WealthWaffle. Gratuits avec un compte ou après saisie de votre email.">
   <meta property="og:title" content="Centre de téléchargement — WealthWaffle">
-  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="/IMG_5202.png">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
   <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Téléchargements", basePath: "/contenu/" };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<div class="progress-bar"><div class="progress-fill"></div></div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<div class="page" style="padding-top:80px;">
+<div class="page">
+<div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/contenu/">Contenu</a><span>/</span><span>Téléchargements</span></div>
 
-<div class="eyebrow" style="background:rgba(232,124,195,0.10);color:var(--rose);">📥 Guides & Outils</div>
-<h1 class="display" style="font-size:1.6rem;">Tous nos guides<br><span style="color:var(--rose);">gratuits</span></h1>
-<p style="font-size:0.82rem;color:var(--muted);margin-bottom:24px;line-height:1.7;">PDF, checklists et simulateurs adaptés à la Belgique. Connecté → téléchargement direct. Pas encore de compte → laisse ton email, on t'envoie le fichier.</p>
+<div class="eyebrow eyebrow-invest">📥 Guides & Outils</div>
+<h1 class="display">Tous nos guides<br><span class="txt-rose">gratuits</span></h1>
+<p class="lead">PDF, checklists et simulateurs adaptés à la Belgique. Connecté → téléchargement direct. Pas encore de compte → laisse ton email, on t'envoie le fichier.</p>
 
-<!-- Auth state message -->
-<div id="dl-auth-msg" style="display:none;background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.20);border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:0.82rem;color:#7EC8A0;">
+<div id="dl-auth-msg" class="dl-auth-msg hidden">
   ✅ Tu es connecté — tous les téléchargements sont directs.
 </div>
 
-<!-- Grille des downloads -->
-<div id="dl-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px;"></div>
+<div id="dl-grid" class="dl-grid"></div>
 
 <div class="see-also">
   <div class="see-also-label">Voir aussi</div>
   <a href="/outils/" class="see-also-pill">🧮 Simulateurs en ligne</a>
   <a href="/contenu/videos.html" class="see-also-pill">🎬 Vidéos</a>
   <a href="/contenu/newsletter.html" class="see-also-pill">📬 Newsletter</a>
-  <a href="/programme" class="see-also-pill">✈️ Programme Doctrine</a>
+  <a href="/programme.html" class="see-also-pill">✈️ Programme Doctrine</a>
 </div>
 </div>
 
 <script>
 const DOWNLOADS = [
-  { id: 'guide-10-erreurs', icon: '🎁', title: '10 erreurs financières que font 90% des Belges', desc: 'Le guide qui remet les pendules à l\'heure sur les erreurs les plus courantes en finance personnelle belge.', type: 'PDF', pages: 'pour', tag: 'Fondamentaux', color: '#E87CC3', url: null },
-  { id: 'excel-budget',     icon: '📊', title: 'Excel budget belge', desc: 'Tableau de bord budget/épargne/investissement prêt à l\'emploi. Adapté aux revenus belges.', type: 'Excel', pages: 'pour', tag: 'Budget', color: '#7EC8A0', url: null },
-  { id: 'guide-etf',        icon: '📊', title: 'Guide ETF belge', desc: 'Les 5 ETF à connaître, la fiscalité 2026 (TOB, taxe PV 10%) et la stratégie DCA automatique.', type: 'PDF', pages: 'pour', tag: 'Investissement', color: '#5BB8D4', url: null },
-  { id: 'simulateur-allocation', icon: '🎯', title: 'Simulateur allocation portefeuille', desc: 'Trouve ta répartition idéale ETF/obligations/cash selon ton profil et ton horizon.', type: 'Excel', pages: 'pour', tag: 'Investissement', color: '#5BB8D4', url: null },
-  { id: 'checklist-immo',   icon: '🏠', title: 'Checklist achat immo belge', desc: 'Toutes les étapes, les documents à prévoir, les pièges à éviter et les questions à poser au notaire.', type: 'PDF', pages: 'pour', tag: 'Immobilier', color: '#C4724A', url: null },
-  { id: 'checklist-fiscal', icon: '✅', title: 'Checklist fiscale belge 2026', desc: 'Toutes les déductions à ne pas manquer dans ta déclaration IPP. Par profil (salarié, indépendant, dirigeant).', type: 'PDF', pages: 'pour', tag: 'Fiscalité', color: '#c9b8ff', url: null },
-  { id: 'guide-crypto',     icon: '₿', title: 'Guide crypto débutant — Belgique', desc: 'Wallets, exchanges, fiscalité belge 2026 (DAC8, taxe PV 10%), déclaration BNB. En une page.', type: 'PDF', pages: 'pour', tag: 'Crypto', color: '#F7931A', url: null },
-  { id: 'guide-taxshelter', icon: '🎬', title: 'Guide Tax Shelter startups', desc: 'Comment réduire votre impôt de 45% en investissant dans des startups belges. Conditions, plateformes, exemples.', type: 'PDF', pages: 'pour', tag: 'Fiscalité avancée', color: '#c9b8ff', url: null },
-  { id: 'guide-or',         icon: '🥇', title: 'Guide achat or Belgique', desc: 'Lingots, pièces, ETF or : où acheter, TVA 0%, fiscalité 2026 et stratégie d\'allocation.', type: 'PDF', pages: 'pour', tag: 'Investissement', color: '#E8C23A', url: null },
+  {id:'guide-10-erreurs',icon:'🎁',title:'10 erreurs financières que font 90% des Belges',desc:"Le guide qui remet les pendules à l'heure sur les erreurs les plus courantes en finance personnelle belge.",type:'PDF',tag:'Fondamentaux',color:'#E87CC3',url:null},
+  {id:'excel-budget',icon:'📊',title:'Excel budget belge',desc:"Tableau de bord budget/épargne/investissement prêt à l'emploi.",type:'Excel',tag:'Budget',color:'#7EC8A0',url:null},
+  {id:'guide-etf',icon:'📊',title:'Guide ETF belge',desc:'Les 5 ETF à connaître, la fiscalité 2026 (TOB, taxe PV 10%) et la stratégie DCA automatique.',type:'PDF',tag:'Investissement',color:'#5BB8D4',url:null},
+  {id:'simulateur-allocation',icon:'🎯',title:'Simulateur allocation portefeuille',desc:'Trouve ta répartition idéale ETF/obligations/cash selon ton profil et ton horizon.',type:'Excel',tag:'Investissement',color:'#5BB8D4',url:null},
+  {id:'checklist-immo',icon:'🏠',title:'Checklist achat immo belge',desc:'Toutes les étapes, les documents à prévoir, les pièges à éviter et les questions à poser au notaire.',type:'PDF',tag:'Immobilier',color:'#C4724A',url:null},
+  {id:'checklist-fiscal',icon:'✅',title:'Checklist fiscale belge 2026',desc:'Toutes les déductions à ne pas manquer dans ta déclaration IPP.',type:'PDF',tag:'Fiscalité',color:'#c9b8ff',url:null},
+  {id:'guide-crypto',icon:'₿',title:'Guide crypto débutant — Belgique',desc:'Wallets, exchanges, fiscalité belge 2026 (DAC8, taxe PV 10%), déclaration BNB. En une page.',type:'PDF',tag:'Crypto',color:'#F7931A',url:null},
+  {id:'guide-taxshelter',icon:'🎬',title:'Guide Tax Shelter startups',desc:'Comment réduire votre impôt de 45% en investissant dans des startups belges.',type:'PDF',tag:'Fiscalité avancée',color:'#c9b8ff',url:null},
+  {id:'guide-or',icon:'🥇',title:"Guide achat or Belgique",desc:"Lingots, pièces, ETF or : où acheter, TVA 0%, fiscalité 2026 et stratégie d'allocation.",type:'PDF',tag:'Investissement',color:'#E8C23A',url:null},
 ];
 
-let userSession = localStorage.getItem('ww_session');
-
-function renderDownloads() {
+function renderDownloads(){
   const grid = document.getElementById('dl-grid');
   if (!grid) return;
-
-  if (userSession) {
-    document.getElementById('dl-auth-msg').style.display = 'block';
+  const session = typeof WW !== 'undefined' && WW.user;
+  if (session) {
+    const msg = document.getElementById('dl-auth-msg');
+    if (msg) msg.style.display = 'block';
   }
-
   grid.innerHTML = DOWNLOADS.map(d => {
-    const tagStyle = `background:${d.color}18;color:${d.color};border:1px solid ${d.color}28;font-size:0.60rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px;`;
     const typeIcon = d.type === 'Excel' ? '📊' : '📄';
-
-    return `<div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
-        <div style="font-size:1.4rem;">${d.icon}</div>
-        <span style="${tagStyle}">${d.tag}</span>
+    const actionHTML = session
+      ? `<a href="${d.url||'#'}" class="btn-primary" style="text-align:center;opacity:${d.url?'1':'0.6'}">${d.url?'⬇️ Télécharger':'⏳ Bientôt disponible'}</a>`
+      : `<div><div style="display:flex;gap:6px;margin-bottom:6px;">
+          <input type="email" id="email-${d.id}" placeholder="ton@email.be" class="sim-input" style="flex:1;min-width:0;">
+          <button class="btn-primary btn-sm" data-id="${d.id}">Recevoir →</button>
+         </div>
+         <div id="ok-${d.id}" class="nl-success" style="display:none;">✅ Envoyé ! Vérifie ta boîte mail.</div>
+        </div>`;
+    return `<div class="dl-card">
+      <div class="dl-card-top">
+        <div class="dl-card-icon">${d.icon}</div>
+        <span class="dl-card-tag" style="background:${d.color}18;color:${d.color};border:1px solid ${d.color}28">${d.tag}</span>
       </div>
       <div>
-        <div style="font-size:0.86rem;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3;">${d.title}</div>
-        <div style="font-size:0.74rem;color:var(--muted);line-height:1.6;">${d.desc}</div>
+        <div class="dl-card-title">${d.title}</div>
+        <div class="dl-card-desc">${d.desc}</div>
       </div>
-      <div style="font-size:0.66rem;color:var(--muted2);">${typeIcon} ${d.type}</div>
-      ${userSession
-        ? `<a href="${d.url || '#'}" onclick="trackDownload('${d.id}');return ${d.url ? 'true' : 'false'};"
-            style="display:block;text-align:center;padding:9px;border-radius:10px;background:linear-gradient(135deg,${d.color},${d.color}99);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.78rem;text-decoration:none;opacity:${d.url ? '1' : '0.6'};">
-            ${d.url ? '⬇️ Télécharger' : '⏳ Bientôt disponible'}
-          </a>`
-        : `<div>
-            <div style="display:flex;gap:6px;margin-bottom:6px;">
-              <input type="email" id="email-${d.id}" placeholder="ton@email.be"
-                style="flex:1;background:var(--s3);border:1px solid var(--border);border-radius:9px;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:0.76rem;color:var(--text);outline:none;min-width:0;"
-                onkeydown="if(event.key==='Enter')sendDownload('${d.id}')">
-              <button onclick="sendDownload('${d.id}')"
-                style="padding:8px 12px;border-radius:9px;border:none;background:linear-gradient(135deg,${d.color},${d.color}bb);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">
-                Recevoir →
-              </button>
-            </div>
-            <div id="ok-${d.id}" style="display:none;font-size:0.72rem;color:#7EC8A0;text-align:center;">✅ Envoyé ! Vérifie ta boîte mail.</div>
-          </div>`
-      }
+      <div class="dl-card-type">${typeIcon} ${d.type}</div>
+      ${actionHTML}
     </div>`;
   }).join('');
+
+  // Listeners boutons envoi
+  grid.querySelectorAll('button[data-id]').forEach(btn => {
+    btn.addEventListener('click', () => sendDownload(btn.dataset.id));
+  });
+  grid.querySelectorAll('input[type="email"]').forEach(inp => {
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendDownload(inp.id.replace('email-',''));
+    });
+  });
 }
 
-async function sendDownload(magnetId) {
-  const emailInput = document.getElementById('email-' + magnetId);
-  const okMsg = document.getElementById('ok-' + magnetId);
-  if (!emailInput) return;
-  const email = emailInput.value.trim();
-  if (!email || !email.includes('@')) { emailInput.style.borderColor = 'var(--rose)'; return; }
-
-  emailInput.disabled = true;
+async function sendDownload(id){
+  const inp = document.getElementById('email-'+id);
+  const ok  = document.getElementById('ok-'+id);
+  if (!inp) return;
+  const email = inp.value.trim();
+  if (!email || !email.includes('@')) { inp.style.borderColor='var(--rose)'; return; }
+  inp.disabled = true;
   try {
-    // Brevo
-    await fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'api-key': window.WW_CONFIG?.BREVO_KEY || '' },
-      body: JSON.stringify({ email, listIds: [3], attributes: { LEAD_MAGNET: magnetId, SOURCE: 'downloads_page' }, updateEnabled: true }),
-    });
-    // Supabase
     if (window.WW?.sb) {
       await window.WW.sb.from('lead_magnet_requests').insert({
-        email, magnet: magnetId, user_id: null, page: '/contenu/downloads', source: 'downloads_page', created_at: new Date().toISOString(),
+        email, magnet:id, user_id:null, page:'/contenu/downloads', source:'downloads_page', created_at:new Date().toISOString()
       });
     }
-  } catch(e) {}
-
-  if (okMsg) okMsg.style.display = 'block';
+  } catch(e){}
+  if (ok) ok.style.display = 'block';
 }
 
-async function trackDownload(magnetId) {
-  if (!window.WW?.sb || !window.WW?.user) return;
-  try {
-    await window.WW.sb.from('lead_magnet_requests').insert({
-      email: window.WW.user.email, magnet: magnetId, user_id: window.WW.user.id,
-      page: '/contenu/downloads', source: 'downloads_direct', created_at: new Date().toISOString(),
-    });
-  } catch(e) {}
-}
-
-document.addEventListener('DOMContentLoaded', renderDownloads);
+window.addEventListener('load', renderDownloads);
 </script>
 
 <script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
 </body>
 </html>
