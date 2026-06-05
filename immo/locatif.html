@@ -1,67 +1,74 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acheter un bien immobilier en Belgique — WealthWaffle</title>
-  <meta name="description" content="Guide complet achat immobilier belge : compromis, notaire, frais réels, PEB obligatoire, clauses, checklist. Étape par étape.">
-  <meta property="og:title" content="Acheter un bien immobilier en Belgique — WealthWaffle">
-  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
-  <meta property="og:type" content="website">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#E87CC3">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💰 Investissement locatif en Belgique — Rendement réel 2026 — WealthWaffle</title>
+  <meta name="description" content="Rendement brut vs net vs net-net, fiscalité loyers, bail belge, gestion locative. Les vrais chiffres de l'immobilier locatif belge.">
+  <meta property="og:title" content="Investissement locatif Belgique — Rendement réel 2026 — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
   <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
-  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Immo — Achat" };</script>
-  <style>
-    /* Blur gate */
-    .blur-gate { position:relative; }
-    .blur-gate-content { filter:blur(4px); user-select:none; pointer-events:none; max-height:280px; overflow:hidden; transition:filter 0.3s; }
-    .blur-gate-overlay {
-      position:absolute; bottom:0; left:0; right:0;
-      background:linear-gradient(to bottom, transparent, var(--bg) 60%);
-      display:flex; flex-direction:column; align-items:center;
-      justify-content:flex-end; padding:32px 20px 28px;
-      text-align:center; z-index:2;
-    }
-    .blur-gate-title { font-family:'DM Serif Display',serif; font-style:italic; font-size:1.15rem; margin-bottom:6px; color:var(--text); }
-    .blur-gate-sub { font-size:0.80rem; color:var(--muted); margin-bottom:16px; line-height:1.6; }
-    .btn-unlock {
-      display:inline-flex; align-items:center; gap:8px;
-      padding:12px 24px; border-radius:12px; border:none;
-      font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.88rem;
-      cursor:pointer; transition:opacity 0.18s, transform 0.18s; text-decoration:none;
-    }
-    .btn-unlock:hover { opacity:0.88; transform:translateY(-2px); }
-    .btn-unlock-socle { background:linear-gradient(135deg,#7EC8A0,#5aaa7a); color:#fff; }
-    .btn-unlock-pilote { background:linear-gradient(135deg,#5BB8D4,#3a98b4); color:#fff; }
-    .blur-gate-note { font-size:0.70rem; color:var(--muted2); margin-top:8px; }
-  </style>
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Investissement locatif", basePath: "/immo/" };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-</div>
-<button class="back-to-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<div class="page" style="padding-top:80px;">
 
+<div class="page">
+<div id="ww-disclaimer-inline"></div>
 <div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/immo/">Immo</a><span>/</span><span>Investissement locatif</span></div>
+
 <nav class="toc-sidebar">
   <a href="#rendement-brut">📊 Rendement brut</a>
   <a href="#rendement-net">💰 Rendement net-net</a>
   <a href="#fiscalite">🧾 Fiscalité loyers</a>
   <a href="#bail">📄 Types de bail</a>
   <a href="#gestion">🔧 Gestion locative</a>
-  <a href="#simulateur">🧮 Simulateur avancé</a>
+  <a href="#simulateur">🧮 Simulateur</a>
 </nav>
 
-<div class="reading-time"><span class="reading-time-badge">🌱 Débutant : ~8 min</span><span class="reading-time-badge">🚀 Avancé : ~18 min</span><span style="font-size:0.74rem;color:var(--muted);">· Juin 2026</span></div>
-<div class="eyebrow" style="background:rgba(196,114,74,0.10);color:#C4724A;">🏠 Immo Waffle — Locatif</div>
-<h1 class="display">L'investissement locatif<br><span style="color:#C4724A;">les vrais chiffres</span></h1>
-<p class="lead" style="margin-bottom:32px;">Rendement brut vs net vs net-net : la différence peut aller du simple au double. Voici comment calculer honnêtement la rentabilité d'un bien locatif.</p>
+<div class="pill-nav">
+  <a href="/immo/" class="source-pill">🏠 Hub</a>
+  <a href="/immo/achat.html" class="source-pill">🔑 Acheter</a>
+  <a href="/immo/financement.html" class="source-pill">🏦 Financement</a>
+  <a href="/immo/locatif.html" class="source-pill source-pill-active-immo">💰 Locatif ←</a>
+  <a href="/immo/regions.html" class="source-pill">🗺️ Régions</a>
+  <a href="/immo/alternatif.html" class="source-pill">🔗 Alternatif</a>
+</div>
 
+<div class="eyebrow eyebrow-immo">💰 Investissement locatif</div>
+<h1 class="display">L'investissement locatif —<br><span class="txt-immo">les vrais chiffres</span></h1>
+<p class="lead">Rendement brut vs net vs net-net : la différence peut aller du simple au double. Voici comment calculer honnêtement la rentabilité d'un bien locatif.</p>
+
+<div class="reading-time">
+  <span class="reading-time-badge">🌱 Débutant : ~8 min</span>
+  <span class="reading-time-badge">🚀 Avancé : ~18 min</span>
+  <span class="reading-meta">· Juin 2026</span>
+</div>
+
+<!-- ── KPI ── -->
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Seuil rendement brut raisonnable</div>
+    <div class="kpi-value txt-immo">3,5–5%</div>
+    <div class="kpi-sub">grandes villes belges</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Écart brut → net-net typique</div>
+    <div class="kpi-value txt-rose">−1,5–2%</div>
+    <div class="kpi-sub">charges, vacance, fiscal</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Plus-value locatif &lt;5 ans</div>
+    <div class="kpi-value txt-gold">16,5%</div>
+    <div class="kpi-sub">IPP · exonéré après 5 ans</div>
+  </div>
+</div>
+
+<!-- ── RENDEMENT BRUT ── -->
 <div class="content-card toc-target reveal" id="rendement-brut">
   <h3>📊 Rendement brut — le calcul de base</h3>
   <div class="level-section">
@@ -71,75 +78,184 @@
     </div>
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0;">
-        <div class="calc-field"><label>Prix d'achat total (€)</label><input type="number" id="lb-prix" value="220000" oninput="calcLocBrut()"></div>
-        <div class="calc-field"><label>Loyer mensuel (€)</label><input type="number" id="lb-loyer" value="900" oninput="calcLocBrut()"></div>
+
+      <!-- Graphique rendement brut vs net (point 77) -->
+      <p class="chart-label">Décomposition rendement — bien 220.000€ · loyer 900€/mois</p>
+      <div class="chart-container">
+        <canvas id="locatif-chart" height="100"></canvas>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;">
-          <div style="font-size:0.68rem;color:var(--muted);margin-bottom:4px;">Loyer annuel brut</div>
-          <div style="font-size:1.3rem;font-weight:700;color:#C4724A;" id="lb-annuel">—</div>
+      <div class="chart-legend">
+        <span><span class="chart-legend-dot dot-immo"></span>Rendement brut</span>
+        <span><span class="chart-legend-dot dot-gold"></span>Rendement net</span>
+        <span><span class="chart-legend-dot dot-green"></span>Rendement net-net</span>
+      </div>
+
+      <!-- Simulateur rapide -->
+      <div class="sim-grid">
+        <div>
+          <label class="sim-label">Prix d'achat total (€)</label>
+          <input type="number" id="lb-prix" class="sim-input" value="220000">
         </div>
-        <div style="background:linear-gradient(135deg,rgba(196,114,74,0.12),rgba(232,194,58,0.08));border:1px solid rgba(196,114,74,0.25);border-radius:12px;padding:14px;text-align:center;">
-          <div style="font-size:0.68rem;color:var(--muted);margin-bottom:4px;">Rendement brut</div>
-          <div style="font-size:1.3rem;font-weight:700;color:#C4724A;" id="lb-rend">—</div>
+        <div>
+          <label class="sim-label">Loyer mensuel (€)</label>
+          <input type="number" id="lb-loyer" class="sim-input" value="900">
         </div>
       </div>
-      <div class="warn-box" style="margin-top:12px;">⚠️ En Belgique, un rendement brut inférieur à 3,5% dans les grandes villes est difficile à justifier face à d'autres placements. Au-delà de 6%, vérifier les charges cachées.</div>
+      <div class="sim-result">
+        <div class="sim-result-grid">
+          <div>
+            <div class="sim-result-label">Loyer annuel brut</div>
+            <div class="sim-result-value txt-immo" id="lb-annuel">—</div>
+          </div>
+          <div>
+            <div class="sim-result-label">Rendement brut</div>
+            <div class="sim-result-value txt-immo" id="lb-rend">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="warn-box">⚠️ En Belgique, un rendement brut inférieur à 3,5% dans les grandes villes est difficile à justifier face à d'autres placements. Au-delà de 6%, vérifier les charges cachées.</div>
     </div>
   </div>
 </div>
 
+<!-- ── RENDEMENT NET ── -->
 <div class="content-card toc-target reveal" id="rendement-net">
   <h3>💰 Les éléments que le rendement brut cache</h3>
   <div class="level-section">
     <div data-level="avance">
       <div class="level-badge">🚀 Avancé</div>
-      <p>Entre le rendement brut et ce que tu touches réellement, voici ce qui est souvent oublié :</p>
       <ul class="checklist">
         <li>🏛️ <strong>Précompte immobilier</strong> — taxe annuelle sur le revenu cadastral. Entre 800 et 3.000 €/an selon le bien et la commune.</li>
-        <li>🔧 <strong>Frais d'entretien</strong> — provision de 1% du prix d'achat par an est une règle couramment utilisée (plomberie, peinture, chauffe-eau...).</li>
-        <li>📭 <strong>Vacance locative</strong> — en moyenne 2-4% du temps un bien est inoccupé entre deux locataires. Sur 900 €/mois = 200-400 €/an perdus.</li>
-        <li>🏢 <strong>Charges de copropriété non récupérables</strong> — dans un immeuble, certaines charges restent à charge du propriétaire même si locataire.</li>
-        <li>🛡️ <strong>Assurance propriétaire bailleur</strong> — RC bailleur, garantie loyers impayés optionnelle (3-5% du loyer annuel).</li>
-        <li>📋 <strong>Frais de gestion</strong> — si tu passes par une agence, 7-10% du loyer annuel.</li>
+        <li>🔧 <strong>Frais d'entretien</strong> — provision de 1% du prix d'achat par an (plomberie, peinture, chauffe-eau…).</li>
+        <li>📭 <strong>Vacance locative</strong> — en moyenne 2–4% du temps un bien est inoccupé entre deux locataires.</li>
+        <li>🏢 <strong>Charges de copropriété non récupérables</strong> — certaines charges restent à charge du propriétaire.</li>
+        <li>🛡️ <strong>Assurance propriétaire bailleur</strong> — RC bailleur, garantie loyers impayés (3–5% du loyer annuel).</li>
+        <li>📋 <strong>Frais de gestion agence</strong> — si tu passes par une agence, 7–10% du loyer annuel.</li>
       </ul>
     </div>
   </div>
-</div><div class="blur-gate">
-  <div class="blur-gate-content">
-    <div class="content-card" style="margin-bottom:12px;">
-      <p style="height:14px;background:var(--s3);border-radius:6px;margin-bottom:8px;width:90%;"></p>
-      <p style="height:14px;background:var(--s3);border-radius:6px;width:70%;margin-bottom:8px;"></p>
-      <p style="height:14px;background:var(--s3);border-radius:6px;width:80%;"></p>
+
+  <!-- Waffy locatif — point 78 -->
+  <div class="waffy-tip">
+    <img src="/img/waffy/waffy-analyste.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
+    <div class="waffy-tip-content">
+      <strong>Le calcul que les annonces immobilières ne font jamais</strong>
+      5% brut sur un appartement à Liège. Précompte 1.200 €/an, entretien 2.200 €/an, vacance 3%, assurance 400 €/an = déjà −3.800 €/an de charges. Sur un loyer brut de 10.800 €/an, il reste 7.000 €. Rendement net : ~3,2%. Et on n'a pas encore parlé de la fiscalité IPP sur les revenus cadastraux. Le vrai rendement net-net : souvent 2–3%. Pas mauvais — mais plus le double du livret.
     </div>
-    <div class="content-card"><p style="height:14px;background:var(--s3);border-radius:6px;margin-bottom:8px;"></p><p style="height:14px;background:var(--s3);border-radius:6px;width:65%;"></p></div>
+  </div>
+</div>
+
+<!-- ── BLUR GATE ── -->
+<div class="blur-gate">
+  <div class="blur-gate-content">
+    <div class="content-card">
+      <h3>Rendement net-net, fiscalité des loyers, simulateur avancé</h3>
+      <p class="page-subtitle">Calcul complet brut → net → net-net avec tous les postes réels.</p>
+    </div>
   </div>
   <div class="blur-gate-overlay">
-    <div class="blur-gate-title">Rendement net-net, fiscalité des loyers, simulateur avancé</div>
-    <div class="blur-gate-sub">Ces calculs avancés sont accessibles gratuitement — il suffit de créer un compte Socle.</div>
-    <a href="https://doctrine.wealthwaffle.be/pages/auth/register.html" class="btn-unlock btn-unlock-socle">Créer mon compte gratuit →</a>
-    <div class="blur-gate-note">Accès complet · 7 jours gratuits</div>
+    <div class="blur-gate-box">
+      <div class="blur-gate-icon">🔓</div>
+      <div class="blur-gate-title">Rendement net-net, fiscalité des loyers, simulateur avancé</div>
+      <div class="blur-gate-sub">Ces calculs avancés sont accessibles gratuitement — il suffit de créer un compte Socle.</div>
+      <a href="/compte/inscription.html" class="btn-unlock btn-unlock-socle">Créer mon compte gratuit →</a>
+      <div class="blur-gate-note">Accès complet · Aucune carte requise</div>
+    </div>
   </div>
 </div>
 
-<div class="content-card toc-target reveal" id="outil-locatif">
-  <h3>🧮 Rendement locatif net-net</h3>
-  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;">Brut → Net → Net-net : tous les postes réels (précompte, vacance, assurance, gestion, fiscalité IPP).</p>
-  <div id="tool-locatif"></div>
-  <script>document.addEventListener('DOMContentLoaded',()=>WW_Tools.rendementLocatifAvance('tool-locatif'));</script>
+<!-- ── FISCALITÉ ── -->
+<div class="content-card toc-target reveal" id="fiscalite">
+  <h3>🧾 Fiscalité des loyers en Belgique</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>En Belgique, pour un bien loué à un particulier à usage résidentiel, tu n'es pas imposé sur les loyers réels — mais sur le <strong>revenu cadastral (RC) indexé et majoré de 40%</strong>. C'est généralement bien inférieur aux loyers réels.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Situation</th><th>Base imposable IPP</th><th>Remarque</th></tr></thead>
+        <tbody>
+          <tr><td>Bien loué à particulier (usage privé)</td><td class="txt-green">RC indexé × 1,40</td><td>Très favorable — souvent &lt;5% du loyer réel</td></tr>
+          <tr><td>Bien loué à société / usage professionnel</td><td class="txt-rose">Loyers réels − 40% de frais forfaitaires</td><td>Beaucoup moins favorable — négocier le bail</td></tr>
+          <tr><td>Via société personnelle (locatif en SRL)</td><td>IS 20/25% sur bénéfice net</td><td>Peut être intéressant si gestion de plusieurs biens</td></tr>
+        </tbody>
+      </table></div>
+      <p class="page-subtitle"><strong>Le piège du bail professionnel :</strong> si ton locataire est une société (ASBL, SRL, indépendant) et utilise le bien à des fins professionnelles, la totalité des loyers réels est imposée à l'IPP (moins 40% de frais forfaitaires). Cela peut doubler ou tripler l'imposition vs un bail d'habitation classique.</p>
+    </div>
+  </div>
 </div>
 
-<div class="content-card reveal" id="fiscalite-pv-locatif">
+<!-- ── BAIL ── -->
+<div class="content-card toc-target reveal" id="bail">
+  <h3>📄 Types de bail en Belgique</h3>
+  <div class="level-section">
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Type</th><th>Durée</th><th>Résiliation propriétaire</th><th>Pour qui</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bail de courte durée</strong></td><td>Max 3 ans (1 seul renouvellement)</td><td class="txt-green">Fin du bail ou motif</td><td>Locatif classique flexible</td></tr>
+          <tr><td><strong>Bail de 9 ans</strong></td><td>9 ans, renouvelable</td><td class="txt-gold">Motif légitime (propre usage, rénovation, fin bail 3-6-9)</td><td>Locatif classique stable</td></tr>
+          <tr><td><strong>Bail à vie</strong></td><td>Vie du locataire</td><td class="txt-rose">Quasi impossible</td><td>Rare — usufruitiers seniors</td></tr>
+          <tr><td><strong>Location meublée</strong></td><td>Variable</td><td class="txt-green">Conditions plus souples</td><td>Étudiants, expats, courte durée</td></tr>
+          <tr><td><strong>Bail étudiant</strong></td><td>1 an</td><td class="txt-green">Fin de bail</td><td>Kot étudiant spécifique</td></tr>
+          <tr><td><strong>Airbnb / saisonnier</strong></td><td>&lt;3 mois</td><td class="txt-green">Selon contrat</td><td>Régions touristiques · permis requis</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── GESTION ── -->
+<div class="content-card toc-target reveal" id="gestion">
+  <h3>🔧 Gestion locative — en direct ou via agence</h3>
+  <div class="level-section">
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div class="compare-2col">
+        <div class="compare-col">
+          <div class="compare-col-title txt-budget">Gestion en direct</div>
+          <div class="compare-col-item"><span>Coût</span><strong class="txt-green">0€ de frais agence</strong></div>
+          <div class="compare-col-item"><span>Temps</span><strong>2–5h/mois</strong></div>
+          <div class="compare-col-item"><span>Risque</span><strong>Tu gères les impayés</strong></div>
+          <div class="compare-col-item"><span>Idéal</span><strong>1–2 biens proches de chez toi</strong></div>
+        </div>
+        <div class="compare-col">
+          <div class="compare-col-title txt-immo">Via agence immobilière</div>
+          <div class="compare-col-item"><span>Coût</span><strong class="txt-rose">7–10%/an du loyer</strong></div>
+          <div class="compare-col-item"><span>Temps</span><strong>Quasi nul</strong></div>
+          <div class="compare-col-item"><span>Risque</span><strong>Limité — gestion déléguée</strong></div>
+          <div class="compare-col-item"><span>Idéal</span><strong>Plusieurs biens ou à distance</strong></div>
+        </div>
+      </div>
+      <p class="table-note">Sur un loyer de 900 €/mois, une agence à 8% = 864 €/an de frais. Soit ~0,4% de rendement brut en moins. Rentable si ça te fait gagner du temps ou évite des impayés.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SIMULATEUR ── -->
+<div class="content-card toc-target reveal" id="simulateur">
+  <h3>🧮 Simulateur rendement locatif complet</h3>
+  <p class="page-subtitle">Brut → Net → Net-net : tous les postes réels (précompte, vacance, assurance, gestion, fiscalité IPP).</p>
+  <div id="tool-locatif"></div>
+</div>
+
+<!-- ── FISCALITÉ PV ── -->
+<div class="content-card toc-target reveal" id="fiscalite-pv-locatif">
   <h3>📋 Fiscalité sur la plus-value — locatif</h3>
   <div class="level-section">
     <div data-level="debutant">
       <div class="level-badge">🌱 Débutant</div>
       <p>Si tu revends un bien locatif dans les <strong>5 ans</strong> après l'achat, la plus-value est taxée à <strong>16,5% IPP</strong>. Au-delà de 5 ans : exonéré. Pour un terrain : 33% si vente avant 8 ans, exonéré après. Ce n'est pas la même chose que la taxe PV 10% sur les actifs financiers.</p>
-      <a href="/immo/achat.html#fiscalite-pv-immo" class="btn-secondary" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:0.80rem;">📋 Tableau complet et calcul → achat.html</a>
+      <a href="/immo/achat.html#fiscalite-pv-immo" class="btn-secondary">📋 Tableau complet et calcul → page Acheter</a>
     </div>
   </div>
 </div>
+
+<div data-ww-cta="pilote"></div>
+
 <div class="see-also">
   <div class="see-also-label">Sur le même sujet</div>
   <a href="/immo/" class="see-also-pill">🏠 Hub Immo</a>
@@ -147,7 +263,11 @@
   <a href="/immo/financement.html" class="see-also-pill">🏦 Financement</a>
   <a href="/immo/alternatif.html" class="see-also-pill">🌐 Immo alternatif</a>
 </div>
+
+</div>
+
 <script>
+/* ── Simulateur rendement brut ── */
 function calcLocBrut() {
   const prix  = parseFloat(document.getElementById('lb-prix')?.value)||0;
   const loyer = parseFloat(document.getElementById('lb-loyer')?.value)||0;
@@ -155,16 +275,72 @@ function calcLocBrut() {
   if (!prix || !loyer) return;
   const annuel = loyer * 12;
   const rend   = (annuel / prix * 100).toFixed(2);
-  document.getElementById('lb-annuel').textContent = fmt(annuel);
-  document.getElementById('lb-rend').textContent   = rend + '%';
+  const el1 = document.getElementById('lb-annuel');
+  const el2 = document.getElementById('lb-rend');
+  if (el1) el1.textContent = fmt(annuel);
+  if (el2) el2.textContent = rend + '%';
 }
-document.addEventListener('DOMContentLoaded', calcLocBrut);
-</script>
-<div id="ww-disclaimer-inline"></div>
 
-<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:24px;"><a href="/immo/" class="source-pill">🏠 Hub</a><a href="/immo/achat.html" class="source-pill">🔑 Acheter</a><a href="/immo/financement.html" class="source-pill">🏦 Financement</a><a href="/immo/locatif.html" class="source-pill" style="background:rgba(196,114,74,0.12);border-color:rgba(196,114,74,0.30);color:#C4724A;">💰 Locatif ←</a><a href="/immo/regions.html" class="source-pill">🗺️ Régions</a><a href="/immo/alternatif.html" class="source-pill">🔗 Immo alternatif</a></div>
-</div>
+/* ── Graphique rendement brut/net/net-net (point 77) ── */
+function drawLocatifChart() {
+  const canvas = document.getElementById('locatif-chart');
+  if (!canvas) return;
+  const W = canvas.parentElement.offsetWidth, H = 100, dpr = window.devicePixelRatio || 1;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+
+  // Décomposition pour bien 220k, loyer 900€
+  const DATA = [
+    { label: 'Brut\n4,9%',    val: 4.9, color: '#C4724A' },
+    { label: 'Net\n(−charges)\n3,3%', val: 3.3, color: '#E8C23A' },
+    { label: 'Net-net\n(−fiscal)\n2,8%', val: 2.8, color: '#7EC8A0' },
+  ];
+  const maxV = 5.5;
+  const P = { t: 10, r: 10, b: 40, l: 32 };
+  const cW = W-P.l-P.r, cH = H-P.t-P.b;
+  const bW = cW/DATA.length*0.55, gap = cW/DATA.length;
+
+  let prog = 0;
+  const draw = () => {
+    ctx.clearRect(0,0,W,H);
+    const p = Math.min(prog,1);
+    [1,2,3,4,5].forEach(v=>{
+      ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(P.l,P.t+cH*(1-v/maxV));ctx.lineTo(P.l+cW,P.t+cH*(1-v/maxV));ctx.stroke();
+      ctx.fillStyle='rgba(255,255,255,0.28)';ctx.font='8px DM Sans';ctx.textAlign='right';
+      ctx.fillText(v+'%',P.l-3,P.t+cH*(1-v/maxV)+3);
+    });
+    DATA.forEach((d,i)=>{
+      const x = P.l+gap*i+(gap-bW)/2;
+      const bH = (d.val/maxV)*cH*p;
+      ctx.fillStyle = d.color+'90';
+      ctx.fillRect(x,P.t+cH-bH,bW,bH);
+      if(p>0.7){
+        ctx.fillStyle='rgba(255,255,255,0.90)';ctx.font='bold 9px DM Sans';ctx.textAlign='center';
+        ctx.fillText(d.val+'%',x+bW/2,P.t+cH-bH-5);
+        ctx.fillStyle='rgba(255,255,255,0.40)';ctx.font='7px DM Sans';
+        d.label.split('\n').forEach((l,li)=>ctx.fillText(l,x+bW/2,P.t+cH+12+li*9));
+      }
+    });
+    prog+=0.05;if(prog<1)requestAnimationFrame(draw);
+  };
+  const obs=new IntersectionObserver(e=>{if(e[0].isIntersecting){draw();obs.disconnect();}},{threshold:0.3});
+  obs.observe(canvas);
+}
+
+window.addEventListener('load', () => {
+  calcLocBrut();
+  drawLocatifChart();
+  document.getElementById('lb-prix')?.addEventListener('input', calcLocBrut);
+  document.getElementById('lb-loyer')?.addEventListener('input', calcLocBrut);
+  if(typeof WW_Tools?.rendementLocatifAvance==='function') WW_Tools.rendementLocatifAvance('tool-locatif');
+});
+window.addEventListener('resize', drawLocatifChart);
+</script>
+
 <script src="/assets/data.js"></script>
 <script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
-</body></html>
+</body>
+</html>

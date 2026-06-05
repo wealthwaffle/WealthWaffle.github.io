@@ -3941,3 +3941,174 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 .cta-pilote-eyebrow { font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--rose);margin-bottom:8px; }
 .cta-pilote-desc { font-size:0.84rem;color:var(--muted);line-height:1.7;margin-bottom:14px; }
 .cta-pilote-btn { display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:12px;background:linear-gradient(135deg,#E87CC3,#c45fa0);color:#fff;font-weight:700;font-size:0.84rem;text-decoration:none; }
+
+.dot-immo { background: #C4724A; }
+
+/* ══ Steps colorés rénovation ══ */
+.step-num-rose   { min-width:28px;height:28px;border-radius:50%;background:rgba(232,124,195,0.20);color:var(--rose);font-weight:700;font-size:0.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.step-num-immo   { min-width:28px;height:28px;border-radius:50%;background:rgba(196,114,74,0.20);color:#C4724A;font-weight:700;font-size:0.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.step-num-purple { min-width:28px;height:28px;border-radius:50%;background:rgba(201,184,255,0.20);color:#c9b8ff;font-weight:700;font-size:0.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+
+/* Boîte formule monospace */
+.formula-box { background:var(--s3);border-radius:12px;padding:14px;font-family:monospace;font-size:0.82rem;color:var(--text2);margin:10px 0;line-height:2; }
+
+/* Cartes financement rénovation */
+.financement-card { background:var(--s3);border-radius:10px;padding:12px;font-size:0.82rem; }
+.financement-card-title { font-weight:700;margin-bottom:4px; }
+.financement-card-text  { color:var(--muted);line-height:1.7; }
+
+.expert-expand-sub { font-size:0.72rem;color:var(--muted);font-weight:400; }
+
+/* ══ PARCOURS DU BELGE ══ */
+/* Navigation étapes colorées */
+.parcours-nav { display:flex;gap:6px;flex-wrap:wrap;margin-bottom:36px; }
+.parcours-nav-pill { padding:6px 14px;border-radius:20px;font-size:0.78rem;font-weight:600;text-decoration:none;transition:opacity 0.18s; }
+.parcours-nav-pill:hover { opacity:0.8; }
+.parcours-nav-green  { background:rgba(126,200,160,0.10);border:1px solid rgba(126,200,160,0.25);color:#7EC8A0; }
+.parcours-nav-cyan   { background:rgba(91,184,212,0.10); border:1px solid rgba(91,184,212,0.25); color:#5BB8D4; }
+.parcours-nav-immo   { background:rgba(196,114,74,0.10); border:1px solid rgba(196,114,74,0.25); color:#C4724A; }
+.parcours-nav-rose   { background:rgba(232,124,195,0.10);border:1px solid rgba(232,124,195,0.25);color:#E87CC3; }
+.parcours-nav-purple { background:rgba(201,184,255,0.10);border:1px solid rgba(201,184,255,0.25);color:#c9b8ff; }
+.parcours-nav-gold   { background:rgba(232,194,58,0.10); border:1px solid rgba(232,194,58,0.25); color:#E8C23A; }
+
+/* Carte étape parcours */
+.parcours-step { border-radius:18px;padding:22px;margin-bottom:14px;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap; }
+.parcours-step-green  { border-left:3px solid #7EC8A0; }
+.parcours-step-cyan   { border-left:3px solid #5BB8D4; }
+.parcours-step-immo   { border-left:3px solid #C4724A; }
+.parcours-step-rose   { border-left:3px solid #E87CC3; }
+.parcours-step-purple { border-left:3px solid #c9b8ff; }
+.parcours-step-gold   { border-left:3px solid #E8C23A; }
+
+/* Badge icône rond */
+.parcours-icon { width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0; }
+.parcours-icon-green  { background:rgba(126,200,160,0.10);border:2px solid rgba(126,200,160,0.25); }
+.parcours-icon-cyan   { background:rgba(91,184,212,0.10); border:2px solid rgba(91,184,212,0.25);  }
+.parcours-icon-immo   { background:rgba(196,114,74,0.10); border:2px solid rgba(196,114,74,0.25);  }
+.parcours-icon-rose   { background:rgba(232,124,195,0.10);border:2px solid rgba(232,124,195,0.25); }
+.parcours-icon-purple { background:rgba(201,184,255,0.10);border:2px solid rgba(201,184,255,0.25); }
+.parcours-icon-gold   { background:rgba(232,194,58,0.10); border:2px solid rgba(232,194,58,0.25);  }
+
+.parcours-body { flex:1;min-width:200px; }
+.parcours-eyebrow { font-size:0.68rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;margin-bottom:4px; }
+.parcours-eyebrow-green  { color:#7EC8A0; }
+.parcours-eyebrow-cyan   { color:#5BB8D4; }
+.parcours-eyebrow-immo   { color:#C4724A; }
+.parcours-eyebrow-rose   { color:#E87CC3; }
+.parcours-eyebrow-purple { color:#c9b8ff; }
+.parcours-eyebrow-gold   { color:#E8C23A; }
+.parcours-h2 { font-family:'DM Serif Display',serif;font-style:italic;font-size:1.3rem;color:var(--text);margin-bottom:12px; }
+.parcours-lead { font-size:0.84rem;color:var(--muted);line-height:1.7;margin-bottom:14px; }
+
+/* KPI grid parcours (variante small) */
+.parcours-kpi-grid { display:grid;gap:8px;margin-bottom:16px; }
+.parcours-kpi-3 { grid-template-columns:repeat(3,1fr); }
+.parcours-kpi-4 { grid-template-columns:repeat(4,1fr); }
+@media(max-width:480px) { .parcours-kpi-3,.parcours-kpi-4 { grid-template-columns:1fr 1fr; } }
+.parcours-kpi { background:var(--s3);border-radius:10px;padding:12px;text-align:center; }
+.parcours-kpi-val { font-family:'DM Serif Display',serif;font-style:italic;font-size:1.4rem; }
+.parcours-kpi-val-sm { font-size:1.2rem; }
+.parcours-kpi-sub { font-size:0.68rem;color:var(--muted); }
+
+/* Erreurs/Actions 2 colonnes */
+.parcours-2col { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px; }
+@media(max-width:480px) { .parcours-2col { grid-template-columns:1fr; } }
+.parcours-col { border-radius:10px;padding:12px; }
+.parcours-col-title { font-size:0.70rem;font-weight:700;text-transform:uppercase;margin-bottom:6px; }
+.parcours-col-rose   { background:rgba(232,124,195,0.06);border:1px solid rgba(232,124,195,0.15); }
+.parcours-col-green  { background:rgba(126,200,160,0.06);border:1px solid rgba(126,200,160,0.15); }
+.parcours-col-immo   { background:rgba(196,114,74,0.06); border:1px solid rgba(196,114,74,0.15);  }
+
+/* Steps ordonnés (étape 25-30 ans) */
+.parcours-steps { display:flex;flex-direction:column;gap:8px;margin-bottom:16px; }
+.parcours-step-item { background:var(--s3);border-radius:10px;padding:12px;display:flex;gap:12px;align-items:flex-start; }
+.parcours-step-num { width:24px;height:24px;border-radius:50%;color:#fff;font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.parcours-step-num-cyan   { background:#5BB8D4; }
+.parcours-step-num-immo   { background:#C4724A; }
+.parcours-step-num-rose   { background:#E87CC3; }
+.parcours-step-num-purple { background:#c9b8ff;color:#1E1D38; }
+.parcours-step-num-gold   { background:#E8C23A;color:#1E1D38; }
+.parcours-step-title { font-weight:700;color:var(--text);font-size:0.86rem;margin-bottom:2px; }
+.parcours-step-text  { font-size:0.78rem;color:var(--muted); }
+
+/* Barre de portefeuille */
+.portfolio-bar { border-radius:10px;overflow:hidden;height:24px;display:flex;margin-bottom:8px; }
+.portfolio-bar-etf    { background:#5BB8D4;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:#fff; }
+.portfolio-bar-immo   { background:#C4724A;display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:#fff; }
+.portfolio-bar-oblig  { background:#7EC8A0;display:flex;align-items:center;justify-content:center;font-size:0.62rem;font-weight:700;color:#fff; }
+.portfolio-bar-or     { background:#E8C23A;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:700;color:#fff; }
+.portfolio-bar-alt    { background:#E87CC3;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:700;color:#fff; }
+
+/* Grille piliers pension */
+.piliers-grid { display:grid;grid-template-columns:1fr 1fr;gap:8px; }
+.pilier-card { background:var(--s3);border-radius:10px;padding:12px; }
+.pilier-card-title { font-size:0.72rem;font-weight:700;margin-bottom:4px; }
+.pilier-card-text  { font-size:0.78rem;color:var(--muted);line-height:1.6; }
+
+/* Glissement portefeuille (étape 50-60) */
+.glissement-list { font-size:0.78rem;color:var(--muted);line-height:1.7; }
+
+/* Portfolio bar widths */
+.w-5p { width:5%; }
+.w-10p { width:10%; }
+.w-15p { width:15%; }
+.w-20p { width:20%; }
+.w-25p { width:25%; }
+.w-30p { width:30%; }
+.w-40p { width:40%; }
+.w-50p { width:50%; }
+.w-60p { width:60%; }
+.w-65p { width:65%; }
+.w-70p { width:70%; }
+.w-75p { width:75%; }
+.w-80p { width:80%; }
+
+.compare-bars { margin:14px 0; }
+.compare-bars-title { font-size:0.75rem;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em; }
+
+.calc-result-row { display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:8px; }
+
+.quiz-next-btn { font-size:0.82rem;padding:9px 16px; }
+
+/* ══ PSYCHOLOGIE ══ */
+.emotion-list { display:flex;flex-direction:column;gap:6px;margin:16px 0; }
+.emotion-item { display:flex;gap:12px;align-items:center;padding:10px 14px;border-radius:0 10px 10px 0; }
+.emotion-item-green  { background:rgba(126,200,160,0.07);border-left:3px solid #7EC8A0; }
+.emotion-item-gold   { background:rgba(232,194,58,0.07);  border-left:3px solid #E8C23A; }
+.emotion-item-rose   { background:rgba(232,124,195,0.07); border-left:3px solid var(--rose); }
+.emotion-item-muted  { background:var(--s3);              border-left:3px solid var(--muted); }
+.emotion-icon { font-size:1.1rem;flex-shrink:0; }
+.emotion-text { font-size:0.78rem;color:var(--muted); }
+
+.step-num-gradient { width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:0.84rem;flex-shrink:0; }
+
+.ennemi-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0; }
+@media(max-width:480px) { .ennemi-grid { grid-template-columns:1fr; } }
+.ennemi-card { background:rgba(232,124,195,0.07);border:1px solid rgba(232,124,195,0.20);border-radius:12px;padding:14px; }
+.ennemi-icon { font-size:1.4rem;margin-bottom:6px; }
+.ennemi-title { font-size:0.86rem;font-weight:700;color:var(--text);margin-bottom:4px; }
+.ennemi-text { font-size:0.76rem;color:var(--muted);line-height:1.6; }
+
+.quote-author { font-size:0.76rem;color:var(--muted); }
+
+/* ══ GLOSSAIRE ══ */
+.glossary-search-wrap { background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin-bottom:32px;display:flex;gap:10px;align-items:center; }
+.glossary-search-icon { font-size:1.2rem; }
+.glossary-search-input { border:none;background:transparent;padding:4px 0;font-size:0.90rem;color:var(--text);width:100%;outline:none; }
+
+.glossary-card { background:var(--s2);border:1px solid var(--faint);border-radius:14px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px; }
+.glossary-card-icon { font-size:1.3rem;flex-shrink:0;margin-top:2px; }
+.glossary-card-body { flex:1;min-width:0; }
+.glossary-card-header { display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:4px; }
+.glossary-card-term { font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text); }
+.glossary-card-full { font-size:0.78rem;color:var(--muted); }
+.glossary-card-tag { font-size:0.60rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:2px 8px;border-radius:12px;border:1px solid;flex-shrink:0; }
+.glossary-card-tag-invest  { color:#5BB8D4;border-color:rgba(91,184,212,0.30);background:rgba(91,184,212,0.07); }
+.glossary-card-tag-fiscal  { color:#c9b8ff;border-color:rgba(201,184,255,0.30);background:rgba(201,184,255,0.07); }
+.glossary-card-tag-budget  { color:#7EC8A0;border-color:rgba(126,200,160,0.30);background:rgba(126,200,160,0.07); }
+.glossary-card-tag-immo    { color:#C4724A;border-color:rgba(196,114,74,0.30);background:rgba(196,114,74,0.07); }
+.glossary-card-tag-societe { color:#E87CC3;border-color:rgba(232,124,195,0.30);background:rgba(232,124,195,0.07); }
+.glossary-card-tag-crypto  { color:#F7931A;border-color:rgba(247,147,26,0.30);background:rgba(247,147,26,0.07); }
+.glossary-card-tag-retraite{ color:#E8C23A;border-color:rgba(232,194,58,0.30);background:rgba(232,194,58,0.07); }
+.glossary-card-tag-alt     { color:var(--muted);border-color:var(--faint);background:var(--s3); }
+.glossary-card-def { font-size:0.84rem;color:var(--text2);line-height:1.65;margin:0; }
