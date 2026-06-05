@@ -32,7 +32,7 @@ window.WW_DATA = {
   stats: {
     nb_pages:       58,   // pages de contenu
     nb_simulateurs: 27,   // outils et simulateurs
-    nb_guides:       3,   // lead magnets disponibles
+    nb_guides:       10,   // lead magnets disponibles
     nb_themes:       5,   // thèmes couverts (budget, invest, immo, fiscal, crypto)
   },
 
