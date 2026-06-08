@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Créer mon compte — WealthWaffle</title>
-  <meta name="description" content="Crée ton compte WealthWaffle — gratuit, Accès complet · 7 jours gratuits.">
+  <meta name="description" content="Crée ton compte WealthWaffle — gratuit, accès complet, 7 jours gratuits.">
   <meta name="robots" content="noindex">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
   <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
   <script>window.WW_PAGE_META = { name: "Inscription", basePath: "/compte/", auth: true };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>
 <script>
-/* ── WealthWaffle Config — à remplir dans Cloudflare Pages env vars ── */
 window.WW_CONFIG = {
   SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
   SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'TON_ANON_KEY',
@@ -36,95 +37,75 @@ window.WW_CONFIG = {
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<div class="page" style="min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;">
-  <div style="width:100%;max-width:420px;">
-    <div style="text-align:center;margin-bottom:28px;">
-      <a href="/" style="font-size:1.4rem;text-decoration:none;">Wealth<em style="font-style:italic;">Waffle</em> 🧇</a>
-      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.5rem;color:var(--text);margin-top:12px;">Bienvenue 👋</div>
-      <div style="font-size:0.80rem;color:var(--muted);margin-top:4px;">Compte gratuit · Accès complet · 7 jours gratuits</div>
+
+<div class="auth-page">
+  <div class="auth-box-wide">
+    <div class="auth-header">
+      <a href="/" class="auth-logo">Wealth<em>Waffle</em> 🧇</a>
+      <div class="auth-title">Bienvenue 👋</div>
+      <div class="auth-subtitle">Compte gratuit · Accès complet · 7 jours gratuits</div>
     </div>
 
-    <!-- Étape 1 : infos de base -->
-    <div id="step-1" style="background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:28px 24px;">
-      <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.10em;color:var(--muted);margin-bottom:16px;">Étape 1 / 3 — Tes informations</div>
-      <div id="error-msg" style="display:none;background:rgba(232,124,195,0.08);border:1px solid rgba(232,124,195,0.25);border-radius:10px;padding:10px 14px;font-size:0.80rem;color:var(--rose);margin-bottom:14px;"></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+    <!-- Étape 1 -->
+    <div id="step-1" class="auth-card">
+      <div class="auth-step-label">Étape 1 / 3 — Tes informations</div>
+      <div id="error-msg" class="auth-error"></div>
+      <div class="auth-input-cols">
         <div>
-          <label style="font-size:0.72rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Prénom</label>
-          <input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name"
-            style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);outline:none;box-sizing:border-box;"
-            onfocus="this.style.borderColor='rgba(126,200,160,0.45)'" onblur="this.style.borderColor='var(--border)'">
+          <label class="auth-label">Prénom</label>
+          <input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name" class="auth-input auth-input-green">
         </div>
         <div>
-          <label style="font-size:0.72rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Nom</label>
-          <input type="text" id="nom" placeholder="Nom de famille" autocomplete="family-name"
-            style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);outline:none;box-sizing:border-box;"
-            onfocus="this.style.borderColor='rgba(126,200,160,0.45)'" onblur="this.style.borderColor='var(--border)'">
+          <label class="auth-label">Nom</label>
+          <input type="text" id="nom" placeholder="Nom de famille" autocomplete="family-name" class="auth-input auth-input-green">
         </div>
       </div>
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.72rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Email</label>
-        <input type="email" id="email" placeholder="ton@email.be" autocomplete="email"
-          style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);outline:none;box-sizing:border-box;"
-          onfocus="this.style.borderColor='rgba(126,200,160,0.45)'" onblur="this.style.borderColor='var(--border)'">
+      <div class="auth-field">
+        <label class="auth-label">Email</label>
+        <input type="email" id="email" placeholder="ton@email.be" autocomplete="email" class="auth-input auth-input-green">
       </div>
-      <div style="margin-bottom:20px;">
-        <label style="font-size:0.72rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Mot de passe</label>
-        <input type="password" id="password" placeholder="8 caractères minimum" autocomplete="new-password"
-          style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);outline:none;box-sizing:border-box;"
-          onfocus="this.style.borderColor='rgba(126,200,160,0.45)'" onblur="this.style.borderColor='var(--border)'"
-          onkeydown="if(event.key==='Enter')goStep2()">
+      <div class="auth-field-lg">
+        <label class="auth-label">Mot de passe</label>
+        <input type="password" id="password" placeholder="8 caractères minimum" autocomplete="new-password" class="auth-input auth-input-green" id="reg-pw">
       </div>
-      <button onclick="goStep2()" id="btn-step1"
-        style="width:100%;padding:13px;border-radius:12px;border:none;background:linear-gradient(135deg,#7EC8A0,#4aa87a);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;">
-        Continuer →
-      </button>
+      <button class="auth-btn auth-btn-green" id="btn-step1">Continuer →</button>
     </div>
 
-    <!-- Étape 2 : quiz onboarding -->
-    <div id="step-2" style="display:none;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:28px 24px;">
-      <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.10em;color:var(--muted);margin-bottom:16px;">Étape 2 / 3 — Ton niveau</div>
-      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);margin-bottom:16px;">Comment tu te situes en finance perso ?</div>
-      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
-        <button onclick="setLevel('debutant')" id="lvl-deb"
-          style="padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--s3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.86rem;cursor:pointer;text-align:left;transition:all 0.18s;">
-          🌱 <strong>Débutant</strong> — Je commence à m'intéresser à ma finance perso
-        </button>
-        <button onclick="setLevel('avance')" id="lvl-adv"
-          style="padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--s3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.86rem;cursor:pointer;text-align:left;transition:all 0.18s;">
-          🚀 <strong>Avancé</strong> — J'investis déjà, je veux aller plus loin
-        </button>
+    <!-- Étape 2 -->
+    <div id="step-2" class="auth-card hidden">
+      <div class="auth-step-label">Étape 2 / 3 — Ton niveau</div>
+      <div class="auth-quiz-title">Comment tu te situes en finance perso ?</div>
+      <div class="auth-level-btns">
+        <button class="auth-level-btn" id="lvl-deb" data-level="debutant">🌱 <strong>Débutant</strong> — Je commence à m'intéresser à ma finance perso</button>
+        <button class="auth-level-btn" id="lvl-adv" data-level="avance">🚀 <strong>Avancé</strong> — J'investis déjà, je veux aller plus loin</button>
       </div>
-      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);margin-bottom:12px;">Ton sujet prioritaire ?</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:20px;" id="topic-btns">
-        <button onclick="setTopic('budget')" class="topic-btn" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;">💶 Budget</button>
-        <button onclick="setTopic('invest')" class="topic-btn" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;">📈 Investir</button>
-        <button onclick="setTopic('immo')" class="topic-btn" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;">🏠 Immo</button>
-        <button onclick="setTopic('fiscal')" class="topic-btn" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;">📋 Fiscalité</button>
-        <button onclick="setTopic('crypto')" class="topic-btn" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;">₿ Crypto</button>
-        <button onclick="setTopic('retraite')" class="topic-btn" style="padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;">🏛️ Retraite</button>
+      <div class="auth-quiz-title-sm">Ton sujet prioritaire ?</div>
+      <div class="auth-topic-grid" id="topic-btns">
+        <button class="auth-topic-btn" data-topic="budget">💶 Budget</button>
+        <button class="auth-topic-btn" data-topic="invest">📈 Investir</button>
+        <button class="auth-topic-btn" data-topic="immo">🏠 Immo</button>
+        <button class="auth-topic-btn" data-topic="fiscal">📋 Fiscalité</button>
+        <button class="auth-topic-btn" data-topic="crypto">₿ Crypto</button>
+        <button class="auth-topic-btn" data-topic="retraite">🏛️ Retraite</button>
       </div>
-      <button onclick="doRegister()" id="btn-register"
-        style="width:100%;padding:13px;border-radius:12px;border:none;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;opacity:0.5;" disabled>
-        Créer mon compte →
-      </button>
+      <button class="auth-btn auth-btn-rose auth-btn-disabled" id="btn-register" disabled>Créer mon compte →</button>
     </div>
 
-    <!-- Étape 3 : confirmation -->
-    <div id="step-3" style="display:none;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:32px 24px;text-align:center;">
-      <div style="font-size:2.5rem;margin-bottom:14px;">✅</div>
-      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.3rem;color:var(--text);margin-bottom:8px;">Compte créé !</div>
-      <div style="font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:20px;">Vérifie ton email pour confirmer ton adresse — puis accède à ton dashboard.</div>
-      <a href="/dashboard/" style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;border-radius:12px;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-weight:700;font-size:0.88rem;text-decoration:none;">Accéder à mon dashboard →</a>
+    <!-- Étape 3 -->
+    <div id="step-3" class="auth-card-center hidden">
+      <div class="auth-confirm-icon">✅</div>
+      <div class="auth-confirm-title">Compte créé !</div>
+      <div class="auth-confirm-text">Vérifie ton email pour confirmer ton adresse — puis accède à ton dashboard.</div>
+      <a href="/dashboard/" class="btn-primary">Accéder à mon dashboard →</a>
     </div>
 
-    <div style="text-align:center;margin-top:18px;font-size:0.78rem;color:var(--muted);">
-      Déjà un compte ? <a href="/compte/connexion.html" style="color:var(--rose);font-weight:600;">Se connecter</a>
+    <div class="auth-footer">
+      Déjà un compte ? <a href="/compte/connexion.html" class="auth-link">Se connecter</a>
     </div>
   </div>
 </div>
+
 <script>
-/* ── Auth helpers — WealthWaffle ─────────────────────────── */
 const { createClient } = supabase;
 const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
 window.WW = { sb };
@@ -135,56 +116,18 @@ async function getSession() {
   const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
   window.WW.user    = session.user;
   window.WW.profile = profile;
-  // Sync level to localStorage pour les outils et blurs
   localStorage.setItem('ww_session', session.access_token);
   localStorage.setItem('ww_plan', profile?.plan || 'socle');
   return { user: session.user, profile };
 }
 
-async function requireAuth(minLevel) {
-  const LEVELS = { socle: 1, pilote: 2, radar: 3 };
-  const session = await getSession();
-  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
-  const userLevel  = LEVELS[session.profile?.plan] || 0;
-  const neededLevel = LEVELS[minLevel] || 1;
-  if (userLevel < neededLevel) { window.location.href = '/compte/inscription.html?plan=' + minLevel; return null; }
-  return session;
-}
-
-async function signOut() {
-  await sb.auth.signOut();
-  localStorage.removeItem('ww_session');
-  localStorage.removeItem('ww_plan');
-  window.location.href = '/';
-}
-</script>
-<script>
-let selectedLevel = null;
-let selectedTopic = null;
-let userData = {};
-
-function setLevel(l) {
-  selectedLevel = l;
-  document.getElementById('lvl-deb').style.borderColor = l==='debutant' ? '#7EC8A0' : 'var(--border)';
-  document.getElementById('lvl-deb').style.background  = l==='debutant' ? 'rgba(126,200,160,0.10)' : 'var(--s3)';
-  document.getElementById('lvl-adv').style.borderColor = l==='avance'   ? '#c9b8ff' : 'var(--border)';
-  document.getElementById('lvl-adv').style.background  = l==='avance'   ? 'rgba(201,184,255,0.10)' : 'var(--s3)';
-  checkReady();
-}
-
-function setTopic(t) {
-  selectedTopic = t;
-  document.querySelectorAll('.topic-btn').forEach(b => {
-    b.style.borderColor = 'var(--border)'; b.style.background = 'var(--s3)'; b.style.color = 'var(--muted)';
-  });
-  event.target.style.borderColor = '#E87CC3'; event.target.style.background = 'rgba(232,124,195,0.10)'; event.target.style.color = 'var(--text)';
-  checkReady();
-}
+let selectedLevel = null, selectedTopic = null, userData = {};
 
 function checkReady() {
   const btn = document.getElementById('btn-register');
   const ready = selectedLevel && selectedTopic;
-  btn.disabled = !ready; btn.style.opacity = ready ? '1' : '0.5';
+  btn.disabled = !ready;
+  btn.classList.toggle('auth-btn-disabled', !ready);
 }
 
 function goStep2() {
@@ -204,18 +147,56 @@ async function doRegister() {
   btn.textContent = 'Création…'; btn.disabled = true;
   const { data, error } = await sb.auth.signUp({
     email: userData.email, password: userData.password,
-    options: { data: { prenom: userData.prenom, level: selectedLevel, topic: selectedTopic, plan: 'socle' } }
+    options: {
+      data: { prenom: userData.prenom, level: selectedLevel, topic: selectedTopic },
+      emailRedirectTo: window.WW_CONFIG.SITE_URL + '/compte/callback.html?type=signup',
+    }
   });
   if (error) {
-    btn.textContent = 'Créer mon compte →'; btn.disabled = false;
-    alert(error.message); return;
+    document.getElementById('step-2').style.display = 'none';
+    document.getElementById('step-1').style.display = 'block';
+    document.getElementById('error-msg').textContent = error.message;
+    document.getElementById('error-msg').style.display = 'block';
+    return;
   }
-  // Sauvegarder préférences en localStorage
   localStorage.setItem('ww_level', selectedLevel);
   localStorage.setItem('ww_topic', selectedTopic);
-  localStorage.setItem('ww_plan', 'socle');
   document.getElementById('step-2').style.display = 'none';
   document.getElementById('step-3').style.display = 'block';
 }
+
+window.addEventListener('load', () => {
+  document.getElementById('btn-step1').addEventListener('click', goStep2);
+  document.getElementById('password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') goStep2();
+  });
+  document.getElementById('btn-register').addEventListener('click', doRegister);
+
+  // Niveaux
+  document.querySelectorAll('.auth-level-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedLevel = btn.dataset.level;
+      document.querySelectorAll('.auth-level-btn').forEach(b => {
+        b.style.borderColor = 'var(--border)'; b.style.background = 'var(--s3)';
+      });
+      btn.style.borderColor = selectedLevel==='debutant' ? '#7EC8A0' : '#c9b8ff';
+      btn.style.background  = selectedLevel==='debutant' ? 'rgba(126,200,160,0.10)' : 'rgba(201,184,255,0.10)';
+      checkReady();
+    });
+  });
+
+  // Topics
+  document.querySelectorAll('.auth-topic-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedTopic = btn.dataset.topic;
+      document.querySelectorAll('.auth-topic-btn').forEach(b => {
+        b.style.borderColor = 'var(--border)'; b.style.background = 'var(--s3)'; b.style.color = 'var(--muted)';
+      });
+      btn.style.borderColor = '#E87CC3'; btn.style.background = 'rgba(232,124,195,0.10)'; btn.style.color = 'var(--text)';
+      checkReady();
+    });
+  });
+});
 </script>
-</body></html>
+</body>
+</html>
