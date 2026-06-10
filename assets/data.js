@@ -418,6 +418,60 @@ window.WW_DATA = {
     },
   ],
 
+  /* ── XP par page (gamification) ── */
+  xp: {
+    // Budget
+    '/budget/index.html':      { pts: 80,  theme: 'budget',   label: '+80 XP · Fondamentaux Budget',       skill: '+Gestion Patrimoniale' },
+    '/budget/epargne.html':    { pts: 120, theme: 'budget',   label: '+120 XP · Épargne Long Terme',       skill: '+Vision Long Terme' },
+    '/budget/banques.html':    { pts: 100, theme: 'budget',   label: '+100 XP · Connaissance Bancaire',    skill: '+Résistance aux Frais' },
+    '/budget/assurances.html': { pts: 100, theme: 'budget',   label: '+100 XP · Protection du Patrimoine', skill: '+Blindage Patrimonial' },
+    '/budget/retraite.html':   { pts: 120, theme: 'budget',   label: '+120 XP · Préparation Retraite',     skill: '+Vision Long Terme' },
+    '/budget/rente.html':      { pts: 150, theme: 'budget',   label: '+150 XP · Liberté Financière',       skill: '+Indépendance Financière' },
+    // Investissement
+    '/invest/index.html':      { pts: 80,  theme: 'invest',   label: '+80 XP · Introduction Invest',       skill: '+Culture Financière' },
+    '/invest/etf.html':        { pts: 150, theme: 'invest',   label: '+150 XP · Maîtrise ETF',             skill: '+Intelligence Passive' },
+    '/invest/allocation.html': { pts: 120, theme: 'invest',   label: '+120 XP · Allocation Portefeuille',  skill: '+Équilibre Risque' },
+    '/invest/fonds.html':      { pts: 100, theme: 'invest',   label: '+100 XP · Analyse Fonds',            skill: '+Résistance aux Frais' },
+    '/invest/actions.html':    { pts: 120, theme: 'invest',   label: '+120 XP · Stock Picking',            skill: '+Analyse Fondamentale' },
+    '/invest/obligations.html':{ pts: 100, theme: 'invest',   label: '+100 XP · Revenus Fixes',            skill: '+Stabilité Portefeuille' },
+    '/invest/or.html':         { pts: 100, theme: 'invest',   label: '+100 XP · Valeurs Refuges',          skill: '+Résistance Inflation' },
+    '/invest/crypto.html':     { pts: 120, theme: 'invest',   label: '+120 XP · Maîtrise Crypto',          skill: '+Tolérance Risque' },
+    '/invest/alternatives.html':{ pts: 110,theme: 'invest',   label: '+110 XP · Diversification Avancée', skill: '+Vision Alternative' },
+    '/invest/equity.html':     { pts: 130, theme: 'invest',   label: '+130 XP · Equity & Startups',        skill: '+Audace Stratégique' },
+    '/invest/frais-caches.html':{ pts: 110,theme: 'invest',   label: '+110 XP · Détection Frais Cachés',  skill: '+Résistance aux Frais' },
+    '/invest/comparateurs.html':{ pts: 90, theme: 'invest',   label: '+90 XP · Comparaison Brokers',       skill: '+Optimisation Coûts' },
+    // Fiscalité
+    '/fiscal/index.html':      { pts: 80,  theme: 'fiscal',   label: '+80 XP · Introduction Fiscalité',   skill: '+Culture Fiscale' },
+    '/fiscal/declaration.html':{ pts: 150, theme: 'fiscal',   label: '+150 XP · Maîtrise Déclaration',    skill: '+Optimisation Fiscale' },
+    '/fiscal/independants.html':{ pts: 130,theme: 'fiscal',   label: '+130 XP · Statut Indépendant',      skill: '+Autonomie Professionnelle' },
+    '/fiscal/societes.html':   { pts: 140, theme: 'fiscal',   label: '+140 XP · Intelligence IS',         skill: '+Vision Dirigeant' },
+    '/fiscal/deductions.html': { pts: 130, theme: 'fiscal',   label: '+130 XP · Expert Déductions',       skill: '+Optimisation Fiscale' },
+    '/fiscal/plus-values.html':{ pts: 120, theme: 'fiscal',   label: '+120 XP · Taxe Plus-Values',        skill: '+Intelligence Investisseur' },
+    '/fiscal/immo.html':       { pts: 120, theme: 'fiscal',   label: '+120 XP · Fiscalité Immo',          skill: '+Stratégie Patrimoniale' },
+    '/fiscal/remuneration.html':{ pts: 130,theme: 'fiscal',   label: '+130 XP · Optimisation Rémunération',skill: '+Vision Dirigeant' },
+    // Immobilier
+    '/immo/index.html':        { pts: 80,  theme: 'immo',     label: '+80 XP · Introduction Immo',        skill: '+Culture Immobilière' },
+    '/immo/achat.html':        { pts: 150, theme: 'immo',     label: '+150 XP · Achat Immobilier',        skill: '+Stratégie Patrimoine' },
+    '/immo/financement.html':  { pts: 130, theme: 'immo',     label: '+130 XP · Financement Hypothécaire',skill: '+Levier Financier' },
+    '/immo/locatif.html':      { pts: 140, theme: 'immo',     label: '+140 XP · Investissement Locatif',  skill: '+Revenus Passifs' },
+    '/immo/regions.html':      { pts: 100, theme: 'immo',     label: '+100 XP · Droits Régionaux',        skill: '+Intelligence Territoriale' },
+    '/immo/societe.html':      { pts: 130, theme: 'immo',     label: '+130 XP · Immo via Société',        skill: '+Stratégie Avancée' },
+    // Parcours
+    '/parcours/bases.html':    { pts: 120, theme: 'parcours', label: '+120 XP · Fondamentaux Finance',    skill: '+Culture Financière' },
+    '/parcours/glossaire.html':{ pts: 80,  theme: 'parcours', label: '+80 XP · Vocabulaire Expert',       skill: '+Maîtrise du Jargon' },
+    '/parcours/psychologie.html':{ pts: 130,theme: 'parcours',label: '+130 XP · Psychologie Investisseur',skill: '+Résistance aux Biais' },
+    '/parcours/entreprendre.html':{ pts: 120,theme: 'parcours',label: '+120 XP · Entrepreneuriat',        skill: '+Autonomie Professionnelle' },
+  },
+
+  /* ── Niveaux globaux ── */
+  levels: [
+    { name: 'Épargnant',          min: 0,    icon: '🌱', color: '#7EC8A0' },
+    { name: 'Investisseur',        min: 500,  icon: '📈', color: '#5BB8D4' },
+    { name: 'Stratège',            min: 1500, icon: '⚡', color: '#E8C23A' },
+    { name: 'Expert',              min: 3000, icon: '🎯', color: '#E87CC3' },
+    { name: 'WealthWaffle Master', min: 5000, icon: '💎', color: '#c9b8ff' },
+  ],
+
 };
 
 /*

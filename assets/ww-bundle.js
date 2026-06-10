@@ -1,3 +1,4 @@
+/* Last modified: 2026-06-09 23:52:00 */
 /* * ═══════════════════════════════════════════════════════════
  * WEALTHWAFFLE — ww-bundle.js
  * Fichier unique regroupant tous les scripts du site
@@ -3965,4 +3966,475 @@ window.ww_animateDownload = function(btn) {
       setTimeout(showNudge, 8000); // 8s après chargement de la 2ème page
     });
   }
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   GAM1-5 — Système XP, Niveaux, Streak, Gain RPG, Grimoire
+   Last modified: auto
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── GAM3 : Gain RPG au checkmark ── */
+window.ww_showXPGain = function(pts, label, skill) {
+  if (!pts) return;
+  const toast = document.createElement('div');
+  toast.className = 'ww-xp-toast';
+  toast.innerHTML =
+    '<span class="ww-xp-pts">+' + pts + ' XP</span>' +
+    '<span class="ww-xp-skill">' + skill + '</span>';
+  document.body.appendChild(toast);
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { toast.classList.add('ww-xp-toast-visible'); });
+  });
+  setTimeout(function() {
+    toast.classList.remove('ww-xp-toast-visible');
+    setTimeout(function() { toast.remove(); }, 600);
+  }, 2800);
+};
+
+/* ── Hook sur markAsRead pour déclencher XP ── */
+(function hookXPOnRead() {
+  const origMarkAsRead = window.ww_markAsRead;
+  if (!origMarkAsRead) return;
+  window.ww_markAsRead = async function(btn) {
+    await origMarkAsRead(btn);
+    // Récupérer les XP de la page depuis WW_DATA
+    const xpData = window.WW_DATA?.xp;
+    if (!xpData) return;
+    const slug = location.pathname.endsWith('/') ? location.pathname + 'index.html' : location.pathname;
+    const entry = xpData[slug];
+    if (!entry) return;
+
+    // Afficher le gain RPG
+    window.ww_showXPGain(entry.pts, entry.label, entry.skill);
+
+    // Mettre à jour XP en Supabase si connecté
+    if (window.WW?.sb && window.WW?.user?.id) {
+      const uid = window.WW.user.id;
+      const col = 'xp_' + entry.theme;
+      const { data: profile } = await window.WW.sb
+        .from('profiles')
+        .select('xp_total,' + col)
+        .eq('id', uid)
+        .single();
+      if (profile) {
+        const newThemeXP = (profile[col] || 0) + entry.pts;
+        const newTotal   = (profile.xp_total || 0) + entry.pts;
+        const levels     = window.WW_DATA?.levels || [];
+        const level      = [...levels].reverse().find(function(l) { return newTotal >= l.min; });
+        await window.WW.sb.from('profiles').update({
+          xp_total:    newTotal,
+          [col]:       newThemeXP,
+          level_name:  level?.name || 'Épargnant',
+        }).eq('id', uid);
+      }
+    }
+  };
+})();
+
+/* ── GAM9-11 : Grimoire ── */
+(function initGrimoire() {
+  const MAX_CHARS = 2000;
+  let isOpen = false;
+
+  // Injecter le bouton dans le header
+  function injectGrimoireBtn() {
+    // Chercher le conteneur Waffy pour mettre le bouton juste au-dessus
+    const waffy = document.getElementById('ww-waffy-fab') || document.querySelector('.ww-waffy-fab');
+    const btn = document.createElement('button');
+    btn.id = 'ww-grimoire-btn';
+    btn.className = 'ww-grimoire-fab';
+    btn.setAttribute('aria-label', 'Mon grimoire');
+    btn.textContent = '🗒️';
+    btn.addEventListener('click', toggleGrimoire);
+    document.body.appendChild(btn);
+  }
+
+  function toggleGrimoire() {
+    if (isOpen) closeGrimoire();
+    else openGrimoire();
+  }
+
+  async function openGrimoire() {
+    if (document.getElementById('ww-grimoire-panel')) return;
+    isOpen = true;
+
+    const panel = document.createElement('div');
+    panel.id = 'ww-grimoire-panel';
+    panel.innerHTML =
+      '<div class="ww-grimoire-header">' +
+        '<span class="ww-grimoire-title">🗒️ Mon grimoire</span>' +
+        '<span class="ww-grimoire-counter" id="ww-grimoire-count">0 / ' + MAX_CHARS + '</span>' +
+        '<button class="ww-grimoire-close" id="ww-grimoire-close">✕</button>' +
+      '</div>' +
+      '<textarea class="ww-grimoire-area" id="ww-grimoire-text" placeholder="Tes notes financières... Idées, rappels, formules — tout ce que tu veux retenir."></textarea>' +
+      '<button class="ww-grimoire-save btn-primary" id="ww-grimoire-save">Sauvegarder</button>';
+    document.body.appendChild(panel);
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() { panel.classList.add('ww-grimoire-open'); });
+    });
+
+    // Charger depuis Supabase si connecté
+    const session = localStorage.getItem('ww_session');
+    const textarea = document.getElementById('ww-grimoire-text');
+    if (session && window.WW?.sb && window.WW?.user?.id) {
+      const { data } = await window.WW.sb.from('grimoire')
+        .select('content').eq('user_id', window.WW.user.id).maybeSingle();
+      if (data?.content) textarea.value = data.content;
+    } else {
+      // Non connecté → localStorage
+      textarea.value = localStorage.getItem('ww_grimoire_local') || '';
+    }
+    updateCount();
+
+    textarea.addEventListener('input', function() {
+      if (textarea.value.length > MAX_CHARS) textarea.value = textarea.value.slice(0, MAX_CHARS);
+      updateCount();
+    });
+
+    document.getElementById('ww-grimoire-close').addEventListener('click', closeGrimoire);
+    document.getElementById('ww-grimoire-save').addEventListener('click', saveGrimoire);
+  }
+
+  function updateCount() {
+    const txt = document.getElementById('ww-grimoire-text');
+    const ctr = document.getElementById('ww-grimoire-count');
+    if (!txt || !ctr) return;
+    const n = txt.value.length;
+    ctr.textContent = n + ' / ' + MAX_CHARS;
+    ctr.style.color = n > MAX_CHARS * 0.9 ? 'var(--rose)' : 'var(--muted)';
+  }
+
+  async function saveGrimoire() {
+    const txt = document.getElementById('ww-grimoire-text');
+    if (!txt) return;
+    const content = txt.value;
+    const btn = document.getElementById('ww-grimoire-save');
+    if (btn) { btn.textContent = 'Sauvegardé ✅'; setTimeout(function(){ if(btn) btn.textContent='Sauvegarder'; }, 2000); }
+
+    if (window.WW?.sb && window.WW?.user?.id) {
+      await window.WW.sb.from('grimoire').upsert(
+        { user_id: window.WW.user.id, content, char_count: content.length, updated_at: new Date().toISOString() },
+        { onConflict: 'user_id' }
+      );
+    } else {
+      localStorage.setItem('ww_grimoire_local', content);
+    }
+  }
+
+  function closeGrimoire() {
+    const panel = document.getElementById('ww-grimoire-panel');
+    if (!panel) return;
+    isOpen = false;
+    panel.classList.remove('ww-grimoire-open');
+    setTimeout(function() { panel.remove(); }, 350);
+  }
+
+  window.addEventListener('load', injectGrimoireBtn);
+  window.ww_toggleGrimoire = toggleGrimoire;
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   GAM6-8 — Arbre de compétences Canvas
+   ══════════════════════════════════════════════════════════════ */
+
+window.WW_SkillTree = (function() {
+
+  /* ── Structure de l'arbre ── */
+  var TREE = [
+    // Racine centrale
+    { id:'root', label:'Finance\nPersonnelle', icon:'🧇', x:0.5, y:0.08,
+      slug:null, theme:'root', pts:0, children:['budget','invest','fiscal','immo','parcours'] },
+
+    // Branches thématiques (hubs)
+    { id:'budget',   label:'Budget',        icon:'💶', x:0.18, y:0.28, slug:'/budget/index.html',   theme:'budget',   pts:80,  children:['epargne','banques','assurances','retraite','rente'] },
+    { id:'invest',   label:'Investir',      icon:'📈', x:0.5,  y:0.28, slug:'/invest/index.html',   theme:'invest',   pts:80,  children:['etf','allocation','actions','obligations','crypto','or','fonds','equity','alternatives','frais'] },
+    { id:'fiscal',   label:'Fiscalité',     icon:'📋', x:0.82, y:0.28, slug:'/fiscal/index.html',   theme:'fiscal',   pts:80,  children:['declaration','independants','societes','deductions','plus-values','fiscal-immo'] },
+    { id:'immo',     label:'Immobilier',    icon:'🏠', x:0.30, y:0.55, slug:'/immo/index.html',     theme:'immo',     pts:80,  children:['achat','financement','locatif','regions','societe-immo'] },
+    { id:'parcours', label:'Parcours',      icon:'🗺️', x:0.70, y:0.55, slug:'/parcours/index.html', theme:'parcours', pts:0,   children:['bases','glossaire','psychologie','entreprendre'] },
+
+    // Feuilles Budget
+    { id:'epargne',     label:'Épargne\nLong Terme', icon:'🏛️', x:0.04, y:0.48, slug:'/budget/epargne.html',    theme:'budget', pts:120, children:[] },
+    { id:'banques',     label:'Banques',              icon:'🏦', x:0.10, y:0.60, slug:'/budget/banques.html',    theme:'budget', pts:100, children:[] },
+    { id:'assurances',  label:'Assurances',           icon:'🛡️', x:0.04, y:0.72, slug:'/budget/assurances.html', theme:'budget', pts:100, children:[] },
+    { id:'retraite',    label:'Retraite',             icon:'🏛️', x:0.16, y:0.72, slug:'/budget/retraite.html',   theme:'budget', pts:120, children:[] },
+    { id:'rente',       label:'Vivre de\nsa Rente',   icon:'🔥', x:0.10, y:0.84, slug:'/budget/rente.html',      theme:'budget', pts:150, children:[] },
+
+    // Feuilles Invest
+    { id:'etf',          label:'ETF',           icon:'📊', x:0.36, y:0.45, slug:'/invest/etf.html',          theme:'invest', pts:150, children:[] },
+    { id:'allocation',   label:'Allocation',    icon:'⚖️', x:0.44, y:0.50, slug:'/invest/allocation.html',   theme:'invest', pts:120, children:[] },
+    { id:'actions',      label:'Actions',       icon:'📉', x:0.50, y:0.58, slug:'/invest/actions.html',      theme:'invest', pts:120, children:[] },
+    { id:'obligations',  label:'Obligations',   icon:'📜', x:0.42, y:0.65, slug:'/invest/obligations.html',  theme:'invest', pts:100, children:[] },
+    { id:'crypto',       label:'Crypto',        icon:'₿',  x:0.58, y:0.50, slug:'/invest/crypto.html',       theme:'invest', pts:120, children:[] },
+    { id:'or',           label:'Or',            icon:'🥇', x:0.56, y:0.65, slug:'/invest/or.html',           theme:'invest', pts:100, children:[] },
+    { id:'fonds',        label:'Fonds Actifs',  icon:'📋', x:0.50, y:0.40, slug:'/invest/fonds.html',        theme:'invest', pts:100, children:[] },
+    { id:'equity',       label:'Equity',        icon:'🚀', x:0.62, y:0.40, slug:'/invest/equity.html',       theme:'invest', pts:130, children:[] },
+    { id:'alternatives', label:'Alternatifs',   icon:'🌐', x:0.64, y:0.58, slug:'/invest/alternatives.html', theme:'invest', pts:110, children:[] },
+    { id:'frais',        label:'Frais\nCachés', icon:'💸', x:0.56, y:0.73, slug:'/invest/frais-caches.html', theme:'invest', pts:110, children:[] },
+
+    // Feuilles Fiscal
+    { id:'declaration',  label:'Déclaration',   icon:'📝', x:0.76, y:0.45, slug:'/fiscal/declaration.html',  theme:'fiscal', pts:150, children:[] },
+    { id:'independants', label:'Indépendants',  icon:'👤', x:0.84, y:0.50, slug:'/fiscal/independants.html', theme:'fiscal', pts:130, children:[] },
+    { id:'societes',     label:'Sociétés',      icon:'🏢', x:0.92, y:0.45, slug:'/fiscal/societes.html',     theme:'fiscal', pts:140, children:[] },
+    { id:'deductions',   label:'Déductions',    icon:'✂️', x:0.88, y:0.60, slug:'/fiscal/deductions.html',   theme:'fiscal', pts:130, children:[] },
+    { id:'plus-values',  label:'Plus-Values',   icon:'📈', x:0.80, y:0.65, slug:'/fiscal/plus-values.html',  theme:'fiscal', pts:120, children:[] },
+    { id:'fiscal-immo',  label:'Fiscal\nImmo',  icon:'🏠', x:0.94, y:0.65, slug:'/fiscal/immo.html',         theme:'fiscal', pts:120, children:[] },
+
+    // Feuilles Immo
+    { id:'achat',        label:'Acheter',        icon:'🔑', x:0.20, y:0.72, slug:'/immo/achat.html',        theme:'immo', pts:150, children:[] },
+    { id:'financement',  label:'Financement',    icon:'🏦', x:0.28, y:0.80, slug:'/immo/financement.html',  theme:'immo', pts:130, children:[] },
+    { id:'locatif',      label:'Locatif',        icon:'💰', x:0.36, y:0.72, slug:'/immo/locatif.html',      theme:'immo', pts:140, children:[] },
+    { id:'regions',      label:'Régions',        icon:'🗺️', x:0.20, y:0.85, slug:'/immo/regions.html',      theme:'immo', pts:100, children:[] },
+    { id:'societe-immo', label:'Via Société',    icon:'🏢', x:0.36, y:0.85, slug:'/immo/societe.html',      theme:'immo', pts:130, children:[] },
+
+    // Feuilles Parcours
+    { id:'bases',         label:'Les Bases',      icon:'📖', x:0.62, y:0.72, slug:'/parcours/bases.html',        theme:'parcours', pts:120, children:[] },
+    { id:'glossaire',     label:'Glossaire',      icon:'📚', x:0.70, y:0.80, slug:'/parcours/glossaire.html',    theme:'parcours', pts:80,  children:[] },
+    { id:'psychologie',   label:'Psychologie',    icon:'🧠', x:0.78, y:0.72, slug:'/parcours/psychologie.html',  theme:'parcours', pts:130, children:[] },
+    { id:'entreprendre',  label:'Entreprendre',   icon:'🚀', x:0.78, y:0.85, slug:'/parcours/entreprendre.html', theme:'parcours', pts:120, children:[] },
+  ];
+
+  /* Couleurs par thème */
+  var THEME_COLORS = {
+    root:     '#E87CC3',
+    budget:   '#7EC8A0',
+    invest:   '#5BB8D4',
+    fiscal:   '#c9b8ff',
+    immo:     '#C4724A',
+    parcours: '#E8C23A',
+  };
+
+  /* ── Rendu Canvas ── */
+  function render(canvasEl, readSlugs) {
+    var W = canvasEl.offsetWidth;
+    var H = Math.round(W * 1.05); // ratio portrait
+    canvasEl.width  = W * (window.devicePixelRatio || 1);
+    canvasEl.height = H * (window.devicePixelRatio || 1);
+    canvasEl.style.height = H + 'px';
+    var ctx = canvasEl.getContext('2d');
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+    ctx.clearRect(0, 0, W, H);
+
+    // Index pour lookup rapide
+    var nodeMap = {};
+    TREE.forEach(function(n) { nodeMap[n.id] = n; });
+
+    // Dessiner les liaisons d'abord
+    TREE.forEach(function(n) {
+      n.children.forEach(function(cid) {
+        var child = nodeMap[cid];
+        if (!child) return;
+        var x1 = n.x * W, y1 = n.y * H;
+        var x2 = child.x * W, y2 = child.y * H;
+        var read = child.slug && readSlugs.has(child.slug);
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        // Courbe de Bézier pour liaisons organiques
+        var cx = (x1 + x2) / 2;
+        var cy = (y1 + y2) / 2 - 10;
+        ctx.quadraticCurveTo(cx, cy, x2, y2);
+        ctx.strokeStyle = read
+          ? THEME_COLORS[child.theme] + 'aa'
+          : 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = read ? 2 : 1;
+        ctx.setLineDash(read ? [] : [4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+    });
+
+    // Dessiner les nœuds
+    TREE.forEach(function(n) {
+      var x = n.x * W, y = n.y * H;
+      var isRoot   = n.id === 'root';
+      var isHub    = n.children.length > 0 && !isRoot;
+      var read     = n.slug && readSlugs.has(n.slug);
+      var radius   = isRoot ? 28 : isHub ? 22 : 16;
+      var color    = THEME_COLORS[n.theme] || '#888';
+
+      // Halo lumineux si lu
+      if (read || isRoot) {
+        ctx.beginPath();
+        ctx.arc(x, y, radius + 6, 0, Math.PI * 2);
+        ctx.fillStyle = color + '22';
+        ctx.fill();
+      }
+
+      // Cercle principal
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      if (read || isRoot) {
+        ctx.fillStyle = color + 'cc';
+        ctx.strokeStyle = color;
+      } else {
+        ctx.fillStyle = 'rgba(255,255,255,0.04)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+      }
+      ctx.lineWidth = read ? 2 : 1;
+      ctx.fill();
+      ctx.stroke();
+
+      // Icône emoji
+      ctx.font = (isRoot ? 18 : isHub ? 14 : 11) + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.globalAlpha = read || isRoot ? 1 : 0.3;
+      ctx.fillText(n.icon, x, y);
+      ctx.globalAlpha = 1;
+
+      // Label sous le nœud
+      var fontSize = isRoot ? 9 : isHub ? 8 : 7;
+      ctx.font = 'bold ' + fontSize + 'px DM Sans, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = read || isRoot ? color : 'rgba(255,255,255,0.25)';
+      var lines = n.label.split('\n');
+      lines.forEach(function(line, i) {
+        ctx.fillText(line, x, y + radius + 4 + i * (fontSize + 1));
+      });
+    });
+  }
+
+  /* ── Tooltip au survol/tap ── */
+  function initTooltip(canvasEl, readSlugs) {
+    var W = canvasEl.offsetWidth;
+    var H = parseFloat(canvasEl.style.height);
+    var tooltip = document.getElementById('ww-skill-tooltip');
+    if (!tooltip) {
+      tooltip = document.createElement('div');
+      tooltip.id = 'ww-skill-tooltip';
+      tooltip.className = 'skill-node-tooltip';
+      document.body.appendChild(tooltip);
+    }
+
+    function findNode(cx, cy) {
+      var best = null, bestDist = 30;
+      TREE.forEach(function(n) {
+        var nx = n.x * W, ny = n.y * H;
+        var dist = Math.sqrt((cx - nx) * (cx - nx) + (cy - ny) * (cy - ny));
+        var radius = n.id === 'root' ? 28 : n.children.length > 0 ? 22 : 16;
+        if (dist < radius + 8 && dist < bestDist) {
+          bestDist = dist; best = n;
+        }
+      });
+      return best;
+    }
+
+    function showTooltip(n, ex, ey) {
+      if (!n || n.id === 'root') { tooltip.classList.remove('visible'); return; }
+      var read = n.slug && readSlugs.has(n.slug);
+      tooltip.innerHTML =
+        '<div class="skill-node-tooltip-title">' + n.icon + ' ' + n.label.replace('\n', ' ') + '</div>' +
+        '<div class="skill-node-tooltip-xp">+' + n.pts + ' XP</div>' +
+        '<div class="skill-node-tooltip-status">' + (read ? '✅ Exploré' : '🔒 Non exploré') + '</div>' +
+        (n.slug && !read ? '<div style="font-size:0.66rem;margin-top:3px;color:var(--muted)">Clique pour explorer →</div>' : '');
+      tooltip.style.left = (ex + 12) + 'px';
+      tooltip.style.top  = (ey - 10) + 'px';
+      tooltip.classList.add('visible');
+    }
+
+    canvasEl.addEventListener('mousemove', function(e) {
+      var rect = canvasEl.getBoundingClientRect();
+      var n = findNode(e.clientX - rect.left, e.clientY - rect.top);
+      showTooltip(n, e.clientX, e.clientY);
+      canvasEl.style.cursor = (n && n.slug) ? 'pointer' : 'default';
+    });
+    canvasEl.addEventListener('mouseleave', function() {
+      tooltip.classList.remove('visible');
+    });
+    canvasEl.addEventListener('click', function(e) {
+      var rect = canvasEl.getBoundingClientRect();
+      var n = findNode(e.clientX - rect.left, e.clientY - rect.top);
+      if (n && n.slug) window.location.href = n.slug;
+    });
+    // Touch support
+    canvasEl.addEventListener('touchstart', function(e) {
+      var touch = e.touches[0];
+      var rect = canvasEl.getBoundingClientRect();
+      var n = findNode(touch.clientX - rect.left, touch.clientY - rect.top);
+      if (n) showTooltip(n, touch.clientX, touch.clientY);
+    }, { passive: true });
+    canvasEl.addEventListener('touchend', function(e) {
+      var touch = e.changedTouches[0];
+      var rect = canvasEl.getBoundingClientRect();
+      var n = findNode(touch.clientX - rect.left, touch.clientY - rect.top);
+      if (n && n.slug) {
+        e.preventDefault();
+        window.location.href = n.slug;
+      }
+    });
+  }
+
+  /* ── Score barres par thème ── */
+  function renderScores(container, readSlugs, xpProfile) {
+    var THEME_MAX = { budget:670, invest:1330, fiscal:1000, immo:730, parcours:450 };
+    var THEME_LABELS = { budget:'💶 Budget', invest:'📈 Invest', fiscal:'📋 Fiscal', immo:'🏠 Immo', parcours:'🗺️ Parcours' };
+    container.innerHTML = '';
+    Object.entries(THEME_MAX).forEach(function(entry) {
+      var theme = entry[0], max = entry[1];
+      var current = xpProfile ? (xpProfile['xp_' + theme] || 0) : 0;
+      // Calculer depuis les pages lues si pas de profil
+      if (!current) {
+        TREE.forEach(function(n) {
+          if (n.theme === theme && n.slug && readSlugs.has(n.slug)) current += n.pts;
+        });
+      }
+      var pct = Math.min(100, Math.round(current / max * 100));
+      var row = document.createElement('div');
+      row.className = 'skill-score-row';
+      row.innerHTML =
+        '<span class="skill-score-label">' + THEME_LABELS[theme] + '</span>' +
+        '<div class="skill-score-track"><div class="skill-score-fill" data-pct="' + pct + '" style="width:0%;background:' + THEME_COLORS[theme] + '"></div></div>' +
+        '<span class="skill-score-xp">' + current + ' / ' + max + ' XP</span>';
+      container.appendChild(row);
+    });
+    // Animer les barres
+    requestAnimationFrame(function() {
+      container.querySelectorAll('.skill-score-fill').forEach(function(el) {
+        setTimeout(function() { el.style.width = el.dataset.pct + '%'; }, 100);
+      });
+    });
+  }
+
+  /* ── Niveau badge ── */
+  function renderLevel(el, xpTotal) {
+    var levels = window.WW_DATA && window.WW_DATA.levels ? window.WW_DATA.levels : [];
+    var level  = levels.slice().reverse().find(function(l) { return xpTotal >= l.min; }) || levels[0];
+    if (!level || !el) return;
+    el.className = 'ww-level-badge';
+    el.style.color       = level.color;
+    el.style.borderColor = level.color + '44';
+    el.style.background  = level.color + '11';
+    var next = levels.find(function(l) { return l.min > xpTotal; });
+    el.textContent = level.icon + ' ' + level.name + (next ? ' · ' + (next.min - xpTotal) + ' XP → ' + next.name : ' · MAX');
+  }
+
+  /* ── Initialisation publique ── */
+  return {
+    init: function(opts) {
+      // opts: { canvasId, scoresId, levelId, readSlugs, xpProfile }
+      var canvas   = document.getElementById(opts.canvasId);
+      var scoresEl = document.getElementById(opts.scoresId);
+      var levelEl  = document.getElementById(opts.levelId);
+      if (!canvas) return;
+
+      var readSlugs = opts.readSlugs || new Set();
+      var xpProfile = opts.xpProfile || null;
+      var xpTotal   = xpProfile ? (xpProfile.xp_total || 0) : 0;
+
+      render(canvas, readSlugs);
+      initTooltip(canvas, readSlugs);
+      if (scoresEl) renderScores(scoresEl, readSlugs, xpProfile);
+      if (levelEl)  renderLevel(levelEl, xpTotal);
+
+      // Re-render si resize
+      window.addEventListener('resize', function() {
+        render(canvas, readSlugs);
+        initTooltip(canvas, readSlugs);
+      });
+    },
+    TREE: TREE,
+    THEME_COLORS: THEME_COLORS,
+  };
 })();

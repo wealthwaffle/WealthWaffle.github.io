@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Last modified: auto -->
+  <title>🌳 Mon arbre de compétences — WealthWaffle</title>
+  <meta name="description" content="Visualise ta progression en finance personnelle belge. Chaque page lue allume un nœud de l'arbre. Crée un compte pour sauvegarder.">
+  <meta property="og:title" content="Arbre de compétences — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Progression", basePath: "/parcours/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+
+<div class="page">
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/parcours/">Parcours</a><span>/</span><span>Ma progression</span></div>
+
+<div class="eyebrow eyebrow-invest">🌳 Progression</div>
+<h1 class="display">Ton arbre de<br><span class="txt-rose">compétences</span></h1>
+<p class="lead">Chaque page lue allume un nœud. Clique sur un nœud pour y aller directement.</p>
+
+<!-- Badge niveau -->
+<div id="ww-level-badge" class="ww-level-badge ww-level-badge-mb">⏳ Calcul…</div>
+
+<!-- Arbre Canvas -->
+<div class="skill-tree-wrap skill-tree-wrap-rel">
+  <canvas id="skill-tree-canvas" class="skill-tree-canvas"></canvas>
+  <!-- CTA overlay pour non-inscrits -->
+  <div class="skill-tree-cta hidden" id="tree-cta">
+    <div class="skill-tree-cta-title">💾 Sauvegarde ta progression</div>
+    <p class="skill-tree-cta-sub">Crée un compte gratuit pour que tes nœuds restent allumés à chaque visite.</p>
+    <a href="/compte/inscription.html" class="btn-primary">Créer mon compte →</a>
+  </div>
+</div>
+
+<!-- Légende -->
+<div class="skill-tree-legend">
+  <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-green"></span>Budget</span>
+  <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-cyan"></span>Investir</span>
+  <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-purple"></span>Fiscalité</span>
+  <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-immo"></span>Immo</span>
+  <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-gold"></span>Parcours</span>
+  <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-muted"></span>Non exploré</span>
+</div>
+
+<!-- Scores par thème -->
+<div class="content-card reveal">
+  <h3>📊 Score par domaine</h3>
+  <div id="skill-scores" class="skill-scores"></div>
+</div>
+
+<!-- Message si non inscrit -->
+<div id="local-note" class="hidden">
+  <div class="info-box">💡 <strong>Mode visiteur</strong> — ta progression est sauvegardée localement sur cet appareil. <a href="/compte/inscription.html" class="link-invest">Crée un compte gratuit</a> pour la sauvegarder sur tous tes appareils et ne jamais la perdre.</div>
+</div>
+
+<div class="see-also">
+  <div class="see-also-label">Explorer</div>
+  <a href="/budget/" class="see-also-pill">💶 Budget</a>
+  <a href="/invest/" class="see-also-pill">📈 Investir</a>
+  <a href="/fiscal/" class="see-also-pill">📋 Fiscalité</a>
+  <a href="/immo/" class="see-also-pill">🏠 Immo</a>
+  <a href="/parcours/" class="see-also-pill">🗺️ Parcours</a>
+</div>
+</div>
+
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+<script>
+window.WW_CONFIG = {
+  SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://klhhztxvgudefxmciwfz.supabase.co',
+  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || '',
+  SITE_URL: 'https://wealthwaffle.be',
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+window.addEventListener('load', async function() {
+  var readSlugs = new Set();
+  var xpProfile = null;
+  var isLoggedIn = false;
+
+  // Essayer de récupérer depuis Supabase si connecté
+  var session = localStorage.getItem('ww_session');
+  if (session && window.WW_CONFIG.SUPABASE_URL) {
+    try {
+      var sb = supabase.createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+      var authRes = await sb.auth.getSession();
+      var user = authRes.data.session?.user;
+      if (user) {
+        isLoggedIn = true;
+        var viewsRes = await sb.from('page_views').select('page_slug').eq('user_id', user.id);
+        (viewsRes.data || []).forEach(function(v) { readSlugs.add(v.page_slug); });
+        var profRes = await sb.from('profiles').select('xp_total,xp_budget,xp_invest,xp_fiscal,xp_immo,xp_parcours,level_name').eq('id', user.id).single();
+        xpProfile = profRes.data;
+      }
+    } catch(e) {}
+  }
+
+  // Fallback : pages vues en localStorage (compteur local)
+  if (!isLoggedIn) {
+    document.getElementById('local-note')?.classList.remove('hidden');
+    // Montrer le CTA après 5s si non inscrit
+    setTimeout(function() {
+      document.getElementById('tree-cta')?.classList.remove('hidden');
+    }, 5000);
+  }
+
+  // Initialiser l'arbre
+  if (window.WW_SkillTree) {
+    WW_SkillTree.init({
+      canvasId:  'skill-tree-canvas',
+      scoresId:  'skill-scores',
+      levelId:   'ww-level-badge',
+      readSlugs: readSlugs,
+      xpProfile: xpProfile,
+    });
+  }
+});
+</script>
+</body>
+</html>

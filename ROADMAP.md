@@ -159,3 +159,42 @@
 - [ ] **K7.** Plateforme equity directe — agrément FSMA
 - [ ] **K8.** Incubateur startup WW
 - [ ] **K9.** Odoo — back-office / CRM
+
+-----
+
+## 🟠 GROUPE GAM — Gamification (prioritaire)
+
+> Tout dans ww-bundle.js + ww-all.css sauf le grimoire (Supabase)
+
+### Phase 1 — XP & Niveaux (architecture)
+
+- [ ] **GAM1.** Définir XP par page dans `data.js` — lié à l’arborescence (Budget/Invest/Fiscal/Immo/Parcours)
+- [ ] **GAM2.** Calcul XP total + niveau global dans dashboard (5 niveaux : Épargnant → WealthWaffle Master)
+- [ ] **GAM3.** Gain RPG au checkmark — notification “+X XP · +Résistance à l’Inflation” qui monte et disparaît
+- [ ] **GAM4.** Score de maîtrise par thème — barre XP par section (Budget 4/6 pages = 67%)
+- [ ] **GAM5.** Streak — compteur jours consécutifs dans dashboard + notification si streak en danger
+
+### Phase 2 — Arbre de compétences
+
+- [ ] **GAM6.** Arbre visuel Canvas/SVG dans dashboard — pages lues s’allument, non lues grisées “Non exploré”
+- [ ] **GAM7.** Version fantôme pour non-inscrits (visible mais grisée) → CTA “Créer un compte pour débloquer”
+- [ ] **GAM8.** Suggestion d’ordre de lecture (flèche entre les nœuds) sans verrouillage
+
+### Phase 3 — Grimoire
+
+- [ ] **GAM9.** Icône 🗒️ dans le header (au-dessus de Waffy) — panel latéral slide
+- [ ] **GAM10.** Zone de texte libre — limite 2.000 caractères — sauvegardé en Supabase (table `grimoire`)
+- [ ] **GAM11.** Accessible depuis dashboard “Mon grimoire” avec date de dernière note
+
+### Phase 4 — Quiz fin de page
+
+- [ ] **GAM12.** Système de tags sur paragraphes (data-anchor) pour renvoyer vers le bon passage si réponse fausse
+- [ ] **GAM13.** Quiz débutant — question simple — si faux → ancre vers paragraphe concerné
+- [ ] **GAM14.** Quiz avancé — calcul/cas pratique — si faux → renvoie vers outil Pilote correspondant
+
+### Phase 5 — Divers
+
+- [ ] **GAM15.** Badge “🆕 Mis à jour — [date]” sur paragraphes modifiés + ancre directe
+- [ ] **GAM16.** Classement anonyme dans dashboard — “Vous faites partie des X% les plus avancés”
+- [ ] **GAM17.** Défi hebdomadaire — question financière belge chaque semaine
+- [ ] **GAM18.** Notification streak en danger — email Brevo J+1 si pas de connexion

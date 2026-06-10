@@ -133,6 +133,27 @@ window.WW_CONFIG = {
 
   </div>
 
+
+  <!-- ── ARBRE DE COMPÉTENCES ── -->
+  <div class="dash-section">
+    <div class="dash-card">
+      <h4>🌳 Arbre de compétences</h4>
+      <div id="ww-level-badge" class="ww-level-badge ww-level-badge-mb">⏳ Calcul du niveau…</div>
+      <div class="skill-tree-wrap">
+        <canvas id="skill-tree-canvas" class="skill-tree-canvas"></canvas>
+      </div>
+      <div class="skill-tree-legend">
+        <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-green"></span>Budget</span>
+        <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-cyan"></span>Investir</span>
+        <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-purple"></span>Fiscalité</span>
+        <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-immo"></span>Immo</span>
+        <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-gold"></span>Parcours</span>
+        <span class="skill-tree-legend-item"><span class="skill-tree-legend-dot ww-dot-dot-muted"></span>Non exploré</span>
+      </div>
+      <div id="skill-scores" class="skill-scores"></div>
+    </div>
+  </div>
+
   <!-- ── PROGRESSION ── -->
   <div class="dash-section">
     <div class="dash-card">
@@ -342,6 +363,17 @@ window.addEventListener('load', async () => {
   const { data: views } = await sb.from('page_views').select('page_slug').eq('user_id', user.id);
   const readPages = new Set((views||[]).map(v => v.page_slug));
   window._readPages = readPages;
+
+  // ── Arbre de compétences ──
+  if (window.WW_SkillTree) {
+    WW_SkillTree.init({
+      canvasId:  'skill-tree-canvas',
+      scoresId:  'skill-scores',
+      levelId:   'ww-level-badge',
+      readSlugs: readPages,
+      xpProfile: profile,
+    });
+  }
 
   renderParcours(topic, readPages, level);
 
