@@ -5286,3 +5286,25 @@ details summary::-webkit-details-marker { display:none; }
 .ww-dot-dot-muted { background:rgba(255,255,255,0.15); }
 
 .skill-tree-wrap-rel { position:relative; }
+
+/* ══ UTILITAIRES ══ */
+/* Last modified: 2026-06-10 10:13:38 */
+.hidden { display:none !important; }
+
+/* ══ AUTH — états actifs boutons (inscription) ══ */
+/* Last modified: 2026-06-10 10:13:50 */
+.auth-level-btn-active-deb {
+  border-color:#7EC8A0 !important;
+  background:rgba(126,200,160,0.10) !important;
+  color:var(--text) !important;
+}
+.auth-level-btn-active-adv {
+  border-color:#c9b8ff !important;
+  background:rgba(201,184,255,0.10) !important;
+  color:var(--text) !important;
+}
+.auth-topic-btn-active {
+  border-color:#E87CC3 !important;
+  background:rgba(232,124,195,0.10) !important;
+  color:var(--text) !important;
+}

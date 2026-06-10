@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <!-- Last modified: 2026-06-10 10:13:38 -->
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Créer mon compte — WealthWaffle</title>
   <meta name="description" content="Crée ton compte WealthWaffle — gratuit, accès complet, 7 jours gratuits.">
@@ -15,9 +16,6 @@
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<script src="/assets/data.js"></script>
-<script src="/assets/tools.js"></script>
-<script src="/assets/ww-bundle.js" defer></script>
 <script>
 window.WW_CONFIG = {
   SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
@@ -49,7 +47,7 @@ window.WW_CONFIG = {
     <!-- Étape 1 -->
     <div id="step-1" class="auth-card">
       <div class="auth-step-label">Étape 1 / 3 — Tes informations</div>
-      <div id="error-msg" class="auth-error"></div>
+      <div id="error-msg" class="auth-error hidden"></div>
       <div class="auth-input-cols">
         <div>
           <label class="auth-label">Prénom</label>
@@ -135,7 +133,7 @@ function goStep2() {
   const e = document.getElementById('email').value.trim();
   const pw = document.getElementById('password').value;
   const err = document.getElementById('error-msg');
-  if (!p || !e || !pw) { err.textContent = 'Remplis tous les champs.'; err.style.display='block'; return; }
+  if (!p || !e || !pw) { err.textContent = 'Remplis tous les champs.'; err.classList.remove('hidden'); return; }
   if (pw.length < 8) { err.textContent = 'Mot de passe trop court (8 car. min).'; err.style.display='block'; return; }
   userData = { prenom: p, email: e, password: pw };
   document.getElementById('step-1').classList.add('hidden');
@@ -156,7 +154,7 @@ async function doRegister() {
     document.getElementById('step-2').classList.add('hidden');
     document.getElementById('step-1').classList.remove('hidden');
     document.getElementById('error-msg').textContent = error.message;
-    document.getElementById('error-msg').style.display = 'block';
+    document.getElementById('error-msg').classList.remove('hidden');
     return;
   }
   localStorage.setItem('ww_level', selectedLevel);
@@ -198,5 +196,7 @@ window.addEventListener('load', () => {
   });
 });
 </script>
+<script src="/assets/data.js"></script>
+<script src="/assets/ww-bundle.js"></script>
 </body>
 </html>
