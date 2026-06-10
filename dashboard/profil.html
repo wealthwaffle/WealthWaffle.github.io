@@ -2,65 +2,133 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon profil — WealthWaffle</title>
-  <meta name="description" content="Modifier tes informations personnelles, ton mot de passe et tes préférences.">
-  <meta name="robots" content="noindex">
+  <!-- Last modified: 2026-06-10 -->
+  <title>👤 Données personnelles — WealthWaffle</title>
+  <meta name="description" content="Gérer tes données personnelles, mot de passe et préférences.">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
   <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
   <link rel="apple-touch-icon" href="/img/waffy-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
-  <script>window.WW_PAGE_META = { name: "Mon profil", basePath: "/compte/", auth: true };</script>
+  <script>window.WW_PAGE_META = { name: "Données personnelles", basePath: "/compte/", auth: true };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<script src="/assets/data.js"></script>
-<script src="/assets/tools.js"></script>
-<script src="/assets/ww-bundle.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <div class="page">
-<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/dashboard/">Dashboard</a><span>/</span><span>Mon profil</span></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/dashboard/">Dashboard</a><span>/</span><span>Données personnelles</span></div>
 
-<div class="eyebrow eyebrow-invest">👤 Profil</div>
-<h1 class="display">Mon profil</h1>
+<div class="eyebrow eyebrow-invest">👤 Mon compte</div>
+<h1 class="display">Données<br><span class="txt-rose">personnelles</span></h1>
 
 <div class="pill-nav">
   <a href="/dashboard/" class="source-pill">← Dashboard</a>
-  <a href="/compte/profil.html" class="source-pill source-pill-active">👤 Profil ←</a>
+  <a href="/compte/profil.html" class="source-pill source-pill-active-invest">👤 Données ←</a>
   <a href="/compte/abonnement.html" class="source-pill">💳 Abonnement</a>
   <a href="/compte/parrainage.html" class="source-pill">🎁 Parrainage</a>
 </div>
 
-<!-- Informations personnelles -->
+<!-- Identité -->
 <div class="dash-card">
-  <h4>👤 Informations personnelles</h4>
-  <div id="error-profil" class="auth-error"></div>
-  <div id="ok-profil" class="auth-success"></div>
+  <h4>👤 Identité</h4>
+  <div id="error-profil" class="auth-error hidden"></div>
+  <div id="ok-profil" class="auth-success hidden"></div>
   <div class="auth-input-cols">
     <div>
       <label class="auth-label">Prénom</label>
-      <input type="text" id="prenom" class="auth-input" autocomplete="given-name">
+      <input type="text" id="prenom" name="given-name" class="auth-input" autocomplete="given-name" placeholder="Prénom">
     </div>
     <div>
-      <label class="auth-label">Nom</label>
-      <input type="text" id="nom" class="auth-input" autocomplete="family-name">
+      <label class="auth-label">Nom de famille</label>
+      <input type="text" id="nom" name="family-name" class="auth-input" autocomplete="family-name" placeholder="Nom">
+    </div>
+  </div>
+  <div class="auth-input-cols">
+    <div>
+      <label class="auth-label">Date de naissance</label>
+      <input type="date" id="date_naissance" class="auth-input" autocomplete="bday">
+    </div>
+    <div>
+      <label class="auth-label">Région</label>
+      <select id="region" class="auth-input sim-select">
+        <option value="">— Sélectionner —</option>
+        <option value="wallonie">Wallonie</option>
+        <option value="bruxelles">Bruxelles-Capitale</option>
+        <option value="flandre">Flandre</option>
+        <option value="autre">Autre / Expatrié</option>
+      </select>
     </div>
   </div>
   <div class="auth-field">
-    <label class="auth-label">Email</label>
+    <label class="auth-label">Adresse email</label>
     <input type="email" id="email" class="auth-input" autocomplete="email" disabled>
-    <div class="dash-pref-hint">L'email ne peut pas être modifié pour des raisons de sécurité.</div>
+    <div class="dash-pref-hint">L'email ne peut pas être modifié directement. Contacte le support.</div>
   </div>
-  <button class="auth-btn auth-btn-rose" id="btn-save-profil">Enregistrer les modifications →</button>
+  <button class="auth-btn auth-btn-rose" id="btn-save-profil">Enregistrer →</button>
+</div>
+
+<!-- Situation financière -->
+<div class="dash-card">
+  <h4>💶 Situation financière <span class="dash-pref-hint">(utilisé pour personnaliser les simulateurs)</span></h4>
+  <div id="ok-situation" class="auth-success hidden"></div>
+  <div class="auth-input-cols">
+    <div>
+      <label class="auth-label">Salaire net mensuel (€)</label>
+      <input type="number" id="salaire_net_mensuel" class="auth-input" placeholder="Ex : 2800" min="0" max="50000">
+    </div>
+    <div>
+      <label class="auth-label">Épargne mensuelle (€)</label>
+      <input type="number" id="epargne_mensuelle" class="auth-input" placeholder="Ex : 400" min="0">
+    </div>
+  </div>
+  <div class="auth-input-cols">
+    <div>
+      <label class="auth-label">Capital déjà épargné (€)</label>
+      <input type="number" id="epargne_existante" class="auth-input" placeholder="Ex : 15000" min="0">
+    </div>
+    <div>
+      <label class="auth-label">Charges mensuelles fixes (€)</label>
+      <input type="number" id="charges_mensuelles" class="auth-input" placeholder="Ex : 900" min="0">
+    </div>
+  </div>
+  <div class="auth-field">
+    <label class="auth-label">Statut professionnel</label>
+    <select id="statut_pro" class="auth-input sim-select">
+      <option value="">— Sélectionner —</option>
+      <option value="salarie">Salarié(e)</option>
+      <option value="independant">Indépendant(e)</option>
+      <option value="dirigeant">Dirigeant(e) de société</option>
+      <option value="etudiant">Étudiant(e)</option>
+      <option value="sans_emploi">Sans emploi</option>
+      <option value="retraite">Retraité(e)</option>
+    </select>
+  </div>
+  <div class="auth-input-cols">
+    <div>
+      <label class="auth-label">Situation familiale</label>
+      <select id="situation_familiale" class="auth-input sim-select">
+        <option value="">— Sélectionner —</option>
+        <option value="celibataire">Célibataire</option>
+        <option value="en_couple">En couple</option>
+        <option value="marie">Marié(e)</option>
+        <option value="cohabitant_legal">Cohabitant légal</option>
+      </select>
+    </div>
+    <div>
+      <label class="auth-label">Enfants à charge</label>
+      <input type="number" id="nb_enfants_charge" class="auth-input" placeholder="0" min="0" max="20">
+    </div>
+  </div>
+  <button class="auth-btn auth-btn-green" id="btn-save-situation">Enregistrer la situation →</button>
 </div>
 
 <!-- Mot de passe -->
 <div class="dash-card">
   <h4>🔒 Changer le mot de passe</h4>
-  <div id="error-pw" class="auth-error"></div>
-  <div id="ok-pw" class="auth-success"></div>
+  <div id="error-pw" class="auth-error hidden"></div>
+  <div id="ok-pw" class="auth-success hidden"></div>
   <div class="auth-field">
     <label class="auth-label">Nouveau mot de passe</label>
     <input type="password" id="new-pw" class="auth-input" placeholder="8 caractères minimum">
@@ -72,49 +140,51 @@
   <button class="auth-btn auth-btn-rose" id="btn-save-pw">Changer le mot de passe →</button>
 </div>
 
-<!-- Préférences -->
-<div class="dash-card">
-  <h4>⚙️ Préférences</h4>
-  <div class="dash-pref-row">
-    <div class="dash-pref-label">Mode de lecture</div>
-    <div class="dash-pref-level">
-      <button class="pref-btn" id="btn-level-deb" data-level="debutant">🌱 Débutant</button>
-      <button class="pref-btn" id="btn-level-adv" data-level="avance">🚀 Avancé</button>
-    </div>
-  </div>
-  <div class="dash-pref-row">
-    <div class="dash-pref-label">Sujet prioritaire</div>
-    <div class="dash-topic-grid">
-      <button class="pref-btn" data-topic="budget">💶 Budget</button>
-      <button class="pref-btn" data-topic="invest">📈 Investir</button>
-      <button class="pref-btn" data-topic="immo">🏠 Immo</button>
-      <button class="pref-btn" data-topic="fiscal">📋 Fiscalité</button>
-      <button class="pref-btn" data-topic="crypto">₿ Crypto</button>
-      <button class="pref-btn" data-topic="retraite">🏛️ Retraite</button>
-    </div>
-  </div>
-  <button class="auth-btn auth-btn-green" id="btn-save-prefs">Enregistrer les préférences →</button>
-  <div id="ok-prefs" class="auth-success"></div>
-</div>
-
-<!-- Danger zone -->
-<div class="dash-card">
+<!-- Zone de danger -->
+<div class="dash-card dash-card-danger">
   <h4>⚠️ Zone de danger</h4>
-  <p class="dash-pref-note">Ces actions sont irréversibles. Procède avec précaution.</p>
-  <button class="btn-ghost" id="btn-delete-account">Supprimer mon compte</button>
+  <p class="dash-pref-note">La suppression désactive ton compte pendant 30 jours. Tu peux le réactiver en te reconnectant pendant cette période. Passé ce délai, les données sont définitivement supprimées.</p>
+
+  <button class="btn-delete-account" id="btn-delete-account">🗑️ Supprimer mon compte</button>
+
   <div id="confirm-delete" class="hidden">
-    <p class="dash-pref-note">Cette action supprimera définitivement toutes tes données. Es-tu certain ?</p>
-    <button class="auth-btn auth-btn-rose" id="btn-confirm-delete">Oui, supprimer définitivement</button>
+    <div class="delete-confirm-box">
+      <p class="delete-confirm-text">Pour confirmer, entre ton mot de passe actuel :</p>
+      <input type="password" id="delete-pw" class="auth-input" placeholder="Ton mot de passe actuel">
+      <div id="error-delete" class="auth-error hidden"></div>
+      <div class="delete-confirm-actions">
+        <button class="btn-delete-confirm" id="btn-confirm-delete">Supprimer définitivement</button>
+        <button class="btn-delete-cancel" id="btn-cancel-delete">Annuler</button>
+      </div>
+      <p class="delete-confirm-note">⏳ Ton compte sera réactivable pendant 30 jours en te reconnectant.</p>
+    </div>
   </div>
 </div>
+
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js"></script>
 <script>
+/* Last modified: 2026-06-10 */
 const { createClient } = supabase;
 const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
-window.WW = { sb };
+window.WW = window.WW || {}; window.WW.sb = sb;
+
+function showMsg(elId, msg, isOk) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.remove('hidden');
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; el.classList.add('hidden'); }, 4000);
+}
 
 async function getSession() {
+  let retries = 0;
+  while (!window.WW?.sb && retries < 20) { await new Promise(r => setTimeout(r, 100)); retries++; }
   const { data: { session } } = await sb.auth.getSession();
   if (!session) return null;
   const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
@@ -122,48 +192,71 @@ async function getSession() {
   return { user: session.user, profile };
 }
 
-function showMsg(elId, msg, isOk = true) {
-  const el = document.getElementById(elId);
-  if (!el) return;
-  el.textContent = msg;
-  el.style.display = 'block';
-  setTimeout(() => { el.style.display = 'none'; }, 4000);
+async function saveProfil() {
+  const prenom          = document.getElementById('prenom').value.trim();
+  const nom             = document.getElementById('nom').value.trim();
+  const date_naissance  = document.getElementById('date_naissance').value || null;
+  const region          = document.getElementById('region').value || null;
+  if (!prenom) { showMsg('error-profil', 'Le prénom est requis.', false); return; }
+  const { error } = await sb.from('profiles').update({ prenom, nom, date_naissance, region }).eq('id', window.WW.user.id);
+  if (error) showMsg('error-profil', error.message, false);
+  else { showMsg('ok-profil', '✅ Données enregistrées !', true); localStorage.setItem('ww_prenom', prenom); }
 }
 
-async function saveProfil() {
-  const prenom = document.getElementById('prenom').value.trim();
-  const nom    = document.getElementById('nom').value.trim();
-  if (!prenom) { showMsg('error-profil', 'Le prénom est requis.', false); return; }
-  const { error } = await sb.from('profiles').update({ prenom, nom }).eq('id', window.WW.user.id);
-  if (error) showMsg('error-profil', error.message, false);
-  else showMsg('ok-profil', '✅ Profil mis à jour !');
+async function saveSituation() {
+  const fields = {
+    salaire_net_mensuel:  parseInt(document.getElementById('salaire_net_mensuel').value) || null,
+    epargne_mensuelle:    parseInt(document.getElementById('epargne_mensuelle').value)    || null,
+    epargne_existante:    parseInt(document.getElementById('epargne_existante').value)    || null,
+    charges_mensuelles:   parseInt(document.getElementById('charges_mensuelles').value)   || null,
+    statut_pro:           document.getElementById('statut_pro').value || null,
+    situation_familiale:  document.getElementById('situation_familiale').value || null,
+    nb_enfants_charge:    parseInt(document.getElementById('nb_enfants_charge').value)    || 0,
+  };
+  const { error } = await sb.from('profiles').update(fields).eq('id', window.WW.user.id);
+  if (error) showMsg('ok-situation', '❌ Erreur : ' + error.message, false);
+  else showMsg('ok-situation', '✅ Situation enregistrée !', true);
 }
 
 async function savePw() {
   const pw  = document.getElementById('new-pw').value;
   const cpw = document.getElementById('confirm-pw').value;
   if (pw.length < 8) { showMsg('error-pw', 'Mot de passe trop court (8 car. min).', false); return; }
-  if (pw !== cpw) { showMsg('error-pw', 'Les mots de passe ne correspondent pas.', false); return; }
+  if (pw !== cpw)    { showMsg('error-pw', 'Les mots de passe ne correspondent pas.', false); return; }
   const { error } = await sb.auth.updateUser({ password: pw });
   if (error) showMsg('error-pw', error.message, false);
-  else showMsg('ok-pw', '✅ Mot de passe modifié !');
-}
-
-async function savePrefs() {
-  const level = document.querySelector('.pref-btn[data-level].active')?.dataset.level || 'debutant';
-  const topic = document.querySelector('.pref-btn[data-topic].active')?.dataset.topic || 'budget';
-  localStorage.setItem('ww_level', level);
-  localStorage.setItem('ww_topic', topic);
-  await sb.from('profiles').update({ level, topic }).eq('id', window.WW.user.id);
-  showMsg('ok-prefs', '✅ Préférences enregistrées !');
+  else { showMsg('ok-pw', '✅ Mot de passe modifié !', true); document.getElementById('new-pw').value = ''; document.getElementById('confirm-pw').value = ''; }
 }
 
 async function deleteAccount() {
-  if (!confirm('Supprimer définitivement ton compte ? Cette action est irréversible.')) return;
-  await sb.from('profiles').delete().eq('id', window.WW.user.id);
+  const pw = document.getElementById('delete-pw').value;
+  if (!pw) { showMsg('error-delete', 'Entre ton mot de passe pour confirmer.', false); return; }
+
+  const btn = document.getElementById('btn-confirm-delete');
+  btn.textContent = 'Vérification…'; btn.disabled = true;
+
+  // Vérifier le mot de passe en essayant de se reconnecter
+  const { error: authErr } = await sb.auth.signInWithPassword({
+    email: window.WW.user.email,
+    password: pw,
+  });
+
+  if (authErr) {
+    btn.textContent = 'Supprimer définitivement'; btn.disabled = false;
+    showMsg('error-delete', 'Mot de passe incorrect.', false);
+    return;
+  }
+
+  // Suppression douce : marquer comme supprimé pendant 30 jours
+  const deletionDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+  await sb.from('profiles').update({
+    deleted_at: new Date().toISOString(),
+    deletion_scheduled_at: deletionDate,
+  }).eq('id', window.WW.user.id);
+
   await sb.auth.signOut();
-  ['ww_session','ww_plan','ww_level','ww_topic'].forEach(k => localStorage.removeItem(k));
-  window.location.href = '/';
+  ['ww_session','ww_plan','ww_level','ww_topic','ww_prenom'].forEach(k => localStorage.removeItem(k));
+  window.location.href = '/?compte_supprime=1';
 }
 
 window.addEventListener('load', async () => {
@@ -171,35 +264,34 @@ window.addEventListener('load', async () => {
   if (!session) { window.location.href = '/compte/connexion.html?next=/compte/profil.html'; return; }
   const { user, profile } = session;
 
-  document.getElementById('prenom').value = profile?.prenom || '';
-  document.getElementById('nom').value    = profile?.nom    || '';
-  document.getElementById('email').value  = user.email;
+  // Remplir les champs
+  document.getElementById('prenom').value           = profile?.prenom || '';
+  document.getElementById('nom').value              = profile?.nom    || '';
+  document.getElementById('date_naissance').value   = profile?.date_naissance || '';
+  document.getElementById('region').value           = profile?.region || '';
+  document.getElementById('email').value            = user.email;
+  document.getElementById('salaire_net_mensuel').value = profile?.salaire_net_mensuel || '';
+  document.getElementById('epargne_mensuelle').value   = profile?.epargne_mensuelle   || '';
+  document.getElementById('epargne_existante').value   = profile?.epargne_existante   || '';
+  document.getElementById('charges_mensuelles').value  = profile?.charges_mensuelles  || '';
+  document.getElementById('statut_pro').value          = profile?.statut_pro || '';
+  document.getElementById('situation_familiale').value = profile?.situation_familiale || '';
+  document.getElementById('nb_enfants_charge').value   = profile?.nb_enfants_charge ?? '';
 
-  const level = profile?.level || localStorage.getItem('ww_level') || 'debutant';
-  const topic = profile?.topic || localStorage.getItem('ww_topic') || 'budget';
-  document.querySelector(`.pref-btn[data-level="${level}"]`)?.classList.add('active');
-  document.querySelector(`.pref-btn[data-topic="${topic}"]`)?.classList.add('active');
-
+  // Listeners
   document.getElementById('btn-save-profil').addEventListener('click', saveProfil);
+  document.getElementById('btn-save-situation').addEventListener('click', saveSituation);
   document.getElementById('btn-save-pw').addEventListener('click', savePw);
-  document.getElementById('btn-save-prefs').addEventListener('click', savePrefs);
   document.getElementById('btn-delete-account').addEventListener('click', () => {
     document.getElementById('confirm-delete').classList.remove('hidden');
+    document.getElementById('btn-delete-account').classList.add('hidden');
+  });
+  document.getElementById('btn-cancel-delete').addEventListener('click', () => {
+    document.getElementById('confirm-delete').classList.add('hidden');
+    document.getElementById('btn-delete-account').classList.remove('hidden');
+    document.getElementById('delete-pw').value = '';
   });
   document.getElementById('btn-confirm-delete').addEventListener('click', deleteAccount);
-
-  document.querySelectorAll('.pref-btn[data-level]').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.pref-btn[data-level]').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-    });
-  });
-  document.querySelectorAll('.pref-btn[data-topic]').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.pref-btn[data-topic]').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-    });
-  });
 });
 </script>
 </body>

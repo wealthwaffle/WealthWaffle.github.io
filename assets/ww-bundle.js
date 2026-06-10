@@ -4623,3 +4623,95 @@ window.WW_SkillTree = (function() {
 /* Exposer cycleTheme globalement */
 window.cycleTheme = cycleTheme;
 window.doSignOut  = doSignOut;
+
+/* ══════════════════════════════════════════════════════════════
+   TRACKING NAVIGATION — Source des clics (Matomo Events)
+   Last modified: 2026-06-10 14:36:40
+
+   Principe : data-ww-source="footer|nav|waffy|search|..." sur chaque lien
+   → capté au clic → envoyé à Matomo comme trackEvent
+   → stocké dans sessionStorage pour la page suivante (Referrer interne)
+   ══════════════════════════════════════════════════════════════ */
+(function initNavTracking() {
+
+  /* ── Mapping automatique des sources ── */
+  function detectSource(el) {
+    // 1. Attribut explicite data-ww-source (priorité absolue)
+    if (el.dataset && el.dataset.wwSource) return el.dataset.wwSource;
+
+    // 2. Remonter dans le DOM pour trouver un conteneur identifié
+    var node = el;
+    while (node && node !== document.body) {
+      var id  = node.id || '';
+      var cls = (node.className || '').toString();
+
+      if (id === 'ww-nav' || cls.includes('ww-nav-desktop') || cls.includes('ww-dd')) return 'nav_desktop';
+      if (id === 'mobile-menu' || cls.includes('mob-group'))  return 'nav_mobile';
+      if (id === 'ww-footer-placeholder' || cls.includes('footer')) return 'footer';
+      if (id === 'ww-waffy-panel' || cls.includes('waffy'))   return 'waffy';
+      if (id === 'ww-search-results' || cls.includes('ww-search')) return 'search';
+      if (cls.includes('see-also'))    return 'see_also';
+      if (cls.includes('source-block')) return 'source_block';
+      if (cls.includes('blur-gate'))   return 'blur_gate';
+      if (cls.includes('waffy-tip'))   return 'waffy_tip';
+      if (cls.includes('kpi-card'))    return 'kpi_card';
+      if (cls.includes('pill-nav'))    return 'pill_nav';
+      if (cls.includes('toc-sidebar')) return 'toc';
+      if (cls.includes('breadcrumb'))  return 'breadcrumb';
+      if (cls.includes('data-ww-cta') || cls.includes('btn-unlock')) return 'cta_payant';
+      if (cls.includes('ww-nudge'))    return 'nudge';
+      if (cls.includes('mark-read'))   return 'mark_read';
+      if (id === 'ww-grimoire-panel')  return 'grimoire';
+      node = node.parentElement;
+    }
+    return 'page_content';
+  }
+
+  /* ── Envoyer l'event Matomo ── */
+  function trackNavClick(source, href, label) {
+    // Matomo trackEvent
+    var paq = window._paq = window._paq || [];
+    paq.push(['trackEvent', 'Navigation', source, label || href]);
+
+    // Stocker dans sessionStorage pour savoir d'où vient la prochaine page
+    try {
+      sessionStorage.setItem('ww_nav_source', source);
+      sessionStorage.setItem('ww_nav_from',   location.pathname);
+    } catch(e) {}
+  }
+
+  /* ── Intercepter tous les clics sur des liens ── */
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    // Remonter jusqu'à trouver un <a>
+    while (el && el.tagName !== 'A') el = el.parentElement;
+    if (!el || !el.href) return;
+
+    var href = el.getAttribute('href') || '';
+    // Ignorer les ancres pures, mailto, tel, external
+    if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+    if (href.startsWith('http') && !href.includes('wealthwaffle.be')) return;
+
+    var source = detectSource(el);
+    var label  = (el.textContent || '').trim().slice(0, 50) || href;
+    trackNavClick(source, href, label);
+  }, true); // capture phase pour intercepter avant les onclick
+
+  /* ── Au chargement : lire la source de la page précédente ── */
+  window.addEventListener('load', function() {
+    var source = sessionStorage.getItem('ww_nav_source');
+    var from   = sessionStorage.getItem('ww_nav_from');
+    if (source && from) {
+      var paq = window._paq = window._paq || [];
+      // Dimension personnalisée 1 = source de navigation
+      paq.push(['setCustomDimension', 1, source]);
+      // Dimension personnalisée 2 = page d'origine
+      paq.push(['setCustomDimension', 2, from]);
+    }
+  });
+
+  /* ── Exposer pour usage manuel ── */
+  window.ww_trackNav = trackNavClick;
+
+})();
+

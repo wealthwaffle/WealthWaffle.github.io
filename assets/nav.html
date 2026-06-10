@@ -131,7 +131,7 @@
           <a href="/outils/fiscal-crypto.html" class="ww-dp-flex">
             <span>🪙</span><span><strong>Conformité Crypto</strong> — 49€/an</span>
           </a>
-          <a href="/doctrine.html" class="ww-dp-cta-btn">
+          <a href="/doctrine.html" class="ww-dp-cta-btn" data-ww-source="nav_programme_cta">
             Voir le programme →
           </a>
         </div>
@@ -177,13 +177,13 @@
 
     <!-- CTA auth (non connecté) -->
     <div id="ww-auth-cta" class="ww-auth-cta">
-      <a href="/compte/connexion.html" id="ww-btn-login" class="ww-btn-login">Connexion</a>
-      <a href="/compte/inscription.html" id="ww-btn-register" class="ww-btn-cta">Commencer gratuit</a>
+      <a href="/compte/connexion.html" id="ww-btn-login" class="ww-btn-login" data-ww-source="nav_login">Connexion</a>
+      <a href="/compte/inscription.html" id="ww-btn-register" class="ww-btn-cta" data-ww-source="nav_cta_register">Commencer gratuit</a>
     </div>
 
     <!-- Connecté : liens rapides + Mon espace -->
     <div id="ww-auth-logged" class="ww-auth-logged hidden">
-      <a href="/dashboard/" class="ww-nav-dash-link">📊 Dashboard</a>
+      <a href="/dashboard/" class="ww-nav-dash-link" data-ww-source="nav_dashboard_link">📊 Dashboard</a>
       <div class="ww-dd">
         <button class="ww-nb ww-nb-account" id="ww-btn-dashboard">
           <span id="ww-nav-avatar" class="ww-nav-avatar">👤</span>
@@ -238,12 +238,12 @@
 
   <!-- Mobile auth : non connecté -->
   <div id="ww-auth-mobile" class="ww-mob-auth">
-    <a href="/compte/inscription.html" onclick="closeMenu()" class="ww-mob-btn-cta">Commencer gratuitement →</a>
+    <a href="/compte/inscription.html" onclick="closeMenu()" class="ww-mob-btn-cta" data-ww-source="mobile_cta_register">Commencer gratuitement →</a>
     <a href="/compte/connexion.html" onclick="closeMenu()" class="ww-mob-btn-ghost">Se connecter</a>
   </div>
   <!-- Mobile auth : connecté (injecté par updateAuthNav) -->
   <div id="ww-auth-mobile-logged" class="ww-mob-auth hidden">
-    <a href="/dashboard/" onclick="closeMenu()" class="ww-mob-btn-cta">📊 Mon Dashboard →</a>
+    <a href="/dashboard/" onclick="closeMenu()" class="ww-mob-btn-cta" data-ww-source="mobile_dashboard">📊 Mon Dashboard →</a>
     <a href="/parcours/progression.html" onclick="closeMenu()" class="ww-mob-btn-ghost">🌳 Ma progression</a>
     <a href="/compte/profil.html" onclick="closeMenu()" class="ww-mob-btn-ghost">👤 Mon profil</a>
     <a href="/compte/abonnement.html" onclick="closeMenu()" class="ww-mob-btn-ghost">✈️ Mon abonnement</a>
