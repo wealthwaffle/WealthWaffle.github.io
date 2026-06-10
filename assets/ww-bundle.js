@@ -19,6 +19,73 @@
  * ═══════════════════════════════════════════════════════════
  */
 
+/* ══════════════════════════════════════════════════════════════
+   INIT SESSION GLOBALE — exécuté sur chaque page
+   Synchronise la session Supabase avec localStorage
+   Last modified: 2026-06-10 12:33:18
+   ══════════════════════════════════════════════════════════════ */
+(function initGlobalSession() {
+  // Attendre que WW_CONFIG et supabase soient disponibles
+  function tryInit(attempt) {
+    if (attempt > 20) return; // max 2s
+    if (!window.WW_CONFIG?.SUPABASE_ANON_KEY || !window.supabase?.createClient) {
+      setTimeout(function() { tryInit(attempt + 1); }, 100);
+      return;
+    }
+
+    var sb = supabase.createClient(
+      window.WW_CONFIG.SUPABASE_URL,
+      window.WW_CONFIG.SUPABASE_ANON_KEY
+    );
+    window.WW = window.WW || {};
+    window.WW.sb = sb;
+
+    // Écouter les changements d'état auth en temps réel
+    sb.auth.onAuthStateChange(function(event, session) {
+      if (session) {
+        localStorage.setItem('ww_session', session.access_token);
+        localStorage.setItem('ww_plan', 'socle'); // sera mis à jour depuis profiles
+        window.WW.user = session.user;
+        // Charger le profil
+        sb.from('profiles').select('*').eq('id', session.user.id).single()
+          .then(function(res) {
+            if (res.data) {
+              window.WW.profile = res.data;
+              localStorage.setItem('ww_plan', res.data.plan || 'socle');
+              localStorage.setItem('ww_level', res.data.level || 'debutant');
+              // Déclencher l'event pour les composants qui attendent
+              window.dispatchEvent(new CustomEvent('ww:user-ready', { detail: { user: session.user, profile: res.data } }));
+              // Mettre à jour la nav
+              if (typeof updateAuthNav === 'function') updateAuthNav();
+            }
+          });
+      } else {
+        // Déconnecté
+        localStorage.removeItem('ww_session');
+        localStorage.removeItem('ww_plan');
+        window.WW.user    = null;
+        window.WW.profile = null;
+        if (typeof updateAuthNav === 'function') updateAuthNav();
+      }
+    });
+
+    // Vérifier la session existante au chargement
+    sb.auth.getSession().then(function(res) {
+      if (res.data?.session) {
+        localStorage.setItem('ww_session', res.data.session.access_token);
+      }
+    });
+  }
+
+  // Démarrer dès que possible
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { tryInit(0); });
+  } else {
+    tryInit(0);
+  }
+})();
+
+
 /* ── Détection file:// ── */
 if (location.protocol === 'file:') {
   console.warn('WealthWaffle: ouvrir en file:// bloque les fetch(). Lance "npx serve ." pour tester.');
@@ -558,17 +625,39 @@ function updateAuthNav() {
      La nav marque le bouton actif avec la classe ww-active
   ── */
   window.applyTheme = function(theme) {
-    const isLight = (theme === 'light');
+    // Gestion mode auto (suit le système)
+    var effectiveTheme = theme;
+    if (theme === 'auto') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      effectiveTheme = prefersDark ? 'dark' : 'light';
+    }
+    const isLight = (effectiveTheme === 'light');
     document.body.classList.toggle('light', isLight);
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('ww_theme', theme);
-    // Marquer le bouton actif dans la nav (desktop + mobile)
-    ['btn-theme-light','btn-theme-dark','mob-btn-theme-light','mob-btn-theme-dark'].forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const isActive = (isLight && id.includes('light')) || (!isLight && id.includes('dark'));
-      el.classList.toggle('ww-theme-active', isActive);
+    document.documentElement.setAttribute('data-theme', effectiveTheme);
+    localStorage.setItem('ww_theme', theme); // stocker la préférence (auto/dark/light)
+
+    // Mettre à jour l'icône du toggle thème rapide
+    const icons = { dark:'🌙', light:'☀️', auto:'🔄' };
+    const toggleBtn = document.getElementById('ww-theme-toggle');
+    if (toggleBtn) toggleBtn.textContent = icons[theme] || '🌙';
+
+    // Marquer le bouton actif dans la nav
+    const btnMap = {
+      dark:  ['btn-theme-dark',  'mob-btn-theme-dark'],
+      light: ['btn-theme-light', 'mob-btn-theme-light'],
+      auto:  ['btn-theme-auto',  'mob-btn-theme-auto'],
+    };
+    Object.entries(btnMap).forEach(function([t, ids]) {
+      ids.forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('ww-theme-active', t === theme);
+      });
     });
+
+    // Sauvegarder dans le profil si connecté
+    if (window.WW?.sb && window.WW?.user?.id) {
+      window.WW.sb.from('profiles').update({ style_experience: theme }).eq('id', window.WW.user.id);
+    }
   };
   // Alias pour compatibilité avec l'ancien onclick="toggleTheme()"
   window.toggleTheme = function() {
@@ -4530,3 +4619,7 @@ window.WW_SkillTree = (function() {
   });
 })();
 
+
+/* Exposer cycleTheme globalement */
+window.cycleTheme = cycleTheme;
+window.doSignOut  = doSignOut;

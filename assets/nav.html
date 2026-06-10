@@ -1,23 +1,17 @@
 <!-- WealthWaffle — Navigation -->
-<nav id="ww-nav" style="
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 16px;height:60px;
-  background:rgba(8,7,23,0.94);backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,255,255,0.07);
-">
+<nav id="ww-nav" class="ww-nav">
   <!-- Logo -->
-  <a href="/" style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:var(--text);text-decoration:none;flex-shrink:0;white-space:nowrap;">
-    Wealth<span style="color:var(--rose);">Waffle</span> 🧇
+  <a href="/" class="ww-nav-logo">
+    Wealth<span class="txt-rose">Waffle</span> 🧇
   </a>
 
   <!-- Desktop menus -->
-  <div id="ww-nav-desktop" style="display:flex;align-items:center;gap:2px;margin:0 auto;padding:0 12px;">
+  <div id="ww-nav-desktop" class="ww-nav-desktop">
 
     <!-- Je démarre -->
     <div class="ww-dd">
       <button class="ww-nb">Je démarre <span class="ww-arr">▾</span></button>
-      <div class="ww-dp" style="grid-template-columns:1fr 1fr;">
+      <div class="ww-dp ww-dp-2col">
         <div class="ww-dc">
           <div class="ww-dl">Par où commencer</div>
           <a href="/parcours/bases.html">🧭 Par où commencer ?</a>
@@ -42,7 +36,7 @@
     <!-- J'investis -->
     <div class="ww-dd">
       <button class="ww-nb">J'investis <span class="ww-arr">▾</span></button>
-      <div class="ww-dp" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="ww-dp ww-dp-3col">
         <div class="ww-dc">
           <div class="ww-dl">Débuter en bourse</div>
           <a href="/invest/">🗺️ Quel placement choisir ?</a>
@@ -80,7 +74,7 @@
     <!-- Aller plus loin -->
     <div class="ww-dd">
       <button class="ww-nb">Aller plus loin <span class="ww-arr">▾</span></button>
-      <div class="ww-dp" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="ww-dp ww-dp-3col">
         <div class="ww-dc">
           <div class="ww-dl">Fiscalité particulier</div>
           <a href="/fiscal/">💡 Payer moins d'impôts</a>
@@ -99,7 +93,7 @@
           <a href="/fiscal/tva.html">💱 TVA & franchise</a>
           <a href="/fiscal/remuneration.html">💰 Comment se payer ?</a>
           <a href="/fiscal/frais.html">🧾 Frais déductibles</a>
-          <div class="ww-dl" style="margin-top:10px;">Sociétés & Dirigeants</div>
+          <div class="ww-dl ww-dl-mt">Sociétés & Dirigeants</div>
           <a href="/fiscal/societes.html">📉 Optimiser sa société</a>
           <a href="/fiscal/management.html">🏛️ Créer une holding</a>
           <a href="/fiscal/remuneration.html">⚡ Salaire vs dividendes</a>
@@ -111,7 +105,7 @@
           <a href="/outils/fiscal-crypto.html">🪙 Calculateur Fiscal Crypto</a>
           <a href="/radar/">📡 Analyser les projets</a>
           <a href="/dashboard/">👤 Mon espace</a>
-          <div class="ww-dl" style="margin-top:10px;">Retraite & Patrimoine</div>
+          <div class="ww-dl ww-dl-mt">Retraite & Patrimoine</div>
           <a href="/budget/retraite.html">🕰️ Les 4 piliers pension</a>
           <a href="/budget/rente.html">🏖️ Vivre de ses investissements</a>
           <a href="/fiscal/plus-value.html">📉 Limiter l'impôt sur ses gains</a>
@@ -122,22 +116,22 @@
     <!-- Programme Doctrine -->
     <div class="ww-dd">
       <button class="ww-nb ww-nb-doctrine">✈️ Programme <span class="ww-arr">▾</span></button>
-      <div class="ww-dp ww-dp-doctrine" style="grid-template-columns:1fr;min-width:260px;">
+      <div class="ww-dp ww-dp-doctrine" class="ww-dp-1col">
         <div class="ww-dc">
           <div class="ww-dl">Choisir son niveau</div>
-          <a href="/doctrine.html#socle" style="display:flex;align-items:center;gap:8px;">
-            <span>🟢</span><span><strong style="color:var(--text);">Socle</strong> — Gratuit</span>
+          <a href="/doctrine.html#socle" class="ww-dp-flex">
+            <span>🟢</span><span><strong>Socle</strong> — Gratuit</span>
           </a>
-          <a href="/doctrine.html#pilote" style="display:flex;align-items:center;gap:8px;">
-            <span>✈️</span><span><strong style="color:var(--text);">Pilote</strong> — 99€/an</span>
+          <a href="/doctrine.html#pilote" class="ww-dp-flex">
+            <span>✈️</span><span><strong>Pilote</strong> — 99€/an</span>
           </a>
-          <a href="/doctrine.html#radar" style="display:flex;align-items:center;gap:8px;">
-            <span>📡</span><span><strong style="color:var(--text);">Radar</strong> — 199€/an</span>
+          <a href="/doctrine.html#radar" class="ww-dp-flex">
+            <span>📡</span><span><strong>Radar</strong> — 199€/an</span>
           </a>
-          <a href="/outils/fiscal-crypto.html" style="display:flex;align-items:center;gap:8px;">
-            <span>🪙</span><span><strong style="color:var(--text);">Conformité Crypto</strong> — 49€/an</span>
+          <a href="/outils/fiscal-crypto.html" class="ww-dp-flex">
+            <span>🪙</span><span><strong>Conformité Crypto</strong> — 49€/an</span>
           </a>
-          <a href="/doctrine.html" style="display:block;margin-top:10px;text-align:center;padding:9px;border-radius:10px;background:linear-gradient(135deg,var(--rose),#5BB8D4);color:#fff;font-weight:700;font-size:0.80rem;text-decoration:none;">
+          <a href="/doctrine.html" class="ww-dp-cta-btn">
             Voir le programme →
           </a>
         </div>
@@ -147,115 +141,116 @@
   </div>
 
   <!-- Droite -->
-  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+  <div class="ww-nav-right">
 
-    <div class="ww-search-wrap" style="position:relative;">
+    <!-- Recherche (desktop) -->
+    <div class="ww-search-wrap">
       <input id="ww-search-input" type="text" placeholder="🔍 Rechercher…"
-        style="width:130px;background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:0.74rem;color:var(--text);outline:none;"
+        class="ww-search-input"
         autocomplete="off" data-ww-autocomplete="search"
         oninput="doSearch(this.value)" onfocus="doSearch(this.value)" onblur="setTimeout(()=>closeSearch(),200)">
       <div class="ww-search-results" id="ww-search-results"></div>
     </div>
 
-    <div class="ww-dd ww-dd-settings">
-      <button class="ww-nb" title="Réglages" style="padding:6px 9px;font-size:1rem;">⚙️</button>
-      <div class="ww-dp ww-dp-settings" style="grid-template-columns:1fr;min-width:200px;right:0;left:auto;transform:none;">
+    <!-- Réglages (non connecté seulement) -->
+    <div class="ww-dd ww-dd-settings" id="ww-nav-settings-btn">
+      <button class="ww-nb ww-nb-icon" title="Réglages">⚙️</button>
+      <div class="ww-dp ww-dp-settings">
         <div class="ww-dc">
           <div class="ww-dl">Mode de lecture</div>
-          <div style="display:flex;gap:6px;margin-bottom:10px;">
-            <button onclick="setLevelNav('debutant')" id="nav-lvl-deb"
-              style="flex:1;padding:7px;border-radius:8px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.76rem;cursor:pointer;">
-              🌱 Débutant
-            </button>
-            <button onclick="setLevelNav('avance')" id="nav-lvl-adv"
-              style="flex:1;padding:7px;border-radius:8px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.76rem;cursor:pointer;">
-              🚀 Avancé
-            </button>
+          <div class="ww-level-btns">
+            <button onclick="setLevelNav('debutant')" id="nav-lvl-deb" class="ww-level-btn">🌱 Débutant</button>
+            <button onclick="setLevelNav('avance')" id="nav-lvl-adv" class="ww-level-btn">🚀 Avancé</button>
           </div>
           <div class="ww-dl">Thème</div>
-          <div style="display:flex;gap:6px;">
-            <button id="btn-theme-dark" onclick="applyTheme('dark')"
-              class="ww-theme-btn" style="flex:1;">
-              🌙 Sombre
-            </button>
-            <button id="btn-theme-light" onclick="applyTheme('light')"
-              class="ww-theme-btn" style="flex:1;">
-              ☀️ Clair
-            </button>
+          <div class="ww-theme-btns">
+            <button id="btn-theme-dark" onclick="applyTheme('dark')" class="ww-theme-btn">🌙</button>
+            <button id="btn-theme-auto" onclick="applyTheme('auto')" class="ww-theme-btn">🔄</button>
+            <button id="btn-theme-light" onclick="applyTheme('light')" class="ww-theme-btn">☀️</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="ww-auth-cta" style="display:flex;align-items:center;gap:5px;">
-      <a href="/compte/connexion.html" id="ww-btn-login"
-        style="font-size:0.74rem;color:var(--muted);text-decoration:none;padding:6px 9px;border-radius:9px;border:1px solid var(--border);font-family:'DM Sans',sans-serif;white-space:nowrap;">
-        Connexion
-      </a>
-      <a href="/compte/inscription.html" id="ww-btn-register"
-        style="font-size:0.74rem;font-weight:700;color:#fff;text-decoration:none;padding:7px 12px;border-radius:9px;background:linear-gradient(135deg,var(--rose),#b8449a);font-family:'DM Sans',sans-serif;white-space:nowrap;">
-        Commencer gratuit
-      </a>
-      <a href="/dashboard/" id="ww-btn-dashboard" style="display:none;font-size:0.74rem;font-weight:700;color:#fff;text-decoration:none;padding:7px 12px;border-radius:9px;background:linear-gradient(135deg,var(--rose),#b8449a);font-family:'DM Sans',sans-serif;white-space:nowrap;">
-        Mon espace →
-      </a>
+    <!-- Toggle thème rapide (connecté seulement) -->
+    <button id="ww-theme-toggle" class="ww-theme-toggle hidden" onclick="cycleTheme()" title="Changer de thème">🌙</button>
+
+    <!-- CTA auth (non connecté) -->
+    <div id="ww-auth-cta" class="ww-auth-cta">
+      <a href="/compte/connexion.html" id="ww-btn-login" class="ww-btn-login">Connexion</a>
+      <a href="/compte/inscription.html" id="ww-btn-register" class="ww-btn-cta">Commencer gratuit</a>
     </div>
 
-    <button id="burger-btn" onclick="toggleMenu()" aria-label="Menu"
-      style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;margin-left:2px;">
-      <span style="display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;transition:0.25s;"></span>
-      <span style="display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;transition:0.25s;"></span>
-      <span style="display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;transition:0.25s;"></span>
+    <!-- Connecté : liens rapides + Mon espace -->
+    <div id="ww-auth-logged" class="ww-auth-logged hidden">
+      <a href="/dashboard/" class="ww-nav-dash-link">📊 Dashboard</a>
+      <div class="ww-dd">
+        <button class="ww-nb ww-nb-account" id="ww-btn-dashboard">
+          <span id="ww-nav-avatar" class="ww-nav-avatar">👤</span>
+          <span id="ww-nav-prenom">Mon compte</span>
+          <span class="ww-arr">▾</span>
+        </button>
+        <div class="ww-dp ww-dp-account">
+          <div class="ww-dc">
+            <div class="ww-dl">Mon espace</div>
+            <a href="/dashboard/">📊 Dashboard</a>
+            <a href="/parcours/progression.html">🌳 Ma progression</a>
+            <a href="/compte/profil.html">👤 Mon profil</a>
+            <a href="/compte/abonnement.html">✈️ Mon abonnement</a>
+            <div class="ww-dl">Réglages rapides</div>
+            <div class="ww-level-btns" class="ww-nav-level-pad">
+              <button onclick="setLevelNav('debutant')" id="nav-lvl-deb-auth" class="ww-level-btn">🌱 Débutant</button>
+              <button onclick="setLevelNav('avance')" id="nav-lvl-adv-auth" class="ww-level-btn">🚀 Avancé</button>
+            </div>
+            <button onclick="doSignOut()" class="ww-signout-btn">🚪 Déconnexion</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Burger -->
+    <button id="burger-btn" onclick="toggleMenu()" aria-label="Menu" class="ww-burger">
+      <span></span><span></span><span></span>
     </button>
 
   </div>
 </nav>
 
 <!-- MENU MOBILE -->
-<div id="mobile-menu" style="
-  display:none;flex-direction:column;
-  position:fixed;top:60px;right:0;bottom:0;width:min(300px,95vw);
-  background:var(--bg);border-left:1px solid var(--border);
-  z-index:190;overflow-y:auto;padding:14px 16px 48px;
-  transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
-">
+<div id="mobile-menu" class="ww-mobile-menu">
 
-  <div style="background:var(--s2);border-radius:12px;padding:12px 14px;margin-bottom:12px;">
-    <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Réglages</div>
-    <div style="display:flex;gap:6px;margin-bottom:8px;">
-      <button onclick="setLevelNav('debutant')" id="mob-lvl-deb"
-        style="flex:1;padding:8px 4px;border-radius:9px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.76rem;cursor:pointer;">
+  <div class="ww-mob-settings">
+    <div class="ww-mob-section-label">Réglages</div>
+    <div class="ww-mob-level-btns">
+      <button onclick="setLevelNav('debutant')" id="mob-lvl-deb" class="ww-level-btn">
         🌱 Débutant
       </button>
-      <button onclick="setLevelNav('avance')" id="mob-lvl-adv"
-        style="flex:1;padding:8px 4px;border-radius:9px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.76rem;cursor:pointer;">
+      <button onclick="setLevelNav('avance')" id="mob-lvl-adv" class="ww-level-btn">
         🚀 Avancé
       </button>
     </div>
-    <div style="display:flex;gap:6px;">
-      <button id="mob-btn-theme-dark" onclick="applyTheme('dark')"
-        class="ww-theme-btn" style="flex:1;">
-        🌙 Sombre
-      </button>
-      <button id="mob-btn-theme-light" onclick="applyTheme('light')"
-        class="ww-theme-btn" style="flex:1;">
-        ☀️ Clair
-      </button>
+    <div class="ww-theme-btns">
+      <button id="mob-btn-theme-dark" onclick="applyTheme('dark')" class="ww-theme-btn">🌙 Sombre</button>
+      <button id="mob-btn-theme-auto" onclick="applyTheme('auto')" class="ww-theme-btn">🔄 Auto</button>
+      <button id="mob-btn-theme-light" onclick="applyTheme('light')" class="ww-theme-btn">☀️ Clair</button>
     </div>
   </div>
 
-  <div id="ww-auth-mobile" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-    <a href="/compte/inscription.html" onclick="closeMenu()"
-      style="display:block;text-align:center;padding:11px;border-radius:11px;background:linear-gradient(135deg,var(--rose),#b8449a);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.84rem;text-decoration:none;">
-      Commencer gratuitement →
-    </a>
-    <a href="/compte/connexion.html" onclick="closeMenu()"
-      style="display:block;text-align:center;padding:9px;border-radius:11px;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;text-decoration:none;">
-      Se connecter
-    </a>
+  <!-- Mobile auth : non connecté -->
+  <div id="ww-auth-mobile" class="ww-mob-auth">
+    <a href="/compte/inscription.html" onclick="closeMenu()" class="ww-mob-btn-cta">Commencer gratuitement →</a>
+    <a href="/compte/connexion.html" onclick="closeMenu()" class="ww-mob-btn-ghost">Se connecter</a>
+  </div>
+  <!-- Mobile auth : connecté (injecté par updateAuthNav) -->
+  <div id="ww-auth-mobile-logged" class="ww-mob-auth hidden">
+    <a href="/dashboard/" onclick="closeMenu()" class="ww-mob-btn-cta">📊 Mon Dashboard →</a>
+    <a href="/parcours/progression.html" onclick="closeMenu()" class="ww-mob-btn-ghost">🌳 Ma progression</a>
+    <a href="/compte/profil.html" onclick="closeMenu()" class="ww-mob-btn-ghost">👤 Mon profil</a>
+    <a href="/compte/abonnement.html" onclick="closeMenu()" class="ww-mob-btn-ghost">✈️ Mon abonnement</a>
+    <button onclick="doSignOut()" class="ww-mob-btn-ghost ww-mob-signout">🚪 Déconnexion</button>
   </div>
 
-  <div style="height:1px;background:var(--faint);margin-bottom:10px;"></div>
+  <div class="ww-mob-divider"></div>
 
   <div class="mob-group">
     <button class="mob-btn" onclick="toggleMob('mob-demarre')">🌱 Je démarre <span class="mob-arr">▾</span></button>
@@ -307,50 +302,41 @@
     </div>
   </div>
 
-  <div style="height:1px;background:var(--faint);margin:10px 0;"></div>
+  <div class="ww-mob-divider"></div>
 
-  <div style="background:linear-gradient(135deg,rgba(232,124,195,0.08),rgba(91,184,212,0.08));border:1px solid rgba(232,124,195,0.20);border-radius:12px;padding:12px 14px;margin-bottom:8px;">
-    <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--rose);margin-bottom:8px;">✈️ Programme Doctrine</div>
-    <a href="/doctrine.html#socle" onclick="closeMenu()" style="display:flex;align-items:center;gap:8px;padding:6px 0;text-decoration:none;font-size:0.80rem;color:var(--text2);">🟢 Socle — Gratuit</a>
-    <a href="/doctrine.html#pilote" onclick="closeMenu()" style="display:flex;align-items:center;gap:8px;padding:6px 0;text-decoration:none;font-size:0.80rem;color:var(--text2);">✈️ Pilote — 99€/an</a>
-    <a href="/doctrine.html#radar" onclick="closeMenu()" style="display:flex;align-items:center;gap:8px;padding:6px 0;text-decoration:none;font-size:0.80rem;color:var(--text2);">📡 Radar — 199€/an</a>
-    <a href="/outils/fiscal-crypto.html" onclick="closeMenu()" style="display:flex;align-items:center;gap:8px;padding:6px 0;text-decoration:none;font-size:0.80rem;color:var(--text2);">🪙 Conformité Crypto — 49€/an</a>
+  <div class="ww-mob-programme-box">
+    <div class="ww-mob-section-label txt-rose">✈️ Programme Doctrine</div>
+    <a href="/doctrine.html#socle" onclick="closeMenu()" class="ww-mob-prog-link">🟢 Socle — Gratuit</a>
+    <a href="/doctrine.html#pilote" onclick="closeMenu()" class="ww-mob-prog-link">✈️ Pilote — 99€/an</a>
+    <a href="/doctrine.html#radar" onclick="closeMenu()" class="ww-mob-prog-link">📡 Radar — 199€/an</a>
+    <a href="/outils/fiscal-crypto.html" onclick="closeMenu()" class="ww-mob-prog-link">🪙 Conformité Crypto — 49€/an</a>
     <a href="/doctrine.html" onclick="closeMenu()"
-      style="display:block;margin-top:8px;text-align:center;padding:9px;border-radius:9px;background:linear-gradient(135deg,var(--rose),#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.80rem;text-decoration:none;">
+      class="ww-dp-cta-btn">
       Voir le programme →
     </a>
   </div>
 
   <a href="/a-propos/" onclick="closeMenu()"
-    style="display:block;text-align:center;padding:8px;color:var(--muted);font-size:0.74rem;text-decoration:none;">
+    class="ww-mob-about-link">
     À propos · FAQ · Sources
   </a>
 
 </div>
 
-<div id="mobile-overlay" onclick="closeMenu()"
-  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:189;"></div>
+<div id="mobile-overlay" onclick="closeMenu()" class="ww-mobile-overlay"></div>
 
 <!-- BANDEAU NUDGE -->
-<div id="ww-nudge-bar" style="
-  display:none;position:fixed;top:60px;left:0;right:0;z-index:199;
-  background:linear-gradient(90deg,#1a0a2e,#0d1a2e);
-  border-bottom:1px solid rgba(232,124,195,0.25);
-  padding:10px 16px;
-">
-  <div style="max-width:700px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-    <div id="nudge-text" style="font-size:0.78rem;color:var(--text2);line-height:1.4;flex:1;min-width:180px;"></div>
-    <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
-      <input id="nudge-email" type="email" placeholder="ton@email.be"
-        style="padding:7px 12px;border-radius:9px;border:1px solid rgba(232,124,195,0.35);background:rgba(255,255,255,0.06);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.78rem;outline:none;width:170px;"
+<div id="ww-nudge-bar" class="ww-nudge-bar">
+  <div class="ww-nudge-inner">
+    <div id="nudge-text" class="ww-nudge-text"></div>
+    <div class="ww-nudge-btns">
+      <input id="nudge-email" type="email" placeholder="ton@email.be" class="ww-nudge-input"
         onkeydown="if(event.key==='Enter')submitNudge()">
-      <button onclick="submitNudge()" id="nudge-btn"
-        style="padding:7px 14px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--rose),#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.76rem;cursor:pointer;white-space:nowrap;">
+      <button onclick="submitNudge()" id="nudge-btn" class="ww-nudge-submit">
         Recevoir →
       </button>
     </div>
-    <button onclick="closeNudge()"
-      style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:2px 6px;flex-shrink:0;">✕</button>
+    <button onclick="closeNudge()" class="ww-close-btn">✕</button>
   </div>
 </div>
 
