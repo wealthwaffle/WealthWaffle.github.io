@@ -5474,3 +5474,20 @@ details summary::-webkit-details-marker { display:none; }
   display:inline-flex;align-items:center;justify-content:center;
 }
 .ww-email-banner-close:hover { background:rgba(255,255,255,0.08);color:var(--text); }
+
+/* ══ DASH PREF BTN SELECTED (mode débutant/avancé) ══ */
+/* Last modified: 2026-06-10 14:23:57 */
+.pref-btn-selected {
+  border-color: var(--rose) !important;
+  background: rgba(232,124,195,0.12) !important;
+  color: var(--text) !important;
+  font-weight: 700;
+}
+.pref-btn[data-level="debutant"].pref-btn-selected {
+  border-color: #4CAF8A !important;
+  background: rgba(76,175,138,0.12) !important;
+}
+.pref-btn[data-level="avance"].pref-btn-selected {
+  border-color: #c9b8ff !important;
+  background: rgba(201,184,255,0.12) !important;
+}
