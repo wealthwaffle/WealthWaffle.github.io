@@ -5354,3 +5354,14 @@ details summary::-webkit-details-marker { display:none; }
   border-color:rgba(232,124,195,0.35);
   color:var(--rose);
 }
+
+/* ══ GRIMOIRE WARN (non connecté) ══ */
+/* Last modified: 2026-06-10 10:34:08 */
+.ww-grimoire-warn {
+  font-size:0.74rem;
+  color:var(--muted);
+  padding:8px 16px;
+  background:rgba(232,124,195,0.06);
+  border-top:1px solid var(--faint);
+  line-height:1.55;
+}

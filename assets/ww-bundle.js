@@ -1,4 +1,4 @@
-/* Last modified: 2026-06-10 10:22:46 */
+/* Last modified: 2026-06-10 10:34:08 */
 /* * ═══════════════════════════════════════════════════════════
  * WEALTHWAFFLE — ww-bundle.js
  * Fichier unique regroupant tous les scripts du site
@@ -1314,7 +1314,7 @@ function buildChat() {
   const container = document.createElement('div');
   container.id = 'waffy-chat';
   container.innerHTML = `
-    <button class="waffy-bubble" id="waffy-toggle" onclick="event.preventDefault();toggleWaffy()" title="Poser une question à Waffy" type="button">
+    <button class="waffy-bubble" id="waffy-toggle" onclick="event.preventDefault();toggleWaffy()" title="Waffy — Assistant WealthWaffle" type="button">
       <img src="IMG_5208.png" alt="Waffy" class="waffy-avatar" onerror="this.style.display='none';this.parentElement.innerHTML='🧇';">
       <span class="waffy-badge" id="waffy-badge">1</span>
     </button>
@@ -1618,7 +1618,7 @@ function injectPrintButton() {
   const btn = document.createElement('button');
   btn.className = 'ww-print-btn';
   btn.innerHTML = '🖨';
-  btn.title = 'Imprimer cette page (raccourci : p)';
+  btn.title = 'Imprimer cette page';
   btn.setAttribute('aria-label', 'Imprimer');
   btn.onclick = () => window.print();
   document.body.appendChild(btn);
