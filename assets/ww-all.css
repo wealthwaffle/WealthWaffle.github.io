@@ -5445,3 +5445,32 @@ details summary::-webkit-details-marker { display:none; }
   line-height:1.55;
 }
 /* Last modified: 2026-06-10 11:32:52 */
+
+/* ══ BANDEAU EMAIL NON CONFIRMÉ ══ */
+/* Last modified: 2026-06-10 12:12:31 */
+.ww-email-banner {
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:rgba(232,194,58,0.08);
+  border:1px solid rgba(232,194,58,0.25);
+  border-radius:12px;
+  padding:10px 14px;
+  margin-bottom:16px;
+  font-size:0.80rem;
+}
+.ww-email-banner-text { flex:1;color:var(--text2);min-width:180px; }
+.ww-email-banner-resend {
+  padding:6px 12px;border-radius:8px;
+  background:rgba(232,194,58,0.12);
+  border:1px solid rgba(232,194,58,0.30);
+  color:#E8C23A;font-size:0.74rem;font-weight:600;
+  font-family:'DM Sans',sans-serif;cursor:pointer;
+  transition:background 0.15s;white-space:nowrap;
+}
+.ww-email-banner-resend:hover { background:rgba(232,194,58,0.22); }
+.ww-email-banner-close {
+  background:none;border:none;color:var(--muted);
+  cursor:pointer;font-size:0.90rem;padding:4px 6px;
+  border-radius:50%;min-width:24px;min-height:24px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.ww-email-banner-close:hover { background:rgba(255,255,255,0.08);color:var(--text); }

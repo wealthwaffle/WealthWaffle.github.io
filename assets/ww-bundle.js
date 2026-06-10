@@ -4483,3 +4483,50 @@ window.WW_SkillTree = (function() {
     THEME_COLORS: THEME_COLORS,
   };
 })();
+
+/* ══ RAPPEL EMAIL NON CONFIRMÉ (non bloquant) ══ */
+(function initEmailConfirmBanner() {
+  // Seulement sur dashboard et compte
+  const path = location.pathname;
+  const showOn = ['/dashboard/', '/compte/profil', '/compte/parametres'];
+  if (!showOn.some(function(p) { return path.startsWith(p); })) return;
+
+  window.addEventListener('load', async function() {
+    // Attendre que WW soit initialisé
+    setTimeout(async function() {
+      if (!window.WW?.sb) return;
+      const { data: { user } } = await window.WW.sb.auth.getUser();
+      if (!user) return;
+      // Si email confirmé → rien
+      if (user.email_confirmed_at) return;
+      // Si déjà fermé cette session → rien
+      if (sessionStorage.getItem('ww_email_banner_closed')) return;
+
+      const banner = document.createElement('div');
+      banner.id = 'ww-email-banner';
+      banner.className = 'ww-email-banner';
+      banner.innerHTML =
+        '<span class="ww-email-banner-text">📧 Confirme ton adresse email pour sécuriser ton compte — vérifie ta boîte mail.</span>' +
+        '<button class="ww-email-banner-resend" id="ww-resend-email">Renvoyer l\'email</button>' +
+        '<button class="ww-email-banner-close" id="ww-email-banner-close">✕</button>';
+
+      // Insérer après le header nav
+      const page = document.querySelector('.page') || document.querySelector('.adm-main') || document.body;
+      page.insertBefore(banner, page.firstChild);
+
+      document.getElementById('ww-email-banner-close').addEventListener('click', function() {
+        banner.remove();
+        sessionStorage.setItem('ww_email_banner_closed', '1');
+      });
+
+      document.getElementById('ww-resend-email').addEventListener('click', async function() {
+        const btn = document.getElementById('ww-resend-email');
+        btn.textContent = 'Envoi…'; btn.disabled = true;
+        await window.WW.sb.auth.resend({ type: 'signup', email: user.email });
+        btn.textContent = '✅ Envoyé !';
+        setTimeout(function() { btn.textContent = 'Renvoyer l\'email'; btn.disabled = false; }, 3000);
+      });
+    }, 1500);
+  });
+})();
+

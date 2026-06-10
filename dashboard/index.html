@@ -16,10 +16,7 @@
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
 
-<script src="/assets/data.js"></script>
-<script src="/assets/tools.js"></script>
-<script src="/assets/ww-bundle.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <div class="page">
 
@@ -27,6 +24,7 @@
   <div class="dash-header">
     <div>
       <div id="greeting" class="dash-greeting">Bonjour 👋</div>
+  <a href="/dashboard/" class="dash-nav-link dash-nav-link-active">📊 Dashboard</a>
       <div id="plan-badge" class="dash-plan-badge"></div>
     </div>
     <button id="btn-signout" class="dash-signout">Déconnexion</button>
@@ -204,6 +202,10 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js"></script>
 <script>
 const { createClient } = supabase;
 const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
@@ -222,12 +224,31 @@ async function getSession() {
 }
 
 async function requireAuth(minLevel) {
-  const LEVELS = { socle: 1, pilote: 2, radar: 3 };
+  const LEVELS = { socle: 1, pilote: 2, radar: 3, pilote_auto: 4, radar_auto: 5, admin: 5 };
+  // Attendre que sb soit initialisé (ww-bundle.js async)
+  let retries = 0;
+  while (!window.WW?.sb && retries < 30) {
+    await new Promise(r => setTimeout(r, 100));
+    retries++;
+  }
+  if (!window.WW?.sb) {
+    // Réinitialiser sb localement
+    const { createClient: cc } = supabase;
+    const sb2 = cc(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+    window.WW = window.WW || {};
+    window.WW.sb = sb2;
+  }
   const session = await getSession();
-  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
-  const userLevel   = LEVELS[session.profile?.plan] || 0;
+  if (!session) {
+    window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname);
+    return null;
+  }
+  const userLevel   = LEVELS[session.profile?.plan] || 1;
   const neededLevel = LEVELS[minLevel] || 1;
-  if (userLevel < neededLevel) { window.location.href = '/compte/inscription.html?plan=' + minLevel; return null; }
+  if (userLevel < neededLevel) {
+    window.location.href = '/compte/inscription.html?plan=' + minLevel;
+    return null;
+  }
   return session;
 }
 
@@ -244,8 +265,14 @@ async function savePref(key, value) {
 
 async function setLevel(level) {
   await savePref('level', level);
-  document.querySelectorAll('.pref-btn[data-level]').forEach(b => b.classList.toggle('active', b.dataset.level === level));
+  // Les DEUX boutons restent visibles — 'active' = sélectionné, pas masqué
+  document.querySelectorAll('.pref-btn[data-level]').forEach(function(b) {
+    b.classList.toggle('pref-btn-selected', b.dataset.level === level);
+    b.classList.remove('active'); // supprimer l'ancien active qui masquait
+  });
   document.body.setAttribute('data-level', level);
+  // Appliquer le mode via applyLevel si disponible
+  if (typeof window.applyLevel === 'function') window.applyLevel(level);
 }
 
 const PARCOURS = {
@@ -343,7 +370,9 @@ window.addEventListener('load', async () => {
   document.getElementById('plan-badge').textContent = { socle:'🟢 Socle — Gratuit', pilote:'✈️ Pilote', radar:'📡 Radar', pilote_auto:'✈️🤖 Pilote Auto', radar_auto:'📡🤖 Radar Auto' }[plan] || '🟢 Socle';
 
   // Activer les boutons
-  document.querySelector(`.pref-btn[data-level="${level}"]`)?.classList.add('active');
+  document.querySelectorAll('.pref-btn[data-level]').forEach(function(b) {
+    b.classList.toggle('pref-btn-selected', b.dataset.level === level);
+  });
   document.querySelector(`.pref-btn[data-topic="${topic}"]`)?.classList.add('active');
   document.querySelector(`.profile-btn[data-prof="${prof}"]`)?.classList.add('active');
   document.body.setAttribute('data-level', level);

@@ -73,14 +73,35 @@ async function doLogin() {
   btn.textContent = 'Connexion…'; btn.disabled = true;
   const { error } = await sb.auth.signInWithPassword({ email, password: pass });
   if (error) {
-    err.textContent = error.message === 'Invalid login credentials'
-      ? 'Email ou mot de passe incorrect.' : error.message;
-    err.style.display = 'block';
+    const msg = error.message || '';
+    if (msg.includes('Email not confirmed') || msg.includes('email_not_confirmed')) {
+      // Si confirmation email requise : rediriger quand même avec session limitée
+      // OU afficher message clair avec bouton renvoyer
+      err.innerHTML = 'Ton email n\'est pas encore confirmé. ' +
+        '<button onclick="resendConfirm(this)" style="background:none;border:none;color:var(--rose);cursor:pointer;font-weight:600;text-decoration:underline;padding:0;">Renvoyer l\'email de confirmation →</button>';
+    } else if (msg.includes('Invalid login credentials')) {
+      err.textContent = 'Email ou mot de passe incorrect.';
+    } else {
+      err.textContent = msg;
+    }
+    err.classList.remove('hidden'); err.style.display='block';
     btn.textContent = 'Se connecter →'; btn.disabled = false;
   } else {
     const next = new URLSearchParams(location.search).get('next') || '/dashboard/';
     window.location.href = next;
   }
+}
+
+async function resendConfirm(btn) {
+  const email = document.getElementById('email')?.value?.trim();
+  if (!email) { alert('Entre ton email d\'abord'); return; }
+  btn.textContent = 'Envoi…'; btn.disabled = true;
+  const sb = window.WW?.sb || supabase.createClient(
+    window.WW_CONFIG?.SUPABASE_URL || 'https://klhhztxvgudefxmciwfz.supabase.co',
+    window.WW_CONFIG?.SUPABASE_ANON_KEY || ''
+  );
+  await sb.auth.resend({ type: 'signup', email });
+  btn.textContent = '✅ Email envoyé !';
 }
 
 window.addEventListener('load', async () => {
