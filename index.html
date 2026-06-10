@@ -204,6 +204,7 @@ function showQuizResults() {
   if (quizState[1]) localStorage.setItem('ww_profile',quizState[1]);
   if (quizState[2]) localStorage.setItem('ww_topic',quizState[2]);
   localStorage.setItem('ww_onboarding_done','1');
+  localStorage.setItem('ww_quiz_done','1');
   document.getElementById('ww-quiz-recs').innerHTML = recs.map(p=>`<a href="${p.url}" class="ww-quiz-rec"><span class="ww-quiz-rec-emoji">${p.emoji}</span><div><div class="ww-quiz-rec-title">${p.titre}</div><div class="ww-quiz-rec-desc">${p.description}</div></div></a>`).join('');
   const r = document.getElementById('ww-quiz-results');
   r.classList.remove('ww-quiz-results-hidden');

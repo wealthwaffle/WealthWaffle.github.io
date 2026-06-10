@@ -1658,12 +1658,6 @@ function initKeyboardShortcuts() {
         if (printPages.includes(page)) window.print();
         break;
 
-      case 'w':
-      case 'W':
-        // Open/close Waffy
-        if (typeof toggleWaffy === 'function') toggleWaffy();
-        break;
-
       case 'Escape':
         // Close search
         if (typeof closeSearch === 'function') closeSearch();
@@ -2638,7 +2632,24 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
         <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);">Bienvenue sur WealthWaffle 🧇</div>
         <button onclick="window.closeOnboarding()" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px 8px;">✕</button>
       </div>
-      <p style="font-size:0.76rem;color:var(--muted);margin-bottom:18px;line-height:1.55;">4 questions rapides — tout est modifiable ensuite dans ⚙️</p>
+      <p style="font-size:0.76rem;color:var(--muted);margin-bottom:14px;line-height:1.55;">Pour te montrer les bonnes pages directement.</p>
+
+      <!-- Q0 : Mode d'entrée -->
+      <div id="ob-q0" style="margin-bottom:18px;">
+        <div style="display:flex;gap:8px;">
+          <button style="${BTN}flex:1;padding:14px 8px;" onclick="obSelectMode('sais')"
+            data-ob-group="mode" data-ob-val="sais">
+            🎯<span style="font-size:0.72rem;font-weight:600;">Je sais ce que je veux</span>
+          </button>
+          <button style="${BTN}flex:1;padding:14px 8px;" onclick="obSelectMode('guide')"
+            data-ob-group="mode" data-ob-val="guide">
+            🧭<span style="font-size:0.72rem;font-weight:600;">Guidez-moi</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q1–Q4 : Profil, Objectif, Niveau, Thème (visibles seulement si mode=guide) -->
+      <div id="ob-q1234" style="display:none;">
 
       <!-- Q1 : Profil -->
       <div style="margin-bottom:14px;">
@@ -2716,6 +2727,8 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
         </div>
       </div>
 
+      </div><!-- /ob-q1234 -->
+
       <!-- CTA -->
       <button id="ob-submit" onclick="window.closeOnboarding()" disabled
         style="width:100%;padding:13px;border-radius:12px;border:none;background:linear-gradient(135deg,#E87CC3,#5BB8D4);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;opacity:0.45;transition:opacity 0.2s;">
@@ -2736,6 +2749,33 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
   /* ── Sélection d'une réponse ── */
   window.selectOnboardingVal = function(group, value, color) {
     selectBtn(group, value, color);
+  };
+
+  window.obSelectMode = function(mode) {
+    // Sélectionner visuellement
+    document.querySelectorAll('[data-ob-group="mode"]').forEach(b => {
+      b.style.background = 'var(--s3)';
+      b.style.borderColor = 'var(--border)';
+      b.style.color = 'var(--muted)';
+    });
+    const chosen = document.querySelector('[data-ob-val="'+mode+'"]');
+    if (chosen) {
+      chosen.style.background = 'rgba(232,124,195,0.12)';
+      chosen.style.borderColor = 'rgba(232,124,195,0.40)';
+      chosen.style.color = 'var(--text)';
+    }
+    localStorage.setItem('ww_ob_mode', mode);
+    if (mode === 'sais') {
+      // Fermer directement sans remplir le questionnaire
+      const btn = document.getElementById('ob-submit');
+      if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+      const q1234 = document.getElementById('ob-q1234');
+      if (q1234) q1234.style.display = 'none';
+    } else {
+      // Afficher Q1–Q4
+      const q1234 = document.getElementById('ob-q1234');
+      if (q1234) q1234.style.display = 'block';
+    }
   };
 
   /* ── Fermeture et sauvegarde ── */
@@ -2809,9 +2849,11 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
   }
 
   function shouldShow() {
-    if (localStorage.getItem('ww_session'))    return false; // connecté
-    if (localStorage.getItem('ww_nudge_done')) return false; // déjà soumis
-    if (localStorage.getItem('ww_nudge_closed')) return false; // fermé manuellement
+    if (localStorage.getItem('ww_session'))       return false; // connecté
+    if (localStorage.getItem('ww_nudge_done'))    return false; // déjà soumis
+    if (localStorage.getItem('ww_nudge_closed'))  return false; // fermé manuellement
+    if (localStorage.getItem('ww_onboarding_done')) return false; // quiz index rempli
+    if (localStorage.getItem('ww_quiz_done'))     return false; // quiz index.html rempli
     const views = parseInt(localStorage.getItem('ww_page_views') || '0');
     return views >= 1;
   }
@@ -2926,7 +2968,7 @@ document.addEventListener('DOMContentLoaded', function() {
    l'encadré n'est pas affiché.
 ═══════════════════════════════════════════════════════════ */
 (function initCTASystem() {
-  const PLAN_RANK = { socle: 1, pilote: 2, radar: 3, admin: 3 };
+  const PLAN_RANK = { socle: 1, pilote: 2, radar: 3, pilote_auto: 4, radar_auto: 5, admin: 5 };
 
   const CTA_CONFIG = {
     socle: {
@@ -2965,6 +3007,34 @@ document.addEventListener('DOMContentLoaded', function() {
       btn_url: '/doctrine.html#radar',
       color: 'rgba(91,184,212,0.10)',
       border: 'rgba(91,184,212,0.30)',
+    },
+    pilote_auto: {
+      emoji: '✈️🤖',
+      titre: 'Pilote Automatique — Boussole portefeuille',
+      texte: () => {
+        const p = window.WW_DATA?.prix;
+        return p
+          ? `La Boussole analyse ton portefeuille et te dit exactement quoi acheter. ${p.pilote_auto_annuel}€/an · ${p.trial_days} jours gratuits.`
+          : 'La Boussole analyse ton portefeuille et te dit exactement quoi acheter. 7 jours gratuits.';
+      },
+      btn_label: 'Découvrir Pilote Automatique →',
+      btn_url: '/doctrine.html#pilote-auto',
+      color: 'rgba(232,124,195,0.10)',
+      border: 'rgba(232,124,195,0.30)',
+    },
+    radar_auto: {
+      emoji: '📡🤖',
+      titre: 'Radar Automatique — Boussole + Equity',
+      texte: () => {
+        const p = window.WW_DATA?.prix;
+        return p
+          ? `Boussole portefeuille + recommandations Equity personnalisées. ${p.radar_auto_annuel}€/an · ${p.trial_days} jours gratuits.`
+          : 'Boussole portefeuille + recommandations Equity personnalisées. 7 jours gratuits.';
+      },
+      btn_label: 'Découvrir Radar Automatique →',
+      btn_url: '/doctrine.html#radar-auto',
+      color: 'rgba(91,184,212,0.10)',
+      border: 'rgba(91,184,212,0.25)',
     },
   };
 
@@ -3148,7 +3218,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
 
-  const validPlans = ['socle','pilote','radar','admin'];
+  const validPlans = ['socle','pilote','radar','pilote_auto','radar_auto','admin'];
   const plan = validPlans.includes(source) ? source : 'socle';
 
   /* ── Persister dans un cookie 7 jours ── */
@@ -3162,7 +3232,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /* ── Plan effectif : admin → radar avec tous les droits ── */
-  const effectivePlan = plan === 'admin' ? 'radar' : plan;
+  const effectivePlan = plan === 'admin'       ? 'radar_auto'
+               : plan === 'radar_auto'  ? 'radar_auto'
+               : plan === 'pilote_auto' ? 'pilote_auto'
+               : plan;
 
   /* ── Simuler une session dans localStorage ── */
   localStorage.setItem('ww_session',        'preview_token_' + plan);
@@ -3425,4 +3498,471 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('DOMContentLoaded', initInputs);
   // Réinitialiser si le DOM change (injection dynamique)
   new MutationObserver(initInputs).observe(document.body, { childList: true, subtree: true });
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   89 — User ID Stitching Matomo
+   90 — Capture UTM + stockage user_conversion_metrics
+   92 — Consentement RGPD cookies (Matomo anonyme par défaut,
+         stitching complet si consentement accordé)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 90 : Capture UTM depuis URL ───────────────────────────── */
+(function captureUTM() {
+  const params = new URLSearchParams(location.search);
+  const src    = params.get('utm_source');
+  const med    = params.get('utm_medium');
+  const camp   = params.get('utm_campaign');
+  if (!src && !med && !camp) return;
+
+  // Stocker en sessionStorage pour usage après inscription
+  if (src)  sessionStorage.setItem('ww_utm_source',   src);
+  if (med)  sessionStorage.setItem('ww_utm_medium',   med);
+  if (camp) sessionStorage.setItem('ww_utm_campaign', camp);
+
+  // Transmettre à Matomo si disponible
+  const paq = window._paq = window._paq || [];
+  if (src)  paq.push(['setCustomDimension', 1, src]);
+  if (med)  paq.push(['setCustomDimension', 2, med]);
+  if (camp) paq.push(['setCustomDimension', 3, camp]);
+})();
+
+/* ── 89 : User ID Stitching après connexion/inscription ─────── */
+window.ww_matomoStitch = function(userId) {
+  if (!userId) return;
+  const paq = window._paq = window._paq || [];
+  paq.push(['setUserId', userId]);
+
+  // Persister le visitor ID Matomo dans le profil Supabase
+  const visitorId = window.Matomo?.getAsyncTracker?.()?.getVisitorId?.() || null;
+  if (visitorId && window.WW?.sb && window.WW?.user?.id) {
+    window.WW.sb
+      .from('profiles')
+      .update({ matomo_visitor_id: visitorId })
+      .eq('id', window.WW.user.id)
+      .then(() => {});
+  }
+
+  // Sauvegarder les UTM dans user_conversion_metrics si Supabase dispo
+  const src  = sessionStorage.getItem('ww_utm_source');
+  const med  = sessionStorage.getItem('ww_utm_medium');
+  const camp = sessionStorage.getItem('ww_utm_campaign');
+  const landing    = sessionStorage.getItem('ww_landing_page')  || document.referrer || '';
+  const conversion = location.pathname;
+  const views      = parseInt(localStorage.getItem('ww_page_views') || '1');
+
+  if (window.WW?.sb && window.WW?.user?.id && (src || med || camp || landing)) {
+    window.WW.sb
+      .from('user_conversion_metrics')
+      .upsert({
+        user_id:                  window.WW.user.id,
+        matomo_visitor_id:        visitorId,
+        landing_page:             landing,
+        conversion_page:          conversion,
+        total_pages_viewed_before: views,
+        utm_source:               src   || null,
+        utm_medium:               med   || null,
+        utm_campaign:             camp  || null,
+        created_at:               new Date().toISOString(),
+      }, { onConflict: 'user_id', ignoreDuplicates: false })
+      .then(() => {
+        // Nettoyer sessionStorage après enregistrement
+        ['ww_utm_source','ww_utm_medium','ww_utm_campaign','ww_landing_page'].forEach(k => sessionStorage.removeItem(k));
+      });
+  }
+};
+
+// Stocker la landing page dès la première visite
+(function trackLanding() {
+  if (!sessionStorage.getItem('ww_landing_page')) {
+    sessionStorage.setItem('ww_landing_page', location.pathname);
+  }
+})();
+
+// Appeler le stitching dès que WW.user est disponible (connexion, inscription)
+window.addEventListener('ww:user-ready', function(e) {
+  if (e.detail?.user?.id) window.ww_matomoStitch(e.detail.user.id);
+});
+
+/* ── 92 : Bandeau consentement RGPD cookies ────────────────── */
+(function initCookieConsent() {
+  const COOKIE_KEY = 'ww_cookie_consent';
+  const consent    = localStorage.getItem(COOKIE_KEY);
+
+  // Matomo est déjà en mode anonyme par défaut (cookieless)
+  // → on active les cookies Matomo seulement si consentement = 'full'
+  const paq = window._paq = window._paq || [];
+
+  if (consent === 'full') {
+    // Consentement déjà accordé — activer cookies + stitching complet
+    paq.push(['rememberCookieConsentGiven']);
+  } else if (consent === 'minimal' || consent === 'refused') {
+    // Pas de cookies Matomo
+    paq.push(['disableCookies']);
+  } else {
+    // Pas encore de choix → mode anonyme sans cookies
+    paq.push(['disableCookies']);
+    // Afficher le bandeau si pas de choix et page non-légale
+    const path = location.pathname;
+    const isLegal = path.startsWith('/legal/') || path.startsWith('/a-propos/');
+    if (!isLegal) {
+      window.addEventListener('load', function() {
+        setTimeout(showCookieBanner, 2500);
+      });
+    }
+  }
+
+  function showCookieBanner() {
+    // Ne pas afficher si déjà choisi ou si bandeau déjà présent
+    if (localStorage.getItem(COOKIE_KEY)) return;
+    if (document.getElementById('ww-cookie-banner')) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'ww-cookie-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-label', 'Consentement cookies');
+    banner.innerHTML = `
+      <div class="cookie-banner-inner">
+        <div class="cookie-banner-text">
+          <strong>🍪 Cookies & Analytics</strong>
+          <p>WealthWaffle utilise Matomo en mode anonyme par défaut — aucun cookie sans ton accord. Accepter améliore l'expérience (mémorisation de tes préférences).</p>
+        </div>
+        <div class="cookie-banner-actions">
+          <button class="btn-ghost cookie-btn" id="cookie-refuse">Refuser</button>
+          <button class="btn-secondary cookie-btn" id="cookie-minimal">Anonyme ✓</button>
+          <button class="btn-primary cookie-btn" id="cookie-full">Accepter</button>
+        </div>
+        <a href="/legal/cookies.html" class="cookie-banner-link">En savoir plus</a>
+      </div>`;
+    document.body.appendChild(banner);
+    // Forcer un reflow pour l'animation
+    banner.getBoundingClientRect();
+    banner.classList.add('cookie-banner-visible');
+
+    document.getElementById('cookie-refuse').addEventListener('click', function() {
+      saveCookieChoice('refused');
+    });
+    document.getElementById('cookie-minimal').addEventListener('click', function() {
+      saveCookieChoice('minimal');
+    });
+    document.getElementById('cookie-full').addEventListener('click', function() {
+      saveCookieChoice('full');
+    });
+  }
+
+  function saveCookieChoice(choice) {
+    localStorage.setItem(COOKIE_KEY, choice);
+    const banner = document.getElementById('ww-cookie-banner');
+    if (banner) banner.classList.remove('cookie-banner-visible');
+    setTimeout(function() { banner?.remove(); }, 400);
+
+    const paq2 = window._paq = window._paq || [];
+    if (choice === 'full') {
+      paq2.push(['rememberCookieConsentGiven']);
+      paq2.push(['setCookieConsentGiven']);
+      // Relancer le stitching avec cookies activés
+      if (window.WW?.user?.id) window.ww_matomoStitch(window.WW.user.id);
+    } else {
+      paq2.push(['disableCookies']);
+    }
+  }
+
+  // Exposer pour les boutons de legal/cookies.html
+  window.ww_saveCookieChoice = saveCookieChoice;
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   10 — Bouton "Marquer comme lu" — injecté automatiquement
+        sur toutes les pages de contenu par ww-bundle.js
+   ══════════════════════════════════════════════════════════════ */
+(function initMarkAsRead() {
+  // Pages exclues : pas de bouton sur les pages fonctionnelles
+  const EXCLUDED = [
+    '/compte/', '/dashboard/', '/admin/', '/radar/projet',
+    '/legal/', '/a-propos/', '/doctrine',
+  ];
+
+  function isContentPage() {
+    const path = location.pathname;
+    // Doit avoir un .page div ET ne pas être une page exclue
+    if (EXCLUDED.some(function(ex) { return path.startsWith(ex); })) return false;
+    // Doit être une vraie page de contenu (sous-dossier ou index.html d'un hub)
+    const contentPaths = [
+      '/invest/', '/budget/', '/fiscal/', '/immo/',
+      '/parcours/', '/contenu/', '/outils/',
+    ];
+    return contentPaths.some(function(p) { return path.startsWith(p); });
+  }
+
+  function getPageSlug() {
+    // Normalise le slug : /invest/etf.html → /invest/etf.html
+    let p = location.pathname;
+    if (p.endsWith('/')) p += 'index.html';
+    return p;
+  }
+
+  async function markAsRead(btn) {
+    const slug = getPageSlug();
+    const session = localStorage.getItem('ww_session');
+
+    if (!session || !window.WW?.sb) {
+      // Non connecté → mini-modal inscription
+      showReadModal();
+      return;
+    }
+
+    try {
+      btn.disabled = true;
+      btn.classList.add('mark-read-done');
+      // Animation checkmark SVG
+      btn.innerHTML = '<span class="ww-check-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" class="ww-check-path"></polyline></svg></span><span class="ww-check-label">Lu !</span>';
+      btn.classList.add('ww-check-animate');
+
+      const uid = window.WW?.user?.id;
+      if (!uid) throw new Error('no user id');
+
+      await window.WW.sb.from('page_views').upsert(
+        { user_id: uid, page_slug: slug, viewed_at: new Date().toISOString() },
+        { onConflict: 'user_id,page_slug' }
+      );
+
+      // Incrémenter compteur local
+      const current = parseInt(localStorage.getItem('ww_page_views') || '0');
+      localStorage.setItem('ww_page_views', String(current + 1));
+
+      // Déclencher stitching Matomo si disponible
+      if (typeof window.ww_matomoStitch === 'function' && uid) {
+        window.ww_matomoStitch(uid);
+      }
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = '📖 Marquer comme lu';
+      btn.classList.remove('mark-read-done');
+    }
+  }
+
+  function showReadModal() {
+    if (document.getElementById('ww-read-modal')) return;
+    const modal = document.createElement('div');
+    modal.id = 'ww-read-modal';
+    modal.innerHTML = `
+      <div class="read-modal-box">
+        <button class="read-modal-close" id="read-modal-close">✕</button>
+        <div class="read-modal-icon">📚</div>
+        <div class="read-modal-title">Suis ta progression</div>
+        <p class="read-modal-desc">Crée un compte gratuit pour marquer les pages lues, suivre ton parcours et reprendre où tu t'es arrêté.</p>
+        <a href="/compte/inscription.html" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">Créer mon compte gratuit →</a>
+        <div class="read-modal-note">Déjà un compte ? <a href="/compte/connexion.html" class="link-invest">Se connecter</a></div>
+      </div>
+      <div class="read-modal-backdrop" id="read-modal-backdrop"></div>`;
+    document.body.appendChild(modal);
+    requestAnimationFrame(function() { modal.classList.add('read-modal-visible'); });
+    document.getElementById('read-modal-close').addEventListener('click', closeReadModal);
+    document.getElementById('read-modal-backdrop').addEventListener('click', closeReadModal);
+  }
+
+  function closeReadModal() {
+    const modal = document.getElementById('ww-read-modal');
+    if (!modal) return;
+    modal.classList.remove('read-modal-visible');
+    setTimeout(function() { modal.remove(); }, 300);
+  }
+
+  async function checkAlreadyRead() {
+    const slug = getPageSlug();
+    const uid  = window.WW?.user?.id;
+    if (!uid || !window.WW?.sb) return false;
+    try {
+      const { data } = await window.WW.sb
+        .from('page_views')
+        .select('viewed_at')
+        .eq('user_id', uid)
+        .eq('page_slug', slug)
+        .maybeSingle();
+      return !!data;
+    } catch (e) { return false; }
+  }
+
+  function makeBtn(id, alreadyRead) {
+    const btn = document.createElement('button');
+    btn.id = id;
+    btn.className = 'mark-read-btn' + (alreadyRead ? ' mark-read-done' : '');
+    if (alreadyRead) {
+      btn.innerHTML = '<span class="ww-check-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" class="ww-check-path ww-check-path-static"></polyline></svg></span><span class="ww-check-label">Lu !</span>';
+      btn.disabled = true;
+    } else {
+      btn.textContent = '📖 Marquer comme lu';
+    }
+    return btn;
+  }
+
+  function syncBtns(done) {
+    ['ww-mark-read-btn-top', 'ww-mark-read-btn-bottom'].forEach(function(id) {
+      const b = document.getElementById(id);
+      if (!b) return;
+      b.disabled = done;
+      b.classList.toggle('mark-read-done', done);
+      if (done) {
+        b.innerHTML = '<span class="ww-check-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" class="ww-check-path"></polyline></svg></span><span class="ww-check-label">Lu !</span>';
+        b.classList.add('ww-check-animate');
+      } else {
+        b.textContent = '📖 Marquer comme lu';
+        b.classList.remove('ww-check-animate');
+      }
+    });
+  }
+
+  function injectButton(alreadyRead) {
+    if (document.getElementById('ww-mark-read-btn-top')) return;
+    const page = document.querySelector('.page');
+    if (!page) return;
+
+    // ── Bouton HAUT — après le breadcrumb (ou pill-nav), avant le titre ──
+    // On cherche l'eyebrow ou le H1 et on insère juste avant
+    const topAnchor = page.querySelector('.eyebrow, h1.display, h1');
+    const btnTop    = makeBtn('ww-mark-read-btn-top', alreadyRead);
+    const wrapTop   = document.createElement('div');
+    wrapTop.className = 'mark-read-wrap mark-read-wrap-top';
+    wrapTop.appendChild(btnTop);
+    if (topAnchor) {
+      topAnchor.insertAdjacentElement('beforebegin', wrapTop);
+    } else {
+      page.prepend(wrapTop);
+    }
+
+    // ── Bouton BAS — avant le see-also si présent, sinon fin de .page ──
+    const seeAlso   = page.querySelector('.see-also');
+    const btnBottom = makeBtn('ww-mark-read-btn-bottom', alreadyRead);
+    const wrapBottom = document.createElement('div');
+    wrapBottom.className = 'mark-read-wrap';
+    wrapBottom.appendChild(btnBottom);
+    if (seeAlso) {
+      page.insertBefore(wrapBottom, seeAlso);
+    } else {
+      page.appendChild(wrapBottom);
+    }
+
+    // ── Listeners — les deux boutons se synchronisent ──
+    if (!alreadyRead) {
+      [btnTop, btnBottom].forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          markAsRead(btn).then(function() { syncBtns(true); });
+        });
+      });
+    }
+  }
+
+  window.addEventListener('load', async function() {
+    if (!isContentPage()) return;
+    const alreadyRead = await checkAlreadyRead();
+    injectButton(alreadyRead);
+  });
+
+  // Exposer pour usage externe (ex: fin de simulateur)
+  window.ww_markAsRead = markAsRead;
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   GAMIFICATION — Animations + Nudge intelligent
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Animation téléchargement lead magnet ── */
+window.ww_animateDownload = function(btn) {
+  if (!btn) return;
+  const orig = btn.innerHTML;
+  // Phase 1 : progress bar
+  btn.innerHTML = '<span class="ww-dl-bar"><span class="ww-dl-bar-fill"></span></span>';
+  btn.classList.add('ww-dl-loading');
+  btn.disabled = true;
+
+  setTimeout(function() {
+    // Phase 2 : succès avec checkmark
+    btn.innerHTML = '<span class="ww-check-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" class="ww-check-path"></polyline></svg></span><span class="ww-check-label">Envoyé !</span>';
+    btn.classList.remove('ww-dl-loading');
+    btn.classList.add('ww-dl-done');
+
+    // Phase 3 : retour à l'état initial après 3s
+    setTimeout(function() {
+      btn.innerHTML = orig;
+      btn.classList.remove('ww-dl-done');
+      btn.disabled = false;
+    }, 3000);
+  }, 1200);
+};
+
+/* ── Nudge contextuel intelligent ── */
+(function initSmartNudge() {
+  // Pas sur les pages auth, admin, dashboard
+  const path = location.pathname;
+  const excluded = ['/compte/', '/dashboard/', '/admin/', '/legal/', '/a-propos/'];
+  if (excluded.some(function(p) { return path.startsWith(p); })) return;
+
+  // Déjà connecté → pas de nudge
+  if (localStorage.getItem('ww_session')) return;
+
+  // Incrémenter le compteur de pages visitées (session uniquement)
+  const SESSION_KEY = 'ww_session_pages';
+  const TOTAL_KEY   = 'ww_page_views';
+  let sessionPages = parseInt(sessionStorage.getItem(SESSION_KEY) || '0') + 1;
+  sessionStorage.setItem(SESSION_KEY, String(sessionPages));
+
+  const totalPages = parseInt(localStorage.getItem(TOTAL_KEY) || '0') + 1;
+  localStorage.setItem(TOTAL_KEY, String(totalPages));
+
+  // Afficher le nudge à partir de la 2ème page de la session
+  if (sessionPages < 2) return;
+
+  function getNudgeText(n, total) {
+    if (n === 2) return 'C\'est votre <strong>' + total + 'ème page</strong> visitée — créez un compte gratuit pour garder votre avancée.';
+    if (n === 3) return 'Vous consultez votre <strong>' + total + 'ème page</strong>. Un compte gratuit sauvegarde votre progression.';
+    if (n >= 4)  return 'Vous avez déjà lu <strong>' + total + ' pages</strong> — ne perdez pas votre avancée.';
+    return '';
+  }
+
+  function showNudge() {
+    if (document.getElementById('ww-smart-nudge')) return;
+    if (localStorage.getItem('ww_session')) return; // connecté entretemps
+
+    const nudge = document.createElement('div');
+    nudge.id = 'ww-smart-nudge';
+    nudge.innerHTML = '<div class="ww-nudge-inner">' +
+      '<span class="ww-nudge-text">' + getNudgeText(sessionPages, totalPages) + '</span>' +
+      '<a href="/compte/inscription.html" class="ww-nudge-btn">Créer mon compte →</a>' +
+      '<button class="ww-nudge-close" id="ww-nudge-close">✕</button>' +
+      '</div>';
+    document.body.appendChild(nudge);
+
+    // Entrée animée
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        nudge.classList.add('ww-nudge-visible');
+      });
+    });
+
+    document.getElementById('ww-nudge-close').addEventListener('click', function() {
+      nudge.classList.remove('ww-nudge-visible');
+      setTimeout(function() { nudge.remove(); }, 400);
+      // Ne plus afficher pendant cette session
+      sessionStorage.setItem('ww_nudge_closed_session', '1');
+    });
+  }
+
+  // Exposer pour mise à jour externe
+  window.ww_updateNudge = function() {
+    const el = document.getElementById('ww-smart-nudge');
+    if (el) {
+      const textEl = el.querySelector('.ww-nudge-text');
+      if (textEl) textEl.innerHTML = getNudgeText(sessionPages, totalPages);
+    }
+  };
+
+  // Afficher après un délai (pas immédiatement)
+  if (!sessionStorage.getItem('ww_nudge_closed_session')) {
+    window.addEventListener('load', function() {
+      setTimeout(showNudge, 8000); // 8s après chargement de la 2ème page
+    });
+  }
 })();

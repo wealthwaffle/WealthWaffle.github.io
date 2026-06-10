@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics — WealthWaffle Admin</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+</head>
+<body class="adm-body">
+<div id="adm-toast" class="adm-toast"></div>
+<header class="adm-header">
+  <div class="adm-header-left">
+    <a href="/admin/" class="adm-logo">WealthWaffle 🧇</a>
+    <nav class="adm-nav">
+      <a href="/admin/" class="adm-nav-link">Dashboard</a>
+      <a href="/admin/users.html" class="adm-nav-link">Utilisateurs</a>
+      <a href="/admin/radar.html" class="adm-nav-link">Radar</a>
+      <a href="/admin/erreurs.html" class="adm-nav-link">Erreurs</a>
+      <a href="/admin/leads.html" class="adm-nav-link">Leads</a>
+      <a href="/admin/analytics.html" class="adm-nav-link active">Analytics</a>
+    </nav>
+  </div>
+  <button class="adm-logout" id="adm-logout-btn">Déconnexion</button>
+</header>
+<main class="adm-main">
+<h1 class="adm-page-title">📊 Analytics</h1>
+<p class="adm-page-sub">UTM, conversions, top pages — données Supabase (Matomo à connecter)</p>
+
+<div class="adm-kpi-grid">
+  <div class="adm-kpi"><span class="adm-kpi-label">Inscriptions totales</span><div class="adm-kpi-value adm-kpi-cyan" id="k-users">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Avec UTM source</span><div class="adm-kpi-value adm-kpi-rose" id="k-utm">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Pages vues totales</span><div class="adm-kpi-value adm-kpi-green" id="k-views">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Moy. pages/user</span><div class="adm-kpi-value adm-kpi-gold" id="k-avg">—</div></div>
+</div>
+
+<div class="adm-2col">
+
+  <!-- Top UTM sources -->
+  <div class="adm-section">
+    <p class="adm-section-title">📡 Top UTM Sources</p>
+    <div id="utm-sources" class="adm-loading">Chargement…</div>
+  </div>
+
+  <!-- Top landing pages -->
+  <div class="adm-section">
+    <p class="adm-section-title">🛬 Top Landing Pages</p>
+    <div id="landing-pages" class="adm-loading">Chargement…</div>
+  </div>
+
+  <!-- Top pages lues -->
+  <div class="adm-section">
+    <p class="adm-section-title">📖 Pages les plus lues</p>
+    <div id="top-pages" class="adm-loading">Chargement…</div>
+  </div>
+
+  <!-- Conversion par plan -->
+  <div class="adm-section">
+    <p class="adm-section-title">💳 Conversions par plan</p>
+    <div id="plan-conv" class="adm-loading">Chargement…</div>
+  </div>
+
+</div>
+
+<!-- Matomo placeholder -->
+<div class="adm-section adm-faded">
+  <p class="adm-section-title">🔭 Matomo — À connecter</p>
+  <p class="adm-muted-text">Configurer WW_MATOMO_URL et WW_MATOMO_SITE_ID dans Cloudflare pour activer les données Matomo ici (voir ROADMAP point 88).</p>
+</div>
+
+<script>
+function renderBarList(elId, items, colorClass) {
+  const el = document.getElementById(elId);
+  if (!items.length) { el.innerHTML = '<div class="adm-empty">Aucune donnée</div>'; return; }
+  const max = items[0][1];
+  el.innerHTML = '';
+  items.slice(0,8).forEach(([label, count]) => {
+    const pct = Math.round(count/max*100);
+    const div = document.createElement('div');
+    div.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:0.76rem;';
+    div.innerHTML = `<span style="width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aaa;" title="${label}">${label}</span>
+      <div class="adm-bar-track" style="flex:1"><div class="adm-bar-fill ${colorClass}" style="width:${pct}%"></div></div>
+      <span style="width:36px;text-align:right;color:#666;">${count}</span>`;
+    el.appendChild(div);
+  });
+}
+
+window.addEventListener('load', async () => {
+  const s = await requireAdmin(); if (!s) return;
+
+  // Users
+  const { data: users, count: uc } = await sb.from('profiles').select('*', {count:'exact'}).limit(500);
+  const allUsers = users || [];
+  document.getElementById('k-users').textContent = allUsers.length;
+
+  // UTM data
+  const { data: utmData } = await sb.from('user_conversion_metrics').select('utm_source,utm_medium,utm_campaign,landing_page');
+  const utmAll = utmData || [];
+  document.getElementById('k-utm').textContent = utmAll.filter(u=>u.utm_source).length;
+
+  // Top UTM sources
+  const srcCount = {};
+  utmAll.forEach(u => { if (u.utm_source) srcCount[u.utm_source] = (srcCount[u.utm_source]||0)+1; });
+  renderBarList('utm-sources', Object.entries(srcCount).sort((a,b)=>b[1]-a[1]), 'adm-bar-rose');
+
+  // Top landing pages
+  const landCount = {};
+  utmAll.forEach(u => { if (u.landing_page) landCount[u.landing_page] = (landCount[u.landing_page]||0)+1; });
+  renderBarList('landing-pages', Object.entries(landCount).sort((a,b)=>b[1]-a[1]), 'adm-bar-cyan');
+
+  // Top pages lues
+  const { data: views } = await sb.from('page_views').select('page_slug');
+  const viewCount = {};
+  (views||[]).forEach(v => { viewCount[v.page_slug] = (viewCount[v.page_slug]||0)+1; });
+  document.getElementById('k-views').textContent = (views||[]).length;
+  const avgViews = allUsers.length ? ((views||[]).length / allUsers.length).toFixed(1) : '0';
+  document.getElementById('k-avg').textContent = avgViews;
+  renderBarList('top-pages', Object.entries(viewCount).sort((a,b)=>b[1]-a[1]), 'adm-bar-green');
+
+  // Plans
+  const planCount = {};
+  allUsers.forEach(u => { planCount[u.plan||'socle'] = (planCount[u.plan||'socle']||0)+1; });
+  renderBarList('plan-conv', Object.entries(planCount).sort((a,b)=>b[1]-a[1]), 'adm-bar-gold');
+});
+</script>
+</main>
+<script src="/assets/data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient(
+  window.__CF_SUPABASE_URL__ || 'https://klhhztxvgudefxmciwfz.supabase.co',
+  window.__CF_SUPABASE_ANON_KEY__ || ''
+);
+async function requireAdmin() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
+  const { data: p } = await sb.from('profiles').select('is_admin').eq('id', session.user.id).single();
+  if (!p?.is_admin) { window.location.href = '/'; return null; }
+  return session;
+}
+function toast(msg, isErr) {
+  const t = document.getElementById('adm-toast');
+  t.textContent = msg;
+  t.className = 'adm-toast show' + (isErr ? ' error' : '');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('fr-BE', { day:'2-digit', month:'short', year:'numeric' });
+}
+document.getElementById('adm-logout-btn').addEventListener('click', async () => {
+  await sb.auth.signOut(); localStorage.clear(); window.location.href = '/';
+});
+window.sb = sb; window.toast = toast; window.fmtDate = fmtDate;
+</body></html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon abonnement — WealthWaffle</title>
+  <meta name="description" content="Gérer ton abonnement WealthWaffle — plan actuel, facturation, upgrade, annulation.">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { name: "Mon abonnement", basePath: "/compte/", auth: true };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+<script>
+window.WW_CONFIG = {
+  SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
+  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'TON_ANON_KEY',
+  STRIPE_KEY:        window.__CF_STRIPE_KEY__         || 'pk_live_TON_KEY',
+  PRICES: {
+    socle_monthly:  window.__CF_PRICE_SOCLE_M__  || 'price_SOCLE_MENSUEL',
+    socle_annual:   window.__CF_PRICE_SOCLE_A__  || 'price_SOCLE_ANNUEL',
+    pilote_monthly: window.__CF_PRICE_PILOTE_M__ || 'price_PILOTE_MENSUEL',
+    pilote_annual:  window.__CF_PRICE_PILOTE_A__ || 'price_PILOTE_ANNUEL',
+    radar_monthly:  window.__CF_PRICE_RADAR_M__  || 'price_RADAR_MENSUEL',
+    radar_annual:   window.__CF_PRICE_RADAR_A__  || 'price_RADAR_ANNUEL',
+  },
+  SITE_URL: 'https://wealthwaffle.be',
+  TRIAL_DAYS: 7,
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<div class="page">
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/dashboard/">Dashboard</a><span>/</span><span>Mon abonnement</span></div>
+
+<div class="eyebrow eyebrow-invest">💳 Abonnement</div>
+<h1 class="display">Mon abonnement</h1>
+
+<div class="pill-nav">
+  <a href="/dashboard/" class="source-pill">← Dashboard</a>
+  <a href="/compte/profil.html" class="source-pill">👤 Profil</a>
+  <a href="/compte/abonnement.html" class="source-pill source-pill-active">💳 Abonnement ←</a>
+  <a href="/compte/parrainage.html" class="source-pill">🎁 Parrainage</a>
+</div>
+
+<!-- Plan actuel -->
+<div class="dash-card" id="current-plan-card">
+  <h4>📋 Plan actuel</h4>
+  <div id="plan-loading" class="dash-chapters-msg">Chargement…</div>
+  <div id="plan-socle" class="hidden">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Plan actuel</div>
+        <div class="kpi-value txt-budget">🟢 Socle</div>
+        <div class="kpi-sub">Gratuit</div>
+      </div>
+    </div>
+    <p class="dash-plan-text">Tu as accès aux guides gratuits et aux 8 simulateurs Socle. Passe à Pilote pour les 9 simulateurs avancés.</p>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">✈️ Pilote</div>
+        <div class="kpi-value txt-cyan" id="pilote-price-display"></div>
+        <div class="kpi-sub">9 simulateurs avancés · 7 jours gratuits</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">📡 Radar</div>
+        <div class="kpi-value txt-rose" id="radar-price-display"></div>
+        <div class="kpi-sub">Pilote + Feed equity · 7 jours gratuits</div>
+      </div>
+    </div>
+    <div class="dash-pref-row">
+      <div class="dash-pref-label">Facturation</div>
+      <div class="dash-pref-level">
+        <button class="pref-btn active" id="billing-annual">Annuelle</button>
+        <button class="pref-btn" id="billing-monthly">Mensuelle</button>
+      </div>
+    </div>
+    <div class="dash-pref-level">
+      <button class="auth-btn auth-btn-rose" id="btn-upgrade-pilote">Passer à Pilote →</button>
+      <button class="auth-btn auth-btn-green" id="btn-upgrade-radar">Passer à Radar →</button>
+    </div>
+    <div class="addon-wrap">
+      <label class="dash-pref-label">
+        <input type="checkbox" id="addon-pilote" class="addon-checkbox">
+        ₿ Ajouter Conformité Crypto — <span data-ww="crypto_addon_combined" data-fmt="eur"></span>/an
+      </label>
+      <label class="dash-pref-label">
+        <input type="checkbox" id="addon-radar" class="addon-checkbox">
+        ₿ Ajouter Conformité Crypto — <span data-ww="crypto_addon_combined" data-fmt="eur"></span>/an
+      </label>
+    </div>
+    <div class="dash-plan-note">7 jours gratuits · Sans engagement · Annulation à tout moment</div>
+  </div>
+  <div id="plan-pilote" class="hidden">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Plan actuel</div>
+        <div class="kpi-value txt-cyan">✈️ Pilote</div>
+        <div class="kpi-sub" id="pilote-billing-sub"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Prochain renouvellement</div>
+        <div class="kpi-value txt-cyan" id="pilote-next-billing"></div>
+        <div class="kpi-sub">Annulation avant cette date</div>
+      </div>
+    </div>
+    <p class="dash-plan-text">Tu as accès à tous les guides et aux 17 simulateurs (Socle + Pilote).</p>
+    <button class="auth-btn auth-btn-rose" id="btn-portal">Gérer la facturation (portail Stripe) →</button>
+    <div class="dash-plan-note">Annulation sans frais à tout moment depuis le portail.</div>
+  </div>
+  <div id="plan-radar" class="hidden">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Plan actuel</div>
+        <div class="kpi-value txt-rose">📡 Radar</div>
+        <div class="kpi-sub" id="radar-billing-sub"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Prochain renouvellement</div>
+        <div class="kpi-value txt-rose" id="radar-next-billing"></div>
+        <div class="kpi-sub">Annulation avant cette date</div>
+      </div>
+    </div>
+    <p class="dash-plan-text">✅ Accès complet Pilote + Feed Radar equity et crowdlending.</p>
+    <button class="auth-btn auth-btn-rose" id="btn-portal-radar">Gérer la facturation (portail Stripe) →</button>
+  </div>
+</div>
+
+<!-- Historique factures -->
+<div class="dash-card">
+  <h4>🧾 Factures</h4>
+  <p class="dash-pref-note">Tes factures sont accessibles directement depuis le portail Stripe.</p>
+  <button class="btn-secondary" id="btn-invoices">Accéder à mes factures →</button>
+</div>
+
+<!-- FAQ abonnement -->
+<div class="dash-card">
+  <h4>❓ Questions fréquentes</h4>
+  <div class="faq-item">
+    <div class="faq-q"><span>Puis-je annuler à tout moment ?</span><span class="faq-arrow">▾</span></div>
+    <div class="faq-a">Oui — annule depuis le portail Stripe. Ton accès reste actif jusqu'à la fin de la période payée.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q"><span>Comment fonctionne le trial de 7 jours ?</span><span class="faq-arrow">▾</span></div>
+    <div class="faq-a">Accès complet pendant 7 jours. Aucun prélèvement pendant la période d'essai. Si tu annules avant la fin du trial, rien n'est facturé.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q"><span>Puis-je changer de mensuel à annuel ?</span><span class="faq-arrow">▾</span></div>
+    <div class="faq-a">Oui — depuis le portail Stripe, tu peux modifier ton cycle de facturation. Le changement est effectif au prochain renouvellement.</div>
+  </div>
+</div>
+</div>
+
+<script>
+const { createClient } = supabase;
+const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+window.WW = { sb };
+
+async function getSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return null;
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+  window.WW.user = session.user; window.WW.profile = profile;
+  return { user: session.user, profile };
+}
+
+async function openPortal() {
+  const { data: { session: sess } } = await sb.auth.getSession();
+  if (!sess) { window.location.href = '/compte/connexion.html'; return; }
+  const { data, error } = await sb.functions.invoke('create-portal-session', {
+    headers: { Authorization: 'Bearer ' + sess.access_token },
+    body: { return_url: window.WW_CONFIG.SITE_URL + '/compte/abonnement.html' }
+  });
+  if (error || !data?.url) { alert('Portail indisponible — ' + (error?.message || 'réessaie dans quelques secondes')); return; }
+  window.location.href = data.url;
+}
+
+async function createCheckout(plan, billing, withAddon) {
+  const priceKey = plan + '_' + billing;
+  const priceId  = window.WW_CONFIG.PRICES[priceKey];
+  if (!priceId) { alert('Price ID manquant — contacter le support.'); return; }
+
+  const { data: { session: sess } } = await sb.auth.getSession();
+  if (!sess) { window.location.href = '/compte/connexion.html'; return; }
+
+  const body = {
+    price_id:    priceId,
+    trial_days:  window.WW_CONFIG.TRIAL_DAYS,
+    success_url: window.WW_CONFIG.SITE_URL + '/compte/abonnement.html?upgraded=1',
+    cancel_url:  window.WW_CONFIG.SITE_URL + '/compte/abonnement.html',
+  };
+
+  // Add-on crypto optionnel
+  if (withAddon) {
+    const addonKey = billing === 'annual' ? 'crypto_combined' : 'crypto_standalone';
+    const addonId  = window.WW_CONFIG.PRICES[addonKey];
+    if (addonId) body.addon = { price_id: addonId };
+  }
+
+  // Désactiver le bouton pendant le redirect
+  const btn = event.target;
+  const orig = btn.textContent;
+  btn.textContent = 'Redirection…'; btn.disabled = true;
+
+  const { data, error } = await sb.functions.invoke('create-checkout-session', {
+    headers: { Authorization: 'Bearer ' + sess.access_token },
+    body,
+  });
+
+  if (error || !data?.url) {
+    btn.textContent = orig; btn.disabled = false;
+    alert('Erreur checkout — ' + (error?.message || 'réessaie dans quelques secondes'));
+    return;
+  }
+  window.location.href = data.url;
+}
+
+window.addEventListener('load', async () => {
+  const session = await getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=/compte/abonnement.html'; return; }
+
+  const plan = session.profile?.plan || 'socle';
+  const D    = window.WW_DATA?.prix;
+
+  // Afficher les prix
+  if (D) {
+    const el_p = document.getElementById('pilote-price-display');
+    const el_r = document.getElementById('radar-price-display');
+    if (el_p) el_p.textContent = D.pilote_mensuel_eq?.toFixed(2).replace('.',',') + '€/mois*';
+    if (el_r) el_r.textContent = D.radar_mensuel_eq?.toFixed(2).replace('.',',')  + '€/mois*';
+  }
+
+  // Afficher le bon bloc
+  document.getElementById('plan-loading').style.display = 'none';
+  document.getElementById('plan-' + plan)?.classList.remove('hidden');
+
+  // Billing toggle
+  let billing = 'annual';
+  document.getElementById('billing-annual')?.addEventListener('click', () => {
+    billing = 'annual';
+    document.getElementById('billing-annual')?.classList.add('active');
+    document.getElementById('billing-monthly')?.classList.remove('active');
+  });
+  document.getElementById('billing-monthly')?.addEventListener('click', () => {
+    billing = 'monthly';
+    document.getElementById('billing-monthly')?.classList.add('active');
+    document.getElementById('billing-annual')?.classList.remove('active');
+  });
+
+  document.getElementById('btn-upgrade-pilote')?.addEventListener('click', () => createCheckout('pilote', billing, document.getElementById('addon-pilote')?.checked));
+  document.getElementById('btn-upgrade-radar')?.addEventListener('click',  () => createCheckout('radar',  billing, document.getElementById('addon-radar')?.checked));
+  document.getElementById('btn-portal')?.addEventListener('click', openPortal);
+  document.getElementById('btn-portal-radar')?.addEventListener('click', openPortal);
+  document.getElementById('btn-invoices')?.addEventListener('click', openPortal);
+
+  // FAQ toggle
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+  });
+
+  // Success message
+  if (new URLSearchParams(location.search).get('upgraded')) {
+    const ok = document.createElement('div');
+    ok.className = 'auth-success';
+    ok.textContent = '✅ Abonnement activé — bienvenue !';
+    ok.style.display = 'block';
+    document.getElementById('current-plan-card').prepend(ok);
+  }
+});
+</script>
+</body>
+</html>

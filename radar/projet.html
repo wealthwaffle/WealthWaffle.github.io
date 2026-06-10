@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet Radar — WealthWaffle</title>
+  <meta name="description" content="Détail d'un projet equity ou crowdlending analysé par WealthWaffle — scoring, verdict, données clés.">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { name: "Détail projet", basePath: "/radar/", auth: true };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+<script>
+window.WW_CONFIG = {
+  SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
+  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'TON_ANON_KEY',
+  SITE_URL: 'https://wealthwaffle.be',
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<div class="page">
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/radar/">Radar</a><span>/</span><span id="bc-name">Projet</span></div>
+
+<div id="projet-loading" class="watchlist-loading">Chargement du projet…</div>
+<div id="projet-content" class="hidden"></div>
+<div id="projet-error" class="hidden">
+  <div class="warn-box">⚠️ Projet introuvable — <a href="/radar/" class="link-invest">retour au feed</a></div>
+</div>
+</div>
+
+<script>
+const { createClient } = supabase;
+const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+window.WW = { sb };
+
+async function getSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return null;
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+  window.WW.user = session.user; window.WW.profile = profile;
+  localStorage.setItem('ww_session', session.access_token);
+  localStorage.setItem('ww_plan', profile?.plan || 'socle');
+  return { user: session.user, profile };
+}
+
+async function requireAuth(minLevel) {
+  const LEVELS = { socle:1, pilote:2, radar:3 };
+  const session = await getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname + location.search); return null; }
+  if ((LEVELS[session.profile?.plan]||0) < (LEVELS[minLevel]||1)) { window.location.href = '/compte/inscription.html?plan=' + minLevel; return null; }
+  return session;
+}
+
+function scoreColor(s) { return s >= 7 ? '#7EC8A0' : s >= 5 ? '#E8C23A' : '#E87CC3'; }
+
+function renderProject(p, isWatched) {
+  const verdictLabels = { interessant:'✅ Intéressant', surveiller:'👀 À surveiller', insuffisant:'Insuffisant', trop_risque:'⚠️ Trop risqué' };
+  const container = document.getElementById('projet-content');
+  container.classList.remove('hidden');
+
+  document.getElementById('bc-name').textContent = p.name;
+
+  const scores = p.score_risque !== undefined ? [
+    { label:'Risque',     val:p.score_risque,     color:scoreColor(10-p.score_risque) },
+    { label:'Conviction', val:p.score_conviction, color:scoreColor(p.score_conviction) },
+    { label:'Liquidité',  val:p.score_liquidite,  color:scoreColor(p.score_liquidite) },
+  ] : [];
+
+  container.innerHTML = `
+    <div class="eyebrow eyebrow-invest">📡 Radar — Analyse</div>
+    <h1 class="display">${p.name}</h1>
+    <div class="project-meta">
+      <span class="project-platform">${p.platform}</span>
+      <span>${p.type}</span>
+      ${p.rate ? `<span class="txt-budget">${p.rate}% / an</span>` : ''}
+      ${p.min_invest ? `<span>Min. ${p.min_invest} €</span>` : ''}
+      ${p.duration_months ? `<span>${p.duration_months} mois</span>` : ''}
+      <span class="verdict-badge verdict-${p.verdict}">${verdictLabels[p.verdict]||p.verdict}</span>
+    </div>
+
+    <div class="kpi-grid">
+      ${scores.map(s => `<div class="kpi-card">
+        <div class="kpi-label">${s.label}</div>
+        <div class="kpi-value" style="color:${s.color};">${s.val}/10</div>
+        <div class="score-bar"><div class="score-fill" style="width:${s.val*10}%;background:${s.color};height:6px;border-radius:3px;"></div></div>
+      </div>`).join('')}
+    </div>
+
+    <div class="content-card">
+      <h3>📋 Résumé WealthWaffle</h3>
+      <p class="project-summary">${p.summary || 'Pas encore d\'analyse disponible.'}</p>
+      ${p.analysis ? `<div class="level-section"><div data-level="avance"><div class="level-badge">🚀 Analyse complète</div><p>${p.analysis}</p></div></div>` : ''}
+    </div>
+
+    ${p.risks ? `<div class="content-card"><h3>⚠️ Risques identifiés</h3><p class="page-subtitle">${p.risks}</p></div>` : ''}
+
+    <div class="content-card">
+      <h3>📊 Données clés</h3>
+      <div class="deduction-list">
+        ${p.platform ? `<div class="deduction-row"><span class="deduction-label">Plateforme</span><span class="deduction-value">${p.platform}</span></div>` : ''}
+        ${p.type ? `<div class="deduction-row"><span class="deduction-label">Type</span><span class="deduction-value">${p.type}</span></div>` : ''}
+        ${p.rate ? `<div class="deduction-row"><span class="deduction-label">Rendement annoncé</span><span class="deduction-value txt-budget">${p.rate}% / an</span></div>` : ''}
+        ${p.min_invest ? `<div class="deduction-row"><span class="deduction-label">Investissement min.</span><span class="deduction-value">${p.min_invest} €</span></div>` : ''}
+        ${p.max_invest ? `<div class="deduction-row"><span class="deduction-label">Plafond</span><span class="deduction-value">${p.max_invest} €</span></div>` : ''}
+        ${p.duration_months ? `<div class="deduction-row"><span class="deduction-label">Durée</span><span class="deduction-value">${p.duration_months} mois</span></div>` : ''}
+        ${p.fsma_approved ? `<div class="deduction-row"><span class="deduction-label">Agréé FSMA</span><span class="deduction-value txt-budget">✅ Oui</span></div>` : ''}
+      </div>
+    </div>
+
+    <div class="project-actions">
+      ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener" class="btn-primary">Voir le projet sur ${p.platform} ↗</a>` : ''}
+      <button class="follow-btn ${isWatched ? 'watched' : ''}" id="watch-btn">${isWatched ? '👁️ Suivi' : '+ Suivre'}</button>
+    </div>
+
+    <div class="see-also">
+      <div class="see-also-label">Voir aussi</div>
+      <a href="/radar/" class="see-also-pill">← Feed complet</a>
+      <a href="/radar/watchlist.html" class="see-also-pill">👁️ Ma watchlist</a>
+      <a href="/invest/equity.html" class="see-also-pill">🚀 Guide equity</a>
+      <a href="/invest/alternatives.html" class="see-also-pill">🤝 Crowdlending</a>
+    </div>`;
+}
+
+window.addEventListener('load', async () => {
+  const session = await requireAuth('radar');
+  if (!session) return;
+  const userId = session.user.id;
+
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id) { document.getElementById('projet-loading').style.display = 'none'; document.getElementById('projet-error').classList.remove('hidden'); return; }
+
+  const [{ data: project }, { data: wl }] = await Promise.all([
+    sb.from('projects').select('*').eq('id', id).single(),
+    sb.from('watchlist').select('project_id').eq('user_id', userId).eq('project_id', id),
+  ]);
+
+  document.getElementById('projet-loading').style.display = 'none';
+
+  if (!project) { document.getElementById('projet-error').classList.remove('hidden'); return; }
+
+  const isWatched = (wl||[]).length > 0;
+  renderProject(project, isWatched);
+
+  // Watch button
+  document.getElementById('watch-btn')?.addEventListener('click', async (e) => {
+    const btn = e.target;
+    if (btn.classList.contains('watched')) {
+      await sb.from('watchlist').delete().eq('user_id', userId).eq('project_id', id);
+      btn.textContent = '+ Suivre'; btn.classList.remove('watched');
+    } else {
+      await sb.from('watchlist').insert({ user_id: userId, project_id: id });
+      btn.textContent = '👁️ Suivi'; btn.classList.add('watched');
+    }
+  });
+});
+</script>
+</body>
+</html>

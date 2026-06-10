@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leads — WealthWaffle Admin</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+</head>
+<body class="adm-body">
+<div id="adm-toast" class="adm-toast"></div>
+<header class="adm-header">
+  <div class="adm-header-left">
+    <a href="/admin/" class="adm-logo">WealthWaffle 🧇</a>
+    <nav class="adm-nav">
+      <a href="/admin/" class="adm-nav-link">Dashboard</a>
+      <a href="/admin/users.html" class="adm-nav-link">Utilisateurs</a>
+      <a href="/admin/radar.html" class="adm-nav-link">Radar</a>
+      <a href="/admin/erreurs.html" class="adm-nav-link">Erreurs</a>
+      <a href="/admin/leads.html" class="adm-nav-link active">Leads</a>
+      <a href="/admin/analytics.html" class="adm-nav-link">Analytics</a>
+    </nav>
+  </div>
+  <button class="adm-logout" id="adm-logout-btn">Déconnexion</button>
+</header>
+<main class="adm-main">
+<h1 class="adm-page-title">📬 Leads & Lead magnets</h1>
+<p class="adm-page-sub">Demandes de guides PDF et conversions</p>
+
+<div class="adm-kpi-grid">
+  <div class="adm-kpi"><span class="adm-kpi-label">Total leads</span><div class="adm-kpi-value adm-kpi-cyan" id="k-total">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Convertis</span><div class="adm-kpi-value adm-kpi-green" id="k-conv">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Taux conv.</span><div class="adm-kpi-value adm-kpi-gold" id="k-rate">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Cette semaine</span><div class="adm-kpi-value adm-kpi-rose" id="k-week">—</div></div>
+</div>
+
+<!-- Répartition par lead magnet -->
+<div class="adm-section">
+  <p class="adm-section-title">📥 Répartition par lead magnet</p>
+  <div id="lm-breakdown" class="adm-loading">Chargement…</div>
+</div>
+
+<div class="adm-toolbar">
+  <input type="text" class="adm-search" id="search" placeholder="Rechercher par email…">
+  <button class="adm-filter-btn active" data-conv="all">Tous</button>
+  <button class="adm-filter-btn" data-conv="true">✅ Convertis</button>
+  <button class="adm-filter-btn" data-conv="false">⏳ Non convertis</button>
+</div>
+<div class="adm-section">
+  <div class="adm-table-wrap">
+    <table class="adm-table">
+      <thead><tr><th>Email</th><th>Lead magnet</th><th>Converti ?</th><th>UTM source</th><th>Date</th></tr></thead>
+      <tbody id="leads-tbody"><tr><td colspan="5" class="adm-loading">Chargement…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+<script>
+let allLeads = [], currentFilter = 'all';
+
+function renderLeads(list) {
+  const tbody = document.getElementById('leads-tbody');
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="5" class="adm-empty">Aucun lead</td></tr>'; return; }
+  tbody.innerHTML = list.map(l => `<tr>
+    <td style="font-size:0.78rem;">${l.email||'—'}</td>
+    <td style="font-size:0.72rem;color:#888;">${l.lead_id||'—'}</td>
+    <td><span class="adm-badge ${l.converted?'adm-badge-green':'adm-badge-muted'}">${l.converted?'✅ Oui':'Non'}</span></td>
+    <td style="font-size:0.72rem;color:#888;">${l.utm_source||'—'}</td>
+    <td style="font-size:0.72rem;color:#888;">${fmtDate(l.created_at)}</td>
+  </tr>`).join('');
+}
+
+function renderFiltered() {
+  const q = document.getElementById('search').value.toLowerCase();
+  let f = allLeads;
+  if (currentFilter === 'true') f = f.filter(l => l.converted);
+  else if (currentFilter === 'false') f = f.filter(l => !l.converted);
+  if (q) f = f.filter(l => l.email?.toLowerCase().includes(q));
+  renderLeads(f);
+}
+
+document.querySelectorAll('.adm-filter-btn[data-conv]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.adm-filter-btn[data-conv]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.conv;
+    renderFiltered();
+  });
+});
+document.getElementById('search').addEventListener('input', renderFiltered);
+
+window.addEventListener('load', async () => {
+  const s = await requireAdmin(); if (!s) return;
+  const { data: leads } = await sb.from('lead_magnet_requests').select('*').order('created_at',{ascending:false});
+  allLeads = leads || [];
+
+  const conv = allLeads.filter(l => l.converted);
+  const rate = allLeads.length ? Math.round(conv.length/allLeads.length*100) : 0;
+  const weekAgo = new Date(Date.now() - 7*24*3600*1000).toISOString();
+  const thisWeek = allLeads.filter(l => l.created_at > weekAgo);
+
+  document.getElementById('k-total').textContent = allLeads.length;
+  document.getElementById('k-conv').textContent  = conv.length;
+  document.getElementById('k-rate').textContent  = rate + '%';
+  document.getElementById('k-week').textContent  = thisWeek.length;
+
+  // Breakdown par lead magnet
+  const byLead = {};
+  allLeads.forEach(l => { byLead[l.lead_id||'?'] = (byLead[l.lead_id||'?']||0)+1; });
+  const lmEl = document.getElementById('lm-breakdown');
+  lmEl.innerHTML = '';
+  Object.entries(byLead).sort((a,b)=>b[1]-a[1]).forEach(([lm, count]) => {
+    const pct = Math.round(count/allLeads.length*100);
+    const div = document.createElement('div');
+    div.style.cssText = 'display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:0.80rem;';
+    div.innerHTML = `<span style="width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${lm}</span>
+      <div class="adm-bar-track" style="flex:1"><div class="adm-bar-fill adm-bar-cyan" style="width:${pct}%"></div></div>
+      <span style="width:60px;text-align:right;color:#888;">${count}</span>`;
+    lmEl.appendChild(div);
+  });
+  if (!Object.keys(byLead).length) lmEl.innerHTML = '<div class="adm-empty">Aucune donnée</div>';
+
+  renderLeads(allLeads);
+});
+</script>
+</main>
+<script src="/assets/data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient(
+  window.__CF_SUPABASE_URL__ || 'https://klhhztxvgudefxmciwfz.supabase.co',
+  window.__CF_SUPABASE_ANON_KEY__ || ''
+);
+async function requireAdmin() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
+  const { data: p } = await sb.from('profiles').select('is_admin').eq('id', session.user.id).single();
+  if (!p?.is_admin) { window.location.href = '/'; return null; }
+  return session;
+}
+function toast(msg, isErr) {
+  const t = document.getElementById('adm-toast');
+  t.textContent = msg;
+  t.className = 'adm-toast show' + (isErr ? ' error' : '');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('fr-BE', { day:'2-digit', month:'short', year:'numeric' });
+}
+document.getElementById('adm-logout-btn').addEventListener('click', async () => {
+  await sb.auth.signOut(); localStorage.clear(); window.location.href = '/';
+});
+window.sb = sb; window.toast = toast; window.fmtDate = fmtDate;
+</body></html>

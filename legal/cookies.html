@@ -102,6 +102,19 @@
 </div>
 
 </div>
+
+<!-- ── Gestion du consentement ── -->
+<div class="content-card reveal" id="gestion-consentement">
+  <h3>⚙️ Gérer tes préférences</h3>
+  <p class="page-subtitle">Ton choix actuel : <strong id="current-consent-label">chargement…</strong></p>
+  <div class="dash-pref-level">
+    <button class="pref-btn" id="btn-consent-refused">🚫 Refuser</button>
+    <button class="pref-btn" id="btn-consent-minimal">✅ Anonyme</button>
+    <button class="pref-btn" id="btn-consent-full">🍪 Tout accepter</button>
+  </div>
+  <p class="table-note">Le mode anonyme transmet uniquement des données agrégées sans aucun identifiant personnel. Aucun cookie tiers n'est utilisé.</p>
+</div>
+
 <div class="see-also">
   <div class="see-also-label">Autres documents</div>
   <a href="/legal/cgu.html" class="see-also-pill">📋 CGU</a>
@@ -110,6 +123,37 @@
   <a href="/a-propos/affiliation.html" class="see-also-pill">🤝 Transparence & affiliation</a>
 </div>
 
+
+<script>
+window.addEventListener('load', function() {
+  const LABELS = {
+    'full'    : '🍪 Tout accepté',
+    'minimal' : '✅ Mode anonyme',
+    'refused' : '🚫 Refusé',
+  };
+  const current = localStorage.getItem('ww_cookie_consent') || 'non défini';
+  const label = document.getElementById('current-consent-label');
+  if (label) label.textContent = LABELS[current] || 'Non défini — mode anonyme actif';
+
+  // Marquer le bouton actif
+  const map = { 'refused':'btn-consent-refused','minimal':'btn-consent-minimal','full':'btn-consent-full' };
+  if (map[current]) document.getElementById(map[current])?.classList.add('active');
+
+  ['refused','minimal','full'].forEach(function(choice) {
+    document.getElementById('btn-consent-' + choice)?.addEventListener('click', function() {
+      if (typeof window.ww_saveCookieChoice === 'function') {
+        window.ww_saveCookieChoice(choice);
+      } else {
+        localStorage.setItem('ww_cookie_consent', choice);
+      }
+      // Mettre à jour l'affichage
+      if (label) label.textContent = LABELS[choice];
+      document.querySelectorAll('.pref-btn[id^="btn-consent-"]').forEach(function(b) { b.classList.remove('active'); });
+      document.getElementById('btn-consent-' + choice)?.classList.add('active');
+    });
+  });
+});
+</script>
 <script src="/assets/data.js"></script>
 <script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js" defer></script>

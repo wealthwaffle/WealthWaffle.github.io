@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erreurs — WealthWaffle Admin</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+</head>
+<body class="adm-body">
+<div id="adm-toast" class="adm-toast"></div>
+<header class="adm-header">
+  <div class="adm-header-left">
+    <a href="/admin/" class="adm-logo">WealthWaffle 🧇</a>
+    <nav class="adm-nav">
+      <a href="/admin/" class="adm-nav-link">Dashboard</a>
+      <a href="/admin/users.html" class="adm-nav-link">Utilisateurs</a>
+      <a href="/admin/radar.html" class="adm-nav-link">Radar</a>
+      <a href="/admin/erreurs.html" class="adm-nav-link active">Erreurs</a>
+      <a href="/admin/leads.html" class="adm-nav-link">Leads</a>
+      <a href="/admin/analytics.html" class="adm-nav-link">Analytics</a>
+    </nav>
+  </div>
+  <button class="adm-logout" id="adm-logout-btn">Déconnexion</button>
+</header>
+<main class="adm-main">
+<h1 class="adm-page-title">🐛 Erreurs signalées</h1>
+<p class="adm-page-sub">Rapports d'erreurs soumis par les utilisateurs</p>
+
+<div class="adm-kpi-grid">
+  <div class="adm-kpi"><span class="adm-kpi-label">Total</span><div class="adm-kpi-value adm-kpi-cyan" id="k-total">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Ouvertes</span><div class="adm-kpi-value adm-kpi-rose" id="k-open">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">En cours</span><div class="adm-kpi-value adm-kpi-gold" id="k-wip">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Résolues</span><div class="adm-kpi-value adm-kpi-green" id="k-done">—</div></div>
+</div>
+<div class="adm-toolbar">
+  <button class="adm-filter-btn active" data-status="all">Toutes</button>
+  <button class="adm-filter-btn" data-status="open">🔴 Ouvertes</button>
+  <button class="adm-filter-btn" data-status="in_progress">🟡 En cours</button>
+  <button class="adm-filter-btn" data-status="resolved">✅ Résolues</button>
+  <button class="adm-filter-btn" data-status="ignored">⚫ Ignorées</button>
+</div>
+<div class="adm-section">
+  <div class="adm-table-wrap">
+    <table class="adm-table">
+      <thead><tr><th>Page</th><th>Message</th><th>Statut</th><th>Signalé par</th><th>Date</th><th>Actions</th></tr></thead>
+      <tbody id="err-tbody"><tr><td colspan="6" class="adm-loading">Chargement…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+<script>
+let allErrors = [], currentFilter = 'all';
+const STATUS_BADGE = { open:'adm-badge-rose', in_progress:'adm-badge-gold', resolved:'adm-badge-green', ignored:'adm-badge-muted' };
+const STATUS_NEXT  = { open:'in_progress', in_progress:'resolved', resolved:'ignored', ignored:'open' };
+const STATUS_LABEL = { open:'🔴 Ouverte', in_progress:'🟡 En cours', resolved:'✅ Résolue', ignored:'⚫ Ignorée' };
+
+function renderErrors(list) {
+  const tbody = document.getElementById('err-tbody');
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="6" class="adm-empty">Aucune erreur 🎉</td></tr>'; return; }
+  tbody.innerHTML = list.map(e => `<tr>
+    <td style="font-size:0.72rem;color:#888;">${e.page_path||'—'}</td>
+    <td style="font-size:0.76rem;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e.message||'—'}</td>
+    <td><span class="adm-badge ${STATUS_BADGE[e.status]||'adm-badge-muted'}">${STATUS_LABEL[e.status]||e.status}</span></td>
+    <td style="font-size:0.72rem;color:#888;">${e.reporter_email||'Anonyme'}</td>
+    <td style="font-size:0.72rem;color:#888;">${fmtDate(e.created_at)}</td>
+    <td><button class="adm-btn adm-btn-ghost" style="font-size:0.68rem;padding:4px 8px;" onclick="cycleStatus('${e.id}','${e.status||'open'}')">→ ${STATUS_LABEL[STATUS_NEXT[e.status||'open']]}</button></td>
+  </tr>`).join('');
+}
+
+async function cycleStatus(id, currentStatus) {
+  const next = STATUS_NEXT[currentStatus] || 'open';
+  const { error } = await sb.from('error_reports').update({ status: next }).eq('id', id);
+  if (error) { toast('Erreur', true); return; }
+  const idx = allErrors.findIndex(e => e.id === id);
+  if (idx >= 0) { allErrors[idx].status = next; renderFiltered(); }
+  toast('Statut mis à jour');
+}
+
+function renderFiltered() {
+  let f = allErrors;
+  if (currentFilter !== 'all') f = f.filter(e => e.status === currentFilter);
+  renderErrors(f);
+}
+
+document.querySelectorAll('.adm-filter-btn[data-status]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.adm-filter-btn[data-status]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.status;
+    renderFiltered();
+  });
+});
+window.cycleStatus = cycleStatus;
+
+window.addEventListener('load', async () => {
+  const s = await requireAdmin(); if (!s) return;
+  const { data: errors } = await sb.from('error_reports').select('*').order('created_at',{ascending:false});
+  allErrors = errors || [];
+  document.getElementById('k-total').textContent = allErrors.length;
+  document.getElementById('k-open').textContent = allErrors.filter(e=>e.status==='open'||!e.status).length;
+  document.getElementById('k-wip').textContent  = allErrors.filter(e=>e.status==='in_progress').length;
+  document.getElementById('k-done').textContent = allErrors.filter(e=>e.status==='resolved').length;
+  renderErrors(allErrors);
+});
+</script>
+</main>
+<script src="/assets/data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient(
+  window.__CF_SUPABASE_URL__ || 'https://klhhztxvgudefxmciwfz.supabase.co',
+  window.__CF_SUPABASE_ANON_KEY__ || ''
+);
+async function requireAdmin() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
+  const { data: p } = await sb.from('profiles').select('is_admin').eq('id', session.user.id).single();
+  if (!p?.is_admin) { window.location.href = '/'; return null; }
+  return session;
+}
+function toast(msg, isErr) {
+  const t = document.getElementById('adm-toast');
+  t.textContent = msg;
+  t.className = 'adm-toast show' + (isErr ? ' error' : '');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('fr-BE', { day:'2-digit', month:'short', year:'numeric' });
+}
+document.getElementById('adm-logout-btn').addEventListener('click', async () => {
+  await sb.auth.signOut(); localStorage.clear(); window.location.href = '/';
+});
+window.sb = sb; window.toast = toast; window.fmtDate = fmtDate;
+</body></html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💸 Frais cachés, spread et liquidité — WealthWaffle</title>
+  <meta name="description" content="Spread, frais de tenue de compte, frais de conversion, liquidité — tout ce que les plateformes d'investissement ne mettent pas en avant. Guide complet pour investisseurs belges.">
+  <meta property="og:title" content="Frais cachés, spread et liquidité — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Frais cachés & spread", basePath: "/invest/" };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+
+<div class="page">
+<div id="ww-disclaimer-inline"></div>
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/invest/">Investir</a><span>/</span><span>Frais cachés & spread</span></div>
+
+<nav class="toc-sidebar">
+  <a href="#liquidite">💧 La liquidité</a>
+  <a href="#spread">↔️ Le spread</a>
+  <a href="#frais-plateformes">🏦 Frais par plateforme</a>
+  <a href="#vrai-cout-etf">📊 Vrai coût ETF</a>
+  <a href="#crypto-frais">₿ Crypto</a>
+  <a href="#checklist">✅ Checklist</a>
+</nav>
+
+<div class="pill-nav">
+  <a href="/invest/" class="source-pill">📈 Hub</a>
+  <a href="/invest/etf.html" class="source-pill">📊 ETF</a>
+  <a href="/invest/frais-caches.html" class="source-pill source-pill-active-invest">💸 Frais cachés ←</a>
+  <a href="/invest/comparateurs.html" class="source-pill">🔍 Comparateurs</a>
+</div>
+
+<div class="eyebrow eyebrow-invest">💸 Frais cachés</div>
+<h1 class="display">"0 frais" ne veut<br><span class="txt-rose">rien dire</span></h1>
+<p class="lead">Toutes les plateformes d'investissement ont des frais. Les visibles sont souvent faibles. Ce sont les invisibles — spread, conversion, liquidité, inactivité — qui font la différence sur 20 ans.</p>
+
+<div class="reading-time">
+  <span class="reading-time-badge">🌱 Débutant : ~8 min</span>
+  <span class="reading-time-badge">🚀 Avancé : ~20 min</span>
+  <span class="reading-meta">· Juin 2026</span>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Spread moyen ETF populaire</div>
+    <div class="kpi-value txt-rose">0,05–0,15%</div>
+    <div class="kpi-sub">par transaction · payé à l'achat ET à la vente</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Coût conversion USD→EUR</div>
+    <div class="kpi-value txt-gold">0,25–1,50%</div>
+    <div class="kpi-sub">selon plateforme · invisible dans le prix</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Impact sur 10.000€ sur 20 ans</div>
+    <div class="kpi-value txt-immo">-3.000€</div>
+    <div class="kpi-sub">0,5% de frais annuels supplémentaires</div>
+  </div>
+</div>
+
+<!-- ── LIQUIDITÉ ── -->
+<div class="content-card toc-target reveal" id="liquidite">
+  <h3>💧 La liquidité — pourquoi les prix varient</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>La liquidité, c'est la facilité avec laquelle on peut acheter ou vendre un actif <strong>sans faire bouger son prix</strong>. Une action comme Apple ou un ETF MSCI World : très liquide — des millions de transactions par jour, le prix reste stable. Un token crypto obscur ou une action d'une micro-cap belge : peu liquide — une seule transaction un peu importante peut faire bouger le prix de 5%.</p>
+      <div class="info-box">💡 <strong>Exemple concret :</strong> tu veux acheter 10.000€ d'un ETF très liquide. Tu obtiens exactement le prix affiché, ou presque. Tu veux acheter 10.000€ d'un token DeFi peu connu — le simple fait de passer ton ordre fait monter le prix. Tu paies plus cher que prévu. C'est ce qu'on appelle le <strong>price impact</strong>.</div>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p>La liquidité s'explique par la profondeur du carnet d'ordres (<em>order book</em>) — la somme des ordres d'achat et de vente en attente à différents prix. Un actif liquide a un carnet épais : même un ordre de 100.000€ ne déplace que très légèrement le prix. Un actif illiquide a un carnet fin : un ordre modeste peut décaler le prix de plusieurs pourcents.</p>
+      <p><strong>Pourquoi les prix varient entre plateformes :</strong> chaque exchange a son propre carnet d'ordres. Un Bitcoin sur Binance et un Bitcoin sur Kraken ont des prix légèrement différents à tout instant — c'est normal, c'est de l'arbitrage qui les garde synchronisés. Plus les volumes sont faibles sur une plateforme, plus le prix peut dériver.</p>
+      <p><strong>Pendant les pics de volatilité</strong> — crash ou euphorie — la liquidité s'assèche. Les teneurs de marché (<em>market makers</em>) élargissent leur spread ou se retirent temporairement. C'est pour ça que pendant un crash crypto, le spread peut passer de 0,1% à 2–3% en quelques minutes. Tu vends à un prix bien inférieur à ce que tu pensais.</p>
+
+      <div class="spread-viz">
+        <div class="spread-viz-title">Profondeur de marché — exemple schématique</div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">MSCI World ETF</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-green" data-w="95%"></div></div>
+          <span class="spread-bar-val txt-green">Très élevée</span>
+        </div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">Action mid-cap belge</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-gold" data-w="45%"></div></div>
+          <span class="spread-bar-val txt-gold">Modérée</span>
+        </div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">Token DeFi obscur</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-rose" data-w="12%"></div></div>
+          <span class="spread-bar-val txt-rose">Très faible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SPREAD ── -->
+<div class="content-card toc-target reveal" id="spread">
+  <h3>↔️ Le spread — le frais invisible de chaque transaction</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Le spread, c'est la différence entre le prix auquel tu peux <strong>acheter</strong> (ask) et celui auquel tu peux <strong>vendre</strong> (bid) au même instant. Tu ne le vois jamais explicitement — il est intégré dans le prix affiché.</p>
+      <div class="info-box">💡 <strong>Exemple :** un ETF IWDA est coté bid 85,42€ / ask 85,48€. Le spread est de 0,06€, soit ~0,07%. Si tu achètes et revends immédiatement, tu perds ce 0,07% même sans aucune commission affichée. Sur chaque aller-retour, tu paies donc ~0,14%.</div>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <p>Le spread n'est pas fixe — il varie selon l'heure de la journée, la volatilité et la liquidité du sous-jacent. Pour les ETF cotés à Euronext Amsterdam ou la Bourse de Bruxelles, le spread est le plus faible pendant les heures de marché européennes (9h–17h30). En dehors de ces heures ou pendant les périodes de stress, il peut tripler.</p>
+
+      <div class="spread-viz">
+        <div class="spread-viz-title">Spread typique par type d'actif (heures de marché normales)</div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">ETF MSCI World</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-green" data-w="8%"></div></div>
+          <span class="spread-bar-val txt-green">~0,05%</span>
+        </div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">Action large cap (AAPL, LVMH)</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-green" data-w="10%"></div></div>
+          <span class="spread-bar-val txt-green">~0,08%</span>
+        </div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">Action belge mid-cap</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-gold" data-w="30%"></div></div>
+          <span class="spread-bar-val txt-gold">~0,30%</span>
+        </div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">Bitcoin (exchange majeur)</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-gold" data-w="12%"></div></div>
+          <span class="spread-bar-val txt-gold">~0,10%</span>
+        </div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">Altcoin faible volume</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-rose" data-w="60%"></div></div>
+          <span class="spread-bar-val txt-rose">0,5–3%</span>
+        </div>
+        <div class="spread-bar-wrap">
+          <span class="spread-bar-label">Crypto pendant crash</span>
+          <div class="spread-bar-track"><div class="spread-bar-fill spread-bar-rose" data-w="90%"></div></div>
+          <span class="spread-bar-val txt-rose">jusqu'à 5%</span>
+        </div>
+      </div>
+
+      <p class="page-subtitle">Sur un ETF, le spread n'est pas le seul coût de transaction. Il faut aussi ajouter la <strong>TOB</strong> (<span data-ww="tob_etf_cap" data-fmt="pct"></span> sur ETF capitalisants) et les éventuelles commissions de la plateforme.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── FRAIS PLATEFORMES ── -->
+<div class="content-card toc-target reveal" id="frais-plateformes">
+  <h3>🏦 Les vrais frais par plateforme</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Quand une plateforme dit "0 commission", ça veut dire 0 commission <em>explicite</em>. Les frais existent — ils sont juste moins visibles.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Frais</th><th>DEGIRO</th><th>Trade Republic</th><th>Bolero</th><th>Keytrade</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Commission achat/vente ETF</strong></td><td class="txt-green">0,50€ + 0,038%</td><td class="txt-green">0€ (1€ externe)</td><td class="txt-gold">2€ + 0,25%</td><td class="txt-gold">7,50€ min</td></tr>
+          <tr><td><strong>Spread intégré</strong></td><td>Marché (0,05–0,15%)</td><td class="txt-rose">~0,10–0,30% (propre cours)</td><td>Marché (0,05–0,15%)</td><td>Marché</td></tr>
+          <tr><td><strong>Frais de change USD/EUR</strong></td><td class="txt-rose">0,25% auto-change</td><td class="txt-green">Inclus (EUR uniquement)</td><td class="txt-rose">0,50%</td><td class="txt-rose">0,50%</td></tr>
+          <tr><td><strong>Tenue de compte annuelle</strong></td><td class="txt-green">0€</td><td class="txt-green">0€</td><td class="txt-rose">30€/an (waivable)</td><td class="txt-rose">30€/an (waivable)</td></tr>
+          <tr><td><strong>Frais d'inactivité</strong></td><td class="txt-green">0€</td><td class="txt-green">0€</td><td class="txt-green">0€</td><td class="txt-rose">12€/trim si inactif</td></tr>
+          <tr><td><strong>Frais de retrait / virement</strong></td><td class="txt-green">0€</td><td class="txt-green">0€</td><td class="txt-green">0€</td><td class="txt-green">0€</td></tr>
+          <tr><td><strong>Accès Euronext Brussels</strong></td><td class="txt-green">✅</td><td class="txt-rose">❌ (limité)</td><td class="txt-green">✅</td><td class="txt-green">✅</td></tr>
+        </tbody>
+      </table></div>
+      <div class="warn-box">⚠️ <strong>Le cas Trade Republic :</strong> "0 commission" est vrai mais Trade Republic utilise ses propres cours (hors marché officiel) avec un spread légèrement plus large. Pour un DCA mensuel régulier sur un ETF populaire, la différence est négligeable. Pour des transactions fréquentes ou des montants élevés, vérifier les cours réels.</div>
+      <p class="table-note">Données indicatives — vérifier sur les sites officiels avant toute décision.</p>
+    </div>
+  </div>
+  <div class="source-block"><span class="source-block-label">Sources</span>
+    <a href="https://www.degiro.be/tarifs" target="_blank" rel="noopener" class="source-pill">🔗 DEGIRO Tarifs</a>
+    <a href="https://www.traderepublic.com/fr-be" target="_blank" rel="noopener" class="source-pill">🔗 Trade Republic</a>
+    <a href="https://www.bolero.be/fr/tarifs" target="_blank" rel="noopener" class="source-pill">🔗 Bolero Tarifs</a>
+  </div>
+</div>
+
+<!-- ── VRAI COÛT ETF ── -->
+<div class="content-card toc-target reveal" id="vrai-cout-etf">
+  <h3>📊 Le vrai coût d'un ETF "sans frais"</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Un ETF avec "0 frais de courtage" a quand même plusieurs coûts réels. Voici comment les calculer sur un achat de 1.000€.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div class="cost-calc-box">
+        <div class="cost-calc-title">Exemple : achat de 1.000€ d'IWDA (ETF MSCI World capitalisant)</div>
+        <div class="cost-calc-row">
+          <span class="cost-calc-label">TOB à l'achat</span>
+          <span class="cost-calc-val txt-rose">+ 1,32€</span>
+        </div>
+        <div class="cost-calc-row">
+          <span class="cost-calc-label">Spread bid/ask (~0,08%)</span>
+          <span class="cost-calc-val txt-rose">+ 0,80€</span>
+        </div>
+        <div class="cost-calc-row">
+          <span class="cost-calc-label">Commission courtage (DEGIRO)</span>
+          <span class="cost-calc-val txt-rose">+ 0,88€</span>
+        </div>
+        <div class="cost-calc-row">
+          <span class="cost-calc-label">TER annuel IWDA (0,20%/an)</span>
+          <span class="cost-calc-val txt-gold">2,00€/an (intégré)</span>
+        </div>
+        <div class="cost-calc-total">
+          <span>Coût réel à l'achat (hors TER)</span>
+          <span class="txt-rose">3,00€ soit 0,30%</span>
+        </div>
+      </div>
+
+      <p>Le TER (Total Expense Ratio) est déduit <strong>automatiquement et silencieusement</strong> de la valeur du fonds chaque jour. Tu ne le vois jamais sur un relevé de compte — il est simplement intégré dans la performance.</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Coût</th><th>Type</th><th>Visible ?</th><th>Évitable ?</th></tr></thead>
+        <tbody>
+          <tr><td>TOB (<span data-ww="tob_etf_cap" data-fmt="pct"></span> ETF cap)</td><td>Taxe belge</td><td class="txt-green">✅ Oui</td><td class="txt-rose">❌ Non</td></tr>
+          <tr><td>Spread bid/ask</td><td>Marché</td><td class="txt-rose">❌ Souvent non</td><td class="txt-gold">Partiellement (ordre limité)</td></tr>
+          <tr><td>Commission courtage</td><td>Plateforme</td><td class="txt-green">✅ Oui</td><td class="txt-green">✅ Choisir plateforme</td></tr>
+          <tr><td>TER du fonds</td><td>Fonds</td><td class="txt-rose">❌ Intégré NAV</td><td class="txt-gold">Partiellement (choisir ETF)</td></tr>
+          <tr><td>Frais de change</td><td>Plateforme</td><td class="txt-rose">❌ Souvent non</td><td class="txt-green">✅ ETF hedgé ou EUR</td></tr>
+          <tr><td>Frais tenue de compte</td><td>Plateforme</td><td class="txt-green">✅ Oui</td><td class="txt-green">✅ Choisir plateforme</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="about-conviction">
+        <div class="about-conviction-quote">«&nbsp;Le coût réel d'un investissement, c'est la somme de tous ces frais sur la durée totale de détention — pas la commission affichée à l'achat.&nbsp;»</div>
+      </div>
+
+      <p><strong>Sur 20 ans avec un DCA mensuel de 500€ :</strong> la différence entre une plateforme à 0,5% de frais totaux annuels et une à 1% représente environ <strong>8.000 à 12.000€</strong> de capital final en moins. C'est pourquoi le choix de la plateforme et de l'ETF (TER) importent autant que le rendement brut.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── CRYPTO FRAIS ── -->
+<div class="content-card toc-target reveal" id="crypto-frais">
+  <h3>₿ Les frais cachés en crypto — le pire secteur</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Les plateformes crypto sont championnes des frais cachés. "0% de frais de trading" peut cacher un spread de 1,5% intégré dans le prix affiché — ce qui est bien plus cher que les "2% de frais" d'un concurrent transparent.</p>
+    </div>
+    <div data-level="avance">
+      <div class="level-badge">🚀 Avancé</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Type de frais</th><th>Où se cache-t-il</th><th>Ordre de grandeur</th></tr></thead>
+        <tbody>
+          <tr><td>Spread d'achat/vente</td><td>Différence prix affiché / prix réel</td><td class="txt-rose">0,5–3% selon plateforme</td></tr>
+          <tr><td>Frais de réseau (gas)</td><td>Séparé, payé à la blockchain</td><td class="txt-gold">0,50–20€ selon congestion</td></tr>
+          <tr><td>Frais de retrait vers wallet</td><td>Fixe par retrait</td><td class="txt-gold">5–25€ selon token</td></tr>
+          <tr><td>Frais de conversion (swap)</td><td>Chaque échange token→token</td><td class="txt-rose">0,3–1% par swap</td></tr>
+          <tr><td>Frais de staking délégué</td><td>% des rewards retenus</td><td class="txt-gold">5–25% des rewards</td></tr>
+          <tr><td>Slippage (illiquidité)</td><td>Prix d'exécution vs prix attendu</td><td class="txt-rose">Variable · 0,1–5%+</td></tr>
+        </tbody>
+      </table></div>
+      <div class="warn-box">⚠️ <strong>Les plateformes "simple" type Coinbase, Crypto.com app</strong> affichent souvent des prix avec un spread de 1,5–2% intégré. Utiliser les versions "exchange" ou "pro" (Coinbase Advanced, Crypto.com Exchange) est toujours plus économique — même frais de plateforme, mais spread de marché réel.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CHECKLIST ── -->
+<div class="content-card toc-target reveal" id="checklist">
+  <h3>✅ Checklist — avant d'utiliser une plateforme</h3>
+  <div class="step-list">
+    <div class="step-item"><div class="step-num-cyan">1</div><div class="step-text">Chercher le spread réel : comparer le prix affiché sur la plateforme vs le prix en temps réel sur <a href="https://finance.yahoo.com" target="_blank" rel="noopener" class="link-invest">Yahoo Finance</a> ou <a href="https://www.euronext.com" target="_blank" rel="noopener" class="link-invest">Euronext</a>.</div></div>
+    <div class="step-item"><div class="step-num-cyan">2</div><div class="step-text">Vérifier les frais de conversion devise — si tu achètes un ETF libellé en USD sur une plateforme en EUR, il y a forcément une conversion quelque part.</div></div>
+    <div class="step-item"><div class="step-num-cyan">3</div><div class="step-text">Chercher les frais d'inactivité — certaines plateformes facturent si tu ne trades pas pendant 3 ou 6 mois.</div></div>
+    <div class="step-item"><div class="step-num-cyan">4</div><div class="step-text">Utiliser des ordres limités quand possible — plutôt qu'un ordre au marché (qui s'exécute au meilleur prix disponible), un ordre limité garantit le prix maximum que tu acceptes de payer.</div></div>
+    <div class="step-item"><div class="step-num-cyan">5</div><div class="step-text">Pour les ETF : préférer les ETF libellés en EUR (évite la conversion) sur Euronext Amsterdam (spread le plus faible pour les ETF UCITS).</div></div>
+    <div class="step-item"><div class="step-num-cyan">6</div><div class="step-text">Calculer le coût total sur ta durée de détention prévue — pas juste à l'achat. TER × années + TOB aller/retour + spread aller/retour = coût réel.</div></div>
+  </div>
+</div>
+
+<div class="waffy-tip">
+  <img src="/img/waffy/waffy-analyste.png" alt="Waffy" class="waffy-tip-img" onerror="this.style.display='none'">
+  <div class="waffy-tip-content">
+    <strong>Le vrai enjeu : la durée de détention</strong>
+    Plus tu gardes un actif longtemps, moins les frais de transaction comptent — ils se diluent dans la performance. Ce qui compte vraiment sur 20 ans : le TER annuel du fonds et les frais de tenue de compte. Sur une transaction unique, c'est le spread et la TOB. Si tu fais du DCA mensuel, optimise d'abord le TER et la plateforme. Si tu trades fréquemment, le spread devient ton ennemi principal.
+  </div>
+</div>
+
+<div data-ww-cta="pilote"></div>
+
+<div class="see-also">
+  <div class="see-also-label">Voir aussi</div>
+  <a href="/invest/etf.html" class="see-also-pill">📊 Guide ETF complet</a>
+  <a href="/invest/comparateurs.html" class="see-also-pill">🔍 Comparer les brokers</a>
+  <a href="/invest/fonds.html" class="see-also-pill">📋 Fonds actifs vs ETF</a>
+  <a href="/invest/crypto.html" class="see-also-pill">₿ Fiscalité crypto</a>
+  <a href="/fiscal/plus-values.html" class="see-also-pill">📈 Taxe plus-values</a>
+</div>
+</div>
+
+
+<script>
+window.addEventListener('load', function() {
+  document.querySelectorAll('[data-w]').forEach(function(el) {
+    el.style.width = el.dataset.w;
+  });
+});
+</script>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+</body>
+</html>

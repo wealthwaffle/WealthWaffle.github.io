@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon profil — WealthWaffle</title>
+  <meta name="description" content="Modifier tes informations personnelles, ton mot de passe et tes préférences.">
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { name: "Mon profil", basePath: "/compte/", auth: true };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js" defer></script>
+<script>
+window.WW_CONFIG = {
+  SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
+  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'TON_ANON_KEY',
+  SITE_URL: 'https://wealthwaffle.be',
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<div class="page">
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/dashboard/">Dashboard</a><span>/</span><span>Mon profil</span></div>
+
+<div class="eyebrow eyebrow-invest">👤 Profil</div>
+<h1 class="display">Mon profil</h1>
+
+<div class="pill-nav">
+  <a href="/dashboard/" class="source-pill">← Dashboard</a>
+  <a href="/compte/profil.html" class="source-pill source-pill-active">👤 Profil ←</a>
+  <a href="/compte/abonnement.html" class="source-pill">💳 Abonnement</a>
+  <a href="/compte/parrainage.html" class="source-pill">🎁 Parrainage</a>
+</div>
+
+<!-- Informations personnelles -->
+<div class="dash-card">
+  <h4>👤 Informations personnelles</h4>
+  <div id="error-profil" class="auth-error"></div>
+  <div id="ok-profil" class="auth-success"></div>
+  <div class="auth-input-cols">
+    <div>
+      <label class="auth-label">Prénom</label>
+      <input type="text" id="prenom" class="auth-input" autocomplete="given-name">
+    </div>
+    <div>
+      <label class="auth-label">Nom</label>
+      <input type="text" id="nom" class="auth-input" autocomplete="family-name">
+    </div>
+  </div>
+  <div class="auth-field">
+    <label class="auth-label">Email</label>
+    <input type="email" id="email" class="auth-input" autocomplete="email" disabled>
+    <div class="dash-pref-hint">L'email ne peut pas être modifié pour des raisons de sécurité.</div>
+  </div>
+  <button class="auth-btn auth-btn-rose" id="btn-save-profil">Enregistrer les modifications →</button>
+</div>
+
+<!-- Mot de passe -->
+<div class="dash-card">
+  <h4>🔒 Changer le mot de passe</h4>
+  <div id="error-pw" class="auth-error"></div>
+  <div id="ok-pw" class="auth-success"></div>
+  <div class="auth-field">
+    <label class="auth-label">Nouveau mot de passe</label>
+    <input type="password" id="new-pw" class="auth-input" placeholder="8 caractères minimum">
+  </div>
+  <div class="auth-field">
+    <label class="auth-label">Confirmer le mot de passe</label>
+    <input type="password" id="confirm-pw" class="auth-input" placeholder="Répéter le mot de passe">
+  </div>
+  <button class="auth-btn auth-btn-rose" id="btn-save-pw">Changer le mot de passe →</button>
+</div>
+
+<!-- Préférences -->
+<div class="dash-card">
+  <h4>⚙️ Préférences</h4>
+  <div class="dash-pref-row">
+    <div class="dash-pref-label">Mode de lecture</div>
+    <div class="dash-pref-level">
+      <button class="pref-btn" id="btn-level-deb" data-level="debutant">🌱 Débutant</button>
+      <button class="pref-btn" id="btn-level-adv" data-level="avance">🚀 Avancé</button>
+    </div>
+  </div>
+  <div class="dash-pref-row">
+    <div class="dash-pref-label">Sujet prioritaire</div>
+    <div class="dash-topic-grid">
+      <button class="pref-btn" data-topic="budget">💶 Budget</button>
+      <button class="pref-btn" data-topic="invest">📈 Investir</button>
+      <button class="pref-btn" data-topic="immo">🏠 Immo</button>
+      <button class="pref-btn" data-topic="fiscal">📋 Fiscalité</button>
+      <button class="pref-btn" data-topic="crypto">₿ Crypto</button>
+      <button class="pref-btn" data-topic="retraite">🏛️ Retraite</button>
+    </div>
+  </div>
+  <button class="auth-btn auth-btn-green" id="btn-save-prefs">Enregistrer les préférences →</button>
+  <div id="ok-prefs" class="auth-success"></div>
+</div>
+
+<!-- Danger zone -->
+<div class="dash-card">
+  <h4>⚠️ Zone de danger</h4>
+  <p class="dash-pref-note">Ces actions sont irréversibles. Procède avec précaution.</p>
+  <button class="btn-ghost" id="btn-delete-account">Supprimer mon compte</button>
+  <div id="confirm-delete" class="hidden">
+    <p class="dash-pref-note">Cette action supprimera définitivement toutes tes données. Es-tu certain ?</p>
+    <button class="auth-btn auth-btn-rose" id="btn-confirm-delete">Oui, supprimer définitivement</button>
+  </div>
+</div>
+</div>
+
+<script>
+const { createClient } = supabase;
+const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+window.WW = { sb };
+
+async function getSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return null;
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+  window.WW.user = session.user; window.WW.profile = profile;
+  return { user: session.user, profile };
+}
+
+function showMsg(elId, msg, isOk = true) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+async function saveProfil() {
+  const prenom = document.getElementById('prenom').value.trim();
+  const nom    = document.getElementById('nom').value.trim();
+  if (!prenom) { showMsg('error-profil', 'Le prénom est requis.', false); return; }
+  const { error } = await sb.from('profiles').update({ prenom, nom }).eq('id', window.WW.user.id);
+  if (error) showMsg('error-profil', error.message, false);
+  else showMsg('ok-profil', '✅ Profil mis à jour !');
+}
+
+async function savePw() {
+  const pw  = document.getElementById('new-pw').value;
+  const cpw = document.getElementById('confirm-pw').value;
+  if (pw.length < 8) { showMsg('error-pw', 'Mot de passe trop court (8 car. min).', false); return; }
+  if (pw !== cpw) { showMsg('error-pw', 'Les mots de passe ne correspondent pas.', false); return; }
+  const { error } = await sb.auth.updateUser({ password: pw });
+  if (error) showMsg('error-pw', error.message, false);
+  else showMsg('ok-pw', '✅ Mot de passe modifié !');
+}
+
+async function savePrefs() {
+  const level = document.querySelector('.pref-btn[data-level].active')?.dataset.level || 'debutant';
+  const topic = document.querySelector('.pref-btn[data-topic].active')?.dataset.topic || 'budget';
+  localStorage.setItem('ww_level', level);
+  localStorage.setItem('ww_topic', topic);
+  await sb.from('profiles').update({ level, topic }).eq('id', window.WW.user.id);
+  showMsg('ok-prefs', '✅ Préférences enregistrées !');
+}
+
+async function deleteAccount() {
+  if (!confirm('Supprimer définitivement ton compte ? Cette action est irréversible.')) return;
+  await sb.from('profiles').delete().eq('id', window.WW.user.id);
+  await sb.auth.signOut();
+  ['ww_session','ww_plan','ww_level','ww_topic'].forEach(k => localStorage.removeItem(k));
+  window.location.href = '/';
+}
+
+window.addEventListener('load', async () => {
+  const session = await getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=/compte/profil.html'; return; }
+  const { user, profile } = session;
+
+  document.getElementById('prenom').value = profile?.prenom || '';
+  document.getElementById('nom').value    = profile?.nom    || '';
+  document.getElementById('email').value  = user.email;
+
+  const level = profile?.level || localStorage.getItem('ww_level') || 'debutant';
+  const topic = profile?.topic || localStorage.getItem('ww_topic') || 'budget';
+  document.querySelector(`.pref-btn[data-level="${level}"]`)?.classList.add('active');
+  document.querySelector(`.pref-btn[data-topic="${topic}"]`)?.classList.add('active');
+
+  document.getElementById('btn-save-profil').addEventListener('click', saveProfil);
+  document.getElementById('btn-save-pw').addEventListener('click', savePw);
+  document.getElementById('btn-save-prefs').addEventListener('click', savePrefs);
+  document.getElementById('btn-delete-account').addEventListener('click', () => {
+    document.getElementById('confirm-delete').classList.remove('hidden');
+  });
+  document.getElementById('btn-confirm-delete').addEventListener('click', deleteAccount);
+
+  document.querySelectorAll('.pref-btn[data-level]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.pref-btn[data-level]').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.pref-btn[data-topic]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.pref-btn[data-topic]').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -237,8 +237,9 @@ window.addEventListener('load', function() {
   try {
     var level = localStorage.getItem('ww_plan') || 'public';
     var session = localStorage.getItem('ww_session');
-    var hasSocle  = !!session && ['socle','pilote','radar'].includes(level);
-    var hasPilote = !!session && ['pilote','radar'].includes(level);
+    var hasSocle  = !!session && ['socle','pilote','radar','pilote_auto','radar_auto'].includes(level);
+    var hasPilote = !!session && ['pilote','radar','pilote_auto','radar_auto'].includes(level);
+    var hasAuto   = !!session && ['pilote_auto','radar_auto'].includes(level);
 
     var socleUnlocked  = document.getElementById('socle-unlocked');
     var socleLocked    = document.getElementById('socle-locked');
@@ -267,7 +268,7 @@ window.addEventListener('load', function() {
   T.ligneTemps             && T.ligneTemps('t_frise');
 
   // Socle
-  var hasSocle = ['socle','pilote','radar'].includes(localStorage.getItem('ww_plan')||'');
+  var hasSocle = ['socle','pilote','radar','pilote_auto','radar_auto'].includes(localStorage.getItem('ww_plan')||'');
   if (hasSocle) {
     T.simulateurObjectifs    && T.simulateurObjectifs('t_objectifs');
     T.comparateurDette       && T.comparateurDette('t_dette');
@@ -280,7 +281,7 @@ window.addEventListener('load', function() {
   }
 
   // Pilote
-  var hasPilote = ['pilote','radar'].includes(localStorage.getItem('ww_plan')||'');
+  var hasPilote = ['pilote','radar','pilote_auto','radar_auto'].includes(localStorage.getItem('ww_plan')||'');
   if (hasPilote) {
     T.fraisCaches               && T.fraisCaches('t_frais');
     T.simulateurBonsEtat        && T.simulateurBonsEtat('t_bons');

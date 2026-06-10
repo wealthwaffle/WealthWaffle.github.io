@@ -69,7 +69,7 @@ function renderDownloads(){
           <input type="email" id="email-${d.id}" placeholder="ton@email.be" class="sim-input" style="flex:1;min-width:0;">
           <button class="btn-primary btn-sm" data-id="${d.id}">Recevoir →</button>
          </div>
-         <div id="ok-${d.id}" class="nl-success" style="display:none;">✅ Envoyé ! Vérifie ta boîte mail.</div>
+         <div id="ok-${d.id}" class="nl-success" class="hidden">✅ Envoyé ! Vérifie ta boîte mail.</div>
         </div>`;
     return `<div class="dl-card">
       <div class="dl-card-top">
@@ -87,7 +87,10 @@ function renderDownloads(){
 
   // Listeners boutons envoi
   grid.querySelectorAll('button[data-id]').forEach(btn => {
-    btn.addEventListener('click', () => sendDownload(btn.dataset.id));
+    btn.addEventListener('click', () => {
+      if (typeof window.ww_animateDownload === 'function') window.ww_animateDownload(btn);
+      sendDownload(btn.dataset.id);
+    });
   });
   grid.querySelectorAll('input[type="email"]').forEach(inp => {
     inp.addEventListener('keydown', e => {
@@ -110,6 +113,7 @@ async function sendDownload(id){
       });
     }
   } catch(e){}
+  // Animation déjà déclenchée sur le bouton au clic — message ok conservé en fallback
   if (ok) ok.style.display = 'block';
 }
 

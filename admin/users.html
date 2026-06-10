@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilisateurs — WealthWaffle Admin</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+</head>
+<body class="adm-body">
+<div id="adm-toast" class="adm-toast"></div>
+<header class="adm-header">
+  <div class="adm-header-left">
+    <a href="/admin/" class="adm-logo">WealthWaffle 🧇</a>
+    <nav class="adm-nav">
+      <a href="/admin/" class="adm-nav-link">Dashboard</a>
+      <a href="/admin/users.html" class="adm-nav-link active">Utilisateurs</a>
+      <a href="/admin/radar.html" class="adm-nav-link">Radar</a>
+      <a href="/admin/erreurs.html" class="adm-nav-link">Erreurs</a>
+      <a href="/admin/leads.html" class="adm-nav-link">Leads</a>
+      <a href="/admin/analytics.html" class="adm-nav-link">Analytics</a>
+    </nav>
+  </div>
+  <button class="adm-logout" id="adm-logout-btn">Déconnexion</button>
+</header>
+<main class="adm-main">
+<h1 class="adm-page-title">👥 Utilisateurs</h1>
+<p class="adm-page-sub">Gestion des comptes et plans</p>
+
+<div class="adm-kpi-grid">
+  <div class="adm-kpi"><span class="adm-kpi-label">Total</span><div class="adm-kpi-value adm-kpi-cyan" id="k-total">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Payants</span><div class="adm-kpi-value adm-kpi-rose" id="k-paid">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Socle</span><div class="adm-kpi-value adm-kpi-green" id="k-socle">—</div></div>
+  <div class="adm-kpi"><span class="adm-kpi-label">Admins</span><div class="adm-kpi-value adm-kpi-gold" id="k-admin">—</div></div>
+</div>
+
+<div class="adm-toolbar">
+  <input type="text" class="adm-search" id="search" placeholder="Rechercher par email…">
+  <button class="adm-filter-btn active" data-plan="all">Tous</button>
+  <button class="adm-filter-btn" data-plan="socle">🟢 Socle</button>
+  <button class="adm-filter-btn" data-plan="pilote">✈️ Pilote</button>
+  <button class="adm-filter-btn" data-plan="radar">📡 Radar</button>
+  <button class="adm-filter-btn" data-plan="pilote_auto">✈️🤖 Auto</button>
+  <button class="adm-filter-btn" data-plan="radar_auto">📡🤖 Radar Auto</button>
+</div>
+
+<div class="adm-section">
+  <div class="adm-table-wrap">
+    <table class="adm-table">
+      <thead><tr><th>Email</th><th>Plan</th><th>Niveau</th><th>Topic</th><th>Pages lues</th><th>Inscription</th><th>Actions</th></tr></thead>
+      <tbody id="users-tbody"><tr><td colspan="7" class="adm-loading">Chargement…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal changement plan -->
+<div class="adm-modal-overlay" id="plan-modal">
+  <div class="adm-modal">
+    <p class="adm-modal-title">Changer le plan</p>
+    <label class="adm-modal-label">Email</label>
+    <input class="adm-modal-input" id="modal-email" readonly>
+    <label class="adm-modal-label">Nouveau plan</label>
+    <select class="adm-modal-select" id="modal-plan">
+      <option value="socle">🟢 Socle</option>
+      <option value="pilote">✈️ Pilote</option>
+      <option value="radar">📡 Radar</option>
+      <option value="pilote_auto">✈️🤖 Pilote Automatique</option>
+      <option value="radar_auto">📡🤖 Radar Automatique</option>
+      <option value="admin">💎 Admin</option>
+    </select>
+    <div class="adm-modal-actions">
+      <button class="adm-btn adm-btn-ghost" id="modal-cancel">Annuler</button>
+      <button class="adm-btn adm-btn-green" id="modal-save">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PLAN_BADGE = {
+  socle:'adm-badge-muted', pilote:'adm-badge-cyan', radar:'adm-badge-rose',
+  pilote_auto:'adm-badge-gold', radar_auto:'adm-badge-orange', admin:'adm-badge-green'
+};
+let allUsers = [], currentPlanFilter = 'all', editingUserId = null;
+
+function renderUsers(list) {
+  const tbody = document.getElementById('users-tbody');
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="7" class="adm-empty">Aucun utilisateur</td></tr>'; return; }
+  tbody.innerHTML = list.map(u => `<tr>
+    <td style="font-size:0.78rem;">${u.email||'—'}</td>
+    <td><span class="adm-badge ${PLAN_BADGE[u.plan]||'adm-badge-muted'}">${u.plan||'socle'}</span></td>
+    <td style="font-size:0.72rem;color:#888;">${u.level||'—'}</td>
+    <td style="font-size:0.72rem;color:#888;">${u.topic||'—'}</td>
+    <td id="views-${u.id}" style="font-size:0.72rem;color:#888;">—</td>
+    <td style="font-size:0.72rem;color:#888;">${fmtDate(u.created_at)}</td>
+    <td><button class="adm-btn adm-btn-cyan" style="font-size:0.68rem;padding:4px 8px;" onclick="openPlanModal('${u.id}','${u.email}','${u.plan}')">Plan</button></td>
+  </tr>`).join('');
+}
+
+function filterAndRender() {
+  const q = document.getElementById('search').value.toLowerCase();
+  let filtered = allUsers;
+  if (currentPlanFilter !== 'all') filtered = filtered.filter(u => u.plan === currentPlanFilter);
+  if (q) filtered = filtered.filter(u => u.email?.toLowerCase().includes(q));
+  renderUsers(filtered);
+}
+
+function openPlanModal(id, email, plan) {
+  editingUserId = id;
+  document.getElementById('modal-email').value = email;
+  document.getElementById('modal-plan').value = plan || 'socle';
+  document.getElementById('plan-modal').classList.add('open');
+}
+
+document.getElementById('modal-cancel').addEventListener('click', () => {
+  document.getElementById('plan-modal').classList.remove('open');
+});
+document.getElementById('modal-save').addEventListener('click', async () => {
+  const plan = document.getElementById('modal-plan').value;
+  const isAdmin = plan === 'admin';
+  const { error } = await sb.from('profiles').update({ plan, is_admin: isAdmin }).eq('id', editingUserId);
+  if (error) { toast('Erreur : ' + error.message, true); return; }
+  toast('Plan mis à jour ✅');
+  document.getElementById('plan-modal').classList.remove('open');
+  const u = allUsers.find(x => x.id === editingUserId);
+  if (u) { u.plan = plan; filterAndRender(); }
+});
+
+document.querySelectorAll('.adm-filter-btn[data-plan]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.adm-filter-btn[data-plan]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentPlanFilter = btn.dataset.plan;
+    filterAndRender();
+  });
+});
+document.getElementById('search').addEventListener('input', filterAndRender);
+
+window.openPlanModal = openPlanModal;
+
+window.addEventListener('load', async () => {
+  const s = await requireAdmin(); if (!s) return;
+  const { data: profiles } = await sb.from('profiles').select('*').order('created_at', {ascending:false});
+  allUsers = profiles || [];
+  const paid = allUsers.filter(u => ['pilote','radar','pilote_auto','radar_auto'].includes(u.plan));
+  document.getElementById('k-total').textContent = allUsers.length;
+  document.getElementById('k-paid').textContent  = paid.length;
+  document.getElementById('k-socle').textContent = allUsers.filter(u=>u.plan==='socle').length;
+  document.getElementById('k-admin').textContent = allUsers.filter(u=>u.is_admin).length;
+  renderUsers(allUsers);
+
+  // Charger les page_views en batch
+  const { data: views } = await sb.from('page_views').select('user_id');
+  const viewCounts = {};
+  (views||[]).forEach(v => { viewCounts[v.user_id] = (viewCounts[v.user_id]||0)+1; });
+  allUsers.forEach(u => {
+    const el = document.getElementById('views-' + u.id);
+    if (el) el.textContent = viewCounts[u.id] || 0;
+  });
+});
+</script>
+</main>
+<script src="/assets/data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient(
+  window.__CF_SUPABASE_URL__ || 'https://klhhztxvgudefxmciwfz.supabase.co',
+  window.__CF_SUPABASE_ANON_KEY__ || ''
+);
+async function requireAdmin() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
+  const { data: p } = await sb.from('profiles').select('is_admin').eq('id', session.user.id).single();
+  if (!p?.is_admin) { window.location.href = '/'; return null; }
+  return session;
+}
+function toast(msg, isErr) {
+  const t = document.getElementById('adm-toast');
+  t.textContent = msg;
+  t.className = 'adm-toast show' + (isErr ? ' error' : '');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('fr-BE', { day:'2-digit', month:'short', year:'numeric' });
+}
+document.getElementById('adm-logout-btn').addEventListener('click', async () => {
+  await sb.auth.signOut(); localStorage.clear(); window.location.href = '/';
+});
+window.sb = sb; window.toast = toast; window.fmtDate = fmtDate;
+</body></html>

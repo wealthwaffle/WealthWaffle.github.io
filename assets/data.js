@@ -16,15 +16,28 @@ window.WW_DATA = {
   // Modifier ICI quand les prix changent — se propage partout
   // Ne jamais mettre les prix en dur dans les pages HTML
   prix: {
-    pilote_mensuel:    14.99,  // € — Pilote mensuel
-    pilote_annuel:     99,     // € — Pilote annuel (facturé en une fois)
-    pilote_mensuel_eq: 8.25,   // € — équivalent mensuel si annuel
-    radar_mensuel:     24.99,  // € — Radar mensuel
-    radar_annuel:      199,    // € — Radar annuel (facturé en une fois)
-    radar_mensuel_eq:  10.75,  // € — équivalent mensuel si annuel
-    crypto_addon:      49,     // € — Add-on Conformité Crypto (annuel)
-    crypto_addon_price_id: 'price_1Te3U0Bn70qxtmXd9FUrlqMZ', // Stripe Price ID live
-    trial_days:        7,      // jours — période d'essai gratuite
+    // ── Plans standards ──
+    pilote_mensuel:    12.49,  // € — Pilote mensuel (nouveau prix)
+    pilote_annuel:     149,    // € — Pilote annuel
+    pilote_mensuel_eq: 12.42,  // € — équivalent mensuel si annuel
+    radar_mensuel:     16.58,  // € — Radar mensuel
+    radar_annuel:      199,    // € — Radar annuel
+    radar_mensuel_eq:  16.58,  // € — équivalent mensuel si annuel
+
+    // ── Plans automatiques (Boussole) ──
+    pilote_auto_annuel:    249,    // € — Pilote Automatique annuel
+    pilote_auto_mensuel:   20.75,  // € — Pilote Automatique mensuel
+    pilote_auto_mensuel_eq:20.75,  // € — équivalent mensuel
+    radar_auto_annuel:     299,    // € — Radar Automatique annuel
+    radar_auto_mensuel:    24.92,  // € — Radar Automatique mensuel
+    radar_auto_mensuel_eq: 24.92,  // € — équivalent mensuel
+
+    // ── Add-on Crypto ──
+    crypto_addon:            49,   // € — standalone
+    crypto_addon_combined:   29,   // € — si combiné avec un plan actif
+    crypto_addon_price_id:   'price_1Te3U0Bn70qxtmXd9FUrlqMZ',
+
+    trial_days: 7,  // jours — période d'essai gratuite
   },
 
   // ─── STATISTIQUES SITE ────────────────────────────────────
@@ -32,7 +45,7 @@ window.WW_DATA = {
   stats: {
     nb_pages:       58,   // pages de contenu
     nb_simulateurs: 27,   // outils et simulateurs
-    nb_guides:       10,   // lead magnets disponibles
+    nb_guides:       3,   // lead magnets disponibles
     nb_themes:       5,   // thèmes couverts (budget, invest, immo, fiscal, crypto)
   },
 

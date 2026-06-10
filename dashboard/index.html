@@ -326,7 +326,7 @@ window.addEventListener('load', async () => {
   window._currentLevel = level;
 
   document.getElementById('greeting').textContent  = `Bonjour ${prenom} 👋`;
-  document.getElementById('plan-badge').textContent = { socle:'🟢 Socle — Gratuit', pilote:'✈️ Pilote', radar:'📡 Radar' }[plan] || '🟢 Socle';
+  document.getElementById('plan-badge').textContent = { socle:'🟢 Socle — Gratuit', pilote:'✈️ Pilote', radar:'📡 Radar', pilote_auto:'✈️🤖 Pilote Auto', radar_auto:'📡🤖 Radar Auto' }[plan] || '🟢 Socle';
 
   // Activer les boutons
   document.querySelector(`.pref-btn[data-level="${level}"]`)?.classList.add('active');

@@ -138,8 +138,8 @@ function goStep2() {
   if (!p || !e || !pw) { err.textContent = 'Remplis tous les champs.'; err.style.display='block'; return; }
   if (pw.length < 8) { err.textContent = 'Mot de passe trop court (8 car. min).'; err.style.display='block'; return; }
   userData = { prenom: p, email: e, password: pw };
-  document.getElementById('step-1').style.display = 'none';
-  document.getElementById('step-2').style.display = 'block';
+  document.getElementById('step-1').classList.add('hidden');
+  document.getElementById('step-2').classList.remove('hidden');
 }
 
 async function doRegister() {
@@ -153,16 +153,16 @@ async function doRegister() {
     }
   });
   if (error) {
-    document.getElementById('step-2').style.display = 'none';
-    document.getElementById('step-1').style.display = 'block';
+    document.getElementById('step-2').classList.add('hidden');
+    document.getElementById('step-1').classList.remove('hidden');
     document.getElementById('error-msg').textContent = error.message;
     document.getElementById('error-msg').style.display = 'block';
     return;
   }
   localStorage.setItem('ww_level', selectedLevel);
   localStorage.setItem('ww_topic', selectedTopic);
-  document.getElementById('step-2').style.display = 'none';
-  document.getElementById('step-3').style.display = 'block';
+  document.getElementById('step-2').classList.add('hidden');
+  document.getElementById('step-3').classList.remove('hidden');
 }
 
 window.addEventListener('load', () => {
