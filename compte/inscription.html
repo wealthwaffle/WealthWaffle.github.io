@@ -83,15 +83,19 @@
   </div>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/data.js"></script>
+<script src="/assets/ww-bundle.js"></script>
 <script>
-/* Last modified: 2026-06-10 11:37:16 */
-// Attendre que WW_CONFIG soit bien défini (injecté par ww-bundle.js si besoin)
+/* Last modified: 2026-06-10 12:01:46 */
+// Exécuté après CDN supabase + data.js + ww-bundle.js
 const _url  = window.WW_CONFIG?.SUPABASE_URL      || 'https://klhhztxvgudefxmciwfz.supabase.co';
 const _key  = window.WW_CONFIG?.SUPABASE_ANON_KEY || '';
+if (!_key) console.error('WW: SUPABASE_ANON_KEY manquante — vérifier data.js');
 const { createClient } = supabase;
 const sb = createClient(_url, _key);
 window.WW = { sb };
-
 let selectedLevel = null, selectedTopic = null, userData = {};
 
 function showErr(msg) {
@@ -239,8 +243,5 @@ window.addEventListener('load', function() {
   });
 });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/assets/data.js"></script>
-<script src="/assets/ww-bundle.js"></script>
 </body>
 </html>
