@@ -987,7 +987,13 @@ function applyLevel(level) {
   currentLevel = level;
   localStorage.setItem('ww_level', level);
 
-  // Show/hide expert-only blocks
+  // ── Nouveau système : [data-level="debutant"] / [data-level="avance"] ──
+  document.querySelectorAll('[data-level]').forEach(function(el) {
+    const elLevel = el.getAttribute('data-level');
+    el.style.display = (elLevel === level) ? '' : 'none';
+  });
+
+  // ── Ancien système : .expert-body (rétrocompat) ──
   document.querySelectorAll('.expert-body').forEach(body => {
     if (level === 'avance') {
       body.classList.add('show');
@@ -3858,14 +3864,18 @@ window.addEventListener('ww:user-ready', function(e) {
       page.prepend(wrapTop);
     }
 
-    // ── Bouton BAS — avant le see-also si présent, sinon fin de .page ──
+    // ── Bouton BAS — après blur-gate si présent, avant see-also, sinon fin ──
     const seeAlso   = page.querySelector('.see-also');
+    const blurGate  = page.querySelector('.blur-gate');
     const btnBottom = makeBtn('ww-mark-read-btn-bottom', alreadyRead);
     const wrapBottom = document.createElement('div');
     wrapBottom.className = 'mark-read-wrap';
     wrapBottom.appendChild(btnBottom);
     if (seeAlso) {
       page.insertBefore(wrapBottom, seeAlso);
+    } else if (blurGate) {
+      // Insérer AVANT le blur-gate pour qu'il reste visible
+      page.insertBefore(wrapBottom, blurGate);
     } else {
       page.appendChild(wrapBottom);
     }

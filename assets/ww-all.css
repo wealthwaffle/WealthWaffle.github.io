@@ -2745,14 +2745,93 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 .blur-gate {
   position: relative;
   margin: 24px 0;
+  border-radius: 16px;
+  overflow: hidden;
 }
 .blur-gate-content {
-  filter: blur(4px);
+  filter: blur(6px);
   user-select: none;
   pointer-events: none;
-  max-height: 280px;
+  max-height: 220px;
   overflow: hidden;
   transition: filter 0.3s;
+}
+.blur-gate-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px 16px 24px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(8,7,23,0.65) 40%, rgba(8,7,23,0.97) 100%);
+  border-radius: 16px;
+}
+.blur-gate-label {
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted2);
+  margin-bottom: 10px;
+  text-align: center;
+}
+.blur-gate-title {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--text);
+  margin-bottom: 6px;
+  text-align: center;
+  line-height: 1.4;
+}
+.blur-gate-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+  text-align: center;
+  line-height: 1.6;
+}
+.btn-unlock {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  animation: blur-gate-pulse 2.5s ease-in-out infinite;
+}
+.btn-unlock-socle {
+  background: linear-gradient(135deg, #7EC8A0, #4CAF8A);
+  color: #fff;
+}
+.btn-unlock-pilote {
+  background: linear-gradient(135deg, #E87CC3, #c960a8);
+  color: #fff;
+}
+.btn-unlock-radar {
+  background: linear-gradient(135deg, #5BB8D4, #3a9ab8);
+  color: #fff;
+}
+.btn-unlock:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  animation: none;
+}
+.blur-gate-note {
+  font-size: 0.68rem;
+  color: var(--muted2);
+  margin-top: 8px;
+  text-align: center;
+}
+@keyframes blur-gate-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,124,195,0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(232,124,195,0); }
 }
 
 /* ── Voir aussi — see-also ── */
@@ -5365,3 +5444,4 @@ details summary::-webkit-details-marker { display:none; }
   border-top:1px solid var(--faint);
   line-height:1.55;
 }
+/* Last modified: 2026-06-10 11:32:52 */
