@@ -491,3 +491,26 @@ window.WW_DATA = {
  * Tout le site se met à jour automatiquement.
  * ──────────────────────────────────────────────────────────
  */
+
+/* ══ CONFIG GLOBALE (source unique) ══ */
+/* Last modified: 2026-06-10 11:42:48 */
+/* SUPABASE_ANON_KEY est une clé publique — safe dans le code source (RLS protège les données) */
+window.WW_CONFIG = {
+  SUPABASE_URL:      'https://klhhztxvgudefxmciwfz.supabase.co',
+  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtsaGh6dHh2Z3VkZWZ4bWNpd2Z6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MTE5NDYsImV4cCI6MjA5NTQ4Nzk0Nn0.Z84pehY-eJRGHQlwhAbgSKSUzDmjnZ4lp3UJolZqf9w',
+  SITE_URL:          'https://wealthwaffle.be',
+  TRIAL_DAYS:        7,
+  // Stripe — injecté par Cloudflare en prod
+  STRIPE_KEY:        window.__CF_STRIPE_KEY__ || '',
+  PRICES: {
+    pilote_monthly:    window.__CF_PRICE_PILOTE_M__     || '',
+    pilote_annual:     window.__CF_PRICE_PILOTE_A__     || '',
+    radar_monthly:     window.__CF_PRICE_RADAR_M__      || '',
+    radar_annual:      window.__CF_PRICE_RADAR_A__      || '',
+    pilote_auto_annual:window.__CF_PRICE_PILOTE_AUTO_A__|| '',
+    radar_auto_annual: window.__CF_PRICE_RADAR_AUTO_A__ || '',
+    crypto_standalone: window.__CF_PRICE_CRYPTO_S__     || '',
+    crypto_combined:   window.__CF_PRICE_CRYPTO_C__     || '',
+  },
+  BREVO_KEY: window.__CF_BREVO_KEY__ || '',
+};

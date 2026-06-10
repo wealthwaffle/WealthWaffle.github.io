@@ -16,29 +16,13 @@
 <body>
 <div id="ww-ui-placeholder"></div>
 <div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<script>
-window.WW_CONFIG = {
-  SUPABASE_URL:      window.__CF_SUPABASE_URL__      || 'https://TON_PROJECT.supabase.co',
-  SUPABASE_ANON_KEY: window.__CF_SUPABASE_ANON_KEY__ || 'TON_ANON_KEY',
-  STRIPE_KEY:        window.__CF_STRIPE_KEY__         || 'pk_live_TON_KEY',
-  PRICES: {
-    socle_monthly:  window.__CF_PRICE_SOCLE_M__  || 'price_SOCLE_MENSUEL',
-    socle_annual:   window.__CF_PRICE_SOCLE_A__  || 'price_SOCLE_ANNUEL',
-    pilote_monthly: window.__CF_PRICE_PILOTE_M__ || 'price_PILOTE_MENSUEL',
-    pilote_annual:  window.__CF_PRICE_PILOTE_A__ || 'price_PILOTE_ANNUEL',
-    radar_monthly:  window.__CF_PRICE_RADAR_M__  || 'price_RADAR_MENSUEL',
-    radar_annual:   window.__CF_PRICE_RADAR_A__  || 'price_RADAR_ANNUEL',
-  },
-  SITE_URL: 'https://wealthwaffle.be',
-  TRIAL_DAYS: 7,
-  BREVO_KEY: window.__CF_BREVO_KEY__ || '',
-};
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <div class="auth-page">
   <div class="auth-box-wide">
-  
+    <div class="auth-header">
+      <a href="/" class="auth-logo">Wealth<em>Waffle</em> 🧇</a>
+      <div class="auth-title">Bienvenue 👋</div>
+    </div>
 
     <!-- Étape 1 -->
     <div id="step-1" class="auth-card"><form id="form-step1" onsubmit="return false;" autocomplete="on">
@@ -100,12 +84,30 @@ window.WW_CONFIG = {
 </div>
 
 <script>
-/* Last modified: 2026-06-10 10:25:10 */
+/* Last modified: 2026-06-10 11:37:16 */
+// Attendre que WW_CONFIG soit bien défini (injecté par ww-bundle.js si besoin)
+const _url  = window.WW_CONFIG?.SUPABASE_URL      || 'https://klhhztxvgudefxmciwfz.supabase.co';
+const _key  = window.WW_CONFIG?.SUPABASE_ANON_KEY || '';
 const { createClient } = supabase;
-const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
+const sb = createClient(_url, _key);
 window.WW = { sb };
 
 let selectedLevel = null, selectedTopic = null, userData = {};
+
+function showErr(msg) {
+  let err2 = document.getElementById('error-step2');
+  if (!err2) {
+    err2 = document.createElement('div');
+    err2.id = 'error-step2';
+    err2.className = 'auth-error';
+    const step2 = document.getElementById('step-2');
+    if (step2) step2.insertBefore(err2, step2.firstChild);
+  }
+  err2.textContent = msg;
+  err2.classList.remove('hidden');
+  // Scroll vers l'erreur
+  err2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 
 function checkReady() {
   const btn = document.getElementById('btn-register');
@@ -140,39 +142,52 @@ async function doRegister() {
   const btn = document.getElementById('btn-register');
   btn.textContent = 'Création en cours…'; btn.disabled = true;
 
-  const { data, error } = await sb.auth.signUp({
-    email: userData.email,
-    password: userData.password,
-    options: {
-      data: {
-        prenom: userData.prenom,
-        nom: userData.nom,
-        level: selectedLevel,
-        topic: selectedTopic,
-      },
-      emailRedirectTo: window.WW_CONFIG.SITE_URL + '/compte/callback.html?type=signup',
-    }
-  });
+  // Vérifier que userData est bien rempli
+  if (!userData.email || !userData.password) {
+    btn.textContent = 'Créer mon compte →'; btn.disabled = false;
+    showErr('Données manquantes — recommence depuis l\'étape 1.');
+    document.getElementById('step-2').classList.add('hidden');
+    document.getElementById('step-1').classList.remove('hidden');
+    return;
+  }
+
+  let data, error;
+  try {
+    const res = await sb.auth.signUp({
+      email: userData.email,
+      password: userData.password,
+      options: {
+        data: {
+          prenom: userData.prenom,
+          nom: userData.nom || '',
+          level: selectedLevel,
+          topic: selectedTopic,
+        },
+        emailRedirectTo: (window.WW_CONFIG?.SITE_URL || 'https://wealthwaffle.be') + '/compte/callback.html?type=signup',
+      }
+    });
+    data  = res.data;
+    error = res.error;
+  } catch(e) {
+    btn.textContent = 'Créer mon compte →'; btn.disabled = false;
+    showErr('Erreur de connexion — vérifie ta connexion internet.');
+    return;
+  }
 
   if (error) {
     btn.textContent = 'Créer mon compte →'; btn.disabled = false;
-    let err2 = document.getElementById('error-step2');
-    if (!err2) {
-      err2 = document.createElement('div');
-      err2.id = 'error-step2';
-      err2.className = 'auth-error';
-      const step2 = document.getElementById('step-2');
-      step2.insertBefore(err2, step2.firstChild);
-    }
     const msg = error.message || '';
-    if (msg.includes('already registered') || msg.includes('already exists')) {
-      err2.textContent = 'Cet email est déjà utilisé — connecte-toi plutôt.';
+    if (msg.includes('already registered') || msg.includes('already exists') || msg.includes('User already registered')) {
+      showErr('Cet email est déjà utilisé — connecte-toi plutôt.');
     } else if (msg.includes('password')) {
-      err2.textContent = 'Mot de passe trop faible.';
+      showErr('Mot de passe trop faible (8 caractères minimum).');
+    } else if (msg.includes('invalid') && msg.includes('email')) {
+      showErr('Adresse email invalide.');
+    } else if (msg.includes('Email rate limit')) {
+      showErr('Trop de tentatives — attends quelques minutes.');
     } else {
-      err2.textContent = 'Erreur : ' + msg;
+      showErr('Erreur : ' + msg);
     }
-    err2.classList.remove('hidden');
     return;
   }
 
@@ -224,6 +239,7 @@ window.addEventListener('load', function() {
   });
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/assets/data.js"></script>
 <script src="/assets/ww-bundle.js"></script>
 </body>

@@ -131,7 +131,7 @@ window.addEventListener('load', async () => {
 const { createClient } = supabase;
 const sb = createClient(
   window.__CF_SUPABASE_URL__ || 'https://klhhztxvgudefxmciwfz.supabase.co',
-  window.__CF_SUPABASE_ANON_KEY__ || ''
+  window.__CF_SUPABASE_ANON_KEY__ || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtsaGh6dHh2Z3VkZWZ4bWNpd2Z6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MTE5NDYsImV4cCI6MjA5NTQ4Nzk0Nn0.Z84pehY-eJRGHQlwhAbgSKSUzDmjnZ4lp3UJolZqf9w'
 );
 async function requireAdmin() {
   const { data: { session } } = await sb.auth.getSession();
