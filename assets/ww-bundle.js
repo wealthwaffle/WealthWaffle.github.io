@@ -1,4 +1,4 @@
-/* Last modified: 2026-06-09 23:52:00 */
+/* Last modified: 2026-06-10 10:22:46 */
 /* * ═══════════════════════════════════════════════════════════
  * WEALTHWAFFLE — ww-bundle.js
  * Fichier unique regroupant tous les scripts du site
@@ -2631,7 +2631,7 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
 
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
         <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);">Bienvenue sur WealthWaffle 🧇</div>
-        <button onclick="window.closeOnboarding()" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px 8px;">✕</button>
+        <button onclick="window.closeOnboarding()" class="ww-close-btn" aria-label="Fermer">✕</button>
       </div>
       <p style="font-size:0.76rem;color:var(--muted);margin-bottom:14px;line-height:1.55;">Pour te montrer les bonnes pages directement.</p>
 
@@ -2810,8 +2810,32 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
   /* Exposer buildPopup pour réutilisation dans I6 (page accueil) */
   window.WW_buildOnboarding = buildPopup;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(buildPopup, 2000);
+  // Règles de déclenchement :
+  // 1. Jamais sur la page d'accueil (le quiz y est déjà intégré)
+  // 2. Jamais sur /compte/ /dashboard/ /admin/
+  // 3. Déclenché par comportement (exit intent OU 60s de lecture), pas au chargement
+
+  const blockedPaths = ['/', '/index.html', '/compte/', '/dashboard/', '/admin/'];
+  const currentPath  = location.pathname;
+  if (blockedPaths.some(function(p) {
+    return currentPath === p || currentPath.startsWith(p);
+  })) return;
+
+  var triggered = false;
+  function triggerOnce() {
+    if (triggered) return;
+    triggered = true;
+    buildPopup();
+  }
+
+  // Déclencheur 1 : Exit intent (souris vers le haut de l'écran)
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY < 20) triggerOnce();
+  });
+
+  // Déclencheur 2 : 60 secondes de lecture sur la page
+  window.addEventListener('load', function() {
+    setTimeout(triggerOnce, 60000);
   });
 
 })();
@@ -3641,15 +3665,16 @@ window.addEventListener('ww:user-ready', function(e) {
     banner.getBoundingClientRect();
     banner.classList.add('cookie-banner-visible');
 
+    // {once:true} évite le double-déclenchement
     document.getElementById('cookie-refuse').addEventListener('click', function() {
       saveCookieChoice('refused');
-    });
+    }, {once:true});
     document.getElementById('cookie-minimal').addEventListener('click', function() {
       saveCookieChoice('minimal');
-    });
+    }, {once:true});
     document.getElementById('cookie-full').addEventListener('click', function() {
       saveCookieChoice('full');
-    });
+    }, {once:true});
   }
 
   function saveCookieChoice(choice) {
@@ -3900,9 +3925,12 @@ window.ww_animateDownload = function(btn) {
   const path = location.pathname;
   const excluded = ['/compte/', '/dashboard/', '/admin/', '/legal/', '/a-propos/'];
   if (excluded.some(function(p) { return path.startsWith(p); })) return;
-
+  // Pas sur la page d'accueil (le quiz y est déjà)
+  if (path === '/' || path === '/index.html') return;
   // Déjà connecté → pas de nudge
   if (localStorage.getItem('ww_session')) return;
+  // Utilisateur a déjà refusé → ne plus jamais montrer
+  if (localStorage.getItem('ww_nudge_refused')) return;
 
   // Incrémenter le compteur de pages visitées (session uniquement)
   const SESSION_KEY = 'ww_session_pages';
@@ -3961,11 +3989,18 @@ window.ww_animateDownload = function(btn) {
   };
 
   // Afficher après un délai (pas immédiatement)
-  if (!sessionStorage.getItem('ww_nudge_closed_session')) {
-    window.addEventListener('load', function() {
-      setTimeout(showNudge, 8000); // 8s après chargement de la 2ème page
-    });
-  }
+  window.addEventListener('load', function() {
+    // Déclencheur 1 : après 15s de lecture (pas 8s — laisser le temps de lire)
+    setTimeout(showNudge, 15000);
+    // Déclencheur 2 : scroll 70% de la page
+    window.addEventListener('scroll', function onScroll() {
+      var scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+      if (scrolled > 0.70) {
+        window.removeEventListener('scroll', onScroll);
+        showNudge();
+      }
+    }, { passive: true });
+  });
 })();
 
 

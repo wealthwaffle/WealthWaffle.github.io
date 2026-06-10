@@ -4528,7 +4528,8 @@ body[data-level="avance"]   [data-level="debutant"] { opacity: 0.6; }
 /* Quiz niveau/topic */
 .auth-quiz-title { font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);margin-bottom:16px; }
 .auth-quiz-title-sm { font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);margin-bottom:12px; }
-.auth-level-btns { display:flex;flex-direction:column;gap:8px;margin-bottom:24px; }
+.auth-level-btns { display:flex;flex-direction:column;gap:10px;margin-bottom:20px;width:100%; }
+.auth-level-btn { width:100%;display:block; }
 .auth-level-btn { padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--s3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.86rem;cursor:pointer;text-align:left;transition:all 0.18s; }
 .auth-topic-grid { display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:20px; }
 .auth-topic-btn { padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--s3);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.80rem;cursor:pointer;transition:all 0.18s; }
@@ -5307,4 +5308,49 @@ details summary::-webkit-details-marker { display:none; }
   border-color:#E87CC3 !important;
   background:rgba(232,124,195,0.10) !important;
   color:var(--text) !important;
+}
+
+/* ══ CROIX POPUP — plus visibles (fix UX) ══ */
+/* Last modified: 2026-06-10 10:22:46 */
+.ww-close-btn,
+.ww-nudge-close,
+.ww-grimoire-close,
+.read-modal-close,
+.adm-modal .close-btn,
+[onclick*="closeOnboarding"],
+[onclick*="closeReadModal"] {
+  min-width:28px;min-height:28px;
+  display:inline-flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08) !important;
+  border:1px solid rgba(255,255,255,0.15) !important;
+  color:var(--muted) !important;
+  cursor:pointer;
+  font-size:0.85rem;
+  transition:background 0.15s, border-color 0.15s;
+}
+.ww-close-btn:hover,
+.ww-nudge-close:hover,
+.ww-grimoire-close:hover,
+.read-modal-close:hover {
+  background:rgba(232,124,195,0.15) !important;
+  border-color:rgba(232,124,195,0.35) !important;
+  color:var(--rose) !important;
+}
+/* Cookie banner close spécifique */
+.cookie-banner-close {
+  min-width:28px;min-height:28px;
+  display:inline-flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  color:var(--muted);
+  cursor:pointer;font-size:0.85rem;
+  flex-shrink:0;
+  transition:background 0.15s;
+}
+.cookie-banner-close:hover {
+  background:rgba(232,124,195,0.15);
+  border-color:rgba(232,124,195,0.35);
+  color:var(--rose);
 }
