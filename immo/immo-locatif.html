@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acheter un bien immobilier en Belgique — WealthWaffle</title>
+  <meta name="description" content="Guide complet achat immobilier belge : compromis, notaire, frais réels, PEB obligatoire, clauses, checklist. Étape par étape.">
+  <meta property="og:title" content="Acheter un bien immobilier en Belgique — WealthWaffle">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <meta property="og:type" content="website">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ww-all.css">
+  <script>window.WW_PAGE_META = { updated: "Juin 2026", name: "Immo — Achat" };</script>
+  
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+<nav>
+  <a href="index.html" class="nav-brand">Wealth<em>Waffle</em> 🧇</a>
+  <ul class="nav-center">
+    <li><a href="budget.html">💶 Budget</a></li>
+    <li><a href="invest.html">📈 Investir</a></li>
+    <li><a href="immo.html" class="active">🏠 Immo</a></li>
+    <li><a href="tax.html">📋 Fiscalité</a></li>
+    <li><a href="crypto.html">₿ Crypto</a></li>
+    <li><a href="bases.html">🎓 Les bases</a></li>
+    <li><a href="alternatives.html">🌐 Autres actifs</a></li>
+    <li><a href="glossaire.html">📖 Glossaire</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="level-toggle" id="level-toggle-nav"></div>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">🌙</button>
+    <a href="newsletter.html" class="nav-cta" style="font-size:0.76rem;padding:7px 11px;border-radius:9px;text-decoration:none;">🎁 Guide gratuit</a>
+    <button class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="budget.html" onclick="closeMenu()">💶 Budget</a>
+  <a href="invest.html" onclick="closeMenu()">📈 Investir</a>
+  <a href="immo.html" class="active" onclick="closeMenu()">🏠 Immo</a>
+  <a href="tax.html" onclick="closeMenu()">📋 Fiscalité</a>
+  <a href="crypto.html" onclick="closeMenu()">₿ Crypto</a>
+  <a href="bases.html" onclick="closeMenu()">🎓 Les bases</a>
+  <a href="alternatives.html" onclick="closeMenu()">🌐 Autres actifs</a>
+  <a href="glossaire.html" onclick="closeMenu()">📖 Glossaire</a>
+  <a href="newsletter.html" onclick="closeMenu()" class="nav-cta">🎁 Guide gratuit</a>
+</div>
+<div class="page">
+
+<div class="breadcrumb"><a href="index.html">Accueil</a><span>/</span><a href="immo.html">Immo</a><span>/</span><span>Investissement locatif</span></div>
+<nav class="toc-sidebar">
+  <a href="#rendement-brut">📊 Rendement brut</a>
+  <a href="#rendement-net">💰 Rendement net-net</a>
+  <a href="#fiscalite">🧾 Fiscalité loyers</a>
+  <a href="#bail">📄 Types de bail</a>
+  <a href="#gestion">🔧 Gestion locative</a>
+  <a href="#simulateur">🧮 Simulateur avancé</a>
+</nav>
+
+<div class="eyebrow" style="background:rgba(196,114,74,0.10);color:#C4724A;">🏠 Immo Waffle — Locatif</div>
+<h1 class="display">L'investissement locatif<br><span style="color:#C4724A;">les vrais chiffres</span></h1>
+<p class="lead" style="margin-bottom:32px;">Rendement brut vs net vs net-net : la différence peut aller du simple au double. Voici comment calculer honnêtement la rentabilité d'un bien locatif.</p>
+
+<div class="content-card toc-target reveal" id="rendement-brut">
+  <h3>📊 Rendement brut — le calcul de base</h3>
+  <div class="level-section">
+    <div data-level="debutant">
+      <div class="level-badge">🌱 Débutant</div>
+      <p>Le rendement brut c'est simple : <strong>(loyer annuel ÷ prix d'achat) × 100</strong>. Un bien acheté 200.000 € et loué 900 €/mois donne un rendement brut de 5,4%. Mais ce chiffre ne veut rien dire sans le rendement net.</p>
+    </div>
+    <div data-level="confirme">
+      <div class="level-badge">📈 Confirmé</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0;">
+        <div class="calc-field"><label>Prix d'achat total (€)</label><input type="number" id="lb-prix" value="220000" oninput="calcLocBrut()"></div>
+        <div class="calc-field"><label>Loyer mensuel (€)</label><input type="number" id="lb-loyer" value="900" oninput="calcLocBrut()"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:var(--s3);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.68rem;color:var(--muted);margin-bottom:4px;">Loyer annuel brut</div>
+          <div style="font-size:1.3rem;font-weight:700;color:#C4724A;" id="lb-annuel">—</div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(196,114,74,0.12),rgba(232,194,58,0.08));border:1px solid rgba(196,114,74,0.25);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.68rem;color:var(--muted);margin-bottom:4px;">Rendement brut</div>
+          <div style="font-size:1.3rem;font-weight:700;color:#C4724A;" id="lb-rend">—</div>
+        </div>
+      </div>
+      <div class="warn-box" style="margin-top:12px;">⚠️ En Belgique, un rendement brut inférieur à 3,5% dans les grandes villes est difficile à justifier face à d'autres placements. Au-delà de 6%, vérifier les charges cachées.</div>
+    </div>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="rendement-net">
+  <h3>💰 Les éléments que le rendement brut cache</h3>
+  <div class="level-section">
+    <div data-level="confirme">
+      <div class="level-badge">📈 Confirmé</div>
+      <p>Entre le rendement brut et ce que tu touches réellement, voici ce qui est souvent oublié :</p>
+      <ul class="checklist">
+        <li>🏛️ <strong>Précompte immobilier</strong> — taxe annuelle sur le revenu cadastral. Entre 800 et 3.000 €/an selon le bien et la commune.</li>
+        <li>🔧 <strong>Frais d'entretien</strong> — provision de 1% du prix d'achat par an est une règle couramment utilisée (plomberie, peinture, chauffe-eau...).</li>
+        <li>📭 <strong>Vacance locative</strong> — en moyenne 2-4% du temps un bien est inoccupé entre deux locataires. Sur 900 €/mois = 200-400 €/an perdus.</li>
+        <li>🏢 <strong>Charges de copropriété non récupérables</strong> — dans un immeuble, certaines charges restent à charge du propriétaire même si locataire.</li>
+        <li>🛡️ <strong>Assurance propriétaire bailleur</strong> — RC bailleur, garantie loyers impayés optionnelle (3-5% du loyer annuel).</li>
+        <li>📋 <strong>Frais de gestion</strong> — si tu passes par une agence, 7-10% du loyer annuel.</li>
+      </ul>
+    </div>
+  </div>
+</div><div class="blur-gate">
+  <div class="blur-gate-content">
+    <div class="content-card" style="margin-bottom:12px;">
+      <p style="height:14px;background:var(--s3);border-radius:6px;margin-bottom:8px;width:90%;"></p>
+      <p style="height:14px;background:var(--s3);border-radius:6px;width:70%;margin-bottom:8px;"></p>
+      <p style="height:14px;background:var(--s3);border-radius:6px;width:80%;"></p>
+    </div>
+    <div class="content-card"><p style="height:14px;background:var(--s3);border-radius:6px;margin-bottom:8px;"></p><p style="height:14px;background:var(--s3);border-radius:6px;width:65%;"></p></div>
+  </div>
+  <div class="blur-gate-overlay">
+    <div class="blur-gate-title">Rendement net-net, fiscalité des loyers, simulateur avancé</div>
+    <div class="blur-gate-sub">Ces calculs avancés sont accessibles gratuitement — il suffit de créer un compte Socle.</div>
+    <a href="https://doctrine.wealthwaffle.be/pages/auth/register.html" class="btn-unlock btn-unlock-socle">Créer mon compte gratuit →</a>
+    <div class="blur-gate-note">Accès complet · 7 jours gratuits</div>
+  </div>
+</div>
+
+<div class="content-card toc-target reveal" id="outil-locatif">
+  <h3>🧮 Rendement locatif net-net</h3>
+  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;">Brut → Net → Net-net : tous les postes réels (précompte, vacance, assurance, gestion, fiscalité IPP).</p>
+  <div id="tool-locatif"></div>
+  <script>document.addEventListener('DOMContentLoaded',()=>WW_Tools.rendementLocatifAvance('tool-locatif'));</script>
+</div>
+<div class="see-also">
+  <div class="see-also-label">Sur le même sujet</div>
+  <a href="immo.html" class="see-also-pill">🏠 Hub Immo</a>
+  <a href="immo-achat.html" class="see-also-pill">🏛️ Guide achat</a>
+  <a href="immo-financement.html" class="see-also-pill">🏦 Financement</a>
+  <a href="immo-alternatif.html" class="see-also-pill">🌐 Immo alternatif</a>
+</div>
+<script>
+function calcLocBrut() {
+  const prix  = parseFloat(document.getElementById('lb-prix')?.value)||0;
+  const loyer = parseFloat(document.getElementById('lb-loyer')?.value)||0;
+  const fmt   = n => Math.round(n).toLocaleString('fr-BE') + ' €';
+  if (!prix || !loyer) return;
+  const annuel = loyer * 12;
+  const rend   = (annuel / prix * 100).toFixed(2);
+  document.getElementById('lb-annuel').textContent = fmt(annuel);
+  document.getElementById('lb-rend').textContent   = rend + '%';
+}
+document.addEventListener('DOMContentLoaded', calcLocBrut);
+</script>
+<div id="ww-disclaimer-inline"></div>
+</div>
+<script src="data.js"></script>
+<script src="tools.js"></script>
+<script src="ww-bundle.js" defer></script>
+</body></html>

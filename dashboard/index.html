@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
-  <script>window.WW_PAGE_META = { name: "Dashboard", basePath: "/dashboard/", auth: true };</script>
+  <script>window.WW_PAGE_META = { name: "Dashboard", basePath: "/dashboard/", updated: "Juin 2026", section: "ww", auth: true, minPlan: null, navGroup: null };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
@@ -29,6 +29,90 @@
     </div>
     <button id="btn-signout" class="dash-signout">Déconnexion</button>
   </div>
+
+  <!-- ── GAM2 : SCF + Niveau + Streak ── -->
+  <div class="dash-section" id="section-scf">
+    <div class="dash-card">
+      <div class="scf-wrap">
+        <div class="scf-circle-wrap">
+          <svg width="90" height="90" viewBox="0 0 90 90">
+            <circle class="scf-circle-bg" cx="45" cy="45" r="37"/>
+            <circle class="scf-circle-fill" id="scf-fill" cx="45" cy="45" r="37"
+              stroke-dasharray="232" stroke-dashoffset="232"/>
+          </svg>
+          <div class="scf-value">
+            <span class="scf-number" id="scf-number">15</span>
+            <span class="scf-max">/100</span>
+          </div>
+        </div>
+        <div class="scf-info">
+          <div class="scf-label">Score de confiance</div>
+          <div class="scf-level-name" id="scf-level-name">🌱 Épargnant</div>
+          <div class="scf-streak">
+            <span class="scf-streak-fire">🔥</span>
+            <span id="scf-streak">0 jour de streak</span>
+          </div>
+          <div class="scf-xp-next" id="scf-xp-next"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GAM3 : Anneaux hebdomadaires ── -->
+  <div class="dash-section" id="section-rings">
+    <div class="dash-card">
+      <h4>🎯 Objectifs de la semaine</h4>
+      <div class="rings-wrap">
+        <div class="ring-item">
+          <div class="ring-svg-wrap">
+            <svg width="72" height="72" viewBox="0 0 72 72">
+              <circle class="ring-bg" cx="36" cy="36" r="30" stroke="var(--color-invest)"/>
+              <circle class="ring-fill" id="ring-lecture" cx="36" cy="36" r="30"
+                stroke="var(--color-invest)" stroke-dasharray="188" stroke-dashoffset="188"/>
+            </svg>
+            <div class="ring-icon">📖</div>
+          </div>
+          <div class="ring-label">Lecture</div>
+          <div class="ring-sub" id="ring-lecture-sub">0 / 3 pages</div>
+        </div>
+        <div class="ring-item">
+          <div class="ring-svg-wrap">
+            <svg width="72" height="72" viewBox="0 0 72 72">
+              <circle class="ring-bg" cx="36" cy="36" r="30" stroke="var(--color-budget)"/>
+              <circle class="ring-fill" id="ring-pratique" cx="36" cy="36" r="30"
+                stroke="var(--color-budget)" stroke-dasharray="188" stroke-dashoffset="188"/>
+            </svg>
+            <div class="ring-icon">🛠️</div>
+          </div>
+          <div class="ring-label">Pratique</div>
+          <div class="ring-sub" id="ring-pratique-sub">0 / 2 outils</div>
+        </div>
+        <div class="ring-item">
+          <div class="ring-svg-wrap">
+            <svg width="72" height="72" viewBox="0 0 72 72">
+              <circle class="ring-bg" cx="36" cy="36" r="30" stroke="var(--color-ww)"/>
+              <circle class="ring-fill" id="ring-rigueur" cx="36" cy="36" r="30"
+                stroke="var(--color-ww)" stroke-dasharray="188" stroke-dashoffset="188"/>
+            </svg>
+            <div class="ring-icon">🔥</div>
+          </div>
+          <div class="ring-label">Rigueur</div>
+          <div class="ring-sub" id="ring-rigueur-sub">0 / 5 jours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GAM4 : Score par thème ── -->
+  <div class="dash-section" id="section-theme-scores">
+    <div class="dash-card">
+      <h4>📊 Maîtrise par domaine</h4>
+      <div class="theme-scores-grid" id="theme-scores-grid">
+        <!-- Injecté par JS -->
+      </div>
+    </div>
+  </div>
+
 
   <!-- ── PRÉFÉRENCES ── -->
   <div class="dash-section">
@@ -206,61 +290,12 @@
 <script src="/assets/data.js"></script>
 <script src="/assets/tools.js"></script>
 <script src="/assets/ww-bundle.js"></script>
-<script>
-const { createClient } = supabase;
-const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
-window.WW = { sb };
-
-async function getSession() {
-  const { data: { session } } = await sb.auth.getSession();
-  if (!session) return null;
-  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
-  window.WW.user    = session.user;
-  window.WW.profile = profile;
-  localStorage.setItem('ww_session', session.access_token);
-  localStorage.setItem('ww_plan',    profile?.plan  || 'socle');
-  localStorage.setItem('ww_level',   profile?.level || 'debutant');
-  return { user: session.user, profile };
-}
-
-async function requireAuth(minLevel) {
-  const LEVELS = { socle: 1, pilote: 2, radar: 3, pilote_auto: 4, radar_auto: 5, admin: 5 };
-  // Attendre que sb soit initialisé (ww-bundle.js async)
-  let retries = 0;
-  while (!window.WW?.sb && retries < 30) {
-    await new Promise(r => setTimeout(r, 100));
-    retries++;
-  }
-  if (!window.WW?.sb) {
-    // Réinitialiser sb localement
-    const { createClient: cc } = supabase;
-    const sb2 = cc(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
-    window.WW = window.WW || {};
-    window.WW.sb = sb2;
-  }
-  const session = await getSession();
-  if (!session) {
-    window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname);
-    return null;
-  }
-  const userLevel   = LEVELS[session.profile?.plan] || 1;
-  const neededLevel = LEVELS[minLevel] || 1;
-  if (userLevel < neededLevel) {
-    window.location.href = '/compte/inscription.html?plan=' + minLevel;
-    return null;
-  }
-  return session;
-}
+<script>const sb = window.WW.sb;
 
 async function signOut() {
-  await sb.auth.signOut();
+  await window.WW.sb.auth.signOut();
   ['ww_session','ww_plan','ww_level','ww_topic','ww_profile'].forEach(k => localStorage.removeItem(k));
   window.location.href = '/';
-}
-
-async function savePref(key, value) {
-  localStorage.setItem('ww_' + key, value);
-  if (window.WW?.user) await sb.from('profiles').update({ [key]: value }).eq('id', window.WW.user.id);
 }
 
 async function setLevel(level) {
@@ -354,9 +389,14 @@ window.addEventListener('load', async () => {
     b.addEventListener('click', () => setProfile(b.dataset.prof));
   });
 
-  const session = await requireAuth('socle');
+  // Session gérée par WW_PAGE_META.auth via ww-bundle.js
+  const session = await new Promise(function(resolve) {
+    if (window.WW?.profile) { resolve({ user: window.WW.user, profile: window.WW.profile }); return; }
+    window.addEventListener('ww:user-ready', function(e) { resolve(e.detail); }, { once: true });
+    // Timeout fallback
+    setTimeout(function() { resolve(window.WW?.user ? { user: window.WW.user, profile: window.WW.profile } : null); }, 3000);
+  });
   if (!session) return;
-
   const { user, profile } = session;
   const prenom = profile?.prenom || user.email.split('@')[0];
   const plan   = profile?.plan    || 'socle';
@@ -382,7 +422,7 @@ window.addEventListener('load', async () => {
   else if (prof === 'dirigeant') document.getElementById('block-dirigeant')?.setAttribute('open','');
 
   // Pages lues
-  const { data: views } = await sb.from('page_views').select('page_slug').eq('user_id', user.id);
+  const { data: views } = await window.WW.sb.from('page_views').select('page_slug,viewed_at').eq('user_id', user.id);
   const readPages = new Set((views||[]).map(v => v.page_slug));
   window._readPages = readPages;
 
@@ -396,6 +436,15 @@ window.addEventListener('load', async () => {
       xpProfile: profile,
     });
   }
+
+  // ── GAM2 : SCF ──
+  wwRenderSCF(profile, views || []);
+
+  // ── GAM3 : Anneaux hebdo ──
+  wwRenderRings(profile, views || []);
+
+  // ── GAM4 : Score par thème ──
+  wwRenderThemeScores(profile);
 
   renderParcours(topic, readPages, level);
 
@@ -415,6 +464,128 @@ window.addEventListener('load', async () => {
   const planDetails = document.getElementById('plan-details');
   planDetails.innerHTML = '';
   planDetails.appendChild(tpl.content.cloneNode(true));
+
+/* ── GAM2 : SCF ── */
+function wwRenderSCF(profile, views) {
+  var scf   = profile?.scf_score    || 15;
+  var xp    = profile?.xp_total     || 0;
+  var streak= profile?.streak_days  || 0;
+  var lvName= profile?.level_name   || 'Épargnant';
+
+  // Cercle SVG
+  var circ  = 2 * Math.PI * 37; // 232.5
+  var fill  = document.getElementById('scf-fill');
+  var offset= circ - (scf / 100) * circ;
+  var color = scf >= 80 ? 'var(--color-invest)' : scf >= 50 ? 'var(--color-crypto)' : 'var(--color-ww)';
+
+  if (fill) {
+    fill.setAttribute('stroke', color);
+    setTimeout(function() { fill.style.strokeDashoffset = offset; }, 300);
+  }
+
+  var numEl = document.getElementById('scf-number');
+  if (numEl) { numEl.textContent = scf; numEl.style.color = color; }
+
+  var lvEl = document.getElementById('scf-level-name');
+  if (lvEl) lvEl.textContent = lvName;
+
+  var stEl = document.getElementById('scf-streak');
+  if (stEl) stEl.textContent = streak + ' jour' + (streak !== 1 ? 's' : '') + ' de streak';
+
+  // XP vers prochain niveau
+  var levels = window.WW_DATA?.levels || [];
+  var next   = levels.find(function(l) { return l.min > xp; });
+  var xpEl   = document.getElementById('scf-xp-next');
+  if (xpEl && next) {
+    xpEl.textContent = (next.min - xp) + ' XP pour atteindre ' + next.name;
+  }
+}
+
+/* ── GAM3 : Anneaux hebdomadaires ── */
+function wwRenderRings(profile, views) {
+  var now     = new Date();
+  var monday  = new Date(now);
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  monday.setHours(0,0,0,0);
+  var mondayStr = monday.toISOString();
+
+  // Anneau 1 : pages lues cette semaine (objectif 3)
+  var pagesThisWeek = (views || []).filter(function(v) {
+    return v.viewed_at && v.viewed_at > mondayStr;
+  }).length;
+  var lectureTarget = 3;
+  wwAnimateRing('ring-lecture', pagesThisWeek, lectureTarget);
+  var lectEl = document.getElementById('ring-lecture-sub');
+  if (lectEl) lectEl.textContent = Math.min(pagesThisWeek, lectureTarget) + ' / ' + lectureTarget + ' pages';
+
+  // Anneau 2 : outils utilisés (SCF >= seuil ou via profile)
+  // Approximation : si pas de tracking outils, afficher 0/2
+  var pratique = 0; // sera enrichi quand tools.js loggera les usages
+  wwAnimateRing('ring-pratique', pratique, 2);
+  var pratEl = document.getElementById('ring-pratique-sub');
+  if (pratEl) pratEl.textContent = pratique + ' / 2 outils';
+
+  // Anneau 3 : streak jours (objectif 5)
+  var streak       = profile?.streak_days || 0;
+  var rigueurTarget = 5;
+  wwAnimateRing('ring-rigueur', Math.min(streak, rigueurTarget), rigueurTarget);
+  var rigEl = document.getElementById('ring-rigueur-sub');
+  if (rigEl) rigEl.textContent = Math.min(streak, rigueurTarget) + ' / ' + rigueurTarget + ' jours';
+}
+
+function wwAnimateRing(id, current, target) {
+  var el    = document.getElementById(id);
+  if (!el) return;
+  var circ  = 2 * Math.PI * 30; // 188
+  var pct   = target > 0 ? Math.min(current / target, 1) : 0;
+  var offset= circ - pct * circ;
+  setTimeout(function() {
+    el.style.strokeDashoffset = offset;
+    // Effet "fermeture" : glow quand 100%
+    if (pct >= 1) el.style.filter = 'drop-shadow(0 0 4px currentColor)';
+  }, 400);
+}
+
+/* ── GAM4 : Score par thème ── */
+function wwRenderThemeScores(profile) {
+  var grid = document.getElementById('theme-scores-grid');
+  if (!grid) return;
+
+  var THEMES = [
+    { key:'budget',   label:'💶 Budget',     max:670,  color:'var(--color-budget)' },
+    { key:'invest',   label:'📈 Invest',     max:1330, color:'var(--color-invest)' },
+    { key:'fiscal',   label:'📋 Fiscal',     max:1000, color:'var(--color-fiscal)' },
+    { key:'immo',     label:'🏠 Immo',       max:730,  color:'var(--color-immo)' },
+    { key:'parcours', label:'🗺️ Parcours',   max:450,  color:'var(--color-parcours)' },
+  ];
+
+  grid.innerHTML = '';
+  THEMES.forEach(function(t) {
+    var xp  = profile?.['xp_' + t.key] || 0;
+    var pct = Math.min(100, Math.round(xp / t.max * 100));
+    var card = document.createElement('div');
+    card.className = 'theme-score-card';
+    card.innerHTML =
+      '<div class="theme-score-header">' +
+        '<span class="theme-score-name">' + t.label + '</span>' +
+        '<span class="theme-score-pct" style="color:' + t.color + '">' + pct + '%</span>' +
+      '</div>' +
+      '<div class="theme-score-bar">' +
+        '<div class="theme-score-bar-fill" data-pct="' + pct + '" ' +
+          'style="width:0%;background:' + t.color + '"></div>' +
+      '</div>' +
+      '<div class="theme-score-xp">' + xp + ' / ' + t.max + ' XP</div>';
+    grid.appendChild(card);
+  });
+
+  // Animer les barres
+  requestAnimationFrame(function() {
+    grid.querySelectorAll('.theme-score-bar-fill').forEach(function(el) {
+      setTimeout(function() { el.style.width = el.dataset.pct + '%'; }, 200);
+    });
+  });
+}
+
 });
 </script>
 </body>

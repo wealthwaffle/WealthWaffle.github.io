@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Liste d'attente — Doctrine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/doctrine-app.css">
+  
+</head>
+<body>
+<div class="wrap">
+  <div style="text-align:center;margin-bottom:32px;">
+    <a href="/" style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.4rem;background:linear-gradient(90deg,#E87CC3,#5BB8D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;">Doctrine</a>
+    <div style="font-size:0.74rem;color:var(--muted);margin-top:2px;">par WealthWaffle 🧇</div>
+  </div>
+  <div style="margin-bottom:22px;">
+    <div style="display:inline-flex;align-items:center;gap:6px;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;padding:4px 12px;border-radius:20px;background:rgba(232,124,195,0.12);color:var(--rose);margin-bottom:10px;">🌱 Roadmap & avant-premières</div>
+    <div class="page-title" style="margin-bottom:4px;">Liste d'attente</div>
+    <div class="page-sub">Sois le premier informé des nouvelles fonctionnalités — et vote pour les priorités.</div>
+  </div>
+
+      <div class="card animate-in" style="margin-bottom:16px;border-left:3px solid var(--rose);">
+        <div style="font-size:0.84rem;color:var(--text2);line-height:1.75;">
+          Doctrine évolue constamment. Rejoins la liste d'attente pour être notifié en avant-première des nouvelles fonctionnalités — et donner ton avis sur les priorités.
+        </div>
+      </div>
+
+      <!-- Roadmap visible -->
+      <div class="card animate-in" style="margin-bottom:12px;">
+        <div style="font-size:0.70rem;font-weight:700;text-transform:uppercase;letter-spacing:0.10em;color:var(--muted);margin-bottom:14px;">🗺️ Roadmap publique</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="padding:12px;background:rgba(126,200,160,0.07);border:1px solid rgba(126,200,160,0.18);border-radius:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <div style="font-size:0.84rem;font-weight:700;color:#7EC8A0;">✅ Lancé</div>
+              <span style="font-size:0.62rem;color:var(--muted);">Juin 2026</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--muted);">Socle (5 modules), Pilote (ETF, brokers, fiscalité, méthode, crypto, crowdlending), Radar (feed + watchlist), Compte, Synthèses mensuelles.</div>
+          </div>
+          <div style="padding:12px;background:rgba(91,184,212,0.07);border:1px solid rgba(91,184,212,0.18);border-radius:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <div style="font-size:0.84rem;font-weight:700;color:var(--pilote);">🔨 En cours</div>
+              <span style="font-size:0.62rem;color:var(--muted);">T3 2026</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--muted);">Notifications (rappels fiscaux, nouveaux projets Radar), scraper Radar automatisé, export progression PDF.</div>
+          </div>
+          <div style="padding:12px;background:var(--s3);border-radius:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <div style="font-size:0.84rem;font-weight:700;color:var(--muted);">💭 Planifié</div>
+              <span style="font-size:0.62rem;color:var(--muted));">T4 2026</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--muted);">Application mobile native (iOS / Android), module obligations belges, simulateur immo complet, API partenaires brokers.</div>
+          </div>
+          <div style="padding:12px;background:var(--s3);border-radius:10px;opacity:0.6;">
+            <div style="font-size:0.84rem;font-weight:700;color:var(--muted);margin-bottom:4px;">🌱 À l'étude</div>
+            <div style="font-size:0.78rem;color:var(--muted);">Coaching 1:1 agréé FSMA, module indépendants / sociétés, communauté membres, partenariats brokers belges.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire waitlist -->
+      <div class="card animate-in" style="margin-bottom:24px;background:linear-gradient(135deg,rgba(232,124,195,0.06),rgba(91,184,212,0.04));border:1px solid rgba(232,124,195,0.18);">
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--text);margin-bottom:6px;">Rejoindre la liste d'attente</div>
+        <div style="font-size:0.80rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">Tu seras notifié en avant-première. Et ton vote compte pour prioriser la roadmap.</div>
+
+        <div id="waitlist-form-wrap">
+          <div class="field" style="margin-bottom:10px;">
+            <label class="field-label" for="wl-email">Email</label>
+            <input class="field-input" type="email" id="wl-email" placeholder="ton@email.be" autocomplete="email" inputmode="email">
+          </div>
+          <div class="field" style="margin-bottom:14px;">
+            <label class="field-label">Quelle fonctionnalité t'intéresse le plus ?</label>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;" id="wl-votes">
+              <button class="filter-btn" onclick="toggleVote(this,'mobile')">📱 App mobile</button>
+              <button class="filter-btn" onclick="toggleVote(this,'notifs')">🔔 Notifications</button>
+              <button class="filter-btn" onclick="toggleVote(this,'oblig')">💸 Obligations</button>
+              <button class="filter-btn" onclick="toggleVote(this,'coaching')">🎯 Coaching</button>
+              <button class="filter-btn" onclick="toggleVote(this,'immo')">🏠 Simulateur immo</button>
+              <button class="filter-btn" onclick="toggleVote(this,'api')">🔗 API brokers</button>
+            </div>
+          </div>
+          <div class="alert alert-error" id="wl-error" style="display:none;margin-bottom:10px;">
+            <span>⚠️</span><span id="wl-error-text">Email invalide.</span>
+          </div>
+          <div class="alert alert-success" id="wl-success" style="display:none;">
+            <span>✓</span><span>Tu es sur la liste ! On te prévient en avant-première.</span>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="submitWaitlist()">Rejoindre la liste →</button>
+        </div>
+      </div>
+  <div style="text-align:center;margin-top:16px;">
+    <a href="/" style="font-size:0.76rem;color:var(--muted);">← Retour à l'accueil</a>
+  </div>
+</div>
+<script src="/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+
+const selectedVotes = new Set();
+function toggleVote(btn, val) {
+  if (selectedVotes.has(val)) { selectedVotes.delete(val); btn.classList.remove('active'); }
+  else { selectedVotes.add(val); btn.classList.add('active'); }
+}
+
+async function submitWaitlist() {
+  const email = document.getElementById('wl-email')?.value?.trim();
+  const errBox = document.getElementById('wl-error');
+  const errTxt = document.getElementById('wl-error-text');
+  const ok     = document.getElementById('wl-success');
+
+  errBox.style.display = 'none';
+  if (!email || !email.includes('@')) {
+    errTxt.textContent = 'Email invalide.';
+    errBox.style.display = 'flex'; return;
+  }
+
+  const { error } = await sb.from('waitlist').insert({
+    email,
+    votes: Array.from(selectedVotes),
+    source: 'doctrine-app',
+    created_at: new Date().toISOString()
+  });
+
+  if (error) {
+    errTxt.textContent = error.code === '23505' ? 'Tu es déjà sur la liste !' : 'Erreur. Réessaie.';
+    errTxt.style.color = error.code === '23505' ? 'var(--socle)' : '';
+    errBox.style.display = 'flex'; return;
+  }
+
+  document.getElementById('waitlist-form-wrap').style.display = 'none';
+  ok.style.display = 'flex';
+}
+</script>
+</body>
+</html>

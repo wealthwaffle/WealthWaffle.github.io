@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Connexion — Doctrine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/doctrine-app.css">
+  
+</head>
+<body>
+
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <div class="auth-logo-text">Doctrine</div>
+      <div class="auth-logo-sub">par WealthWaffle 🧇</div>
+    </div>
+
+    <div class="auth-title">Bienvenue</div>
+    <div class="auth-sub">Connecte-toi pour accéder à ton espace Doctrine.</div>
+
+    <!-- Alert erreur -->
+    <div class="alert alert-error" id="error-msg" style="display:none;">
+      <span>⚠️</span>
+      <span id="error-text">Email ou mot de passe incorrect.</span>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="field">
+      <label class="field-label" for="email">Email</label>
+      <input class="field-input" type="email" id="email"
+        placeholder="ton@email.be"
+        autocomplete="email"
+        inputmode="email"
+        onkeydown="if(event.key==='Enter') document.getElementById('password').focus()">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="password">Mot de passe</label>
+      <input class="field-input" type="password" id="password"
+        placeholder="••••••••"
+        autocomplete="current-password"
+        onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+
+    <a href="/pages/auth/forgot-password.html" class="forgot-link">Mot de passe oublié ?</a>
+
+    <button class="btn btn-primary btn-full btn-lg" id="login-btn" onclick="doLogin()">
+      Se connecter →
+    </button>
+
+    <div class="auth-footer">
+      Pas encore de compte ?
+      <a href="/pages/auth/register.html">Rejoindre gratuitement</a>
+    </div>
+
+    <!-- Retour au site -->
+    <div style="text-align:center;margin-top:16px;">
+      <a href="https://wealthwaffle.be" style="font-size:0.74rem;color:var(--muted2);">
+        ← Retour sur WealthWaffle
+      </a>
+    </div>
+
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    // Rediriger si déjà connecté
+    document.addEventListener('DOMContentLoaded', async () => {
+      await requireGuest();
+    });
+
+    async function doLogin() {
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const btn      = document.getElementById('login-btn');
+      const errBox   = document.getElementById('error-msg');
+      const errTxt   = document.getElementById('error-text');
+
+      if (!email || !password) {
+        errTxt.textContent = 'Remplis tous les champs.';
+        errBox.style.display = 'flex';
+        return;
+      }
+
+      btn.textContent  = 'Connexion...';
+      btn.disabled     = true;
+      errBox.style.display = 'none';
+
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        btn.textContent = 'Se connecter →';
+        btn.disabled    = false;
+        errTxt.textContent = error.message === 'Invalid login credentials'
+          ? 'Email ou mot de passe incorrect.'
+          : error.message;
+        errBox.style.display = 'flex';
+        return;
+      }
+
+      // Récupérer le return URL si présent
+      const params    = new URLSearchParams(window.location.search);
+      const returnUrl = params.get('return') || '/pages/socle/index.html';
+      window.location.href = decodeURIComponent(returnUrl);
+    }
+  </script>
+</body>
+</html>

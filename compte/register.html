@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Créer un compte — Doctrine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/doctrine-app.css">
+  
+</head>
+<body>
+
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <div class="auth-logo-text">Doctrine</div>
+      <div class="auth-logo-sub">par WealthWaffle 🧇</div>
+    </div>
+
+    <!-- Ce que tu obtiens gratuitement -->
+    <div class="socle-value">
+      <strong>Socle — 100% gratuit.</strong> Audit bancaire, budget structuré, épargne de sécurité, calendrier fiscal belge. En moins de 2h de setup, moins de 5 minutes par mois ensuite.
+    </div>
+
+    <div class="alert alert-error" id="error-msg" style="display:none;">
+      <span>⚠️</span>
+      <span id="error-text">Une erreur est survenue.</span>
+    </div>
+
+    <div class="alert alert-success" id="success-msg" style="display:none;">
+      <span>✓</span>
+      <span>Compte créé ! Vérifie ta boîte mail pour confirmer ton adresse.</span>
+    </div>
+
+    <div id="form-wrap">
+      <div class="field">
+        <label class="field-label" for="name">Prénom</label>
+        <input class="field-input" type="text" id="name"
+          placeholder="Alex"
+          autocomplete="given-name"
+          onkeydown="if(event.key==='Enter') document.getElementById('email').focus()">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="email">Email</label>
+        <input class="field-input" type="email" id="email"
+          placeholder="ton@email.be"
+          autocomplete="email"
+          inputmode="email"
+          onkeydown="if(event.key==='Enter') document.getElementById('password').focus()">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="password">Mot de passe</label>
+        <input class="field-input" type="password" id="password"
+          placeholder="8 caractères minimum"
+          autocomplete="new-password"
+          onkeydown="if(event.key==='Enter') doRegister()">
+        <div class="field-error" id="pw-error">Minimum 8 caractères.</div>
+      </div>
+
+      <button class="btn btn-socle btn-full btn-lg" id="register-btn" onclick="doRegister()">
+        Créer mon compte gratuit →
+      </button>
+
+      <div class="legal-note">
+        En créant un compte, tu acceptes les
+        <a href="https://wealthwaffle.be/cgu.html">CGU</a> et la
+        <a href="https://wealthwaffle.be/privacy.html">politique de confidentialité</a>.
+        Données hébergées en Europe (Supabase EU).
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:18px;font-size:0.80rem;color:var(--muted);">
+      Déjà un compte ? <a href="/pages/auth/login.html" style="color:var(--cyan);">Se connecter</a>
+    </div>
+
+    <div style="text-align:center;margin-top:14px;">
+      <a href="https://wealthwaffle.be" style="font-size:0.74rem;color:var(--muted2);">
+        ← Retour sur WealthWaffle
+      </a>
+    </div>
+
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await requireGuest();
+    });
+
+    async function doRegister() {
+      const name     = document.getElementById('name').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const btn      = document.getElementById('register-btn');
+      const errBox   = document.getElementById('error-msg');
+      const errTxt   = document.getElementById('error-text');
+      const pwErr    = document.getElementById('pw-error');
+
+      // Validation
+      errBox.style.display = 'none';
+      pwErr.classList.remove('visible');
+
+      if (!email || !password || !name) {
+        errTxt.textContent = 'Remplis tous les champs.';
+        errBox.style.display = 'flex';
+        return;
+      }
+      if (password.length < 8) {
+        pwErr.classList.add('visible');
+        return;
+      }
+
+      btn.textContent = 'Création...';
+      btn.disabled    = true;
+
+      const { error } = await sb.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: name },
+          emailRedirectTo: `${window.DOCTRINE_CONFIG.APP_URL}/pages/auth/callback.html`,
+        }
+      });
+
+      if (error) {
+        btn.textContent = 'Créer mon compte gratuit →';
+        btn.disabled    = false;
+        errTxt.textContent = error.message === 'User already registered'
+          ? 'Cet email est déjà utilisé. Connecte-toi !'
+          : error.message;
+        errBox.style.display = 'flex';
+        return;
+      }
+
+      // Afficher le message de confirmation
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>

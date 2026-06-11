@@ -24,10 +24,38 @@
    Synchronise la session Supabase avec localStorage
    Last modified: 2026-06-10 12:33:18
    ══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════
+   INIT GLOBALE — Session + WW_PAGE_META déclaratif
+   Last modified: 2026-06-11 01:37:52
+
+   Chaque page déclare dans WW_PAGE_META :
+     section   : "invest"|"budget"|"fiscal"|"immo"|"parcours"|"crypto"|"radar"
+     auth      : true = connexion requise, false = public
+     minPlan   : null|"socle"|"pilote"|"radar"|"pilote_auto"|"radar_auto"|"admin"
+     navGroup  : groupe actif dans la nav desktop
+     blurPlan  : plan requis pour les sections .blur-gate-auto (peut différer de minPlan)
+
+   Le bundle lit ces déclarations et :
+     1. Gère la session Supabase (onAuthStateChange)
+     2. Applique le guard auth/plan
+     3. Injecte les blur-gates automatiques
+     4. Active le bon groupe nav
+     5. Applique la couleur de section
+   ══════════════════════════════════════════════════════════════ */
+
+/* Rang des plans pour comparaison */
+var WW_PLAN_RANK = {
+  socle:       1,
+  pilote:      2,
+  radar:       3,
+  pilote_auto: 4,
+  radar_auto:  5,
+  admin:       5,
+};
+
 (function initGlobalSession() {
-  // Attendre que WW_CONFIG et supabase soient disponibles
   function tryInit(attempt) {
-    if (attempt > 20) return; // max 2s
+    if (attempt > 30) { console.warn('WW: Supabase non disponible'); return; }
     if (!window.WW_CONFIG?.SUPABASE_ANON_KEY || !window.supabase?.createClient) {
       setTimeout(function() { tryInit(attempt + 1); }, 100);
       return;
@@ -40,50 +68,183 @@
     window.WW = window.WW || {};
     window.WW.sb = sb;
 
-    // Écouter les changements d'état auth en temps réel
+    /* ── Écouter les changements d'état auth ── */
     sb.auth.onAuthStateChange(function(event, session) {
       if (session) {
         localStorage.setItem('ww_session', session.access_token);
-        localStorage.setItem('ww_plan', 'socle'); // sera mis à jour depuis profiles
         window.WW.user = session.user;
-        // Charger le profil
-        sb.from('profiles').select('*').eq('id', session.user.id).single()
+        /* Charger le profil et propager */
+        sb.from('profiles')
+          .select('plan,level,prenom,nom,region,statut_pro,scf_score,xp_total,streak_days,level_name,code_alias,deleted_at')
+          .eq('id', session.user.id)
+          .single()
           .then(function(res) {
-            if (res.data) {
-              window.WW.profile = res.data;
-              localStorage.setItem('ww_plan', res.data.plan || 'socle');
-              localStorage.setItem('ww_level', res.data.level || 'debutant');
-              // Déclencher l'event pour les composants qui attendent
-              window.dispatchEvent(new CustomEvent('ww:user-ready', { detail: { user: session.user, profile: res.data } }));
-              // Mettre à jour la nav
-              if (typeof updateAuthNav === 'function') updateAuthNav();
-            }
+            if (!res.data) return;
+            var p = res.data;
+            window.WW.profile = p;
+            localStorage.setItem('ww_plan',   p.plan   || 'socle');
+            localStorage.setItem('ww_level',  p.level  || 'debutant');
+            localStorage.setItem('ww_prenom', p.prenom || '');
+            /* Compte en cours de suppression → afficher bannière */
+            if (p.deleted_at) wwShowDeletionBanner(p.deleted_at);
+            window.dispatchEvent(new CustomEvent('ww:user-ready', { detail: { user: session.user, profile: p } }));
+            if (typeof updateAuthNav === 'function') updateAuthNav();
+            /* Appliquer les guards après avoir le profil */
+            wwApplyPageMeta(p.plan || 'socle');
           });
       } else {
-        // Déconnecté
-        localStorage.removeItem('ww_session');
-        localStorage.removeItem('ww_plan');
+        ['ww_session','ww_plan','ww_level','ww_prenom'].forEach(function(k) { localStorage.removeItem(k); });
         window.WW.user    = null;
         window.WW.profile = null;
         if (typeof updateAuthNav === 'function') updateAuthNav();
+        wwApplyPageMeta(null); /* null = non connecté */
       }
     });
 
-    // Vérifier la session existante au chargement
+    /* Vérifier session existante au chargement */
     sb.auth.getSession().then(function(res) {
       if (res.data?.session) {
         localStorage.setItem('ww_session', res.data.session.access_token);
+      } else {
+        /* Pas de session → appliquer les guards immédiatement */
+        wwApplyPageMeta(null);
+        if (typeof updateAuthNav === 'function') updateAuthNav();
       }
     });
   }
 
-  // Démarrer dès que possible
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { tryInit(0); });
   } else {
     tryInit(0);
   }
 })();
+
+/* ══════════════════════════════════════════════════════════════
+   WW_PAGE_META — Moteur déclaratif
+   ══════════════════════════════════════════════════════════════ */
+
+function wwApplyPageMeta(currentPlan) {
+  var meta = window.WW_PAGE_META || {};
+  var path = location.pathname;
+
+  /* ── 1. Guard auth ── */
+  if (meta.auth && !localStorage.getItem('ww_session')) {
+    /* Pages exclues du guard (éviter boucle) */
+    var noGuard = ['/compte/connexion','/compte/inscription','/compte/callback','/compte/mot-de-passe'];
+    if (!noGuard.some(function(p) { return path.startsWith(p); })) {
+      window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(path);
+      return;
+    }
+  }
+
+  /* ── 2. Guard minPlan ── */
+  if (meta.minPlan && currentPlan) {
+    var userRank = WW_PLAN_RANK[currentPlan] || 0;
+    var needRank = WW_PLAN_RANK[meta.minPlan]  || 1;
+    if (userRank < needRank) {
+      /* Rediriger vers page d'upgrade */
+      window.location.href = '/compte/abonnement.html?plan=' + meta.minPlan;
+      return;
+    }
+  }
+
+  /* ── 3. Blur-gates automatiques (.blur-gate-auto[data-plan]) ── */
+  document.querySelectorAll('.blur-gate-auto').forEach(function(gate) {
+    var reqPlan  = gate.dataset.plan  || 'pilote';
+    var reqRank  = WW_PLAN_RANK[reqPlan] || 2;
+    var userRank = WW_PLAN_RANK[currentPlan] || 0;
+    if (userRank < reqRank) {
+      gate.classList.add('blur-gate-locked');
+      /* Injecter l'overlay CTA si pas déjà fait */
+      if (!gate.querySelector('.blur-gate-overlay')) {
+        wwInjectBlurOverlay(gate, reqPlan, currentPlan);
+      }
+    } else {
+      gate.classList.remove('blur-gate-locked');
+      var overlay = gate.querySelector('.blur-gate-overlay');
+      if (overlay) overlay.remove();
+    }
+  });
+
+  /* ── 4. Couleur de section ── */
+  if (meta.section) {
+    /* Variable CSS dynamique */
+    document.documentElement.style.setProperty(
+      '--color-section',
+      'var(--color-' + meta.section + ', var(--rose))'
+    );
+    /* Attribut data-section sur <body> → permet au CSS pur de cibler la section */
+    document.body.setAttribute('data-section', meta.section);
+    /* Colorier dynamiquement les eyebrows sans classe */
+    document.querySelectorAll('.eyebrow:not([class*="eyebrow-"])').forEach(function(el) {
+      el.style.color = 'var(--color-' + meta.section + ')';
+    });
+  }
+
+  /* ── 5. Nav groupe actif ── */
+  if (meta.navGroup) {
+    document.querySelectorAll('#ww-nav [data-nav-group]').forEach(function(el) {
+      el.classList.toggle('ww-nav-active', el.dataset.navGroup === meta.navGroup);
+    });
+  }
+}
+
+/* ── Injecter l'overlay d'un blur-gate automatique ── */
+function wwInjectBlurOverlay(gate, reqPlan, currentPlan) {
+  var planLabels = {
+    socle:       'Socle — Gratuit',
+    pilote:      'Pilote',
+    radar:       'Radar',
+    pilote_auto: 'Pilote Automatique',
+    radar_auto:  'Radar Automatique',
+  };
+  var planColors = {
+    socle: 'green', pilote: 'rose', radar: 'cyan',
+    pilote_auto: 'rose', radar_auto: 'cyan',
+  };
+
+  var isLoggedIn  = !!localStorage.getItem('ww_session');
+  var planLabel   = planLabels[reqPlan] || reqPlan;
+  var btnClass    = 'btn-unlock btn-unlock-' + (planColors[reqPlan] || 'pilote');
+  var btnHref     = isLoggedIn
+    ? '/compte/abonnement.html?plan=' + reqPlan
+    : '/compte/inscription.html';
+  var btnText     = isLoggedIn
+    ? 'Passer à ' + planLabel + ' →'
+    : 'Créer un compte gratuit →';
+  var subText     = isLoggedIn
+    ? 'Cette section est réservée aux membres ' + planLabel + '.'
+    : 'Crée un compte pour accéder à cette section.';
+
+  var overlay = document.createElement('div');
+  overlay.className = 'blur-gate-overlay';
+  overlay.innerHTML =
+    '<div class="blur-gate-label">🔒 Contenu réservé</div>' +
+    '<div class="blur-gate-title">Lire la suite</div>' +
+    '<div class="blur-gate-sub">' + subText + '</div>' +
+    '<a href="' + btnHref + '" class="' + btnClass + '">' + btnText + '</a>' +
+    '<div class="blur-gate-note">7 jours gratuits · Sans engagement</div>';
+  gate.appendChild(overlay);
+}
+
+/* ── Bannière compte en cours de suppression ── */
+function wwShowDeletionBanner(deletedAt) {
+  var d     = new Date(deletedAt);
+  var purge = new Date(d.getTime() + 30 * 24 * 60 * 60 * 1000);
+  var days  = Math.ceil((purge - Date.now()) / (1000 * 60 * 60 * 24));
+  if (days <= 0) return;
+  var banner = document.createElement('div');
+  banner.className = 'ww-email-banner';
+  banner.style.background = 'rgba(224,80,80,0.08)';
+  banner.style.borderColor = 'rgba(224,80,80,0.25)';
+  banner.innerHTML =
+    '<span class="ww-email-banner-text">⚠️ Ton compte sera supprimé dans <strong>' + days + ' jours</strong>. ' +
+    '<a href="/compte/profil.html" style="color:var(--rose)">Annuler la suppression →</a></span>';
+  var page = document.querySelector('.page') || document.body;
+  page.insertBefore(banner, page.firstChild);
+}
+;
 
 
 /* ── Détection file:// ── */
@@ -960,11 +1121,11 @@ const qTree = [
 ];
 
 const qResults = {
-  'debutant-jeune-securite':    { page:'budget.html',  color:'#7EC8A0', label:'Budget & Épargne',   title:'Commence par les bases',         desc:'Fonds d\'urgence d\'abord, règle 50/30/20, puis on construit.' },
+  'debutant-jeune-securite':    { page:'budget.html',  color:'#4CAF8A', label:'Budget & Épargne',   title:'Commence par les bases',         desc:'Fonds d\'urgence d\'abord, règle 50/30/20, puis on construit.' },
   'debutant-jeune-croissance':  { page:'invest.html',  color:'#5BB8D4', label:'Investir',            title:'Le temps joue pour toi',          desc:'Les intérêts composés sur 40 ans, c\'est magique. Commence maintenant.' },
   'debutant-jeune-immo':        { page:'immo.html',    color:'#C4724A', label:'Immobilier',          title:'L\'immo avant 30 ans',            desc:'Droits d\'enregistrement, financement, acheter vs louer — tout est là.' },
-  'debutant-jeune-alternatif':  { page:'crypto.html',  color:'#E8C23A', label:'Crypto',             title:'Commence petit, prudent',          desc:'DCA, sécurité, fiscalité belge — les bases avant de plonger.' },
-  'debutant-milieu-securite':   { page:'budget.html',  color:'#7EC8A0', label:'Budget & Épargne',   title:'Reprends le contrôle',             desc:'Automatisation, fonds d\'urgence, optimisation — il n\'est jamais trop tard.' },
+  'debutant-jeune-alternatif':  { page:'crypto.html',  color:'#F7931A', label:'Crypto',             title:'Commence petit, prudent',          desc:'DCA, sécurité, fiscalité belge — les bases avant de plonger.' },
+  'debutant-milieu-securite':   { page:'budget.html',  color:'#4CAF8A', label:'Budget & Épargne',   title:'Reprends le contrôle',             desc:'Automatisation, fonds d\'urgence, optimisation — il n\'est jamais trop tard.' },
   'debutant-milieu-croissance': { page:'invest.html',  color:'#5BB8D4', label:'Investir',            title:'Investir à 35+',                  desc:'20 ans d\'intérêts composés restent puissants. Le moment d\'agir, c\'est maintenant.' },
   'epargnant-jeune-croissance': { page:'invest.html',  color:'#5BB8D4', label:'Investir',            title:'ETF & DCA — ton prochain pas',    desc:'Tu as le fonds d\'urgence ? Parfait. Voici comment passer à la vitesse supérieure.' },
   'epargnant-milieu-immo':      { page:'immo.html',    color:'#C4724A', label:'Immobilier',          title:'L\'investissement locatif',       desc:'Rendement, fiscalité des loyers, SIR — tout pour décider en connaissance de cause.' },
@@ -996,7 +1157,7 @@ function qAnswer(value) {
   } else {
     wrap.querySelectorAll('.q-step').forEach(s => s.classList.remove('active'));
     const key    = `${qAnswers.situation}-${qAnswers.age}-${qAnswers.priority}`;
-    const result = qResults[key] || { page:'budget.html', color:'#7EC8A0', label:'Budget & Épargne', title:'Commence par les bases', desc:'La meilleure fondation, quel que soit ton profil.' };
+    const result = qResults[key] || { page:'budget.html', color:'#4CAF8A', label:'Budget & Épargne', title:'Commence par les bases', desc:'La meilleure fondation, quel que soit ton profil.' };
     const el = wrap.querySelector('.q-result');
     if (el) {
       el.querySelector('.q-result-tag').textContent = result.label;
@@ -1066,7 +1227,7 @@ function qAnswer(value) {
 'use strict';
 
 const LEVELS = [
-  { key: 'debutant', label: '🌱 Débutant', color: '#7EC8A0' },
+  { key: 'debutant', label: '🌱 Débutant', color: '#4CAF8A' },
   { key: 'avance',   label: '🚀 Avancé',   color: '#c9b8ff' },
 ];
 
@@ -1690,7 +1851,7 @@ window.submitErrorReport = async function() {
     }
     if (result) {
       result.style.display = 'block';
-      result.style.cssText = 'display:block;background:rgba(126,200,160,0.08);border:1px solid rgba(126,200,160,0.25);border-radius:9px;padding:10px 14px;font-size:0.78rem;color:#7EC8A0;text-align:center;';
+      result.style.cssText = 'display:block;background:rgba(76,175,138,0.08);border:1px solid rgba(76,175,138,0.25);border-radius:9px;padding:10px 14px;font-size:0.78rem;color:#4CAF8A;text-align:center;';
       result.textContent = '✅ Signalement envoyé — merci ! On vérifie ça rapidement.';
     }
     btn.style.display = 'none';
@@ -1938,7 +2099,7 @@ function initHubComponents() {
     // Couleurs accent par thème
     const THEME_COLORS = {
       parcours:  'rgba(91,184,212,0.30)',   // cyan
-      budget:    'rgba(126,200,160,0.30)',   // vert
+      budget:    'rgba(76,175,138,0.30)',   // vert
       invest:    'rgba(46,204,113,0.30)',    // emerald
       immo:      'rgba(231,111,81,0.30)',    // sunset red
       fiscal:    'rgba(108,52,131,0.30)',    // purple
@@ -2752,15 +2913,15 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
         <div style="${LABEL}">1. Tu es…</div>
         <div style="display:flex;gap:6px;">
           <button style="${BTN}flex:1;" data-ob-group="profile" data-ob-val="particulier"
-            onclick="selectOnboardingVal('profile','particulier','#7EC8A0')">
+            onclick="selectOnboardingVal('profile','particulier','#4CAF8A')">
             🙋<span style="font-size:0.70rem;">Salarié</span>
           </button>
           <button style="${BTN}flex:1;" data-ob-group="profile" data-ob-val="independant"
-            onclick="selectOnboardingVal('profile','independant','#7EC8A0')">
+            onclick="selectOnboardingVal('profile','independant','#4CAF8A')">
             🧑‍💻<span style="font-size:0.70rem;">Indépendant</span>
           </button>
           <button style="${BTN}flex:1;" data-ob-group="profile" data-ob-val="dirigeant"
-            onclick="selectOnboardingVal('profile','dirigeant','#7EC8A0')">
+            onclick="selectOnboardingVal('profile','dirigeant','#4CAF8A')">
             🏢<span style="font-size:0.70rem;">Dirigeant</span>
           </button>
         </div>
@@ -2798,11 +2959,11 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
         <div style="${LABEL}">3. Ton niveau ?</div>
         <div style="display:flex;gap:6px;">
           <button style="${BTN}flex:1;" data-ob-group="level" data-ob-val="debutant"
-            onclick="selectOnboardingVal('level','debutant','#7EC8A0')">
+            onclick="selectOnboardingVal('level','debutant','#4CAF8A')">
             🌱<span style="font-size:0.70rem;">Je commence</span>
           </button>
           <button style="${BTN}flex:1;" data-ob-group="level" data-ob-val="avance"
-            onclick="selectOnboardingVal('level','avance','#7EC8A0')">
+            onclick="selectOnboardingVal('level','avance','#4CAF8A')">
             🚀<span style="font-size:0.70rem;">J'ai des bases</span>
           </button>
         </div>
@@ -3028,7 +3189,7 @@ window.CONCEPTS_2026_DATA = [{"semaine": 1, "titre": "Plafonds fiscaux 2026 — 
     } catch(e) {}
     localStorage.setItem('ww_nudge_done', '1');
     const bar = document.getElementById('ww-nudge-bar');
-    if (bar) bar.innerHTML = '<div style="text-align:center;padding:8px;font-size:0.80rem;color:#7EC8A0;font-weight:600;">✅ C\'est envoyé ! Vérifie ta boîte mail.</div>';
+    if (bar) bar.innerHTML = '<div style="text-align:center;padding:8px;font-size:0.80rem;color:#4CAF8A;font-weight:600;">✅ C\'est envoyé ! Vérifie ta boîte mail.</div>';
     setTimeout(closeNudge, 3000);
   };
 
@@ -3052,7 +3213,7 @@ window.setLevelNav = function(level) {
   const adv = document.getElementById('nav-lvl-adv');
   const mdeb = document.getElementById('mob-lvl-deb');
   const madv = document.getElementById('mob-lvl-adv');
-  const activeStyle  = 'border-color:rgba(126,200,160,0.45);background:rgba(126,200,160,0.10);color:#7EC8A0;';
+  const activeStyle  = 'border-color:rgba(76,175,138,0.45);background:rgba(76,175,138,0.10);color:#4CAF8A;';
   const inactiveStyle = 'border:1px solid var(--border);background:var(--s3);color:var(--muted);';
   if (level === 'debutant') {
     [deb, mdeb].forEach(b => b && (b.style.cssText += activeStyle));
@@ -3097,8 +3258,8 @@ document.addEventListener('DOMContentLoaded', function() {
       texte: 'Crée ton compte gratuit pour accéder aux outils et sauvegarder ta progression.',
       btn_label: 'Créer mon compte gratuitement →',
       btn_url: '/compte/inscription.html',
-      color: 'rgba(126,200,160,0.15)',
-      border: 'rgba(126,200,160,0.30)',
+      color: 'rgba(76,175,138,0.15)',
+      border: 'rgba(76,175,138,0.30)',
     },
     pilote: {
       emoji: '✈️',
@@ -3263,7 +3424,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <div style="display:flex;flex-direction:column;gap:6px;">
         <button onclick="document.getElementById('ww-context-modal').remove();sessionStorage.setItem('ww_context_ok','1');"
-          style="padding:10px;border-radius:10px;border:1px solid rgba(126,200,160,0.30);background:rgba(126,200,160,0.08);color:#7EC8A0;font-family:'DM Sans',sans-serif;font-size:0.80rem;font-weight:700;cursor:pointer;transition:all 0.18s;">
+          style="padding:10px;border-radius:10px;border:1px solid rgba(76,175,138,0.30);background:rgba(76,175,138,0.08);color:#4CAF8A;font-family:'DM Sans',sans-serif;font-size:0.80rem;font-weight:700;cursor:pointer;transition:all 0.18s;">
           ✅ Oui, je suis au bon endroit
         </button>
         <button onclick="document.getElementById('ww-context-modal').remove();setTimeout(()=>{ if(typeof window.WW_buildOnboarding==='function') window.WW_buildOnboarding(); },100);"
@@ -4330,13 +4491,16 @@ window.WW_SkillTree = (function() {
   ];
 
   /* Couleurs par thème */
+  /* COL2 — Couleurs arbre de compétences — Last modified: 2026-06-11 10:33:04 */
   var THEME_COLORS = {
-    root:     '#E87CC3',
-    budget:   '#7EC8A0',
-    invest:   '#5BB8D4',
-    fiscal:   '#c9b8ff',
-    immo:     '#C4724A',
-    parcours: '#E8C23A',
+    root:     '#E87CC3',  /* Rose WW */
+    budget:   '#4CAF8A',  /* Vert menthe */
+    invest:   '#2ECC71',  /* Vert émeraude */
+    fiscal:   '#5D7A9E',  /* Bleu ardoise */
+    immo:     '#C4724A',  /* Terracotta */
+    crypto:   '#F7931A',  /* Orange Bitcoin */
+    parcours: '#6C63FF',  /* Indigo */
+    radar:    '#5BB8D4',  /* Cyan */
   };
 
   /* ── Rendu Canvas ── */
@@ -4714,4 +4878,459 @@ window.doSignOut  = doSignOut;
   window.ww_trackNav = trackNavClick;
 
 })();
+
+/* ══════════════════════════════════════════════════════════════
+   HELPERS GLOBAUX — disponibles sur toutes les pages
+   Remplacent le code dupliqué dans chaque script inline
+   Last modified: 2026-06-11 10:25:04
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── getSession() global ── */
+window.wwGetSession = async function() {
+  var retries = 0;
+  while (!window.WW?.sb && retries < 30) {
+    await new Promise(function(r) { setTimeout(r, 100); });
+    retries++;
+  }
+  if (!window.WW?.sb) return null;
+  var res = await window.WW.sb.auth.getSession();
+  if (!res.data?.session) return null;
+  var session = res.data.session;
+  var profile_res = await window.WW.sb.from('profiles').select('*').eq('id', session.user.id).single();
+  window.WW.user    = session.user;
+  window.WW.profile = profile_res.data;
+  if (profile_res.data) {
+    localStorage.setItem('ww_plan',   profile_res.data.plan   || 'socle');
+    localStorage.setItem('ww_level',  profile_res.data.level  || 'debutant');
+    localStorage.setItem('ww_prenom', profile_res.data.prenom || '');
+  }
+  return { user: session.user, profile: profile_res.data };
+};
+
+/* ── savePref() global ── */
+window.wwSavePref = async function(key, value) {
+  if (!window.WW?.sb || !window.WW?.user?.id) {
+    localStorage.setItem('ww_' + key, value);
+    return;
+  }
+  var update = {};
+  update[key] = value;
+  await window.WW.sb.from('profiles').update(update).eq('id', window.WW.user.id);
+  localStorage.setItem('ww_' + key, value);
+};
+
+/* Alias courts pour rétrocompatibilité des pages existantes */
+window.getSession  = window.wwGetSession;
+window.savePref    = window.wwSavePref;
+window.signOut     = window.doSignOut;
+
+/* ══════════════════════════════════════════════════════════════
+   MOTEUR GAMIFICATION — Quiz · Badges · Cliffhangers · Partage
+   Chargé automatiquement sur les pages de contenu
+   Last modified: 2026-06-11 11:31:37
+   ══════════════════════════════════════════════════════════════ */
+
+(function initGamification() {
+  /* Pages où la gamification est active */
+  var CONTENT_PATHS = ['/invest/','/budget/','/fiscal/','/immo/','/parcours/','/outils/','/contenu/'];
+  var path = location.pathname;
+  var isContent = CONTENT_PATHS.some(function(p) { return path.startsWith(p); });
+  if (!isContent) return;
+
+  /* Charger gamification.js dynamiquement (une seule fois) */
+  function loadGamificationData(cb) {
+    if (window.WW_GAM) { cb(); return; }
+    var s = document.createElement('script');
+    s.src = '/assets/gamification.js';
+    s.onload = cb;
+    s.onerror = function() { console.warn('WW: gamification.js non trouvé'); };
+    document.head.appendChild(s);
+  }
+
+  window.addEventListener('load', function() {
+    loadGamificationData(function() {
+      wwInitQuiz();
+      wwInjectCliffhanger();
+      wwCheckBadgesOnLoad();
+    });
+  });
+})();
+
+/* ── Moteur Events localStorage ── */
+function wwLogEvent(type, data) {
+  try {
+    var events = JSON.parse(localStorage.getItem('ww_gam_events') || '[]');
+    events.push({ type: type, ts: Date.now(), data: data || {} });
+    // Garder max 500 events
+    if (events.length > 500) events = events.slice(-500);
+    localStorage.setItem('ww_gam_events', JSON.stringify(events));
+    wwCheckBadgesOnEvent(type, data);
+  } catch(e) {}
+}
+
+function wwGetEvents(type) {
+  try {
+    var events = JSON.parse(localStorage.getItem('ww_gam_events') || '[]');
+    return type ? events.filter(function(e) { return e.type === type; }) : events;
+  } catch(e) { return []; }
+}
+
+/* ── Vérification des badges ── */
+function wwCheckBadgesOnLoad() {
+  var profile = window.WW?.profile;
+  var unlockedLocal = JSON.parse(localStorage.getItem('ww_badges_local') || '[]');
+  var unlockedServer = profile?.badges || [];
+  var alreadyUnlocked = new Set([...unlockedLocal, ...unlockedServer]);
+
+  if (!window.WW_GAM?.badges) return;
+  Object.entries(window.WW_GAM.badges).forEach(function(entry) {
+    var id = entry[0], badge = entry[1];
+    if (alreadyUnlocked.has(id)) return;
+    if (wwEvalCondition(badge.condition)) {
+      wwUnlockBadge(id, badge);
+    }
+  });
+}
+
+function wwCheckBadgesOnEvent(type, data) {
+  if (!window.WW_GAM?.badges) return;
+  var profile = window.WW?.profile;
+  var unlockedLocal = JSON.parse(localStorage.getItem('ww_badges_local') || '[]');
+  var unlockedServer = profile?.badges || [];
+  var alreadyUnlocked = new Set([...unlockedLocal, ...unlockedServer]);
+
+  Object.entries(window.WW_GAM.badges).forEach(function(entry) {
+    var id = entry[0], badge = entry[1];
+    if (alreadyUnlocked.has(id)) return;
+    if (wwEvalCondition(badge.condition)) {
+      wwUnlockBadge(id, badge);
+    }
+  });
+}
+
+function wwEvalCondition(cond) {
+  if (!cond) return false;
+  var events = wwGetEvents();
+  switch(cond.type) {
+    case 'page_read_count':
+      return wwGetEvents('page_read').length >= cond.min;
+    case 'page_read_tagged':
+      var tags = window.WW_GAM?.page_tags || {};
+      return wwGetEvents('page_read').some(function(e) {
+        return (tags[e.data?.slug] || []).includes(cond.tag);
+      });
+    case 'action_hour': {
+      var h = new Date().getHours();
+      return h >= cond.min && h < (cond.max || 24);
+    }
+    case 'source_clicked_count':
+      return wwGetEvents('source_clicked').length >= cond.min;
+    case 'streak_days':
+      return (window.WW?.profile?.streak_days || 0) >= cond.min;
+    case 'quiz_passed_tagged': {
+      var qtags = window.WW_GAM?.page_tags || {};
+      return wwGetEvents('quiz_passed').some(function(e) {
+        return (qtags[e.data?.slug] || []).includes(cond.tag);
+      });
+    }
+    case 'grimoire_saved':
+      return wwGetEvents('grimoire_saved').length >= 1;
+    case 'tools_used_count': {
+      var tools = new Set(wwGetEvents('tool_used').map(function(e) { return e.data?.tool; }));
+      return tools.size >= cond.min;
+    }
+    case 'sections_visited': {
+      var sectionEvents = wwGetEvents('page_read');
+      var sections = new Set(sectionEvents.map(function(e) {
+        return (e.data?.slug || '').split('/')[1];
+      }));
+      return sections.size >= cond.min;
+    }
+    case 'tooltip_burst': {
+      var recentTooltips = wwGetEvents('tooltip_opened').filter(function(e) {
+        return Date.now() - e.ts < (cond.window_ms || 120000);
+      });
+      return recentTooltips.length >= cond.count;
+    }
+    case 'voted_minority':
+      return wwGetEvents('voted_minority').length >= 1;
+    default: return false;
+  }
+}
+
+/* ── Déblocage badge — animation spectaculaire ── */
+function wwUnlockBadge(id, badge) {
+  /* Sauvegarder */
+  var unlockedLocal = JSON.parse(localStorage.getItem('ww_badges_local') || '[]');
+  if (!unlockedLocal.includes(id)) {
+    unlockedLocal.push(id);
+    localStorage.setItem('ww_badges_local', JSON.stringify(unlockedLocal));
+  }
+  wwLogEvent('badge_unlocked', { badge_id: id });
+
+  /* Sauvegarder en Supabase si connecté */
+  if (window.WW?.sb && window.WW?.user?.id) {
+    var profile = window.WW.profile || {};
+    var badges = Array.isArray(profile.badges) ? profile.badges : [];
+    if (!badges.includes(id)) {
+      badges.push(id);
+      window.WW.sb.from('profiles').update({ badges: badges }).eq('id', window.WW.user.id);
+    }
+  }
+
+  /* Animation modale spectaculaire */
+  wwShowBadgeModal(id, badge);
+
+  /* Nudge si non connecté */
+  if (!localStorage.getItem('ww_session')) {
+    setTimeout(function() { wwShowBadgeNudge(badge); }, 4500);
+  }
+}
+
+function wwShowBadgeModal(id, badge) {
+  /* Supprimer un éventuel modal existant */
+  var existing = document.getElementById('ww-badge-modal');
+  if (existing) existing.remove();
+
+  var modal = document.createElement('div');
+  modal.id = 'ww-badge-modal';
+  modal.className = 'ww-badge-modal';
+  modal.innerHTML =
+    '<div class="ww-badge-modal-inner">' +
+      '<div class="ww-badge-particles" id="ww-badge-particles"></div>' +
+      '<div class="ww-badge-icon-wrap">' +
+        '<span class="ww-badge-icon">' + badge.icon + '</span>' +
+      '</div>' +
+      '<div class="ww-badge-unlocked-label">Badge débloqué !</div>' +
+      '<div class="ww-badge-name">' + badge.label + '</div>' +
+      '<div class="ww-badge-desc">' + badge.desc + '</div>' +
+      '<button class="ww-badge-close" id="ww-badge-close-btn">Super !</button>' +
+    '</div>';
+
+  document.body.appendChild(modal);
+
+  /* Lancer les particules */
+  wwSpawnParticles(badge.color || '#E87CC3');
+
+  /* Entrée animée */
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      modal.classList.add('ww-badge-modal-visible');
+    });
+  });
+
+  /* Auto-fermeture 4.5s */
+  var timer = setTimeout(function() { closeBadgeModal(modal); }, 4500);
+
+  document.getElementById('ww-badge-close-btn').addEventListener('click', function() {
+    clearTimeout(timer);
+    closeBadgeModal(modal);
+  });
+
+  function closeBadgeModal(m) {
+    m.classList.remove('ww-badge-modal-visible');
+    setTimeout(function() { m.remove(); }, 400);
+  }
+}
+
+function wwSpawnParticles(color) {
+  var container = document.getElementById('ww-badge-particles');
+  if (!container) return;
+  for (var i = 0; i < 24; i++) {
+    (function(i) {
+      var p = document.createElement('div');
+      p.className = 'ww-badge-particle';
+      p.style.cssText = [
+        'left:'   + (20 + Math.random() * 60) + '%',
+        'animation-delay:' + (Math.random() * 0.6) + 's',
+        'animation-duration:' + (0.8 + Math.random() * 0.8) + 's',
+        'background:' + (Math.random() > 0.5 ? color : '#fff'),
+        'width:'  + (4 + Math.random() * 6) + 'px',
+        'height:' + (4 + Math.random() * 6) + 'px',
+        'border-radius:' + (Math.random() > 0.5 ? '50%' : '2px'),
+      ].join(';');
+      container.appendChild(p);
+    })(i);
+  }
+}
+
+function wwShowBadgeNudge(badge) {
+  var nudge = document.createElement('div');
+  nudge.className = 'ww-badge-nudge';
+  nudge.innerHTML =
+    '🔒 Ton badge <strong>' + badge.label + '</strong> est sauvegardé localement. ' +
+    '<a href="/compte/inscription.html" class="ww-badge-nudge-link">Crée un compte gratuit</a> pour le conserver.';
+  document.body.appendChild(nudge);
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { nudge.classList.add('visible'); });
+  });
+  setTimeout(function() {
+    nudge.classList.remove('visible');
+    setTimeout(function() { nudge.remove(); }, 400);
+  }, 6000);
+}
+
+/* ── Quiz ── */
+function wwInitQuiz() {
+  var quizzes = window.WW_GAM?.quizzes || {};
+  var pageQuiz = quizzes[location.pathname];
+  if (!pageQuiz) return;
+
+  var level = localStorage.getItem('ww_level') || 'debutant';
+  var quiz  = pageQuiz[level] || pageQuiz.debutant;
+  if (!quiz) return;
+
+  if (quiz.trigger === 'scroll_60') {
+    var triggered = false;
+    window.addEventListener('scroll', function onScroll() {
+      var pct = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+      if (pct > 0.60 && !triggered) {
+        triggered = true;
+        window.removeEventListener('scroll', onScroll);
+        setTimeout(function() { wwInjectQuiz(quiz); }, 800);
+      }
+    }, { passive: true });
+  } else if (quiz.trigger === 'button') {
+    /* Injecter un bouton opt-in avant le see-also */
+    var seeAlso = document.querySelector('.see-also');
+    if (!seeAlso) return;
+    var btn = document.createElement('button');
+    btn.className = 'ww-quiz-trigger-btn';
+    btn.textContent = '🧮 Tester mes connaissances';
+    btn.addEventListener('click', function() {
+      btn.remove();
+      wwInjectQuiz(quiz);
+    });
+    seeAlso.parentNode.insertBefore(btn, seeAlso);
+  }
+}
+
+function wwInjectQuiz(quiz) {
+  var page = document.querySelector('.page');
+  if (!page) return;
+  var seeAlso = document.querySelector('.see-also');
+
+  var wrap = document.createElement('div');
+  wrap.className = 'ww-quiz-wrap reveal';
+
+  if (quiz.type === 'numeric') {
+    wrap.innerHTML =
+      '<div class="ww-quiz-label">🧮 Cas pratique</div>' +
+      '<div class="ww-quiz-question">' + quiz.question + '</div>' +
+      '<div class="ww-quiz-numeric-wrap">' +
+        '<input type="number" id="ww-quiz-input" class="ww-quiz-input" placeholder="Ta réponse...">' +
+        '<span class="ww-quiz-unit">' + (quiz.unit || '') + '</span>' +
+      '</div>' +
+      '<button class="ww-quiz-submit" id="ww-quiz-submit">Valider →</button>' +
+      '<div class="ww-quiz-feedback hidden" id="ww-quiz-feedback"></div>';
+  } else {
+    var choicesHtml = quiz.choices.map(function(c, i) {
+      return '<button class="ww-quiz-choice" data-idx="' + i + '">' + c + '</button>';
+    }).join('');
+    wrap.innerHTML =
+      '<div class="ww-quiz-label">💡 Question rapide</div>' +
+      '<div class="ww-quiz-question">' + quiz.question + '</div>' +
+      '<div class="ww-quiz-choices">' + choicesHtml + '</div>' +
+      '<div class="ww-quiz-feedback hidden" id="ww-quiz-feedback"></div>';
+  }
+
+  if (seeAlso) page.insertBefore(wrap, seeAlso);
+  else page.appendChild(wrap);
+
+  /* Listeners */
+  if (quiz.type === 'numeric') {
+    document.getElementById('ww-quiz-submit').addEventListener('click', function() {
+      var val = parseFloat(document.getElementById('ww-quiz-input').value);
+      var correct = Math.abs(val - quiz.correct) <= (quiz.tolerance || 0);
+      wwShowQuizFeedback(correct, quiz, wrap);
+    });
+  } else {
+    wrap.querySelectorAll('.ww-quiz-choice').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var idx = parseInt(btn.dataset.idx);
+        wrap.querySelectorAll('.ww-quiz-choice').forEach(function(b) { b.disabled = true; });
+        var correct = idx === quiz.correct;
+        btn.classList.add(correct ? 'ww-quiz-choice-correct' : 'ww-quiz-choice-wrong');
+        if (!correct) {
+          wrap.querySelectorAll('.ww-quiz-choice')[quiz.correct]
+            .classList.add('ww-quiz-choice-correct');
+        }
+        wwShowQuizFeedback(correct, quiz, wrap);
+      });
+    });
+  }
+}
+
+function wwShowQuizFeedback(correct, quiz, wrap) {
+  var fb = document.getElementById('ww-quiz-feedback');
+  if (!fb) return;
+  fb.classList.remove('hidden');
+
+  if (correct) {
+    fb.className = 'ww-quiz-feedback ww-quiz-feedback-ok';
+    fb.innerHTML = '✅ <strong>Bien joué !</strong> +' + quiz.xp + ' XP';
+    wwLogEvent('quiz_passed', { slug: location.pathname, quiz_id: location.pathname });
+    wwCheckBadgesOnEvent('quiz_passed', { slug: location.pathname });
+    window.ww_showXPGain && window.ww_showXPGain(quiz.xp, '+' + quiz.xp + ' XP · Quiz réussi', '');
+  } else {
+    fb.className = 'ww-quiz-feedback ww-quiz-feedback-err';
+    var explain = quiz.explain_wrong || quiz.explain || '';
+    var anchor  = quiz.anchor_if_wrong || '';
+    var toolLink = quiz.tool_link ? '<a href="' + quiz.tool_link + '" class="ww-quiz-tool-link">→ Voir le simulateur</a>' : '';
+    fb.innerHTML =
+      '<strong>Pas tout à fait.</strong> ' + explain +
+      (anchor ? ' <a href="' + anchor + '" class="ww-quiz-anchor-link">Relire le passage →</a>' : '') +
+      (quiz.type === 'numeric' ? '<br><span class="ww-quiz-answer">Réponse : ' + quiz.correct + ' ' + (quiz.unit||'') + '</span>' + toolLink : '');
+    wwLogEvent('quiz_failed', { slug: location.pathname });
+  }
+}
+
+/* ── Cliffhanger ── */
+function wwInjectCliffhanger() {
+  var cliffs = window.WW_GAM?.cliffhangers || {};
+  var cliff  = cliffs[location.pathname];
+  if (!cliff) return;
+
+  var seeAlso = document.querySelector('.see-also');
+  if (!seeAlso) return;
+
+  var wrap = document.createElement('div');
+  wrap.className = 'ww-cliffhanger';
+  wrap.innerHTML =
+    '<div class="ww-cliff-icon">⚠️</div>' +
+    '<div class="ww-cliff-text">' + cliff.teaser + '</div>' +
+    '<a href="' + cliff.target + '" class="ww-cliff-cta" data-ww-source="cliffhanger">' +
+      cliff.cta +
+    '</a>';
+
+  seeAlso.parentNode.insertBefore(wrap, seeAlso);
+}
+
+/* ── Source clicks tracking pour badge Rat BCE ── */
+(function trackSourceClicks() {
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    while (el && el.tagName !== 'A') el = el.parentElement;
+    if (!el) return;
+    var cls = el.className || '';
+    if (cls.includes('source-pill') && el.href && el.href.startsWith('http')) {
+      wwLogEvent('source_clicked', { page: location.pathname, url: el.href });
+    }
+  });
+})();
+
+/* ── Tooltip tracking pour badge Curiosité Dangereuse ── */
+(function trackTooltips() {
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    if ((el.className || '').includes('ww-tooltip-trigger') || el.dataset.tooltip) {
+      wwLogEvent('tooltip_opened', { page: location.pathname });
+    }
+  });
+})();
+
+/* Exposer globalement */
+window.wwLogEvent        = wwLogEvent;
+window.wwCheckBadges     = wwCheckBadgesOnEvent;
+window.wwUnlockBadge     = wwUnlockBadge;
 

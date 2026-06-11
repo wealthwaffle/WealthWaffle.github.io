@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Choisir ton niveau — Doctrine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/doctrine-app.css">
+  
+</head>
+<body>
+
+<div class="pricing-wrap">
+
+  <!-- Header -->
+  <div class="pricing-header">
+    <a href="/pages/socle/index.html" style="font-size:0.78rem;color:var(--muted);display:inline-block;margin-bottom:20px;">← Retour au tableau de bord</a>
+    <div class="page-title">Choisis ton niveau</div>
+    <div class="page-sub" style="max-width:420px;margin:6px auto 0;">Socle est gratuit pour toujours. Pilote et Radar débloquent l'investissement structuré.</div>
+  </div>
+
+  <!-- Alert niveau requis si redirigé -->
+  <div class="alert alert-info" id="required-alert" style="display:none;margin-bottom:20px;">
+    <span>ℹ️</span>
+    <span id="required-text">Cette section est réservée aux membres Pilote.</span>
+  </div>
+
+  <!-- Toggle mensuel/annuel -->
+  <div class="pricing-toggle">
+    <span class="toggle-label active" id="lbl-monthly">Mensuel</span>
+    <div class="toggle-track" id="billing-toggle" onclick="toggleBilling()">
+      <div class="toggle-thumb"></div>
+    </div>
+    <span class="toggle-label" id="lbl-annual">
+      Annuel &nbsp;<span style="font-size:0.60rem;font-weight:700;padding:2px 6px;border-radius:20px;background:linear-gradient(90deg,var(--rose),var(--cyan));color:#fff;">−35%</span>
+    </span>
+  </div>
+
+  <!-- Cards -->
+  <div class="pricing-grid">
+
+    <!-- SOCLE -->
+    <div class="pricing-card">
+      <div class="plan-eyebrow" style="color:var(--socle);">Niveau 1</div>
+      <div class="plan-name" style="color:var(--socle);">Socle</div>
+      <div class="plan-tagline">Arrêter l'hémorragie financière</div>
+      <div class="plan-price">
+        <div class="plan-amount">Gratuit</div>
+        <div class="plan-period">Pour toujours</div>
+      </div>
+      <ul class="plan-features">
+        <li><span class="chk">✓</span> Audit bancaire guidé</li>
+        <li><span class="chk">✓</span> Template budget + méthode 50/30/20</li>
+        <li><span class="chk">✓</span> Checklist fonds d'urgence</li>
+        <li><span class="chk">✓</span> Optimisation abonnements & assurances</li>
+        <li><span class="chk">✓</span> Calendrier fiscal belge 2026</li>
+        <li><span class="chk">✓</span> Accès aux outils WealthWaffle</li>
+      </ul>
+      <a href="/pages/socle/index.html" class="btn btn-ghost btn-full">
+        Ton niveau actuel →
+      </a>
+    </div>
+
+    <!-- PILOTE -->
+    <div class="pricing-card featured" id="card-pilote">
+      <div class="popular-badge">Le plus populaire</div>
+      <div class="plan-eyebrow" style="color:var(--pilote);">Niveau 2</div>
+      <div class="plan-name" style="color:var(--pilote);">Pilote</div>
+      <div class="plan-tagline">Le bon père de famille diversifié</div>
+      <div class="plan-price">
+        <div class="plan-amount" style="color:var(--pilote);">
+          <span class="price-monthly">14,99<span style="font-size:1rem;font-style:normal;">€</span></span>
+          <span class="price-annual" style="display:none;">8,25<span style="font-size:1rem;font-style:normal;">€</span></span>
+        </div>
+        <div class="plan-period">
+          <span class="price-monthly">par mois · 7 jours gratuits</span>
+          <span class="price-annual" style="display:none;">par mois · facturé 99€/an</span>
+        </div>
+        <div class="plan-annual" id="pilote-annual-note" style="display:none;color:var(--pilote);">Économie : 80,88€/an</div>
+      </div>
+      <ul class="plan-features">
+        <li><span class="chk cyan">✓</span> <strong>Tout Socle inclus</strong></li>
+        <li><span class="chk cyan">✓</span> Méthode d'investissement structurée</li>
+        <li><span class="chk cyan">✓</span> Comparateur brokers belges (conditions réelles)</li>
+        <li><span class="chk cyan">✓</span> ETF, DCA, fiscalité belge approfondie</li>
+        <li><span class="chk cyan">✓</span> Crypto, crowdlending, obligations</li>
+        <li><span class="chk cyan">✓</span> Simulateurs avancés (FIRE, pension, projection)</li>
+        <li><span class="chk cyan">✓</span> Synthèses mensuelles marché</li>
+        <li><span class="chk cyan">✓</span> Dashboard personnalisable</li>
+      </ul>
+      <button class="btn btn-pilote btn-full" id="btn-pilote" onclick="startCheckout('pilote')">
+        Commencer — 7 jours gratuits →
+      </button>
+    </div>
+
+    <!-- RADAR -->
+    <div class="pricing-card" id="card-radar">
+      <div class="plan-eyebrow" style="color:var(--radar);">Niveau 3</div>
+      <div class="plan-name" style="color:var(--radar);">Radar</div>
+      <div class="plan-tagline">Qualité chirurgicale sur l'equity</div>
+      <div class="plan-price">
+        <div class="plan-amount" style="color:var(--radar);">
+          <span class="price-monthly">24,99<span style="font-size:1rem;font-style:normal;">€</span></span>
+          <span class="price-annual" style="display:none;">16,58<span style="font-size:1rem;font-style:normal;">€</span></span>
+        </div>
+        <div class="plan-period">
+          <span class="price-monthly">par mois · Pilote inclus</span>
+          <span class="price-annual" style="display:none;">par mois · facturé 199€/an · Pilote inclus</span>
+        </div>
+        <div class="plan-annual" id="radar-annual-note" style="display:none;color:var(--radar);">Économie vs Radar mensuel : 100,88€/an</div>
+      </div>
+      <ul class="plan-features">
+        <li><span class="chk rose">✓</span> <strong>Tout Pilote inclus</strong></li>
+        <li><span class="chk rose">✓</span> Feed projets equity scrapés hebdo</li>
+        <li><span class="chk rose">✓</span> Analyse fondamentale par projet</li>
+        <li><span class="chk rose">✓</span> Score Doctrine (potentiel/risque/qualité)</li>
+        <li><span class="chk rose">✓</span> Verdict clair (jamais "achetez")</li>
+        <li><span class="chk rose">✓</span> Watchlist personnelle + alertes</li>
+        <li><span class="chk rose">✓</span> 47 plateformes européennes couvertes</li>
+      </ul>
+      <button class="btn btn-radar btn-full" id="btn-radar" onclick="startCheckout('radar')">
+        Commencer Radar →
+      </button>
+    </div>
+  </div>
+
+  <!-- Garanties -->
+  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;font-size:0.76rem;color:var(--muted);">
+    <span>✓ Annulation à tout moment</span>
+    <span>✓ Données en Europe (Supabase EU)</span>
+    <span>✓ Paiement sécurisé Stripe</span>
+    <span>✓ Non agréé FSMA · contenu éducatif</span>
+  </div>
+
+  <div class="back-link">
+    <a href="https://wealthwaffle.be/doctrine.html">En savoir plus sur Doctrine →</a>
+  </div>
+
+</div><!-- pricing-wrap -->
+
+<script src="/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/js/auth.js"></script>
+<script>
+let billingAnnual = false;
+let stripeInstance = null;
+let currentUser = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  stripeInstance = Stripe(window.DOCTRINE_CONFIG.STRIPE_KEY);
+
+  // Vérifier si redirigé depuis une page verrouillée
+  const params = new URLSearchParams(window.location.search);
+  const required = params.get('required');
+  if (required) {
+    const labels = { pilote: 'Pilote', radar: 'Radar' };
+    document.getElementById('required-alert').style.display = 'flex';
+    document.getElementById('required-text').textContent =
+      `Cette section est réservée aux membres ${labels[required] || required}.`;
+    // Mettre en avant la card correspondante
+    document.getElementById(`card-${required}`)?.classList.add('featured');
+  }
+
+  // Session optionnelle (page accessible sans connexion)
+  const session = await getSession();
+  if (session) currentUser = session.user;
+});
+
+function toggleBilling() {
+  billingAnnual = !billingAnnual;
+  const track = document.getElementById('billing-toggle');
+  track.classList.toggle('on', billingAnnual);
+  document.getElementById('lbl-monthly').classList.toggle('active', !billingAnnual);
+  document.getElementById('lbl-annual').classList.toggle('active',  billingAnnual);
+
+  document.querySelectorAll('.price-monthly').forEach(el => el.style.display = billingAnnual ? 'none' : '');
+  document.querySelectorAll('.price-annual').forEach(el  => el.style.display = billingAnnual ? '' : 'none');
+  ['pilote','radar'].forEach(n => {
+    const el = document.getElementById(`${n}-annual-note`);
+    if (el) el.style.display = billingAnnual ? 'block' : 'none';
+  });
+}
+
+async function startCheckout(plan) {
+  // Si pas connecté → envoyer vers register avec redirect
+  if (!currentUser) {
+    const returnUrl = encodeURIComponent(window.location.pathname + `?plan=${plan}&billing=${billingAnnual?'annual':'monthly'}`);
+    window.location.href = `/pages/auth/register.html?return=${returnUrl}`;
+    return;
+  }
+
+  const btn = document.getElementById(`btn-${plan}`);
+  btn.textContent = 'Chargement...';
+  btn.disabled = true;
+
+  const billing = billingAnnual ? 'annual' : 'monthly';
+  const priceId = window.DOCTRINE_CONFIG.PRICES[`${plan}_${billing}`];
+
+  if (!priceId) {
+    alert('Erreur de configuration. Contacte le support.');
+    btn.textContent = plan === 'pilote' ? 'Commencer — 7 jours gratuits →' : 'Commencer Radar →';
+    btn.disabled = false;
+    return;
+  }
+
+  try {
+    // Créer la session Stripe Checkout via une Cloudflare Function
+    const res = await fetch('/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        priceId,
+        userId:      currentUser.id,
+        userEmail:   currentUser.email,
+        successUrl:  `${window.DOCTRINE_CONFIG.APP_URL}/pages/account/success.html`,
+        cancelUrl:   window.location.href,
+        trialDays:   plan === 'pilote' ? 7 : 0,
+      }),
+    });
+
+    const { sessionId } = await res.json();
+    await stripeInstance.redirectToCheckout({ sessionId });
+
+  } catch (err) {
+    console.error(err);
+    alert('Erreur lors de la redirection vers le paiement. Réessaie.');
+    btn.textContent = plan === 'pilote' ? 'Commencer — 7 jours gratuits →' : 'Commencer Radar →';
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>

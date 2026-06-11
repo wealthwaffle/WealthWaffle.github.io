@@ -1,64 +1,132 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chargement… — WealthWaffle</title>
-  <meta name="description" content="Traitement de ta connexion.">
-  <meta name="robots" content="noindex">
-  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Connexion en cours — Doctrine</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/ww-all.css">
-  <script>window.WW_PAGE_META = { name: "Callback", basePath: "/compte/", auth: true };</script>
+  <link rel="stylesheet" href="/css/doctrine-app.css">
+  
 </head>
 <body>
-<div id="ww-ui-placeholder"></div>
-<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<script src="/assets/data.js"></script>
-<script src="/assets/tools.js"></script>
-<script src="/assets/ww-bundle.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<div class="auth-spinner-wrap">
-  <div class="auth-spinner">⟳</div>
-  <div class="auth-spinner-msg" id="status-msg">Connexion en cours…</div>
-</div>
+  <div class="callback-card" id="loading-view">
+    <div class="spinner"></div>
+    <div class="callback-title">Vérification en cours…</div>
+    <div class="callback-sub" id="status-text">On vérifie ton lien, ça prend quelques secondes.</div>
 
-<script>
-const { createClient } = supabase;
-const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
-window.WW = { sb };
+    <!-- Formulaire nouveau mot de passe (affiché si mode=recovery) -->
+    <div class="pw-form" id="pw-form">
+      <div class="field">
+        <label class="field-label" for="new-pw">Nouveau mot de passe</label>
+        <input class="field-input" type="password" id="new-pw"
+          placeholder="8 caractères minimum" autocomplete="new-password"
+          onkeydown="if(event.key==='Enter') doUpdatePassword()">
+      </div>
+      <button class="btn btn-primary btn-full" onclick="doUpdatePassword()">
+        Enregistrer le nouveau mot de passe →
+      </button>
+    </div>
 
-async function getSession() {
-  const { data: { session } } = await sb.auth.getSession();
-  if (!session) return null;
-  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
-  window.WW.user    = session.user;
-  window.WW.profile = profile;
-  localStorage.setItem('ww_session', session.access_token);
-  localStorage.setItem('ww_plan', profile?.plan || 'socle');
-  return { user: session.user, profile };
-}
+    <div class="alert alert-error" id="error-box" style="display:none;margin-top:16px;">
+      <span>⚠️</span><span id="error-text">Lien invalide ou expiré.</span>
+    </div>
+  </div>
 
-window.addEventListener('load', async () => {
-  const params = new URLSearchParams(window.location.hash.replace('#','?') + '&' + window.location.search.replace('?',''));
-  const type = params.get('type') || new URLSearchParams(location.search).get('type');
-  const msg = document.getElementById('status-msg');
-  const { data, error } = await sb.auth.getSession();
-  if (error) { msg.textContent = 'Erreur de connexion — ' + error.message; return; }
-  if (type === 'recovery') {
-    msg.textContent = 'Redirigé vers la réinitialisation…';
-    setTimeout(() => window.location.href = '/compte/connexion.html', 1500);
-  } else if (type === 'signup') {
-    msg.textContent = 'Email confirmé ✅ Redirection…';
-    setTimeout(() => window.location.href = '/dashboard/', 1500);
-  } else {
-    const session = await getSession();
-    msg.textContent = session ? 'Connecté ✅' : 'Session non trouvée.';
-    setTimeout(() => window.location.href = session ? '/dashboard/' : '/compte/connexion.html', 1200);
-  }
-});
-</script>
+  <script src="/js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+
+      // Supabase gère les tokens via le hash de l'URL (#access_token=...&type=...)
+      // ou via les query params (?code=...)
+      // On laisse Supabase parser automatiquement
+      const { data: { session }, error } = await sb.auth.getSession();
+
+      // Lire le type dans le hash ou les params
+      const hash   = window.location.hash;
+      const params = new URLSearchParams(window.location.search);
+      const type   = params.get('type') ||
+        (hash.includes('type=recovery') ? 'recovery' : 'signup');
+
+      if (error) {
+        showError('Lien invalide ou expiré. Demande un nouveau lien.');
+        return;
+      }
+
+      if (type === 'recovery') {
+        // Mode réinitialisation mot de passe
+        document.querySelector('.spinner').style.display = 'none';
+        document.getElementById('status-text').textContent =
+          'Saisis ton nouveau mot de passe.';
+        document.getElementById('pw-form').style.display = 'block';
+        return;
+      }
+
+      // Mode confirmation email (signup)
+      if (session) {
+        document.getElementById('status-text').textContent =
+          'Email confirmé ! Redirection vers ton espace Socle…';
+        setTimeout(() => {
+          window.location.href = '/pages/socle/index.html';
+        }, 1500);
+      } else {
+        // Pas encore de session — attendre l'échange de token
+        const { data: authData, error: authError } =
+          await sb.auth.exchangeCodeForSession(window.location.href);
+
+        if (authError || !authData.session) {
+          showError('Lien invalide ou expiré. Retente de te connecter.');
+          return;
+        }
+
+        document.getElementById('status-text').textContent =
+          'Email confirmé ! Redirection…';
+        setTimeout(() => {
+          window.location.href = '/pages/socle/index.html';
+        }, 1200);
+      }
+    });
+
+    async function doUpdatePassword() {
+      const pw  = document.getElementById('new-pw').value;
+      const btn = document.querySelector('#pw-form button');
+
+      if (!pw || pw.length < 8) {
+        document.getElementById('new-pw').focus();
+        return;
+      }
+
+      btn.textContent = 'Enregistrement...';
+      btn.disabled    = true;
+
+      const { error } = await sb.auth.updateUser({ password: pw });
+
+      if (error) {
+        btn.textContent = 'Enregistrer le nouveau mot de passe →';
+        btn.disabled    = false;
+        showError(error.message);
+        return;
+      }
+
+      document.getElementById('pw-form').style.display = 'none';
+      document.querySelector('.spinner').style.display = 'block';
+      document.getElementById('status-text').textContent =
+        'Mot de passe mis à jour ! Redirection…';
+
+      setTimeout(() => {
+        window.location.href = '/pages/socle/index.html';
+      }, 1500);
+    }
+
+    function showError(msg) {
+      document.querySelector('.spinner').style.display = 'none';
+      document.getElementById('status-text').textContent = '';
+      document.getElementById('error-text').textContent  = msg;
+      document.getElementById('error-box').style.display = 'flex';
+    }
+  </script>
 </body>
 </html>

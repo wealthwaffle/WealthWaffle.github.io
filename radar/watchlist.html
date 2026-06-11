@@ -1,121 +1,262 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>👁️ Ma watchlist Radar — WealthWaffle</title>
-  <meta name="description" content="Tes projets equity et crowdlending suivis sur le Radar WealthWaffle.">
-  <meta name="robots" content="noindex">
-  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
-  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Watchlist — Radar — Doctrine</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/ww-all.css">
-  <script>window.WW_PAGE_META = { name: "Watchlist", basePath: "/radar/", auth: true };</script>
+  <link rel="stylesheet" href="/css/doctrine-app.css">
+  
 </head>
 <body>
-<div id="ww-ui-placeholder"></div>
-<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
-<script src="/assets/data.js"></script>
-<script src="/assets/tools.js"></script>
-<script src="/assets/ww-bundle.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div class="app-layout">
 
-<div class="page">
-<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/radar/">Radar</a><span>/</span><span>Ma watchlist</span></div>
+  <aside class="app-sidebar">
+    <div class="sidebar-brand"><div class="sidebar-brand-name">Doctrine</div><div class="sidebar-brand-sub">par WealthWaffle 🧇</div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Socle</div>
+      <a href="/pages/socle/index.html" class="sidebar-link"><span class="sidebar-link-icon">🏠</span> Tableau de bord</a>
+      <div class="sidebar-section-label" style="margin-top:12px;">Pilote</div>
+      <a href="/pages/pilote/index.html"   class="sidebar-link" data-level="pilote"><span class="sidebar-link-icon">✈️</span> Cockpit</a>
+      <a href="/pages/pilote/etf.html"     class="sidebar-link" data-level="pilote"><span class="sidebar-link-icon">📈</span> ETF</a>
+      <a href="/pages/pilote/brokers.html" class="sidebar-link" data-level="pilote"><span class="sidebar-link-icon">⚖️</span> Brokers</a>
+      <div class="sidebar-section-label" style="margin-top:12px;">Radar</div>
+      <a href="/pages/radar/index.html"     class="sidebar-link"><span class="sidebar-link-icon">📡</span> Feed projets</a>
+      <a href="/pages/radar/watchlist.html" class="sidebar-link active"><span class="sidebar-link-icon">👁️</span> Watchlist</a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="app-avatar" id="nav-user-avatar">?</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="nav-user-name">...</div>
+        <div class="sidebar-user-level" id="nav-user-level">Radar</div>
+      </div>
+      <button onclick="signOut()" style="background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;">⏻</button>
+    </div>
+  </aside>
 
-<div class="eyebrow eyebrow-invest">👁️ Watchlist</div>
-<h1 class="display">Mes projets suivis</h1>
-<p class="radar-desc">Tous les projets que tu suis sur le Radar. Mis à jour en temps réel.</p>
+  <main class="app-main">
+    <header class="app-topbar">
+      <div class="app-topbar-brand">Watchlist</div>
+      <div class="app-topbar-user">
+        <span class="app-level-badge pill pill-radar" id="nav-user-level-mobile">Radar</span>
+        <div class="app-avatar" id="nav-user-avatar-mobile">?</div>
+      </div>
+    </header>
 
-<div id="watchlist-container">
-  <div class="watchlist-loading">Chargement…</div>
+    <div class="app-content">
+
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap;" class="animate-in">
+        <div>
+          <div class="page-title" style="margin-bottom:2px;">Ma Watchlist</div>
+          <div style="font-size:0.78rem;color:var(--muted);" id="watch-count">Chargement...</div>
+        </div>
+        <a href="/pages/radar/index.html" class="btn btn-radar btn-sm">+ Ajouter des projets</a>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="alert alert-info animate-in" style="margin-bottom:16px;">
+        <span>📋</span>
+        <span style="font-size:0.76rem;">Tes notes sont privées et stockées en Europe. Elles ne constituent pas un conseil financier.</span>
+      </div>
+
+      <!-- Skeleton -->
+      <div id="skeleton-view">
+        <div class="skeleton" style="height:100px;border-radius:16px;margin-bottom:10px;"></div>
+        <div class="skeleton" style="height:100px;border-radius:16px;margin-bottom:10px;"></div>
+        <div class="skeleton" style="height:100px;border-radius:16px;"></div>
+      </div>
+
+      <!-- Liste -->
+      <div id="watchlist-container" style="display:none;"></div>
+
+      <!-- Empty state -->
+      <div id="empty-state" style="display:none;" class="empty-state">
+        <div class="empty-icon">👁️</div>
+        <div>Ta watchlist est vide.</div>
+        <div class="empty-sub" style="margin-top:8px;">
+          Depuis le <a href="/pages/radar/index.html" style="color:var(--cyan);">feed Radar</a>,
+          clique sur "+ Suivre" sur les projets qui t'intéressent.
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <nav class="app-bottomnav">
+    <a href="/pages/socle/index.html"   class="app-bottomnav-item"><span class="nav-icon">🏠</span><span>Socle</span></a>
+    <a href="/pages/pilote/index.html"  class="app-bottomnav-item" data-level="pilote"><span class="nav-icon">✈️</span><span>Pilote</span></a>
+    <a href="/pages/radar/index.html"   class="app-bottomnav-item active"><span class="nav-icon">📡</span><span>Radar</span></a>
+    <a href="/pages/account/index.html" class="app-bottomnav-item"><span class="nav-icon">👤</span><span>Compte</span></a>
+  </nav>
 </div>
-</div>
 
+<script src="/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/auth.js"></script>
 <script>
-const { createClient } = supabase;
-const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
-window.WW = { sb };
+let userId = null;
 
-async function getSession() {
-  const { data: { session } } = await sb.auth.getSession();
-  if (!session) return null;
-  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
-  window.WW.user = session.user; window.WW.profile = profile;
-  localStorage.setItem('ww_session', session.access_token);
-  localStorage.setItem('ww_plan', profile?.plan || 'socle');
-  return { user: session.user, profile };
-}
+const VERDICT_LABELS = {
+  interessant: '✅ Intéressant',
+  surveiller:  '👀 À surveiller',
+  insuffisant: '⛔ Insuffisant',
+  trop_risque: '🚫 Trop risqué',
+};
 
-async function requireAuth(minLevel) {
-  const LEVELS = { socle:1, pilote:2, radar:3 };
-  const session = await getSession();
-  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
-  if ((LEVELS[session.profile?.plan]||0) < (LEVELS[minLevel]||1)) { window.location.href = '/compte/inscription.html?plan=' + minLevel; return null; }
-  return session;
-}
-
-window.addEventListener('load', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const session = await requireAuth('radar');
   if (!session) return;
-  const userId = session.user.id;
-  const container = document.getElementById('watchlist-container');
-
-  const { data: wl } = await sb.from('watchlist').select('project_id').eq('user_id', userId);
-  const ids = (wl||[]).map(w => w.project_id);
-
-  if (!ids.length) {
-    container.innerHTML = `
-      <div class="watchlist-empty">
-        <div class="watchlist-empty-icon">👁️</div>
-        <div class="dash-chapters-msg">Ta watchlist est vide — <a href="/radar/" class="link-invest">parcourir le feed →</a></div>
-      </div>`;
-    return;
-  }
-
-  const { data: projects } = await sb.from('projects').select('*').in('id', ids);
-  const list = projects || [];
-  container.innerHTML = '';
-
-  if (!list.length) {
-    container.innerHTML = '<div class="watchlist-loading">Projets introuvables.</div>';
-    return;
-  }
-
-  list.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'watchlist-card';
-
-    const header = document.createElement('div');
-    header.className = 'watchlist-card-header';
-
-    const info = document.createElement('div');
-    const title = document.createElement('div');
-    title.className = 'watchlist-card-title';
-    title.textContent = p.name;
-    const meta = document.createElement('div');
-    meta.className = 'watchlist-card-meta';
-    meta.textContent = `${p.platform} · ${p.type}${p.rate ? ` · ${p.rate}%` : ''}`;
-    info.appendChild(title); info.appendChild(meta);
-    header.appendChild(info);
-
-    if (p.url) {
-      const link = document.createElement('a');
-      link.href = p.url; link.target = '_blank'; link.rel = 'noopener';
-      link.className = 'link-invest'; link.style.fontSize = '0.74rem';
-      link.textContent = 'Voir ↗';
-      header.appendChild(link);
-    }
-
-    const desc = document.createElement('div');
-    desc.className = 'watchlist-card-desc';
-    desc.textContent = p.summary;
-
-    card.appendChild(header);
-    card.appendChild(desc);
-    container.appendChild(card);
-  });
+  userId = session.user.id;
+  updateNavUser();
+  applyNavLocks();
+  await loadWatchlist();
 });
+
+async function loadWatchlist() {
+  // Charger watchlist + les projets associés en un seul appel
+  const { data, error } = await sb.from('watchlist')
+    .select(`
+      id,
+      notes,
+      added_at,
+      project:radar_projects (
+        id, title, platform, sector, country, verdict,
+        score_potential, score_risk, score_info, score_global,
+        summary, project_url, deadline, published_at
+      )
+    `)
+    .eq('user_id', userId)
+    .order('added_at', { ascending: false });
+
+  document.getElementById('skeleton-view').style.display = 'none';
+
+  if (error || !data) {
+    document.getElementById('watchlist-container').style.display = 'block';
+    document.getElementById('watchlist-container').innerHTML =
+      '<div class="alert alert-error"><span>⚠️</span><span>Impossible de charger la watchlist.</span></div>';
+    return;
+  }
+
+  const count = data.length;
+  document.getElementById('watch-count').textContent =
+    count === 0 ? 'Aucun projet suivi'
+    : `${count} projet${count > 1 ? 's' : ''} suivi${count > 1 ? 's' : ''}`;
+
+  if (count === 0) {
+    document.getElementById('empty-state').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('watchlist-container').style.display = 'block';
+  document.getElementById('watchlist-container').innerHTML = data.map(w => {
+    const p   = w.project;
+    if (!p) return '';
+    const fmt = n => n ? Number(n).toLocaleString('fr-BE') + ' €' : null;
+    const deadline = p.deadline
+      ? new Date(p.deadline).toLocaleDateString('fr-BE', {day:'numeric',month:'long'})
+      : null;
+
+    return `<div class="watch-card animate-in" id="watch-${w.id}">
+      <div class="watch-header">
+        <div style="flex:1;min-width:0;">
+          <div class="watch-title">${p.title}</div>
+          <div class="watch-meta">
+            ${p.platform ? `<span style="background:var(--s3);border-radius:5px;padding:1px 6px;font-size:0.64rem;font-weight:700;text-transform:uppercase;margin-right:6px;">${p.platform}</span>` : ''}
+            ${p.sector   ? `<span>${p.sector}</span>` : ''}
+            ${deadline   ? `<span style="margin-left:4px;">· Clôture ${deadline}</span>` : ''}
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <span class="verdict-badge verdict-${p.verdict}">${VERDICT_LABELS[p.verdict] || p.verdict}</span>
+          <button class="remove-btn" onclick="removeWatch('${w.id}', '${p.id}')" title="Retirer de la watchlist">✕</button>
+        </div>
+      </div>
+
+      ${p.summary ? `<div style="font-size:0.76rem;color:var(--muted);line-height:1.6;margin-bottom:8px;">${p.summary.substring(0,180)}${p.summary.length > 180 ? '…' : ''}</div>` : ''}
+
+      <div class="score-mini">
+        ${p.score_global   != null ? `<span>Score global : <strong>${p.score_global}/100</strong></span>` : ''}
+        ${p.score_potential != null ? `<span>Potentiel : <strong>${p.score_potential}</strong></span>`    : ''}
+        ${p.score_risk      != null ? `<span>Risque : <strong>${p.score_risk}</strong></span>`             : ''}
+      </div>
+
+      ${p.project_url ? `<div style="margin-top:8px;"><a href="${p.project_url}" target="_blank" rel="noopener" style="font-size:0.72rem;color:var(--cyan);">Voir sur ${p.platform} ↗</a></div>` : ''}
+
+      <textarea class="notes-area" id="notes-${w.id}"
+        placeholder="Tes notes personnelles sur ce projet…">${w.notes || ''}</textarea>
+      <button class="save-note-btn" id="save-${w.id}" onclick="saveNote('${w.id}')">
+        Enregistrer la note
+      </button>
+    </div>`;
+  }).join('');
+}
+
+async function saveNote(watchId) {
+  const notes = document.getElementById(`notes-${watchId}`)?.value || '';
+  const btn   = document.getElementById(`save-${watchId}`);
+
+  btn.textContent = 'Enregistrement...';
+  btn.disabled    = true;
+
+  const { error } = await sb.from('watchlist')
+    .update({ notes })
+    .eq('id', watchId)
+    .eq('user_id', userId);
+
+  if (!error) {
+    btn.textContent = '✓ Note enregistrée';
+    btn.classList.add('saved');
+    setTimeout(() => {
+      btn.textContent = 'Enregistrer la note';
+      btn.classList.remove('saved');
+      btn.disabled = false;
+    }, 2500);
+  } else {
+    btn.textContent = 'Erreur — réessaie';
+    btn.disabled    = false;
+  }
+}
+
+async function removeWatch(watchId, projectId) {
+  if (!confirm('Retirer ce projet de ta watchlist ?')) return;
+
+  await sb.from('watchlist')
+    .delete()
+    .eq('id', watchId)
+    .eq('user_id', userId);
+
+  const el = document.getElementById(`watch-${watchId}`);
+  if (el) {
+    el.style.opacity   = '0';
+    el.style.transform = 'translateX(10px)';
+    el.style.transition = 'all 0.3s ease';
+    setTimeout(() => {
+      el.remove();
+      const remaining = document.querySelectorAll('[id^="watch-"]').length;
+      document.getElementById('watch-count').textContent =
+        remaining === 0 ? 'Aucun projet suivi'
+        : `${remaining} projet${remaining > 1 ? 's' : ''} suivi${remaining > 1 ? 's' : ''}`;
+      if (remaining === 0) {
+        document.getElementById('watchlist-container').style.display = 'none';
+        document.getElementById('empty-state').style.display = 'block';
+      }
+    }, 300);
+  }
+}
+
+function applyNavLocks() {
+  document.querySelectorAll('[data-level]').forEach(el => {
+    if (!hasLevel(el.dataset.level)) {
+      el.classList.add('locked');
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        window.location.href = `/pages/pricing.html?required=${el.dataset.level}`;
+      });
+    }
+  });
+}
 </script>
 </body>
 </html>

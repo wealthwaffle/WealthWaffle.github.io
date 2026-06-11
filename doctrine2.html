@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Doctrine — par WealthWaffle</title>
+  <meta name="description" content="Doctrine est un système pensé pour les personnes normales. Structurer ses finances, investir calmement, comprendre ce qu'on fait.">
+  <meta property="og:title" content="Doctrine — par WealthWaffle">
+  <meta property="og:description" content="La fin du désordre financier. Un système simple, durable, belge.">
+  <meta property="og:image" content="https://wealthwaffle.be/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-brand">
+    Doctrine
+    <span>par WealthWaffle 🧇</span>
+  </div>
+  <div class="header-actions">
+    <a href="/pages/auth/login.html" class="btn-login">Se connecter</a>
+    <a href="/pages/auth/register.html" class="btn-start">Commencer →</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero container reveal">
+  <div class="hero-eyebrow">🧇 Structure · Automatisation · Clarté</div>
+  <h1 class="hero-title">
+    La fin du<br>désordre financier.
+  </h1>
+  <p class="hero-sub">
+    Un système pensé pour les personnes normales.<br>
+    Pas pour les traders. Pas pour les influenceurs.
+  </p>
+  <div class="hero-cta">
+    <a href="/pages/auth/register.html" class="btn-primary-lg">
+      Commencer gratuitement →
+    </a>
+    <a href="#niveaux" class="btn-secondary-lg">Voir les niveaux</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Découvrir</span>
+    <span class="hero-scroll-arrow">↓</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- STORY -->
+<section class="story container reveal">
+  <div class="section-label">Pourquoi ça existe</div>
+  <div class="story-lines" id="story-lines">
+    <div class="story-line">Je n'ai pas créé WealthWaffle pour devenir influenceur finance.</div>
+    <div class="story-line">Le but n'est pas que tu rêves d'une Rolex ou d'un lifestyle irréaliste.</div>
+    <div class="story-line">Le vrai objectif, c'est que tu construises <span class="hl">ton propre système.</span></div>
+    <div class="story-line">Pas le mien. <span class="hl">Le tien.</span></div>
+    <div class="story-line">Quelque chose de suffisamment simple pour tenir pendant 10 ans.</div>
+    <div class="story-line">Une fois en place, ça doit demander <span class="hl">quelques minutes par mois.</span></div>
+    <div class="story-line">C'est ça, Doctrine.</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- QUIZ -->
+<section class="quiz-section container reveal">
+  <div class="section-label">Trouve ton niveau</div>
+  <div class="quiz-card">
+
+    <!-- Intro -->
+    <div id="quiz-intro">
+      <div class="quiz-intro-title">Quel est ton point de départ ?</div>
+      <div class="quiz-intro-sub">4 questions. 30 secondes. On te dit exactement par où commencer.</div>
+      <button class="quiz-start-btn" onclick="quizStart()">Faire le test →</button>
+    </div>
+
+    <!-- Questions -->
+    <div id="quiz-body" style="display:none;"></div>
+
+    <!-- Résultat -->
+    <div id="quiz-result" style="display:none;"></div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- NIVEAUX -->
+<section class="levels-section container" id="niveaux">
+  <div class="section-label reveal">Les trois niveaux</div>
+
+  <div class="levels-grid">
+
+    <!-- SOCLE -->
+    <div class="level-card reveal" id="level-socle" style="border-top:2px solid #7EC8A0;">
+      <div class="level-card-num" style="color:#7EC8A0;">1</div>
+      <div class="level-card-eyebrow" style="color:#7EC8A0;">Niveau 1</div>
+      <div class="level-card-name" style="color:#7EC8A0;">Socle</div>
+      <div class="level-card-tagline">Arrêter l'hémorragie financière</div>
+      <ul class="level-card-features">
+        <li><span class="chk" style="color:#7EC8A0;">✓</span> Audit bancaire guidé</li>
+        <li><span class="chk" style="color:#7EC8A0;">✓</span> Budget + méthode 50/30/20</li>
+        <li><span class="chk" style="color:#7EC8A0;">✓</span> Fonds d'urgence structuré</li>
+        <li><span class="chk" style="color:#7EC8A0;">✓</span> Calendrier fiscal belge 2026</li>
+        <li><span class="chk" style="color:#7EC8A0;">✓</span> Boîte à outils WealthWaffle</li>
+      </ul>
+      <div class="level-card-price">
+        <div class="level-card-amount">Gratuit</div>
+        <div class="level-card-period">Pour toujours</div>
+      </div>
+      <a href="/pages/auth/register.html" class="level-btn" style="background:rgba(126,200,160,0.12);color:#7EC8A0;border:1px solid rgba(126,200,160,0.25);">
+        Commencer gratuitement →
+      </a>
+    </div>
+
+    <!-- PILOTE -->
+    <div class="level-card reveal" id="level-pilote" style="border-top:2px solid #5BB8D4;">
+      <div class="level-card-num" style="color:#5BB8D4;">2</div>
+      <div class="level-card-eyebrow" style="color:#5BB8D4;">Niveau 2</div>
+      <div class="level-card-name" style="color:#5BB8D4;">Pilote</div>
+      <div class="level-card-tagline">Le bon père de famille diversifié</div>
+      <ul class="level-card-features">
+        <li><span class="chk" style="color:#5BB8D4;">✓</span> <strong style="color:rgba(240,238,255,0.8);">Tout Socle inclus</strong></li>
+        <li><span class="chk" style="color:#5BB8D4;">✓</span> ETF, DCA, fiscalité belge</li>
+        <li><span class="chk" style="color:#5BB8D4;">✓</span> Comparateur brokers belges</li>
+        <li><span class="chk" style="color:#5BB8D4;">✓</span> Crypto, crowdlending, oblig.</li>
+        <li><span class="chk" style="color:#5BB8D4;">✓</span> Simulateurs avancés + FIRE</li>
+        <li><span class="chk" style="color:#5BB8D4;">✓</span> Synthèses mensuelles marché</li>
+      </ul>
+      <div class="level-card-price">
+        <div class="level-card-amount" style="color:#5BB8D4;">14,99<span style="font-size:1rem;font-style:normal;">€</span></div>
+        <div class="level-card-period">par mois · 7 jours gratuits · ou 99€/an</div>
+      </div>
+      <a href="/pages/auth/register.html?plan=pilote" class="level-btn" style="background:linear-gradient(135deg,#5BB8D4,#3a98b4);color:#fff;">
+        Commencer Pilote — 7 jours gratuits →
+      </a>
+    </div>
+
+    <!-- RADAR -->
+    <div class="level-card reveal" id="level-radar" style="border-top:2px solid #E87CC3;">
+      <div class="level-card-num" style="color:#E87CC3;">3</div>
+      <div class="level-card-eyebrow" style="color:#E87CC3;">Niveau 3</div>
+      <div class="level-card-name" style="color:#E87CC3;">Radar</div>
+      <div class="level-card-tagline">Qualité chirurgicale sur l'equity</div>
+      <ul class="level-card-features">
+        <li><span class="chk" style="color:#E87CC3;">✓</span> <strong style="color:rgba(240,238,255,0.8);">Tout Pilote inclus</strong></li>
+        <li><span class="chk" style="color:#E87CC3;">✓</span> Feed projets equity hebdo</li>
+        <li><span class="chk" style="color:#E87CC3;">✓</span> Analyse fondamentale guidée</li>
+        <li><span class="chk" style="color:#E87CC3;">✓</span> Score Doctrine par projet</li>
+        <li><span class="chk" style="color:#E87CC3;">✓</span> Watchlist + alertes perso</li>
+        <li><span class="chk" style="color:#E87CC3;">✓</span> 47 plateformes EU couvertes</li>
+      </ul>
+      <div class="level-card-price">
+        <div class="level-card-amount" style="color:#E87CC3;">24,99<span style="font-size:1rem;font-style:normal;">€</span></div>
+        <div class="level-card-period">par mois · Pilote inclus · ou 199€/an</div>
+      </div>
+      <a href="/pages/auth/register.html?plan=radar" class="level-btn" style="background:linear-gradient(135deg,#E87CC3,#b8449a);color:#fff;">
+        Commencer Radar →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FINAL CTA -->
+<section class="final-section container reveal">
+  <div class="final-title">
+    Le vrai luxe financier,<br>
+    c'est de ne plus penser<br>
+    à l'argent toute la journée.
+  </div>
+  <p class="final-sub">
+    Construire un système simple vaut mieux
+    qu'une stratégie excitante abandonnée dans 3 mois.
+  </p>
+  <a href="/pages/auth/register.html" class="btn-primary-lg">
+    Commencer gratuitement — Socle →
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <strong style="background:linear-gradient(90deg,#E87CC3,#5BB8D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Doctrine</strong>
+    &nbsp;par&nbsp;
+    <a href="https://wealthwaffle.be">WealthWaffle</a>
+  </div>
+  <div style="display:flex;gap:16px;">
+    <a href="https://wealthwaffle.be">Site principal</a>
+    <a href="https://wealthwaffle.be/sources.html">Sources</a>
+    <a href="https://wealthwaffle.be/affiliation.html">Transparence</a>
+  </div>
+  <div>📋 Contenu éducatif — non agréé FSMA</div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   QUIZ
+══════════════════════════════════════════════════════ */
+var Q = {
+  questions: [
+    { q: "Quand tu regardes tes comptes bancaires, tu te dis…", opts: [
+      { icon:'😰', txt:"Je ne sais pas exactement où part mon argent chaque mois", score:1 },
+      { icon:'😌', txt:"Mon budget est structuré, j'épargne régulièrement", score:2 },
+      { icon:'📊', txt:"J'ai un portefeuille investi et je suis mes performances", score:3 },
+    ]},
+    { q: "Ton fonds d'urgence (3-6 mois de dépenses), c'est…", opts: [
+      { icon:'❌', txt:"Pas encore constitué — ou à peine commencé", score:1 },
+      { icon:'✅', txt:"En place, sur un compte épargne dédié", score:2 },
+      { icon:'🏦', txt:"Constitué. Et j'ai d'autres actifs en plus.", score:3 },
+    ]},
+    { q: "Tes investissements aujourd'hui, c'est…", opts: [
+      { icon:'💶', txt:"Rien pour l'instant — ou juste un compte épargne", score:1 },
+      { icon:'📈', txt:"Des ETF, de l'assurance-vie, peut-être de l'immo", score:2 },
+      { icon:'🔬', txt:"Un portefeuille diversifié que j'analyse activement", score:3 },
+    ]},
+    { q: "Tu sais combien tu paies en frais bancaires et de gestion chaque année ?", opts: [
+      { icon:'🤷', txt:"Pas vraiment — je n'ai jamais calculé", score:1 },
+      { icon:'🔍', txt:"Oui, j'ai fait l'audit. J'ai optimisé.", score:2 },
+      { icon:'⚡', txt:"À l'euro près — et je les minimise systématiquement", score:3 },
+    ]},
+  ],
+  step: 0,
+  scores: [],
+};
+
+function quizStart() {
+  Q.step = 0; Q.scores = [];
+  document.getElementById('quiz-intro').style.display = 'none';
+  document.getElementById('quiz-body').style.display  = 'block';
+  document.getElementById('quiz-result').style.display = 'none';
+  quizRender();
+}
+
+function quizRender() {
+  var q    = Q.questions[Q.step];
+  var dots = Q.questions.map(function(_, i) {
+    var cls = i < Q.step ? 'done' : (i === Q.step ? 'active' : '');
+    return '<div class="qdot ' + cls + '"></div>';
+  }).join('');
+  document.getElementById('quiz-body').innerHTML =
+    '<div class="quiz-progress-dots">' + dots + '</div>' +
+    '<div class="quiz-question-text">' + q.q + '</div>' +
+    '<div class="quiz-options">' +
+    q.opts.map(function(o) {
+      return '<button class="quiz-opt" onclick="quizAnswer(' + o.score + ')">' +
+        '<span class="quiz-opt-icon">' + o.icon + '</span><span>' + o.txt + '</span></button>';
+    }).join('') + '</div>';
+}
+
+function quizAnswer(score) {
+  Q.scores.push(score);
+  Q.step++;
+  if (Q.step < Q.questions.length) {
+    quizRender();
+  } else {
+    quizResult();
+  }
+}
+
+function quizResult() {
+  var avg = Q.scores.reduce(function(a,b){return a+b;},0) / Q.scores.length;
+  var niveau, color, desc, href, levelId;
+  if (avg <= 1.5) {
+    niveau='🛡️ Socle'; color='#7EC8A0'; levelId='level-socle';
+    desc='Commence par les fondations. Arrêter l\'hémorragie financière avant d\'investir — c\'est la priorité absolue.';
+    href='/pages/auth/register.html';
+  } else if (avg <= 2.3) {
+    niveau='✈️ Pilote'; color='#5BB8D4'; levelId='level-pilote';
+    desc='Tu as les bases. Il est temps de diversifier intelligemment — sans trading, sans levier, sans jargon.';
+    href='/pages/auth/register.html?plan=pilote';
+  } else {
+    niveau='📡 Radar'; color='#E87CC3'; levelId='level-radar';
+    desc='Tu maîtrises les fondamentaux. Radar t\'amène à une sélection chirurgicale des meilleurs projets equity.';
+    href='/pages/auth/register.html?plan=radar';
+  }
+
+  document.getElementById('quiz-body').style.display  = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML =
+    '<div class="quiz-result">' +
+    '<div class="quiz-result-eyebrow">Ton niveau recommandé</div>' +
+    '<div class="quiz-result-level" style="color:' + color + ';">' + niveau + '</div>' +
+    '<div class="quiz-result-desc">' + desc + '</div>' +
+    '<div class="quiz-cta-row">' +
+    '<a href="' + href + '" class="quiz-cta-main" style="background:' + color + ';">Commencer ' + niveau.split(' ')[1] + ' →</a>' +
+    '<button onclick="quizScrollToLevel(\'' + levelId + '\')" class="quiz-cta-retry">Voir le niveau ↓</button>' +
+    '<button onclick="quizStart()" class="quiz-cta-retry">↩ Refaire</button>' +
+    '</div></div>';
+
+  // Highlight la card du niveau recommandé
+  ['level-socle','level-pilote','level-radar'].forEach(function(id) {
+    document.getElementById(id).classList.remove('quiz-match');
+  });
+  document.getElementById(levelId).classList.add('quiz-match');
+}
+
+function quizScrollToLevel(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+/* ══════════════════════════════════════════════════════
+   STORY — illumination au scroll
+══════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function() {
+  // Reveal au scroll
+  document.body.classList.add('js-ready');
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin:'0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+  // Story lines — illuminer au scroll
+  var lines = document.querySelectorAll('.story-line');
+  if (lines.length) {
+    var lineObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) e.target.classList.add('lit');
+      });
+    }, { threshold: 0.5 });
+    lines.forEach(function(l) { lineObs.observe(l); });
+  }
+});
+</script>
+
+</body>
+</html>

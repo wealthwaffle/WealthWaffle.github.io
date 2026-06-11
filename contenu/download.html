@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Télécharge le Système Doctrine — Gratuit</title>
+  <meta name="description" content="Pilote tes finances en 5 minutes par mois. Télécharge le tableau de bord Doctrine : score dynamique, simulateur de richesse, système anti-flemme.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-brand">
+    Doctrine
+    <span>par WealthWaffle 🧇</span>
+  </div>
+  <a href="/pages/auth/login.html" class="btn-sm-ghost">Se connecter</a>
+</header>
+
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">🛡️ Socle — Niveau 1 · Gratuit</div>
+    <h1 class="hero-title">Pilote tes finances en<br>5 minutes par mois.</h1>
+    <p class="hero-sub">Arrête de tracker chaque café. Utilise le système automatisé pour valider ton socle financier et projeter ta liberté.</p>
+  </div>
+
+  <!-- Capture -->
+  <div class="capture-box">
+    <div class="capture-title">Reçois le Système Doctrine</div>
+    <div class="capture-sub">Format Excel (.xlsx) + Guide d'utilisation inclus.<br>Gratuit. Pas de spam.</div>
+
+    <div class="capture-form" id="capture-form">
+      <input class="capture-input" type="email" id="dl-email"
+        placeholder="ton@email.be" autocomplete="email" inputmode="email"
+        onkeydown="if(event.key==='Enter') doDownload()">
+      <button class="btn-download" onclick="doDownload()">
+        Recevoir le fichier 🚀
+      </button>
+    </div>
+
+    <div class="capture-success" id="capture-success">
+      <strong>✓ C'est parti !</strong>
+      Vérifie ta boîte mail dans quelques secondes.<br>
+      <a href="/ressources/systeme-doctrine.xlsx" download
+        style="display:inline-block;margin-top:12px;font-size:0.80rem;color:var(--socle);font-weight:700;">
+        ↓ Téléchargement direct si le mail tarde
+      </a>
+    </div>
+
+    <div class="capture-note">
+      Tes données restent en Europe · Désabonnement en 1 clic
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="section-eyebrow">Ce qu'il y a dedans</div>
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-title">Score Dynamique sur 100</div>
+      <div class="feature-desc">Ton état financier résumé en une note. Au-dessus de 75 : ton mois est validé. Ferme le fichier et vis ta vie.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <div class="feature-title">Structure Anti-Flemme</div>
+      <div class="feature-desc">3 piliers seulement : Le Socle (fixe), La Vie (variable), Le Futur (investissement). Pas de tableau de 50 lignes.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔮</div>
+      <div class="feature-title">Simulateur de Richesse</div>
+      <div class="feature-desc">Modifie tes investissements et vois ton capital projeté à 20 ou 25 ans. Intérêts composés intégrés automatiquement.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <div class="feature-title">Calendrier fiscal belge</div>
+      <div class="feature-desc">Dates clés 2026 incluses. Ne rate plus jamais une deadline fiscale importante.</div>
+    </div>
+  </div>
+
+  <!-- Comment utiliser -->
+  <div class="how-section">
+    <div class="section-eyebrow">La routine de 5 minutes</div>
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div class="how-content">
+        <div class="how-title">Le 5 de chaque mois, ouvre ton app bancaire</div>
+        <div class="how-desc">Vérifie le salaire reçu. Inscris-le dans la case "Revenus réels" — les cases violettes sont les seules à modifier.</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div class="how-content">
+        <div class="how-title">Saisis tes dépenses fixes (30 secondes)</div>
+        <div class="how-desc">Loyer, abonnements, assurances. Elles bougent rarement. Le fichier fait le reste automatiquement.</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div class="how-content">
+        <div class="how-title">Vérifie ton Score Doctrine</div>
+        <div class="how-desc">Au-dessus de 75 → mois validé. En dessous → le fichier t'indique exactement où agir.</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">4</div>
+      <div class="how-content">
+        <div class="how-title">Passe au mois suivant en 10 secondes</div>
+        <div class="how-desc">Clic droit sur l'onglet → "Créer une copie" → renommer. L'historique annuel se met à jour tout seul.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Socle complet -->
+  <div class="cta-socle">
+    <div class="cta-socle-title">Envie d'aller plus loin que le fichier ?</div>
+    <div class="cta-socle-desc">
+      L'espace Socle sur Doctrine t'accompagne étape par étape : checklist interactive, modules guidés, progression sauvegardée. Gratuit, Accès complet · 7 jours gratuits.
+    </div>
+    <a href="/pages/auth/register.html" class="btn-socle">
+      Créer mon espace Socle gratuit →
+    </a>
+  </div>
+
+</div><!-- wrap -->
+
+<footer class="footer">
+  <div style="margin-bottom:6px;">
+    <a href="/">Doctrine</a> · <a href="https://wealthwaffle.be">WealthWaffle</a> · <a href="https://wealthwaffle.be/sources.html">Sources</a>
+  </div>
+  📋 Contenu éducatif — non agréé FSMA — pas de conseil financier personnalisé
+</footer>
+
+<script>
+async function doDownload() {
+  var email = document.getElementById('dl-email').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('dl-email').focus();
+    document.getElementById('dl-email').style.borderColor = 'rgba(232,124,195,0.5)';
+    return;
+  }
+
+  var btn = document.querySelector('.btn-download');
+  btn.textContent = 'Envoi...';
+  btn.disabled = true;
+
+  /* ── Brevo — ajouter le contact et envoyer le fichier ──────
+     TODO : remplacer par ta clé API Brevo + ID liste Doctrine
+     fetch('https://api.brevo.com/v3/contacts', {
+       method: 'POST',
+       headers: { 'api-key': 'TA_CLE_BREVO', 'Content-Type': 'application/json' },
+       body: JSON.stringify({
+         email: email,
+         listIds: [TON_ID_LISTE_DOCTRINE],
+         updateEnabled: true
+       })
+     });
+  ────────────────────────────────────────────────────────── */
+
+  // Simuler l'envoi (à remplacer par le vrai appel Brevo)
+  await new Promise(r => setTimeout(r, 800));
+
+  // Déclencher le téléchargement direct
+  var link = document.createElement('a');
+  link.href = '/ressources/systeme-doctrine.xlsx';
+  link.download = 'Systeme-Doctrine-WealthWaffle.xlsx';
+  link.click();
+
+  // Afficher le succès
+  document.getElementById('capture-form').style.display = 'none';
+  document.getElementById('capture-success').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

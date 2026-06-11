@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/ww-all.css">
-  <script>window.WW_PAGE_META = { name: "Radar", basePath: "/radar/", auth: true };</script>
+  <script>window.WW_PAGE_META = { name: "Radar", basePath: "/radar/", updated: "Juin 2026", section: "radar", auth: true, minPlan: "pilote", navGroup: "radar" };</script>
 </head>
 <body>
 <div id="ww-ui-placeholder"></div>
@@ -46,28 +46,7 @@
 </div>
 </div>
 
-<script>
-const { createClient } = supabase;
-const sb = createClient(window.WW_CONFIG.SUPABASE_URL, window.WW_CONFIG.SUPABASE_ANON_KEY);
-window.WW = { sb };
-
-async function getSession() {
-  const { data: { session } } = await sb.auth.getSession();
-  if (!session) return null;
-  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
-  window.WW.user = session.user; window.WW.profile = profile;
-  localStorage.setItem('ww_session', session.access_token);
-  localStorage.setItem('ww_plan', profile?.plan || 'socle');
-  return { user: session.user, profile };
-}
-
-async function requireAuth(minLevel) {
-  const LEVELS = { socle:1, pilote:2, radar:3 };
-  const session = await getSession();
-  if (!session) { window.location.href = '/compte/connexion.html?next=' + encodeURIComponent(location.pathname); return null; }
-  if ((LEVELS[session.profile?.plan]||0) < (LEVELS[minLevel]||1)) { window.location.href = '/compte/inscription.html?plan=' + minLevel; return null; }
-  return session;
-}
+<script>const sb = window.WW.sb;
 
 let allProjects = [], watchedIds = new Set(), userId = null;
 
@@ -156,11 +135,11 @@ async function toggleWatch(projectId, btn) {
   if (watchedIds.has(projectId)) {
     watchedIds.delete(projectId);
     btn.textContent = '+ Suivre'; btn.classList.remove('watched');
-    await sb.from('watchlist').delete().eq('user_id', userId).eq('project_id', projectId);
+    await window.WW.sb.from('watchlist').delete().eq('user_id', userId).eq('project_id', projectId);
   } else {
     watchedIds.add(projectId);
     btn.textContent = '👁️ Suivi'; btn.classList.add('watched');
-    await sb.from('watchlist').insert({ user_id: userId, project_id: projectId });
+    await window.WW.sb.from('watchlist').insert({ user_id: userId, project_id: projectId });
   }
 }
 
@@ -179,10 +158,10 @@ window.addEventListener('load', async () => {
   if (!session) return;
   userId = session.user.id;
 
-  const { data: wl } = await sb.from('watchlist').select('project_id').eq('user_id', userId);
+  const { data: wl } = await window.WW.sb.from('watchlist').select('project_id').eq('user_id', userId);
   watchedIds = new Set((wl||[]).map(w => w.project_id));
 
-  const { data: projects } = await sb.from('projects').select('*').order('created_at', { ascending: false });
+  const { data: projects } = await window.WW.sb.from('projects').select('*').order('created_at', { ascending: false });
   allProjects = projects || [];
   renderProjects(allProjects);
 });
