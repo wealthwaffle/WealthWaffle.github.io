@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Last modified: 2026-06-11 -->
+  <title>⚙️ Paramètres — WealthWaffle</title>
+  <meta name="description" content="Personnalise ton expérience WealthWaffle : profil investisseur, rappels, mode lecture.">
+  <meta property="og:image" content="https://wealthwaffle.be/img/og-image.jpg">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#E87CC3">
+  <link rel="apple-touch-icon" href="/img/waffy-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ww-all.css">
+  <script>window.WW_PAGE_META = { name: "Paramètres", basePath: "/compte/", updated: "Juin 2026", section: "ww", auth: true, minPlan: null, navGroup: null };</script>
+</head>
+<body>
+<div id="ww-ui-placeholder"></div>
+<div class="bg-mesh"><div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div></div>
+
+<div class="page">
+<div class="breadcrumb"><a href="/">Accueil</a><span>/</span><a href="/dashboard/">Dashboard</a><span>/</span><span>Paramètres</span></div>
+
+<div class="eyebrow eyebrow-invest">⚙️ Mon compte</div>
+<h1 class="display">Paramètres &<br><span class="txt-rose">préférences</span></h1>
+<p class="lead">Tout configurer en moins de 2 minutes.</p>
+
+<div class="pill-nav">
+  <a href="/dashboard/" class="source-pill">← Dashboard</a>
+  <a href="/compte/profil.html" class="source-pill">👤 Données</a>
+  <a href="/compte/parametres.html" class="source-pill source-pill-active-invest">⚙️ Paramètres ←</a>
+  <a href="/compte/abonnement.html" class="source-pill">💳 Abonnement</a>
+  <a href="/compte/parrainage.html" class="source-pill">🎁 Parrainage</a>
+</div>
+
+<div id="ok-global" class="auth-success hidden"></div>
+
+<!-- ── PROFIL INVESTISSEUR (PRO1-3) ── -->
+<div class="dash-card">
+  <h4>🎯 Mon profil investisseur</h4>
+  <p class="dash-pref-hint">Ces informations personnalisent ton parcours, tes simulateurs et tes recommandations.</p>
+
+  <div class="param-section">
+    <div class="param-label">Objectif principal</div>
+    <div class="param-btn-grid" id="objectif-grid">
+      <button class="param-btn" data-field="objectif_principal" data-val="appart">🏠 Acheter un bien</button>
+      <button class="param-btn" data-field="objectif_principal" data-val="retraite_anticipee">🏖️ Retraite anticipée</button>
+      <button class="param-btn" data-field="objectif_principal" data-val="voyager">✈️ Voyager</button>
+      <button class="param-btn" data-field="objectif_principal" data-val="securite">🛡️ Sécurité financière</button>
+      <button class="param-btn" data-field="objectif_principal" data-val="liberte">🔥 Liberté financière</button>
+      <button class="param-btn" data-field="objectif_principal" data-val="autre">💡 Autre</button>
+    </div>
+  </div>
+
+  <div class="param-section">
+    <div class="param-label">Horizon d'investissement</div>
+    <div class="param-btn-row" id="horizon-grid">
+      <button class="param-btn" data-field="horizon_investissement" data-val="court">⚡ Court terme &lt;3 ans</button>
+      <button class="param-btn" data-field="horizon_investissement" data-val="moyen">📅 Moyen 3–10 ans</button>
+      <button class="param-btn" data-field="horizon_investissement" data-val="long">🌳 Long terme 10+</button>
+    </div>
+  </div>
+
+  <div class="param-section">
+    <div class="param-label">Profil de risque</div>
+    <div class="param-slider-wrap">
+      <input type="range" id="profil_risque" min="0" max="100" value="50" class="param-slider">
+      <div class="param-slider-labels">
+        <span>🛡️ Sécurité</span>
+        <span id="profil_risque_val">50</span>
+        <span>🚀 Croissance</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="param-section">
+    <div class="param-label">Statut professionnel</div>
+    <div class="param-btn-grid" id="statut-grid">
+      <button class="param-btn" data-field="statut_pro" data-val="salarie">👔 Salarié(e)</button>
+      <button class="param-btn" data-field="statut_pro" data-val="independant">💼 Indépendant(e)</button>
+      <button class="param-btn" data-field="statut_pro" data-val="dirigeant">🏢 Dirigeant(e)</button>
+      <button class="param-btn" data-field="statut_pro" data-val="etudiant">🎓 Étudiant(e)</button>
+      <button class="param-btn" data-field="statut_pro" data-val="sans_emploi">🔍 Sans emploi</button>
+      <button class="param-btn" data-field="statut_pro" data-val="retraite">🌅 Retraité(e)</button>
+    </div>
+  </div>
+
+  <div class="param-section">
+    <div class="param-label">Situation</div>
+    <div class="param-btn-row" id="famille-grid">
+      <button class="param-btn" data-field="situation_familiale" data-val="celibataire">🧍 Célibataire</button>
+      <button class="param-btn" data-field="situation_familiale" data-val="en_couple">👫 En couple</button>
+      <button class="param-btn" data-field="situation_familiale" data-val="marie">💍 Marié(e)</button>
+      <button class="param-btn" data-field="situation_familiale" data-val="cohabitant_legal">🏡 Cohabitant légal</button>
+    </div>
+  </div>
+
+  <div class="param-row">
+    <div class="param-col">
+      <div class="param-label">Enfants à charge</div>
+      <input type="number" id="nb_enfants_charge" class="auth-input" min="0" max="20" placeholder="0">
+    </div>
+    <div class="param-col">
+      <div class="param-label">Propriétaire ?</div>
+      <div class="param-btn-row">
+        <button class="param-btn" data-field="proprietaire" data-val="true">✅ Oui</button>
+        <button class="param-btn" data-field="proprietaire" data-val="false">❌ Non</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROFIL FINANCIER (PRO4-5) ── -->
+<div class="dash-card">
+  <h4>💶 Situation financière <span class="dash-pref-hint">(pré-remplit les simulateurs)</span></h4>
+
+  <div class="param-row">
+    <div class="param-col">
+      <div class="param-label">Salaire net mensuel (€)</div>
+      <input type="number" id="salaire_net_mensuel" class="auth-input" placeholder="Ex : 2800" min="0">
+    </div>
+    <div class="param-col">
+      <div class="param-label">Épargne mensuelle (€)</div>
+      <input type="number" id="epargne_mensuelle" class="auth-input" placeholder="Ex : 400" min="0">
+    </div>
+  </div>
+  <div class="param-row">
+    <div class="param-col">
+      <div class="param-label">Capital déjà épargné (€)</div>
+      <input type="number" id="epargne_existante" class="auth-input" placeholder="Ex : 15000" min="0">
+    </div>
+    <div class="param-col">
+      <div class="param-label">Charges mensuelles (€)</div>
+      <input type="number" id="charges_mensuelles" class="auth-input" placeholder="Ex : 900" min="0">
+    </div>
+  </div>
+</div>
+
+<!-- ── EXPÉRIENCE (PAR1-3 + PRO6) ── -->
+<div class="dash-card">
+  <h4>🎮 Expérience sur le site</h4>
+
+  <div class="param-section">
+    <div class="param-label">Mode de lecture par défaut</div>
+    <div class="param-btn-row" id="level-grid">
+      <button class="param-btn param-btn-large" data-field="level" data-val="debutant">🌱 Débutant<span class="param-btn-sub">Animé, guidé, RPG</span></button>
+      <button class="param-btn param-btn-large" data-field="level" data-val="avance">🚀 Avancé<span class="param-btn-sub">Dense, sobre, expert</span></button>
+    </div>
+  </div>
+
+  <div class="param-section">
+    <div class="param-label">Style d'expérience</div>
+    <div class="param-btn-row" id="style-grid">
+      <button class="param-btn param-btn-large" data-field="style_experience" data-val="gamifie">🎮 Gamifié<span class="param-btn-sub">Animations, sons, badges</span></button>
+      <button class="param-btn param-btn-large" data-field="style_experience" data-val="sobre">📋 Sobre<span class="param-btn-sub">Sans animations</span></button>
+    </div>
+  </div>
+
+  <div class="param-section">
+    <div class="param-label">Thème</div>
+    <div class="param-btn-row" id="theme-grid">
+      <button class="param-btn" data-field="theme" data-val="dark">🌙 Sombre</button>
+      <button class="param-btn" data-field="theme" data-val="auto">🔄 Auto</button>
+      <button class="param-btn" data-field="theme" data-val="light">☀️ Clair</button>
+    </div>
+  </div>
+
+  <div class="param-section">
+    <div class="param-label">Niveau de connaissance (auto-évaluation)</div>
+    <div class="param-btn-row" id="niveau-grid">
+      <button class="param-btn" data-field="niveau_connaissance" data-val="debutant">🌱 Débutant</button>
+      <button class="param-btn" data-field="niveau_connaissance" data-val="intermediaire">📈 Intermédiaire</button>
+      <button class="param-btn" data-field="niveau_connaissance" data-val="avance">🎯 Avancé</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── RAPPELS (PAR4-6) ── -->
+<div class="dash-card">
+  <h4>🔔 Rappels de progression</h4>
+  <p class="dash-pref-hint">Opt-in RGPD — tu peux désactiver à tout moment. Ce ne sont pas des newsletters, juste des rappels de tes progrès.</p>
+
+  <div class="param-section">
+    <div class="param-toggle-row">
+      <div>
+        <div class="param-label">Activer les rappels</div>
+        <div class="dash-pref-hint">Reçois un email quand ton streak est en danger ou qu'une page a été mise à jour</div>
+      </div>
+      <label class="param-toggle">
+        <input type="checkbox" id="reminder_enabled">
+        <span class="param-toggle-track"><span class="param-toggle-thumb"></span></span>
+      </label>
+    </div>
+  </div>
+
+  <div id="reminder-details" class="hidden">
+    <div class="param-section">
+      <div class="param-label">Fréquence</div>
+      <div class="param-btn-row" id="freq-grid">
+        <button class="param-btn" data-field="reminder_frequency" data-val="daily">Quotidien</button>
+        <button class="param-btn" data-field="reminder_frequency" data-val="weekly">Hebdomadaire</button>
+        <button class="param-btn" data-field="reminder_frequency" data-val="monthly">Mensuel</button>
+      </div>
+    </div>
+
+    <div id="day-section" class="param-section hidden">
+      <div class="param-label">Jour préféré</div>
+      <div class="param-btn-row" id="day-grid">
+        <button class="param-btn" data-field="reminder_day" data-val="monday">Lun</button>
+        <button class="param-btn" data-field="reminder_day" data-val="tuesday">Mar</button>
+        <button class="param-btn" data-field="reminder_day" data-val="wednesday">Mer</button>
+        <button class="param-btn" data-field="reminder_day" data-val="thursday">Jeu</button>
+        <button class="param-btn" data-field="reminder_day" data-val="friday">Ven</button>
+        <button class="param-btn" data-field="reminder_day" data-val="saturday">Sam</button>
+        <button class="param-btn" data-field="reminder_day" data-val="sunday">Dim</button>
+      </div>
+    </div>
+
+    <div class="param-section">
+      <div class="param-label">Heure préférée</div>
+      <div class="param-btn-row" id="hour-grid">
+        <button class="param-btn" data-field="reminder_hour" data-val="8">🌅 Matin (8h)</button>
+        <button class="param-btn" data-field="reminder_hour" data-val="12">☀️ Midi (12h)</button>
+        <button class="param-btn" data-field="reminder_hour" data-val="19">🌆 Soir (19h)</button>
+        <button class="param-btn" data-field="reminder_hour" data-val="21">🌙 Nuit (21h)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ENGAGEMENT (PAR7 / PSY3) ── -->
+<div class="dash-card">
+  <h4>💬 Mon engagement personnel</h4>
+  <p class="dash-pref-hint">Formule ton objectif en une phrase. Ce texte te sera rappelé dans tes emails de progression.</p>
+  <textarea id="commitment_text" class="param-textarea" placeholder="Ex : Je m'engage à épargner 300€/mois d'ici janvier et à lire une page WealthWaffle par semaine."></textarea>
+</div>
+
+<button class="auth-btn auth-btn-rose param-save-btn" id="btn-save-all">
+  ✅ Enregistrer tous les paramètres
+</button>
+<div id="ok-save" class="auth-success hidden param-save-ok"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/data.js"></script>
+<script src="/assets/tools.js"></script>
+<script src="/assets/ww-bundle.js"></script>
+<script>
+/* Last modified: 2026-06-11 */
+const sb = window.WW?.sb;
+
+/* ── État local (évite de relire le DOM pour sauvegarder) ── */
+var state = {};
+
+function setActive(field, val) {
+  /* Activer le bouton sélectionné */
+  document.querySelectorAll(`[data-field="${field}"]`).forEach(function(btn) {
+    btn.classList.toggle('param-btn-active', btn.dataset.val == val);
+  });
+  state[field] = val === 'true' ? true : val === 'false' ? false :
+                 isNaN(val) ? val : parseInt(val);
+}
+
+function initButtons() {
+  document.querySelectorAll('.param-btn[data-field]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setActive(btn.dataset.field, btn.dataset.val);
+      /* Afficher/cacher les détails rappels */
+      if (btn.dataset.field === 'reminder_frequency') {
+        document.getElementById('day-section').classList.toggle(
+          'hidden', btn.dataset.val !== 'weekly'
+        );
+      }
+    });
+  });
+}
+
+function loadProfile(profile) {
+  if (!profile) return;
+  /* Boutons */
+  ['objectif_principal','horizon_investissement','statut_pro','situation_familiale',
+   'niveau_connaissance','level','style_experience'].forEach(function(f) {
+    if (profile[f]) setActive(f, profile[f]);
+  });
+  if (profile.proprietaire !== null && profile.proprietaire !== undefined)
+    setActive('proprietaire', String(profile.proprietaire));
+  if (profile.reminder_frequency) setActive('reminder_frequency', profile.reminder_frequency);
+  if (profile.reminder_day) setActive('reminder_day', profile.reminder_day);
+  if (profile.reminder_hour) setActive('reminder_hour', String(profile.reminder_hour));
+
+  /* Champs numériques */
+  ['salaire_net_mensuel','epargne_mensuelle','epargne_existante',
+   'charges_mensuelles','nb_enfants_charge'].forEach(function(f) {
+    var el = document.getElementById(f);
+    if (el && profile[f] != null) el.value = profile[f];
+  });
+
+  /* Slider risque */
+  var slider = document.getElementById('profil_risque');
+  if (slider && profile.profil_risque != null) {
+    slider.value = profile.profil_risque;
+    document.getElementById('profil_risque_val').textContent = profile.profil_risque;
+  }
+
+  /* Toggle rappels */
+  var toggle = document.getElementById('reminder_enabled');
+  if (toggle) {
+    toggle.checked = !!profile.reminder_enabled;
+    document.getElementById('reminder-details').classList.toggle('hidden', !profile.reminder_enabled);
+    if (profile.reminder_frequency === 'weekly')
+      document.getElementById('day-section').classList.remove('hidden');
+  }
+
+  /* Thème */
+  var theme = localStorage.getItem('ww_theme') || profile.style_experience || 'dark';
+  setActive('theme', theme);
+
+  /* Commitment */
+  var ct = document.getElementById('commitment_text');
+  if (ct && profile.commitment_text) ct.value = profile.commitment_text;
+
+  /* Copier dans state */
+  Object.assign(state, profile);
+}
+
+async function saveAll() {
+  const btn = document.getElementById('btn-save-all');
+  btn.textContent = '⏳ Enregistrement…'; btn.disabled = true;
+
+  /* Champs texte */
+  ['salaire_net_mensuel','epargne_mensuelle','epargne_existante',
+   'charges_mensuelles','nb_enfants_charge'].forEach(function(f) {
+    var el = document.getElementById(f);
+    if (el && el.value !== '') state[f] = parseInt(el.value) || null;
+  });
+  state.profil_risque    = parseInt(document.getElementById('profil_risque').value);
+  state.reminder_enabled = document.getElementById('reminder_enabled').checked;
+  state.commitment_text  = document.getElementById('commitment_text').value.trim() || null;
+
+  /* Thème → localStorage + applyTheme */
+  if (state.theme && typeof window.applyTheme === 'function') {
+    window.applyTheme(state.theme);
+  }
+
+  /* Champs à sauvegarder en Supabase */
+  var toSave = {
+    objectif_principal:    state.objectif_principal    || null,
+    horizon_investissement:state.horizon_investissement|| null,
+    profil_risque:         state.profil_risque,
+    statut_pro:            state.statut_pro            || null,
+    situation_familiale:   state.situation_familiale   || null,
+    nb_enfants_charge:     state.nb_enfants_charge     ?? null,
+    proprietaire:          state.proprietaire          ?? null,
+    niveau_connaissance:   state.niveau_connaissance   || null,
+    level:                 state.level                 || null,
+    style_experience:      state.style_experience      || null,
+    salaire_net_mensuel:   state.salaire_net_mensuel   || null,
+    epargne_mensuelle:     state.epargne_mensuelle     || null,
+    epargne_existante:     state.epargne_existante     || null,
+    charges_mensuelles:    state.charges_mensuelles    || null,
+    reminder_enabled:      state.reminder_enabled,
+    reminder_frequency:    state.reminder_frequency    || null,
+    reminder_day:          state.reminder_day          || null,
+    reminder_hour:         state.reminder_hour         ?? null,
+    commitment_text:       state.commitment_text,
+  };
+
+  const { error } = await sb.from('profiles').update(toSave).eq('id', window.WW.user.id);
+
+  btn.textContent = '✅ Enregistrer tous les paramètres'; btn.disabled = false;
+
+  const ok = document.getElementById('ok-save');
+  if (error) {
+    ok.textContent = '❌ Erreur : ' + error.message;
+    ok.style.color = 'var(--rose)';
+  } else {
+    ok.textContent = '✅ Paramètres enregistrés !';
+    ok.style.color = 'var(--color-budget)';
+    /* Propager level dans le bundle */
+    if (state.level) {
+      localStorage.setItem('ww_level', state.level);
+      document.body.setAttribute('data-level', state.level);
+      if (typeof window.applyLevel === 'function') window.applyLevel(state.level);
+    }
+  }
+  ok.classList.remove('hidden');
+  setTimeout(function() { ok.classList.add('hidden'); }, 4000);
+}
+
+window.addEventListener('load', async function() {
+  initButtons();
+
+  /* Slider listener */
+  var slider = document.getElementById('profil_risque');
+  slider.addEventListener('input', function() {
+    document.getElementById('profil_risque_val').textContent = slider.value;
+  });
+
+  /* Toggle rappels */
+  document.getElementById('reminder_enabled').addEventListener('change', function(e) {
+    document.getElementById('reminder-details').classList.toggle('hidden', !e.target.checked);
+  });
+
+  /* Bouton sauvegarder */
+  document.getElementById('btn-save-all').addEventListener('click', saveAll);
+
+  /* Charger le profil */
+  var session = await window.wwGetSession();
+  if (!session) { window.location.href = '/compte/connexion.html?next=/compte/parametres.html'; return; }
+  loadProfile(session.profile);
+});
+</script>
+</body>
+</html>
